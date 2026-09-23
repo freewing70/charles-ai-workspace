@@ -1,0 +1,92 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getAllItems } from '../../lib/content';
+import { getContentRoute } from '../../lib/assets';
+
+const items = getAllItems(false);
+
+// Group items by Year and Month
+interface TimelineGroup {
+  period: string; // "2026-09"
+  year: string;
+  month: string;
+  items: typeof items;
+}
+
+const groupsMap = new Map<string, typeof items>();
+
+for (const item of items) {
+  const period = item.meta.created.slice(0, 7); // YYYY-MM
+  if (!groupsMap.has(period)) {
+    groupsMap.set(period, []);
+  }
+  groupsMap.get(period)!.push(item);
+}
+
+// Sort periods descending
+const sortedPeriods = Array.from(groupsMap.keys()).sort((a, b) => b.localeCompare(a));
+---
+
+<MainLayout title="活動時間軸">
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-12">
+      <div class="flex items-center gap-2 text-sm text-indigo-400 font-mono mb-2">
+        <span>/timeline</span>
+        <span>&bull;</span>
+        <span>歷程軌跡</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">AI 工作與創作時間軸</h1>
+      <p class="mt-2 text-gray-400">
+        依建立時間回顧 Charles AI Workspace 歷來的各項 Skill 發布、專案上線與簡報紀錄。
+      </p>
+    </div>
+
+    <!-- Timeline Container -->
+    <div class="relative border-l border-gray-800 ml-4 sm:ml-8 space-y-12">
+      {sortedPeriods.map(period => {
+        const periodItems = groupsMap.get(period)!;
+        return (
+          <div class="relative pl-6 sm:pl-10">
+            <!-- Period Pin -->
+            <div class="absolute -left-2.5 top-0 w-5 h-5 rounded-full bg-indigo-600 border-4 border-[#090d16] shadow-lg shadow-indigo-600/50"></div>
+            
+            <div class="text-lg font-mono font-bold text-indigo-400 mb-6 flex items-center gap-2">
+              <span>{period}</span>
+              <span class="text-xs font-normal text-gray-500 font-sans">({periodItems.length} 個里程碑)</span>
+            </div>
+
+            <div class="space-y-4">
+              {periodItems.map(item => (
+                <div class="p-5 rounded-2xl bg-[#111827] border border-gray-800 hover:border-indigo-500/40 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded bg-gray-800 text-indigo-300 border border-gray-700">
+                        {item.meta.type}
+                      </span>
+                      <time datetime={item.meta.created} class="text-xs font-mono text-gray-400">
+                        {item.meta.created}
+                      </time>
+                      <span class="text-xs font-mono text-gray-400">v{item.meta.version}</span>
+                    </div>
+                    <h3 class="text-base font-bold text-white hover:text-indigo-400 transition-colors">
+                      <a href={getContentRoute(item.meta.type, item.meta.id)}>
+                        {item.meta.title}
+                      </a>
+                    </h3>
+                    <p class="text-sm text-gray-400 mt-1 line-clamp-1">{item.meta.summary}</p>
+                  </div>
+                  <a
+                    href={getContentRoute(item.meta.type, item.meta.id)}
+                    class="self-start sm:self-center px-3.5 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs text-white font-medium transition-colors whitespace-nowrap"
+                  >
+                    檢視內容 &rarr;
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</MainLayout>

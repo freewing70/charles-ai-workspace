@@ -1,0 +1,35 @@
+{
+  "name": "charlesaiworkspace",
+  "type": "module",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "prebuild": "pnpm validate && pnpm check-size && pnpm build:index",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "validate": "tsx scripts/validate-content.ts",
+    "check-size": "tsx scripts/check-file-sizes.ts",
+    "build:index": "tsx scripts/build-search-index.ts",
+    "add-content": "tsx scripts/add-content.ts"
+  },
+  "dependencies": {
+    "astro": "^7.3.4",
+    "fuse.js": "^7.5.0",
+    "gray-matter": "^4.0.3",
+    "lucide-astro": "^0.556.0",
+    "marked": "^18.0.13",
+    "zod": "^4.6.5"
+  },
+  "allowScripts": {
+    "esbuild": true
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15"
+  }
+}

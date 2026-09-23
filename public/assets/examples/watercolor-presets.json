@@ -1,0 +1,17 @@
+{
+  "name": "Living Watercolor RPG Presets",
+  "version": "1.1",
+  "author": "Charles",
+  "presets": [
+    {
+      "id": "battle-mage",
+      "name": "戰鬥法師",
+      "prompt": "A mystical female battle mage conjuring celestial flames, flowing watercolor robe in indigo and gold hues, fluid ink lineart, translucent pigment gradients, delicate brushstrokes, floating spell runes, dramatic overhead magical lighting, soft watercolor bleeds on edges, highly detailed, 8k resolution."
+    },
+    {
+      "id": "ancient-ruins",
+      "name": "綠意遺跡之城",
+      "prompt": "Ancient fantasy fortress ruins engulfed by vibrant emerald moss and blooming wildflowers, sweeping watercolor landscape, wet-on-wet technique, soft horizon mist, dramatic sunlight filtering through ancient arches, visible paper texture, JRPG concept art, cinematic composition."
+    }
+  ]
+}

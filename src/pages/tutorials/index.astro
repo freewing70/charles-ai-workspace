@@ -1,0 +1,33 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { getItemsByType } from '../../lib/content';
+
+const tutorials = getItemsByType('tutorial', false);
+---
+
+<MainLayout title="Tutorials 教學課程">
+  <div class="mb-10">
+    <div class="flex items-center gap-2 text-sm text-emerald-400 font-mono mb-2">
+      <span>/tutorials</span>
+      <span>&bull;</span>
+      <span>{tutorials.length} 篇教學</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">教學文件與指南</h1>
+    <p class="mt-2 text-gray-400 max-w-2xl">
+      系統性的 AI 操作、提示詞工程與自動化開發指南，包含實戰步驟與整合簡報入口。
+    </p>
+  </div>
+
+  {tutorials.length > 0 ? (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {tutorials.map((item) => (
+        <ContentCard item={item.meta} />
+      ))}
+    </div>
+  ) : (
+    <div class="text-center py-20 bg-gray-900/40 rounded-2xl border border-gray-800">
+      <p class="text-gray-400">目前尚無公開教學，即將推出。</p>
+    </div>
+  )}
+</MainLayout>

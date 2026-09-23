@@ -1,0 +1,137 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import ContentCard from '../components/ContentCard.astro';
+import { getAllItems } from '../lib/content';
+
+// Load public items
+const allItems = getAllItems(false);
+const featuredItems = allItems.filter((i) => i.meta.featured);
+const recentItems = allItems.slice(0, 6);
+
+const categories = [
+  { name: "Skills", count: allItems.filter(i => i.meta.type === 'skill').length, href: "/skills", desc: "AI 技能、系統提示詞與工作流封裝" },
+  { name: "Tutorials", count: allItems.filter(i => i.meta.type === 'tutorial').length, href: "/tutorials", desc: "教學文件、研討指引與核心指南" },
+  { name: "Presentations", count: allItems.filter(i => i.meta.type === 'presentation').length, href: "/presentations", desc: "HTML 互動簡報、在線演練與全螢幕播放" },
+  { name: "Projects", count: allItems.filter(i => i.meta.type === 'project').length, href: "/projects", desc: "專案成果、工具鏈與架構實踐" },
+  { name: "Notes", count: allItems.filter(i => i.meta.type === 'note').length, href: "/notes", desc: "模型測試筆記、Prompt 實驗與心得" },
+  { name: "Timeline", count: allItems.length, href: "/timeline", desc: "所有資產的歷程足跡與更新紀錄" },
+];
+---
+
+<MainLayout title="首頁">
+  <!-- Hero Section -->
+  <section class="relative py-12 md:py-20 overflow-hidden rounded-3xl bg-gradient-to-b from-indigo-950/30 via-transparent to-transparent border border-indigo-900/20 px-6 sm:px-12 mb-16">
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-mono mb-6">
+        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
+        AI 工作資產中心 v1.0
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+        探索、管理與檢索<br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">
+          全方位 AI 工作資產
+        </span>
+      </h1>
+      <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+        由 Metadata 驅動的長期個人 AI 知識庫。支援即時全文檢索、Skill 版本追蹤、專案歷程時間軸與線上 HTML 簡報播放。
+      </p>
+
+      <!-- Quick Search Bar -->
+      <form action="/search" method="get" class="flex items-center gap-2 max-w-xl bg-gray-900/90 border border-gray-700/80 rounded-2xl p-2 shadow-2xl focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 transition-all">
+        <div class="pl-3 text-gray-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+        <input
+          type="text"
+          name="q"
+          placeholder="搜尋 Skill、簡報、專案、標籤或工具..."
+          class="flex-1 bg-transparent px-3 py-2 text-white placeholder-gray-500 focus:outline-none text-sm"
+        />
+        <button
+          type="submit"
+          class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-colors shadow-lg shadow-indigo-600/30"
+        >
+          搜尋
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Categories Grid -->
+  <section class="mb-16">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-bold text-white tracking-tight">快速分類</h2>
+        <p class="text-sm text-gray-400 mt-1">依類別瀏覽所有已建置的 AI 模組與資料</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {categories.map((cat) => (
+        <a
+          href={cat.href}
+          class="group p-6 rounded-2xl bg-[#111827]/70 border border-gray-800/80 hover:border-indigo-500/40 hover:bg-gray-800/40 transition-all duration-300 flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">
+                {cat.name}
+              </h3>
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-gray-800 text-gray-300 border border-gray-700/60">
+                {cat.count} 項目
+              </span>
+            </div>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              {cat.desc}
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-gray-800/40 text-xs text-indigo-400 font-medium group-hover:translate-x-1 transition-transform flex items-center gap-1">
+            進入單元 &rarr;
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Featured Items -->
+  {featuredItems.length > 0 && (
+    <section class="mb-16">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
+            <h2 class="text-2xl font-bold text-white tracking-tight">精選內容</h2>
+          </div>
+          <p class="text-sm text-gray-400 mt-1">重點 AI Skill 與推薦架構範例</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featuredItems.map((item) => (
+          <ContentCard item={item.meta} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Recent Updates -->
+  <section>
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-bold text-white tracking-tight">最近更新</h2>
+        <p class="text-sm text-gray-400 mt-1">最新發布與維護的工作項目</p>
+      </div>
+      <a href="/timeline" class="text-sm text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1">
+        查看完整時間軸 &rarr;
+      </a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {recentItems.map((item) => (
+        <ContentCard item={item.meta} />
+      ))}
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,124 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Charles AI Workspace",
+  description = "個人長期使用的 AI 工作資產中心：Skill 文件、專案歷程、教學簡報與即時檢索",
+  image = "/assets/placeholder.svg"
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Skills", href: "/skills" },
+  { label: "Tutorials", href: "/tutorials" },
+  { label: "Presentations", href: "/presentations" },
+  { label: "Projects", href: "/projects" },
+  { label: "Notes", href: "/notes" },
+  { label: "Timeline", href: "/timeline" },
+  { label: "Search", href: "/search" },
+];
+---
+
+<!doctype html>
+<html lang="zh-TW" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title ? `${title} | Charles AI Workspace` : "Charles AI Workspace"}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+  </head>
+  <body class="bg-[#090d16] text-gray-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#090d16]/85 border-b border-gray-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+            C
+          </div>
+          <div>
+            <span class="font-bold text-lg tracking-tight text-white group-hover:text-indigo-400 transition-colors">
+              Charles AI Workspace
+            </span>
+            <span class="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-mono">
+              v1.0
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-1">
+          {navItems.map((item) => {
+            const isActive = currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href));
+            return (
+              <a
+                href={item.href}
+                class={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                  isActive
+                    ? "bg-indigo-600/20 text-indigo-300 border border-indigo-500/30"
+                    : "text-gray-300 hover:text-white hover:bg-gray-800/60"
+                }`}
+              >
+                {item.label}
+              </a>
+            );
+          })}
+        </nav>
+
+        <!-- Right Quick Actions -->
+        <div class="flex items-center gap-3">
+          <a
+            href="/search"
+            class="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800/80 transition-colors flex items-center gap-1.5 text-sm"
+            title="Search (快捷鍵 /)"
+          >
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <kbd class="hidden sm:inline-block text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-gray-800 border border-gray-700 text-gray-400">/</kbd>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800/80 bg-[#070a11] mt-auto py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+          <span>Charles AI Workspace &bull; Static-First Architecture</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="/timeline" class="hover:text-indigo-400 transition-colors">活動時間軸</a>
+          <a href="/skills" class="hover:text-indigo-400 transition-colors">Skill 目錄</a>
+          <a href="/search" class="hover:text-indigo-400 transition-colors">全站搜尋</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Global Keybinding for Search -->
+    <script is:inline>
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
+          e.preventDefault();
+          window.location.href = '/search';
+        }
+      });
+    </script>
+  </body>
+</html>

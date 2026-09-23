@@ -1,0 +1,103 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getAllItems, getItemById } from '../../lib/content';
+import { getAssetUrl } from '../../lib/assets';
+import { marked } from 'marked';
+
+export function getStaticPaths() {
+  const items = getAllItems(false).filter(i => i.meta.type === 'presentation');
+  return items.map((item) => ({
+    params: { id: item.meta.id },
+  }));
+}
+
+const { id } = Astro.params;
+const item = getItemById(id, false);
+
+if (!item) {
+  return Astro.redirect('/404');
+}
+
+const htmlContent = marked.parse(item.content);
+const playUrl = item.meta.playUrl || `/presentations/${item.meta.id}/slides.html`;
+---
+
+<MainLayout title={item.meta.title} description={item.meta.summary}>
+  <div class="max-w-5xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-gray-400 font-mono mb-6">
+      <a href="/" class="hover:text-white transition-colors">首頁</a>
+      <span>/</span>
+      <a href="/presentations" class="hover:text-white transition-colors">Presentations</a>
+      <span>/</span>
+      <span class="text-amber-400">{item.meta.id}</span>
+    </nav>
+
+    <!-- Header & Action -->
+    <div class="bg-[#111827] rounded-3xl border border-gray-800 p-6 sm:p-8 mb-8 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-mono text-gray-400 mb-2">
+          <span class="px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">
+            {item.meta.category}
+          </span>
+          <span>v{item.meta.version}</span>
+          <span>&bull;</span>
+          <time datetime={item.meta.updated}>{item.meta.updated}</time>
+        </div>
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">{item.meta.title}</h1>
+        <p class="mt-2 text-gray-300 text-sm max-w-xl">{item.meta.summary}</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a
+          href={playUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-5 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-gray-950 font-bold text-sm transition-all flex items-center gap-2 shadow-lg shadow-amber-500/20 hover:scale-105"
+        >
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          開啟全螢幕簡報播放
+        </a>
+      </div>
+    </div>
+
+    <!-- Presentation Iframe Preview -->
+    <div class="mb-10 rounded-2xl overflow-hidden border border-gray-800 bg-gray-950 shadow-2xl relative">
+      <div class="h-10 bg-gray-900/90 border-b border-gray-800 px-4 flex items-center justify-between text-xs text-gray-400">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+          <span class="ml-2 font-mono text-[11px] text-gray-400">即時內嵌預覽</span>
+        </div>
+        <button
+          onclick="document.getElementById('slide-frame').requestFullscreen()"
+          class="hover:text-white transition-colors flex items-center gap-1 font-mono"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+          </svg>
+          全螢幕
+        </button>
+      </div>
+      <div class="aspect-video w-full bg-black">
+        <iframe
+          id="slide-frame"
+          src={playUrl}
+          class="w-full h-full border-0"
+          title={item.meta.title}
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Notes / Content -->
+    {item.content && (
+      <article class="bg-[#111827] rounded-3xl border border-gray-800 p-6 sm:p-10 shadow-xl prose prose-invert prose-amber max-w-none">
+        <div set:html={htmlContent} />
+      </article>
+    )}
+  </div>
+</MainLayout>

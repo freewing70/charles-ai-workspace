@@ -1,0 +1,21 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="404 找不到頁面">
+  <div class="text-center py-24 max-w-md mx-auto">
+    <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-mono text-2xl font-bold mx-auto mb-6">
+      404
+    </div>
+    <h1 class="text-3xl font-extrabold text-white mb-3">頁面不存在</h1>
+    <p class="text-gray-400 text-sm mb-8">
+      您所尋找的頁面或內容可能已被移動、更名，或是此為私有資源。
+    </p>
+    <a
+      href="/"
+      class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-colors"
+    >
+      返回首頁
+    </a>
+  </div>
+</MainLayout>

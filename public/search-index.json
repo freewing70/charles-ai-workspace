@@ -1,0 +1,74 @@
+[
+  {
+    "id": "demo-presentation",
+    "title": "Charles AI Workspace 架構與自動化簡報",
+    "type": "presentation",
+    "category": "Architecture",
+    "summary": "介紹 Charles AI Workspace 的靜態優先架構、內容模組規劃與自動化 CI/CD 流水線。",
+    "tags": [
+      "Architecture",
+      "Presentation",
+      "StaticSite",
+      "Codex"
+    ],
+    "tools": [
+      "Astro",
+      "TailwindCSS",
+      "HTML5"
+    ],
+    "created": "2026-09-23",
+    "updated": "2026-09-23",
+    "url": "/presentations/demo-presentation",
+    "cover": "/assets/placeholder.svg",
+    "featured": false
+  },
+  {
+    "id": "jrpg-concept-art-pipeline",
+    "title": "JRPG 概念美術自動化管線",
+    "type": "project",
+    "category": "Game Concept",
+    "summary": "運用 Living Watercolor RPG Skill 與自動化批次工具，構建出具備高度視覺一致性的 JRPG 角色與場景美術資產。",
+    "tags": [
+      "JRPG",
+      "ConceptArt",
+      "Automation",
+      "Pipeline"
+    ],
+    "tools": [
+      "Codex",
+      "Living Watercolor RPG",
+      "Midjourney API",
+      "Python"
+    ],
+    "created": "2026-09-23",
+    "updated": "2026-09-23",
+    "url": "/projects/jrpg-concept-art-pipeline",
+    "cover": "/assets/placeholder.svg",
+    "featured": true
+  },
+  {
+    "id": "living-watercolor-rpg",
+    "title": "Living Watercolor RPG",
+    "type": "skill",
+    "category": "Image Generation",
+    "summary": "專為 JRPG 風格角色與環境概念圖打造的動態水彩提示詞模組，兼具通透水漬漸層與墨線手感。",
+    "tags": [
+      "watercolor",
+      "JRPG",
+      "character",
+      "environment",
+      "Codex",
+      "PromptEngineering"
+    ],
+    "tools": [
+      "Codex",
+      "GPT Image",
+      "Midjourney"
+    ],
+    "created": "2026-09-23",
+    "updated": "2026-09-23",
+    "url": "/skills/living-watercolor-rpg",
+    "cover": "/assets/placeholder.svg",
+    "featured": true
+  }
+]

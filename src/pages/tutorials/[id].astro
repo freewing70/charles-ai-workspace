@@ -1,0 +1,49 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getAllItems, getItemById } from '../../lib/content';
+import { marked } from 'marked';
+
+export function getStaticPaths() {
+  const items = getAllItems(false).filter(i => i.meta.type === 'tutorial');
+  return items.map((item) => ({
+    params: { id: item.meta.id },
+  }));
+}
+
+const { id } = Astro.params;
+const item = getItemById(id, false);
+
+if (!item) {
+  return Astro.redirect('/404');
+}
+
+const htmlContent = marked.parse(item.content);
+---
+
+<MainLayout title={item.meta.title} description={item.meta.summary}>
+  <div class="max-w-4xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-gray-400 font-mono mb-6">
+      <a href="/" class="hover:text-white transition-colors">首頁</a>
+      <span>/</span>
+      <a href="/tutorials" class="hover:text-white transition-colors">Tutorials</a>
+      <span>/</span>
+      <span class="text-emerald-400">{item.meta.id}</span>
+    </nav>
+
+    <div class="bg-[#111827] rounded-3xl border border-gray-800 p-6 sm:p-8 mb-8 shadow-xl">
+      <div class="flex items-center justify-between text-xs text-gray-400 font-mono mb-3">
+        <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+          {item.meta.category}
+        </span>
+        <time datetime={item.meta.updated}>{item.meta.updated}</time>
+      </div>
+      <h1 class="text-3xl font-extrabold text-white tracking-tight mb-4">{item.meta.title}</h1>
+      <p class="text-gray-300 leading-relaxed">{item.meta.summary}</p>
+    </div>
+
+    <article class="bg-[#111827] rounded-3xl border border-gray-800 p-6 sm:p-10 shadow-xl prose prose-invert prose-emerald max-w-none">
+      <div set:html={htmlContent} />
+    </article>
+  </div>
+</MainLayout>

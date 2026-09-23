@@ -1,0 +1,33 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import ContentCard from '../../components/ContentCard.astro';
+import { getItemsByType } from '../../lib/content';
+
+const projects = getItemsByType('project', false);
+---
+
+<MainLayout title="Projects 專案成果">
+  <div class="mb-10">
+    <div class="flex items-center gap-2 text-sm text-cyan-400 font-mono mb-2">
+      <span>/projects</span>
+      <span>&bull;</span>
+      <span>{projects.length} 個專案</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">AI 專案與成果展示</h1>
+    <p class="mt-2 text-gray-400 max-w-2xl">
+      完整 AI 工具鏈架構、應用落地實作與跨領域成果，串聯相關使用的 Skill 與技術報告。
+    </p>
+  </div>
+
+  {projects.length > 0 ? (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((item) => (
+        <ContentCard item={item.meta} />
+      ))}
+    </div>
+  ) : (
+    <div class="text-center py-20 bg-gray-900/40 rounded-2xl border border-gray-800">
+      <p class="text-gray-400">目前尚無公開專案。</p>
+    </div>
+  )}
+</MainLayout>
