@@ -1,33 +1,31 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
 import ContentCard from '../../components/ContentCard.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { getItemsByType } from '../../lib/content';
 
 const presentations = getItemsByType('presentation', false);
 ---
 
 <MainLayout title="Presentations 簡報中心">
-  <div class="mb-10">
-    <div class="flex items-center gap-2 text-sm text-amber-400 font-mono mb-2">
-      <span>/presentations</span>
-      <span>&bull;</span>
-      <span>{presentations.length} 份線上簡報</span>
-    </div>
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">HTML 簡報與分享</h1>
-    <p class="mt-2 text-gray-400 max-w-2xl">
-      無須下載額外投影片軟體，支援網頁原生瀏覽、演練以及全螢幕簡報播放模式。
-    </p>
-  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <SectionHeader
+      eyebrow="SHARE"
+      title="HTML 簡報與分享中心"
+      description="無須下載額外投影片軟體，支援網頁原生瀏覽、演練以及全螢幕簡報播放模式。"
+      badge={`${presentations.length} 份線上簡報`}
+    />
 
-  {presentations.length > 0 ? (
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {presentations.map((item) => (
-        <ContentCard item={item.meta} />
-      ))}
-    </div>
-  ) : (
-    <div class="text-center py-20 bg-gray-900/40 rounded-2xl border border-gray-800">
-      <p class="text-gray-400">目前尚無公開簡報。</p>
-    </div>
-  )}
+    {presentations.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {presentations.map((item) => (
+          <ContentCard item={item.meta} />
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-20 bg-slate-50 rounded-2xl border border-slate-200">
+        <p class="text-slate-500">目前尚無公開簡報。</p>
+      </div>
+    )}
+  </div>
 </MainLayout>

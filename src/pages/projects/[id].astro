@@ -22,65 +22,65 @@ const htmlContent = marked.parse(item.content);
 ---
 
 <MainLayout title={item.meta.title} description={item.meta.summary}>
-  <div class="max-w-4xl mx-auto">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-sm text-gray-400 font-mono mb-6">
-      <a href="/" class="hover:text-white transition-colors">首頁</a>
+    <nav class="flex items-center gap-2 text-xs text-slate-500 font-mono mb-8">
+      <a href="/" class="hover:text-[#155EEF] transition-colors">首頁</a>
       <span>/</span>
-      <a href="/projects" class="hover:text-white transition-colors">Projects</a>
+      <a href="/projects" class="hover:text-[#155EEF] transition-colors">Projects</a>
       <span>/</span>
-      <span class="text-cyan-400">{item.meta.id}</span>
+      <span class="text-[#07172D] font-bold">{item.meta.id}</span>
     </nav>
 
     <!-- Header Card -->
-    <div class="bg-[#111827] rounded-3xl border border-gray-800 p-6 sm:p-8 mb-8 shadow-xl">
-      <div class="flex items-center justify-between text-xs text-gray-400 font-mono mb-3">
-        <span class="px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+    <div class="freewing-card p-6 sm:p-10 mb-10 border border-slate-200">
+      <div class="flex items-center justify-between text-xs text-slate-500 font-mono mb-3">
+        <span class="px-2.5 py-1 rounded-full bg-indigo-50 text-[#4338CA] border border-indigo-200 font-semibold">
           {item.meta.category}
         </span>
         <time datetime={item.meta.updated}>{item.meta.updated}</time>
       </div>
 
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-[#07172D] tracking-tight mb-4">
         {item.meta.title}
       </h1>
-      <p class="text-gray-300 leading-relaxed mb-6">{item.meta.summary}</p>
+      <p class="text-slate-600 text-base leading-relaxed mb-6">{item.meta.summary}</p>
 
-      <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-gray-800 text-xs text-gray-400">
+      <div class="flex flex-wrap items-center gap-4 pt-5 border-t border-slate-100 text-xs text-slate-500">
         <div>
-          <span class="text-gray-500">使用工具:</span>
+          <span class="font-medium text-slate-400">使用工具:</span>
           {item.meta.tools.map(t => (
-            <span class="ml-1.5 px-2 py-0.5 rounded bg-gray-800 text-cyan-300 font-mono">{t}</span>
+            <span class="ml-1.5 px-2 py-0.5 rounded bg-blue-50 text-[#155EEF] font-mono">{t}</span>
           ))}
         </div>
         <div>
-          <span class="text-gray-500">標籤:</span>
+          <span class="font-medium text-slate-400">標籤:</span>
           {item.meta.tags.map(tag => (
-            <span class="ml-1.5 px-2 py-0.5 rounded bg-gray-800 text-gray-300 font-mono">#{tag}</span>
+            <span class="ml-1.5 px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono">#{tag}</span>
           ))}
         </div>
       </div>
     </div>
 
     <!-- Markdown Content -->
-    <article class="bg-[#111827] rounded-3xl border border-gray-800 p-6 sm:p-10 shadow-xl prose prose-invert prose-cyan max-w-none">
+    <article class="freewing-card p-6 sm:p-12 mb-10 prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-[#07172D]">
       <div set:html={htmlContent} />
     </article>
 
     <!-- Cross Relations -->
     {item.meta.relatedSkills?.length && (
-      <div class="mt-8 p-6 rounded-2xl bg-gray-900/60 border border-gray-800">
-        <h3 class="text-lg font-bold text-white mb-4">本專案運用的 AI Skills</h3>
+      <div class="freewing-card p-6 sm:p-8 bg-slate-50/70 border border-slate-200">
+        <h3 class="text-base font-bold text-[#07172D] mb-4">本專案運用的 AI Skills</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {item.meta.relatedSkills.map(skillId => {
             const rel = getItemById(skillId, false);
             return rel ? (
-              <a href={getContentRoute('skill', skillId)} class="p-3.5 rounded-xl bg-gray-800/80 hover:bg-gray-800 border border-gray-700/60 text-sm flex items-center justify-between">
+              <a href={getContentRoute('skill', skillId)} class="p-4 rounded-xl bg-white hover:border-blue-300 border border-slate-200 text-sm flex items-center justify-between transition-all shadow-2xs">
                 <div>
-                  <span class="text-white font-medium block">{rel.meta.title}</span>
-                  <span class="text-xs text-gray-400">v{rel.meta.version}</span>
+                  <span class="text-[#07172D] font-bold block">{rel.meta.title}</span>
+                  <span class="text-xs text-slate-500 font-mono">v{rel.meta.version}</span>
                 </div>
-                <span class="text-xs text-indigo-400 font-mono">檢視模組 &rarr;</span>
+                <span class="text-xs text-[#155EEF] font-semibold font-mono">檢視模組 &rarr;</span>
               </a>
             ) : null;
           })}

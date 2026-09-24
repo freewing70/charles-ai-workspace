@@ -1,74 +1,83 @@
 ---
 import '../styles/global.css';
+import WingLogo from '../components/WingLogo.astro';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  isTransparentNav?: boolean;
 }
 
 const {
-  title = "Charles AI Workspace",
-  description = "個人長期使用的 AI 工作資產中心：Skill 文件、專案歷程、教學簡報與即時檢索",
-  image = "/assets/placeholder.svg"
+  title = "FreewingBiz | Charles AI Workspace",
+  description = "FreewingBiz — Charles AI Workspace · AI × Knowledge × Creation × A Better Tomorrow",
+  image = "/assets/freewing-hero-reference.png",
+  isTransparentNav = false,
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Skills", href: "/skills" },
-  { label: "Tutorials", href: "/tutorials" },
-  { label: "Presentations", href: "/presentations" },
-  { label: "Projects", href: "/projects" },
-  { label: "Notes", href: "/notes" },
-  { label: "Timeline", href: "/timeline" },
-  { label: "Search", href: "/search" },
+  { label: "Home", href: "/", eyebrow: "START" },
+  { label: "Skills", href: "/skills", eyebrow: "LEARN" },
+  { label: "Tutorials", href: "/tutorials", eyebrow: "EXPLORE" },
+  { label: "Presentations", href: "/presentations", eyebrow: "SHARE" },
+  { label: "Projects", href: "/projects", eyebrow: "CREATE" },
+  { label: "Notes", href: "/notes", eyebrow: "THINK" },
+  { label: "Timeline", href: "/timeline", eyebrow: "JOURNEY" },
 ];
 ---
 
 <!doctype html>
-<html lang="zh-TW" class="dark">
+<html lang="zh-TW" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title ? `${title} | Charles AI Workspace` : "Charles AI Workspace"}</title>
+    <title>{title.includes("FreewingBiz") ? title : `${title} | FreewingBiz · Charles AI Workspace`}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
   </head>
-  <body class="bg-[#090d16] text-gray-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
-    <!-- Top Navigation Bar -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#090d16]/85 border-b border-gray-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-3 group">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-            C
+  <body class="bg-white text-[#0B1B32] min-h-screen flex flex-col antialiased selection:bg-[#B9DCFF] selection:text-[#07172D]">
+    
+    <!-- Top Navigation Header -->
+    <header class={`sticky top-0 z-50 transition-all duration-300 ${
+      isTransparentNav 
+        ? "bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-xs" 
+        : "bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs"
+    }`}>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        
+        <!-- Brand Lockup -->
+        <a href="/" class="flex items-center gap-3.5 group">
+          <div class="w-10 h-10 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
+            <WingLogo />
           </div>
-          <div>
-            <span class="font-bold text-lg tracking-tight text-white group-hover:text-indigo-400 transition-colors">
-              Charles AI Workspace
+          <div class="flex flex-col">
+            <span class="font-extrabold text-base tracking-[0.16em] text-[#07172D] group-hover:text-[#155EEF] transition-colors leading-none">
+              FREEWING<span class="text-[#27A8FF]">BIZ</span>
             </span>
-            <span class="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-mono">
-              v1.0
+            <span class="text-[10px] font-semibold tracking-[0.22em] text-[#64748B] uppercase mt-1 leading-none">
+              Charles AI Workspace
             </span>
           </div>
         </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-1">
+        <!-- Desktop Navigation Items -->
+        <nav class="hidden lg:flex items-center gap-1.5" aria-label="Main Navigation">
           {navItems.map((item) => {
             const isActive = currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href));
             return (
               <a
                 href={item.href}
-                class={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                class={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all ${
                   isActive
-                    ? "bg-indigo-600/20 text-indigo-300 border border-indigo-500/30"
-                    : "text-gray-300 hover:text-white hover:bg-gray-800/60"
+                    ? "bg-[#155EEF]/10 text-[#155EEF] font-semibold"
+                    : "text-[#475569] hover:text-[#07172D] hover:bg-slate-100/70"
                 }`}
               >
                 {item.label}
@@ -77,44 +86,136 @@ const navItems = [
           })}
         </nav>
 
-        <!-- Right Quick Actions -->
+        <!-- Right Action Items -->
         <div class="flex items-center gap-3">
           <a
             href="/search"
-            class="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800/80 transition-colors flex items-center gap-1.5 text-sm"
-            title="Search (快捷鍵 /)"
+            class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 hover:border-[#27A8FF] bg-slate-50/80 hover:bg-white text-slate-600 hover:text-[#155EEF] text-xs font-medium transition-all shadow-2xs"
+            title="全站檢索 (快捷鍵 /)"
           >
-            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-slate-400 group-hover:text-[#155EEF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
-            <kbd class="hidden sm:inline-block text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-gray-800 border border-gray-700 text-gray-400">/</kbd>
+            <span class="hidden sm:inline">搜尋</span>
+            <kbd class="hidden sm:inline-block text-[10px] font-mono px-1 py-0.2 rounded bg-white border border-slate-200 text-slate-400">/</kbd>
           </a>
+
+          <!-- Mobile Menu Toggle Button -->
+          <button
+            id="mobile-menu-btn"
+            class="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none"
+            aria-label="開啟導覽選單"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+          </button>
         </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden lg:hidden border-b border-slate-200 bg-white/95 backdrop-blur-md px-4 pt-2 pb-4 space-y-1">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="flex items-center justify-between px-3 py-2.5 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-[#155EEF]"
+          >
+            <span>{item.label}</span>
+            <span class="text-[10px] font-mono tracking-wider text-slate-400">{item.eyebrow}</span>
+          </a>
+        ))}
       </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Main Content Slot -->
+    <main class="flex-1 w-full">
       <slot />
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-800/80 bg-[#070a11] mt-auto py-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-          <span>Charles AI Workspace &bull; Static-First Architecture</span>
+    <!-- Deep Navy Grounded Footer -->
+    <footer class="bg-[#07172D] text-slate-300 mt-24 border-t border-[#0B254A]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-700/60">
+          
+          <!-- Column 1: Brand Info -->
+          <div class="md:col-span-2 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9">
+                <WingLogo />
+              </div>
+              <div>
+                <span class="font-extrabold text-base tracking-[0.16em] text-white">
+                  FREEWING<span class="text-[#27A8FF]">BIZ</span>
+                </span>
+                <span class="block text-[10px] font-semibold tracking-[0.22em] text-slate-400 uppercase">
+                  Charles AI Workspace
+                </span>
+              </div>
+            </div>
+            <p class="text-sm text-slate-400 max-w-sm leading-relaxed">
+              AI × Knowledge × Creation × A Better Tomorrow.<br />
+              讓想像展翼更遠，探索、學習、創作與分享個人 AI 工作資產。
+            </p>
+          </div>
+
+          <!-- Column 2: Navigation Links -->
+          <div>
+            <h4 class="text-xs font-mono uppercase tracking-[0.2em] text-[#E8B85C] font-semibold mb-4">
+              探索單元
+            </h4>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li><a href="/skills" class="hover:text-white transition-colors">AI Skills 技能庫</a></li>
+              <li><a href="/tutorials" class="hover:text-white transition-colors">Tutorials 實戰教學</a></li>
+              <li><a href="/presentations" class="hover:text-white transition-colors">Presentations 線上簡報</a></li>
+              <li><a href="/projects" class="hover:text-white transition-colors">Projects 成果專案</a></li>
+              <li><a href="/notes" class="hover:text-white transition-colors">Notes 研究筆記</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: System & Info -->
+          <div>
+            <h4 class="text-xs font-mono uppercase tracking-[0.2em] text-[#27A8FF] font-semibold mb-4">
+              工作區核心
+            </h4>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li><a href="/timeline" class="hover:text-white transition-colors">活動時間軸 (Timeline)</a></li>
+              <li><a href="/search" class="hover:text-white transition-colors">全站即時檢索 (Search)</a></li>
+              <li class="pt-2 text-xs text-slate-400 font-mono">
+                Static-First &bull; Astro 5<br />
+                Cloudflare Global Edge
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="flex items-center gap-6">
-          <a href="/timeline" class="hover:text-indigo-400 transition-colors">活動時間軸</a>
-          <a href="/skills" class="hover:text-indigo-400 transition-colors">Skill 目錄</a>
-          <a href="/search" class="hover:text-indigo-400 transition-colors">全站搜尋</a>
+
+        <!-- Bottom Bar -->
+        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <div>
+            &copy; {new Date().getFullYear()} FreewingBiz · Charles AI Workspace. All rights reserved.
+          </div>
+          <div class="flex items-center gap-6 font-mono text-[11px]">
+            <span>Explore</span>
+            <span>&bull;</span>
+            <span>Learn</span>
+            <span>&bull;</span>
+            <span>Create</span>
+            <span>&bull;</span>
+            <span>Share</span>
+          </div>
         </div>
       </div>
     </footer>
 
-    <!-- Global Keybinding for Search -->
+    <!-- Scripts: Mobile Menu & Keyboard Shortcut -->
     <script is:inline>
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
       document.addEventListener('keydown', (e) => {
         if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
           e.preventDefault();

@@ -1,21 +1,25 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import WingLogo from '../components/WingLogo.astro';
 ---
 
 <MainLayout title="404 找不到頁面">
-  <div class="text-center py-24 max-w-md mx-auto">
-    <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-mono text-2xl font-bold mx-auto mb-6">
-      404
+  <div class="text-center py-28 max-w-lg mx-auto px-4">
+    <div class="w-16 h-16 mx-auto mb-6 opacity-80">
+      <WingLogo />
     </div>
-    <h1 class="text-3xl font-extrabold text-white mb-3">頁面不存在</h1>
-    <p class="text-gray-400 text-sm mb-8">
-      您所尋找的頁面或內容可能已被移動、更名，或是此為私有資源。
+    <div class="text-sm font-mono font-bold tracking-widest text-[#155EEF] uppercase mb-2">
+      ERROR 404
+    </div>
+    <h1 class="text-3xl font-extrabold text-[#07172D] mb-4">頁面不存在</h1>
+    <p class="text-slate-600 text-base mb-8 leading-relaxed">
+      您所尋找的內容可能已被移動、更名，或屬於私有內部工作項目。
     </p>
     <a
       href="/"
-      class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-colors"
+      class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white font-semibold text-sm transition-all shadow-md shadow-blue-500/20"
     >
-      返回首頁
+      返回 FreewingBiz 首頁
     </a>
   </div>
 </MainLayout>

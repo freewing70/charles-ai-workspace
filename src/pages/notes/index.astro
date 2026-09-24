@@ -1,33 +1,31 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
 import ContentCard from '../../components/ContentCard.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { getItemsByType } from '../../lib/content';
 
 const notes = getItemsByType('note', false);
 ---
 
 <MainLayout title="Notes 研究筆記">
-  <div class="mb-10">
-    <div class="flex items-center gap-2 text-sm text-purple-400 font-mono mb-2">
-      <span>/notes</span>
-      <span>&bull;</span>
-      <span>{notes.length} 篇筆記</span>
-    </div>
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">AI 模型與工作流研究筆記</h1>
-    <p class="mt-2 text-gray-400 max-w-2xl">
-      記錄大型語言模型實測、Prompting 技巧、圖像生成一致性實驗與實戰思考。
-    </p>
-  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <SectionHeader
+      eyebrow="THINK"
+      title="AI 模型與工作流筆記"
+      description="記錄大型語言模型實測、Prompting 技巧、圖像生成一致性實驗與實戰思考。"
+      badge={`${notes.length} 篇筆記`}
+    />
 
-  {notes.length > 0 ? (
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {notes.map((item) => (
-        <ContentCard item={item.meta} />
-      ))}
-    </div>
-  ) : (
-    <div class="text-center py-20 bg-gray-900/40 rounded-2xl border border-gray-800">
-      <p class="text-gray-400">目前尚無公開筆記。</p>
-    </div>
-  )}
+    {notes.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {notes.map((item) => (
+          <ContentCard item={item.meta} />
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-20 bg-slate-50 rounded-2xl border border-slate-200">
+        <p class="text-slate-500">目前尚無公開筆記。</p>
+      </div>
+    )}
+  </div>
 </MainLayout>
