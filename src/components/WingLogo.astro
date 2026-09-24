@@ -1,37 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" fill="none" class="w-full h-full">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" fill="none" class="w-full h-full">
   <defs>
     <!-- Left Wing Gradient -->
-    <linearGradient id="leftWing" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="leftOuter" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#155EEF"/>
+      <stop offset="60%" stop-color="#27A8FF"/>
+      <stop offset="100%" stop-color="#70C8FF"/>
+    </linearGradient>
+    <linearGradient id="leftInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#70C8FF"/>
       <stop offset="50%" stop-color="#27A8FF"/>
       <stop offset="100%" stop-color="#E8B85C"/>
     </linearGradient>
-    <!-- Center Peak Gradient -->
-    <linearGradient id="centerV" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0B3280"/>
-      <stop offset="50%" stop-color="#155EEF"/>
+
+    <!-- Center V Core -->
+    <linearGradient id="centerCore" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#07172D"/>
+      <stop offset="40%" stop-color="#155EEF"/>
       <stop offset="100%" stop-color="#27A8FF"/>
     </linearGradient>
-    <!-- Right Wing Gradient -->
-    <linearGradient id="rightWing" x1="100%" y1="0%" x2="0%" y2="100%">
+
+    <!-- Right Wing Gradient (Sunlit Warm Edge) -->
+    <linearGradient id="rightOuter" x1="100%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#27A8FF"/>
-      <stop offset="60%" stop-color="#155EEF"/>
-      <stop offset="100%" stop-color="#E8B85C"/>
+      <stop offset="50%" stop-color="#155EEF"/>
+      <stop offset="100%" stop-color="#07172D"/>
+    </linearGradient>
+    <linearGradient id="rightInner" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#70C8FF"/>
+      <stop offset="45%" stop-color="#E8B85C"/>
+      <stop offset="100%" stop-color="#D99B26"/>
     </linearGradient>
   </defs>
 
-  <!-- Left Outer Feather -->
-  <path d="M 12 18 C 28 32, 42 62, 54 82 C 40 76, 24 54, 12 18 Z" fill="url(#leftWing)" opacity="0.9" />
+  <!-- Left Outer Wing Feather -->
+  <path d="M 8 16 C 26 22, 48 50, 68 84 C 52 80, 26 56, 8 16 Z" fill="url(#leftOuter)" />
 
-  <!-- Left Inner Feather -->
-  <path d="M 28 28 C 42 42, 52 70, 56 82 C 46 72, 36 52, 28 28 Z" fill="#27A8FF" opacity="0.95" />
+  <!-- Left Inner Wing Feather (Layered) -->
+  <path d="M 28 28 C 42 38, 58 64, 72 84 C 60 76, 42 54, 28 28 Z" fill="url(#leftInner)" />
 
-  <!-- Center W Backbone (Interlocking V structure) -->
-  <path d="M 44 48 L 60 84 L 76 48 C 72 38, 66 32, 60 38 C 54 32, 48 38, 44 48 Z" fill="url(#centerV)" />
+  <!-- Center W Backbone (Connecting V) -->
+  <path d="M 58 48 L 80 88 L 102 48 C 96 34, 88 28, 80 34 C 72 28, 64 34, 58 48 Z" fill="url(#centerCore)" />
 
-  <!-- Right Inner Feather -->
-  <path d="M 92 28 C 78 42, 68 70, 64 82 C 74 72, 84 52, 92 28 Z" fill="#27A8FF" opacity="0.95" />
+  <!-- Right Inner Wing Feather (Warm Sunlight Glow) -->
+  <path d="M 132 28 C 118 38, 102 64, 88 84 C 100 76, 118 54, 132 28 Z" fill="url(#rightInner)" />
 
-  <!-- Right Outer Feather (Sunlit warmth on edge) -->
-  <path d="M 108 18 C 92 32, 78 62, 66 82 C 80 76, 96 54, 108 18 Z" fill="url(#rightWing)" opacity="0.9" />
+  <!-- Right Outer Wing Feather -->
+  <path d="M 152 16 C 134 22, 112 50, 92 84 C 108 80, 134 56, 152 16 Z" fill="url(#rightOuter)" />
 </svg>

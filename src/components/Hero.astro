@@ -2,72 +2,67 @@
 import WingLogo from './WingLogo.astro';
 ---
 
-<section class="relative min-h-[580px] lg:min-h-[640px] flex items-center justify-center overflow-hidden">
-  <!-- Master Atmospheric Background Reference Image -->
-  <div class="absolute inset-0 z-0 pointer-events-none">
+<section class="relative min-h-[580px] lg:min-h-[660px] flex items-center justify-center overflow-hidden">
+  <!-- Clean Atmospheric Background: Scenic nature landscape with NO text, NO logos, NO lettering -->
+  <div class="absolute inset-0 z-0 pointer-events-none select-none">
     <img
-      src="/assets/freewing-hero-reference.png"
-      alt="FreewingBiz Atmospheric Sky & Sunrise Clouds"
+      src="/assets/freewing-hero-clean-bg.jpg"
+      alt="Atmospheric Mountain Sunrise & Cloud Sea"
       class="w-full h-full object-cover object-center filter saturate-[1.05]"
       fetchpriority="high"
     />
-    <!-- Delicate Radial Sunbeam Overlay to enhance central warmth -->
-    <div class="absolute inset-0 bg-radial from-amber-200/20 via-sky-300/10 to-transparent mix-blend-overlay"></div>
-    <!-- Bottom Smooth Scrim into Cloud White Section -->
-    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
+    <!-- Delicate sunlight bloom & atmospheric gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-sky-400/10 via-transparent to-white"></div>
+    <div class="absolute inset-0 bg-radial from-amber-200/25 via-transparent to-transparent"></div>
+    <!-- Smooth Scrim blending into Cloud White content section -->
+    <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white via-white/85 to-transparent"></div>
   </div>
 
-  <!-- Hero Content Overlay (Semantic, Accessible Typography) -->
-  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center flex flex-col items-center">
+  <!-- Rebuilt Semantic Hero Content Layer -->
+  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center flex flex-col items-center">
     
-    <!-- Top Editorial Pillars (Left & Right desktop concepts integrated cleanly) -->
-    <div class="hidden sm:flex items-center justify-between w-full max-w-3xl mb-8 text-[11px] font-mono tracking-[0.25em] text-slate-700/80 uppercase">
-      <span>IDEAS &bull; PEOPLE &bull; AI &bull; CREATION</span>
-      <span class="text-[#07172D] font-medium tracking-[0.2em]">讓想像 展翼更遠 &bull; IDEAS FLY FURTHER</span>
-    </div>
-
-    <!-- Central Wing-W Mark -->
-    <div class="w-24 h-20 sm:w-32 sm:h-26 mb-6 drop-shadow-md transition-transform duration-500 hover:scale-105">
+    <!-- Exactly ONE Wing-W Logo in Hero (80–110px desktop, 70–90px tablet, 55–75px mobile) -->
+    <div class="w-16 h-10 sm:w-20 sm:h-13 lg:w-24 lg:h-15 mb-6 drop-shadow-sm transition-transform duration-300 hover:scale-105">
       <WingLogo />
     </div>
 
-    <!-- Main Title -->
-    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-[0.16em] text-[#07172D] mb-3 drop-shadow-xs">
+    <!-- Exactly ONE FREEWINGBIZ Brand Statement (64-80px desktop, Deep Navy + Royal/Sky Blue) -->
+    <h1 class="text-3xl sm:text-5xl lg:text-[68px] font-black tracking-[0.14em] text-[#07172D] mb-3 leading-none drop-shadow-xs">
       FREEWING<span class="text-[#155EEF]">BIZ</span>
     </h1>
 
-    <!-- Secondary Identity -->
-    <h2 class="text-sm sm:text-lg lg:text-xl font-semibold tracking-[0.32em] text-[#0B1B32] uppercase mb-6 opacity-90">
+    <!-- Exactly ONE CHARLES AI WORKSPACE Secondary Identity (18-24px desktop, wide tracking) -->
+    <h2 class="text-xs sm:text-base lg:text-lg font-semibold tracking-[0.32em] text-[#07172D] uppercase mb-6 opacity-90">
       CHARLES AI WORKSPACE
     </h2>
 
-    <!-- Decorative Warm Sunlight Separator -->
-    <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#E8B85C] to-transparent rounded-full mb-6"></div>
+    <!-- Subtle Golden Sunlight Divider -->
+    <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-[#E8B85C] to-transparent rounded-full mb-6"></div>
 
-    <!-- Experience Words -->
-    <p class="text-xs sm:text-sm font-semibold tracking-[0.3em] text-[#07172D] uppercase mb-10 opacity-80">
+    <!-- Experience Words: Exactly ONE occurrence (13-16px, wide tracking) -->
+    <p class="text-xs sm:text-sm lg:text-[15px] font-semibold tracking-[0.28em] text-[#07172D] uppercase mb-10 opacity-75">
       EXPLORE &nbsp;&bull;&nbsp; LEARN &nbsp;&bull;&nbsp; CREATE &nbsp;&bull;&nbsp; SHARE
     </p>
 
-    <!-- Search / Explore Quick CTA -->
+    <!-- Subordinate, Refined Search Component (max-w-xl) -->
     <div class="w-full max-w-xl">
-      <form action="/search" method="get" class="flex items-center gap-2 bg-white/95 backdrop-blur-md border border-slate-300/80 rounded-2xl p-2 shadow-lg shadow-sky-900/10 focus-within:border-[#155EEF] focus-within:ring-3 focus-within:ring-[#155EEF]/15 transition-all">
+      <form action="/search" method="get" class="flex items-center gap-2 bg-white/90 backdrop-blur-md border border-slate-300/80 rounded-2xl p-2 shadow-md shadow-sky-950/5 focus-within:border-[#155EEF] focus-within:bg-white focus-within:ring-3 focus-within:ring-[#155EEF]/15 transition-all">
         <div class="pl-3.5 text-slate-400">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         </div>
         <input
           type="text"
           name="q"
-          placeholder="探索 AI 技能、線上簡報、專案成果與實務筆記..."
+          placeholder="搜尋 AI 技能、線上簡報、專案成果與實務筆記..."
           class="flex-1 bg-transparent px-3 py-2 text-[#07172D] placeholder-slate-400 focus:outline-none text-sm font-medium"
         />
         <button
           type="submit"
-          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white font-semibold text-sm transition-all shadow-md shadow-blue-500/25 cursor-pointer"
+          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white font-semibold text-xs transition-all shadow-xs cursor-pointer"
         >
-          檢索
+          搜尋
         </button>
       </form>
     </div>
