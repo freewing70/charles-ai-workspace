@@ -1,6 +1,7 @@
 name = "charles-ai-workspace"
+main = "src/entry-worker.js"
 compatibility_date = "2026-09-23"
 
-# Cloudflare Static Assets configuration
 [assets]
 directory = "./dist"
+binding = "ASSETS"
