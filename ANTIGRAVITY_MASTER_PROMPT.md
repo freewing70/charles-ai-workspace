@@ -1,152 +1,156 @@
-# FreewingBiz — Complete Website Visual Redesign Package
+# FREEWINGBIZ — FINAL END-TO-END BRAND + WEBSITE IMPLEMENTATION
 
-## Mission
-Redesign the existing FreewingBiz website into a coherent personal AI workspace brand for Charles. Complete the work end-to-end in the existing project: inspect, plan, implement, test, refine, and leave the site production-ready. Do not stop after producing a proposal, mockup, checklist, or partial homepage.
+Execute this entire task in the existing FreewingBiz repository. Do not stop after analysis, a plan, a mockup, or the homepage. Inspect, implement, run, visually inspect, repair, and finish the complete site.
 
-Website identity:
-- Brand: FREEWINGBIZ
-- Secondary identity: CHARLES AI WORKSPACE
-- Core idea: AI × Knowledge × Creation × A Better Tomorrow
-- Experience words: Explore · Learn · Create · Share
-- Site role: Personal AI Workspace + Knowledge Base + Project Portfolio + Creative Lab
+## 0. Source-of-truth files
+Read these before editing:
 
-## Master Visual Reference
-Use `references/freewing-hero-reference.png` as the MASTER VISUAL REFERENCE and visual DNA for the entire site.
+- `references/freewingbiz-brand-identity.png` — APPROVED BRAND IDENTITY REFERENCE.
+- `references/freewingbiz-hero-composition-reference.png` — HERO COMPOSITION / MOOD REFERENCE ONLY.
+- `references/rejected-old-simplified-logo.png` — REJECTED LOGO. NEVER USE IT.
+- `docs/BRAND_SPEC.md` — written brand constraints.
 
-Do not treat it as merely a banner and do not blindly reproduce pixels. Translate its visual language into a maintainable responsive web design system:
-- atmospheric blue sky
-- sunrise lighting
-- distant mountains and cloud sea
-- royal/sky blue gradients
-- restrained warm-gold sunlight accents
-- generous whitespace
-- elegant, calm typography
-- freedom, exploration, possibility and growth
-- clean premium editorial composition
-- human-centered AI rather than sci-fi AI
+The two approved reference images are specification/mood boards, NOT production website assets. NEVER place either complete reference image into the live page, hero, card, background, `<img>`, CSS background, or pseudo-element.
 
-The test for every UI decision is: “Would this component naturally belong underneath the FreewingBiz hero reference?” If not, redesign it.
+## 1. Critical correction from the previous implementation
+The previous implementation made two serious mistakes:
 
-## Non-negotiable constraints
-1. Preserve all existing useful content, URLs, data and functionality unless a change is necessary to repair the experience.
-2. Do not turn the site into a generic AI SaaS template.
-3. Avoid cyberpunk, neon overload, robots, circuit-board clichés, particle fields, excessive glassmorphism, gaming UI, giant glowing blobs and distracting motion.
-4. Do not scatter mountain photos across every section. The hero may use the atmospheric landscape strongly; the rest of the site should inherit the feeling primarily through color, space, light, typography, gradients and composition.
-5. Do not simply place the complete reference PNG as a fixed hero if the source assets/design can be reconstructed responsively. If only the composite reference is available, it may be used temporarily as the hero visual, but protect its composition with responsive art direction and progressively separate/rebuild layers where practical.
-6. Never fabricate existing project content or silently delete content.
-7. Keep accessibility, performance and responsive behavior first-class requirements.
-8. Work with the framework and architecture already in the repository unless there is a compelling technical reason not to.
+1. It used a composite reference image containing baked-in logo/text as a hero background, then overlaid HTML logo/text, creating duplicates.
+2. It simplified the Wing-W symbol into a flower/bud/lotus-like icon.
 
-## Phase 1 — Inspect before editing
-Inspect the entire existing project and determine:
-- framework/build system
-- routes/pages
-- global CSS/theme system
-- reusable components
-- content/data sources
-- image/assets organization
-- current navbar/footer/search behavior
-- deployment configuration
-- responsive breakpoints
-- accessibility/performance problems
+Both must be fully corrected. Do not preserve these mistakes for compatibility.
 
-Then create/update `docs/BRAND_GUIDE.md` and `docs/UI_DESIGN_SYSTEM.md` based on this package. Do not wait for user approval between phases; continue through implementation.
+## 2. Inspect before editing
+Inspect the repository and identify framework/build system, routes, page structure, global styles/theme, reusable components, content/data sources, asset organization, navbar/footer/search, responsive behavior, deployment config, accessibility issues and performance issues.
 
-## Brand mark and logo handling
-The reference establishes the desired logo direction: an abstract W formed as wings, expressing Free Wing / Workspace / freedom / exploration / growth.
+Preserve existing useful content, URLs, data, search behavior and functionality. Work with the existing architecture unless a change is technically necessary.
 
-Required brand lockups:
-- symbol-only Wing-W
-- horizontal/standard lockup
-- light version
-- dark version
-- monochrome-safe version
-- favicon/app-icon form
+Then continue immediately into implementation. Do not wait for approval between phases.
 
-Use existing official vector assets if present. If no official vector exists, create a clean original SVG interpretation based on the visual concept rather than tracing raster noise. Keep geometry simple, scalable and recognizable at favicon size. Do not embed the entire reference image as the logo.
+## 3. Approved brand identity
+Primary brand: `FREEWINGBIZ`
+Secondary identity: `CHARLES AI WORKSPACE`
+Core idea: `AI × Knowledge × Creation × A Better Tomorrow`
+Experience words: `Explore · Learn · Create · Share`
 
-Brand text:
-FREEWINGBIZ
-CHARLES AI WORKSPACE
+The site is a personal AI workspace, knowledge base, project portfolio and creative lab. It must not look like a generic AI SaaS landing page.
 
-## Color system
-Create semantic design tokens rather than hard-coded page colors. Starting palette:
-- Deep Navy: #07172D
-- Dark Navy/Text: #0B1B32
-- Royal Blue: #155EEF
-- Sky Blue: #27A8FF
-- Ice Blue: #B9DCFF
-- Cloud White: #F7F9FC
-- Pure White: #FFFFFF
-- Secondary Gray: #64748B
-- Sunrise Gold: #E8B85C — accent only, never dominant
+## 4. Logo — non-negotiable geometry
+The approved symbol is the large, wide **W + Wings** mark in `references/freewingbiz-brand-identity.png`.
 
-Derive accessible hover/active/border/muted variants as needed. Verify contrast. Prefer CSS variables/theme tokens.
+The defining silhouette is:
+- two large wings extending clearly outward and upward;
+- a central angular construction that unmistakably forms a W;
+- wide/open proportions rather than narrow/upright proportions;
+- strong recognition even as a one-color silhouette.
 
-Suggested semantic variables include:
-`--brand-navy`, `--brand-blue`, `--brand-sky`, `--brand-ice`, `--brand-gold`, `--bg-primary`, `--bg-secondary`, `--surface`, `--text-primary`, `--text-secondary`, `--border-subtle`, `--shadow-sm`, `--shadow-md`, `--radius-sm`, `--radius-md`, `--radius-lg`, `--container-max`, and transition tokens.
+It must NOT resemble a flower, lotus, bud, heart, leaves, bird head, shield, AI brain, circuit icon, or generic app icon.
 
-## Typography
-Use the site's existing high-quality font stack if suitable; otherwise choose a clean web-safe or already-available sans-serif stack. Do not introduce fragile external font dependencies unnecessarily. Establish a clear type scale for display, H1-H4, body, metadata and labels.
+`references/rejected-old-simplified-logo.png` is a negative example. Remove that mark everywhere. Never trace, reuse, recolor, or evolve it.
 
-FREEWINGBIZ should feel spacious and premium, with restrained letter spacing. CHARLES AI WORKSPACE and small editorial labels may use wider tracking. Body copy must remain highly readable.
+Do not use an icon library, emoji, stock logo, or arbitrary generated substitute.
 
-## Global layout
-Build a coherent responsive system:
-- generous but controlled whitespace
-- consistent max-width containers
-- clear vertical rhythm
-- subtle section transitions
-- mostly white/cloud-white surfaces
-- occasional very pale blue atmospheric gradients
-- rare Deep Navy sections for visual anchoring
-- fine separators instead of excessive boxed panels
+If the repository already contains a correct official Wing-W vector matching the approved reference, use it. Otherwise create a carefully reconstructed SVG implementation guided by the approved reference. Prioritize silhouette fidelity and scalability over decorative micro-detail. Validate it in solid monochrome: if it no longer reads as W + Wings, the geometry is wrong and must be fixed.
 
-Avoid making every section a floating card.
+Once approved geometry is reconstructed in the project, treat the permanent SVG assets as the only runtime source of truth. Do not create separate alternate logo geometries for navbar, hero, favicon, or dark mode.
 
-## Homepage hero — highest priority
-The top of the homepage should visually embody the supplied reference.
+Create/maintain framework-equivalent public assets:
+- `brand/freewing-symbol.svg`
+- `brand/freewing-symbol-dark.svg`
+- `brand/freewing-symbol-mono.svg`
+- `brand/freewing-logo-horizontal.svg`
+- `brand/freewing-logo-stacked.svg`
+- `brand/favicon.svg`
 
-Desired composition:
-- atmospheric mountain/cloud/sunrise background
-- transparent navigation over the hero when appropriate
-- Wing-W mark
-- FREEWINGBIZ
-- CHARLES AI WORKSPACE
-- Explore · Learn · Create · Share
-- optional concise brand statement/CTA if existing content supports it
+Raster fallbacks may be generated only if technically required. At tiny favicon sizes, internal decorative detail may be reduced, but the OUTER W + Wings silhouette must remain unchanged.
 
-Hero feeling: cinematic, spacious, optimistic, quiet and premium — not loud.
+## 5. Logo color and lockups
+Use controlled blue gradients inspired by the approved identity. Blue remains dominant. Sunrise Gold may appear only as a restrained reflection/accent.
 
-If using the supplied composite reference as an image, implement correct responsive `object-position`, overlays, sizing and art direction so text/logo are not cropped awkwardly. Prefer semantic HTML text for important brand copy rather than relying only on text baked into an image.
+Palette:
+- Deep Navy `#07172D`
+- Dark Navy/Text `#0B1B32`
+- Royal Blue `#155EEF`
+- Sky Blue `#27A8FF`
+- Ice Blue `#B9DCFF`
+- Sunrise Gold `#E8B85C`
+- Cloud White `#F7F9FC`
+- Pure White `#FFFFFF`
 
-Desktop: spacious cinematic composition.
-Tablet: preserve hierarchy while reducing dead space.
-Mobile: prioritize mark, FREEWINGBIZ, CHARLES AI WORKSPACE and primary message. Do not squeeze the desktop layout into a narrow screen.
+Wordmark:
+- `FREEWING` in Deep Navy on light surfaces;
+- `BIZ` in Royal/Sky Blue;
+- `CHARLES AI WORKSPACE` below with restrained size and generous tracking.
 
-## Navigation
-Preserve the current information architecture:
-- Home
-- Skills
-- Tutorials
-- Presentations
-- Projects
-- Notes
-- Timeline
+Dark surfaces may use white/light wordmark with Sky Blue BIZ. Monochrome must preserve the same geometry.
 
-Keep Search if it currently exists.
+## 6. Design tokens
+Create/update semantic global design tokens instead of scattering arbitrary colors. Use framework conventions. Include color, typography, spacing, radius, shadow, container widths, breakpoints and transitions.
 
-Design direction:
-- over hero: transparent or very subtle translucent navigation
-- after scroll / inner pages: white or softly frosted surface with strong readability
-- compact Wing-W + brand lockup on left
-- navigation on center/right as architecture allows
-- clean responsive mobile menu
-- obvious keyboard focus states
-- no excessive pill styling
+Equivalent color variables should map to the approved palette. Do not invent unrelated brand colors.
 
-## Content taxonomy and secondary concepts
-Keep actual navigation/page names unchanged. Secondary editorial concepts may be used subtly:
+Preferred typography: Inter or Plus Jakarta Sans, using existing project font infrastructure when practical. Avoid futuristic sci-fi fonts and excessive weights.
+
+## 7. Navbar
+The current general navigation structure is retained:
+Home / Skills / Tutorials / Presentations / Projects / Notes / Timeline, plus existing search behavior.
+
+Left side uses the official horizontal lockup:
+`[Wing-W] FREEWINGBIZ`
+`         CHARLES AI WORKSPACE`
+
+Desktop Wing-W symbol should be roughly 44–54px wide and must retain recognizable W proportions. Do not compress it vertically. Keep navbar elegant and light, roughly 82–96px tall unless the existing layout requires a nearby value. Active state may use a restrained pale-blue treatment.
+
+## 8. Homepage hero — rebuild correctly
+The homepage hero must be reconstructed as real responsive web layers. NEVER use the complete reference PNG as the background.
+
+Required conceptual order:
+1. clean atmospheric background only;
+2. official Wing-W SVG;
+3. FREEWINGBIZ;
+4. CHARLES AI WORKSPACE;
+5. subtle short Sunrise Gold divider;
+6. EXPLORE · LEARN · CREATE · SHARE;
+7. existing search component.
+
+The production background may use a clean existing scenic asset, a newly available clean landscape asset, or a refined CSS/graphic treatment. It must evoke blue sky, sunrise, cloud sea, distant mountains and soft golden horizon. It MUST contain NO baked-in logo, text, FREEWINGBIZ, CHARLES AI WORKSPACE, decorative copy, or lettering.
+
+Do not reproduce the moodboard's auxiliary copy such as `IDEAS · PEOPLE · AI · CREATION` or `讓想像 展翼更遠 / IDEAS FLY FURTHER` in the central hero. Those are concept-board elements, not required website content.
+
+Hero desktop target:
+- Wing-W approximately 140–190px wide;
+- FREEWINGBIZ approximately 64–80px, responsive rather than hard-coded where appropriate;
+- CHARLES AI WORKSPACE approximately 18–24px;
+- experience line approximately 13–16px;
+- search max-width roughly 650–760px;
+- total hero roughly 650–760px depending on viewport/content.
+
+The search bar should be visually subordinate: white/translucent surface, subtle border/shadow, controlled blue CTA. Do not let it compete with the brand.
+
+There must be exactly ONE visible Hero Wing-W, ONE visible FREEWINGBIZ, ONE visible CHARLES AI WORKSPACE and ONE experience line.
+
+Mobile must be intentionally recomposed, not merely compressed desktop. Prioritize symbol, brand, secondary identity, experience line and search readability.
+
+## 9. Global UI visual language
+Translate the approved identity into the entire UI through:
+- Cloud White / white / very pale blue surfaces;
+- Deep Navy typography;
+- Royal/Sky Blue accents;
+- extremely restrained Sunrise Gold details;
+- generous whitespace;
+- clean editorial hierarchy;
+- thin separators;
+- subtle blue-gray borders and shadows;
+- restrained atmospheric gradients;
+- refined, reusable cards;
+- calm motion.
+
+Avoid cyberpunk, neon overload, robots, circuits, gaming UI, giant glowing blobs, excessive glassmorphism, constant moving backgrounds, spinning AI graphics and particle fields.
+
+Do not place mountain photography everywhere. The atmosphere should continue mostly through color, spacing, typography, light, borders, icons and composition.
+
+## 10. Content architecture and page families
+Preserve the actual navigation names and existing content. You may use these subtle conceptual labels as secondary cues only:
 - Skills → LEARN
 - Tutorials → EXPLORE
 - Presentations → SHARE
@@ -154,164 +158,72 @@ Keep actual navigation/page names unchanged. Secondary editorial concepts may be
 - Notes → THINK
 - Timeline → JOURNEY
 
-These are supporting visual labels only, not route replacements.
+Create/refine reusable components appropriate to the project, such as SkillCard, TutorialCard, PresentationCard, ProjectCard, NoteCard and TimelineItem. They should share the same design system while allowing content-type distinctions.
 
-## Component system
-Create/rework reusable components appropriate to the existing stack, including equivalents of:
-- SiteHeader / Navigation
-- Hero
-- SectionHeader
-- SkillCard
-- TutorialCard
-- PresentationCard
-- ProjectCard
-- NoteCard
-- TimelineItem
-- Tag/Metadata treatment
-- PrimaryButton / SecondaryButton
-- EmptyState if needed
-- SiteFooter
+Cards: near-white surfaces, subtle blue-gray border, soft shadow, generous spacing, strong media hierarchy, clean typography. Hover may translate only about 2–4px, slightly strengthen shadow/edge and scale images no more than ~1.03.
 
-Cards should share the same design DNA while retaining useful distinctions by content type.
+Do not make every section look like an isolated floating card. Maintain page rhythm and breathing room.
 
-Card direction:
-- white/near-white surface
-- subtle blue-gray border
-- restrained shadow
-- strong image hierarchy
-- clean typography
-- generous internal spacing
-- consistent image ratios where appropriate
-- no giant rounded “bubble UI” everywhere
+## 11. Buttons, footer and motion
+Primary CTA: controlled Royal Blue → Sky Blue treatment.
+Secondary CTA: white/transparent with blue border and dark navy text. Avoid excessive pill UI.
 
-Hover (pointer devices only):
-- translateY approximately -2px to -4px
-- modest shadow increase
-- optional subtle blue edge/glow
-- image scale no more than ~1.03
-- respect `prefers-reduced-motion`
+Footer: Deep Navy, official Wing-W lockup, FREEWINGBIZ, CHARLES AI WORKSPACE, simple navigation and optionally `AI × Knowledge × Creation × A Better Tomorrow`.
 
-## Buttons and controls
-Primary CTA: Royal Blue → Sky Blue gradient or strong Royal Blue treatment.
-Secondary CTA: white/transparent surface, subtle blue border, navy text.
+Motion must be restrained: fade, slight translate, subtle logo glow if appropriate, tiny image scale, card elevation, smooth navigation transitions. Respect reduced-motion preferences.
 
-Keep controls refined and functional. Avoid excessive rounded pills and gratuitous gradients.
+## 12. Documentation
+Create/update:
+- `docs/BRAND_GUIDE.md`
+- `docs/UI_DESIGN_SYSTEM.md`
 
-## Imagery
-Use imagery selectively. Hero may strongly use the mountain/cloud/sunrise theme. Elsewhere, prioritize actual project/tutorial/skill imagery and preserve content authenticity.
+Document the final logo asset paths, geometry constraints, prohibited logo interpretations, colors, typography, spacing, hero, navbar, footer, favicon, light/dark/mono use, responsive behavior and UI principles.
 
-When atmospheric backgrounds are used, ensure text contrast with overlays/scrims rather than sacrificing readability.
+Include this explicit rule in BRAND_GUIDE.md:
 
-## Motion
-Motion must be quiet and purposeful:
-- short fade
-- slight translate
-- subtle image zoom
-- card elevation
-- smooth nav/background transition
-- very subtle logo glow only if it improves polish
+> AI agents must not redesign, simplify, reinterpret, or replace the FreewingBiz Wing-W logo. Runtime interfaces must use the permanent approved brand assets.
 
-Avoid continuous background animation, flying particles, spinning graphics and heavy parallax. Honor `prefers-reduced-motion`.
+## 13. Accessibility, performance and behavior
+Preserve functional navigation, search, content links and routes. Check keyboard/focus behavior, text/background contrast, semantic structure, responsive overflow, image loading and layout stability. Do not introduce avoidable CLS or huge unoptimized assets.
 
-## Inner pages
-Apply the same visual system to every existing route, not only the homepage. Inner pages should feel like chapters of the same workspace.
+## 14. Mandatory visual QA — build success is not enough
+After implementation, RUN the actual site and inspect the rendered UI in a browser. Use the available browser/screenshot capability. Do not report completion based only on compilation/tests.
 
-Use a restrained page-header system with optional pale atmospheric gradient, editorial eyebrow, title and concise description. Keep content browsing fast and legible.
+Inspect at minimum:
+- desktop around 1920px;
+- desktop around 1440px;
+- tablet;
+- mobile.
 
-Do not duplicate the huge homepage hero on every page.
+Explicitly verify and fix until all are true:
+- [ ] Approved wide W + Wings mark is used.
+- [ ] Rejected flower/bud/lotus mark is completely gone.
+- [ ] Logo still reads as W + Wings in monochrome.
+- [ ] Navbar uses the official brand asset and correct proportions.
+- [ ] Hero contains exactly one Wing-W.
+- [ ] Hero contains exactly one FREEWINGBIZ.
+- [ ] Hero contains exactly one CHARLES AI WORKSPACE.
+- [ ] Hero background contains no baked-in text/logo.
+- [ ] No reference board/composite image is rendered on the live site.
+- [ ] Search is functional and visually subordinate.
+- [ ] No overlaps, clipping or horizontal overflow.
+- [ ] Mobile is intentionally composed.
+- [ ] Existing routes/content remain accessible.
+- [ ] Colors and typography follow the brand system.
+- [ ] The first screen looks like a real premium website, not a poster pasted into a page.
+- [ ] The rest of the site feels related to the hero without repeating mountain photos everywhere.
 
-## Footer
-Create a Deep Navy footer containing, as appropriate:
-- Wing-W mark
-- FREEWINGBIZ
-- CHARLES AI WORKSPACE
-- concise navigation
-- existing copyright/contact information
-- optional brand statement: AI × Knowledge × Creation × A Better Tomorrow
+If any check fails, fix it before finishing.
 
-Keep it understated and spacious.
+## 15. Definition of done
+The task is complete only when:
+1. the repository has a coherent permanent FreewingBiz brand asset system;
+2. the rejected simplified mark is no longer used;
+3. the homepage hero is correctly rebuilt without baked-in reference-board content;
+4. the navbar, footer and all major page families inherit the same design system;
+5. existing useful content/functionality is preserved;
+6. responsive/accessibility/performance basics are validated;
+7. the rendered site has been visually inspected and visible defects repaired;
+8. BRAND_GUIDE.md and UI_DESIGN_SYSTEM.md document the implemented system.
 
-## Responsive requirements
-Explicitly verify at representative widths around:
-- 360–390px mobile
-- 768px tablet
-- 1024–1440px desktop
-- wide desktop if supported
-
-Check:
-- no horizontal overflow
-- hero focal point survives cropping
-- nav works with touch and keyboard
-- cards reflow correctly
-- type does not become too small/large
-- images do not distort
-- long titles wrap gracefully
-- touch targets are usable
-
-## Accessibility
-Meet sensible WCAG-oriented practices:
-- semantic landmarks/headings
-- keyboard navigation
-- visible focus
-- sufficient contrast
-- meaningful alt text for content images
-- decorative imagery marked appropriately
-- reduced-motion support
-- buttons/links have accessible names
-- do not encode meaning by color alone
-
-## Performance
-Do not sacrifice speed for decoration.
-- optimize images and responsive image loading
-- lazy-load below-the-fold media where appropriate
-- avoid huge JS animation libraries unless already justified
-- avoid layout shift
-- preserve or improve Core Web Vitals
-- avoid shipping the reference PNG at unnecessarily huge dimensions if an optimized derivative is appropriate
-
-## SEO / metadata
-Preserve existing SEO behavior. Ensure homepage title/description and social metadata remain coherent with FreewingBiz / Charles AI Workspace. Do not break canonical URLs, sitemap, robots or structured metadata if present.
-
-## Content preservation
-This is primarily a visual redesign and design-system refactor. Preserve existing content and functionality. Text may be lightly edited only when needed for hierarchy, readability, navigation or CTA clarity. Do not rewrite the entire site's substance.
-
-## Required project documentation
-Create or update:
-- `docs/BRAND_GUIDE.md`: brand meaning, logo usage, colors, typography, imagery, voice and do/don't examples.
-- `docs/UI_DESIGN_SYSTEM.md`: tokens, spacing, components, responsive rules, motion, accessibility and implementation notes.
-
-Also add concise comments only where the implementation is non-obvious; do not clutter code.
-
-## Execution order
-Execute continuously without requesting approval after each step:
-1. Inspect repository and run current site/tests/build.
-2. Back up or use version control appropriately; do not destroy working content.
-3. Establish brand/design tokens and documentation.
-4. Implement/refine logo assets if needed.
-5. Redesign global navigation and footer.
-6. Redesign homepage hero and homepage sections.
-7. Apply the system to Skills, Tutorials, Presentations, Projects, Notes and Timeline.
-8. Standardize reusable components and remove obsolete duplicate styling when safe.
-9. Test responsive layouts, interactions, search/navigation and all existing routes.
-10. Run lint/typecheck/tests/build available in the project.
-11. Fix all regressions caused by this work.
-12. Perform a final visual consistency pass against the master reference.
-13. Leave a concise completion report documenting changed files, validation performed, any assumptions and any items that truly could not be completed.
-
-## Definition of done
-The task is not complete until:
-- the site builds successfully (where the existing project provides a build)
-- all existing primary routes still work
-- homepage hero strongly reflects the reference visual identity
-- all major pages share one coherent design system
-- mobile/tablet/desktop layouts have been checked
-- navigation/footer are consistent
-- no obvious overflow/broken assets/unreadable text remain
-- accessibility basics are intact
-- `BRAND_GUIDE.md` and `UI_DESIGN_SYSTEM.md` exist
-- no temporary placeholder UI remains unless the original project lacks the required content/assets, in which case document the limitation
-
-## Final design objective
-A visitor should immediately feel that FreewingBiz is Charles's mature personal AI workspace — a coherent home for Knowledge × Skills × Projects × Creativity × AI.
-
-It must feel personal and distinctive, not like a stock AI startup template. The supplied FreewingBiz hero reference is the visual north star for the entire implementation.
+Final target: a calm, open, premium, intelligent, exploratory, human and optimistic digital environment unmistakably belonging to FREEWINGBIZ / CHARLES AI WORKSPACE.

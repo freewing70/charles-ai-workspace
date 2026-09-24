@@ -1,49 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" fill="none" class="w-full h-full">
-  <defs>
-    <!-- Left Wing Gradient -->
-    <linearGradient id="leftOuter" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#155EEF"/>
-      <stop offset="60%" stop-color="#27A8FF"/>
-      <stop offset="100%" stop-color="#70C8FF"/>
-    </linearGradient>
-    <linearGradient id="leftInner" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#70C8FF"/>
-      <stop offset="50%" stop-color="#27A8FF"/>
-      <stop offset="100%" stop-color="#E8B85C"/>
-    </linearGradient>
+---
+interface Props {
+  class?: string;
+  variant?: 'color' | 'dark' | 'mono';
+}
 
-    <!-- Center V Core -->
-    <linearGradient id="centerCore" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#07172D"/>
-      <stop offset="40%" stop-color="#155EEF"/>
-      <stop offset="100%" stop-color="#27A8FF"/>
-    </linearGradient>
+const {
+  class: className = "w-full h-full",
+  variant = 'color'
+} = Astro.props;
 
-    <!-- Right Wing Gradient (Sunlit Warm Edge) -->
-    <linearGradient id="rightOuter" x1="100%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#27A8FF"/>
-      <stop offset="50%" stop-color="#155EEF"/>
-      <stop offset="100%" stop-color="#07172D"/>
-    </linearGradient>
-    <linearGradient id="rightInner" x1="100%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#70C8FF"/>
-      <stop offset="45%" stop-color="#E8B85C"/>
-      <stop offset="100%" stop-color="#D99B26"/>
-    </linearGradient>
-  </defs>
+const srcMap = {
+  color: '/brand/freewing-symbol.svg',
+  dark: '/brand/freewing-symbol-dark.svg',
+  mono: '/brand/freewing-symbol-mono.svg'
+};
 
-  <!-- Left Outer Wing Feather -->
-  <path d="M 8 16 C 26 22, 48 50, 68 84 C 52 80, 26 56, 8 16 Z" fill="url(#leftOuter)" />
+const src = srcMap[variant] || srcMap.color;
+---
 
-  <!-- Left Inner Wing Feather (Layered) -->
-  <path d="M 28 28 C 42 38, 58 64, 72 84 C 60 76, 42 54, 28 28 Z" fill="url(#leftInner)" />
-
-  <!-- Center W Backbone (Connecting V) -->
-  <path d="M 58 48 L 80 88 L 102 48 C 96 34, 88 28, 80 34 C 72 28, 64 34, 58 48 Z" fill="url(#centerCore)" />
-
-  <!-- Right Inner Wing Feather (Warm Sunlight Glow) -->
-  <path d="M 132 28 C 118 38, 102 64, 88 84 C 100 76, 118 54, 132 28 Z" fill="url(#rightInner)" />
-
-  <!-- Right Outer Wing Feather -->
-  <path d="M 152 16 C 134 22, 112 50, 92 84 C 108 80, 134 56, 152 16 Z" fill="url(#rightOuter)" />
-</svg>
+<img
+  src={src}
+  alt="FreewingBiz Wing-W Symbol"
+  class={`object-contain ${className}`}
+  loading="eager"
+  decoding="async"
+/>

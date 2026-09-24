@@ -1,18 +1,9 @@
-# START HERE — Google Antigravity
+# FreewingBiz — Antigravity Final Package
 
-This package contains the complete visual-redesign brief for FreewingBiz.
+This package is intended to be copied into the root of the existing FreewingBiz website repository and executed by Google Antigravity as one end-to-end task.
 
-## Files
-- `ANTIGRAVITY_MASTER_PROMPT.md` — the single master instruction for the AI agent.
-- `references/freewing-hero-reference.png` — the approved visual north star supplied by Charles.
+## One command to give Antigravity
 
-## How to use
-1. Put this package in the root of the existing FreewingBiz website repository, or copy the two files into equivalent paths.
-2. Open the repository as the Antigravity workspace.
-3. Give the agent this one instruction:
+> Read `ANTIGRAVITY_MASTER_PROMPT.md` completely, then execute the entire task end-to-end in this repository. Treat `references/freewingbiz-brand-identity.png` as the approved brand identity reference and `references/freewingbiz-hero-composition-reference.png` only as a composition/mood reference. Never use either complete reference image as a live website background or banner. Do not stop at a plan. Implement, run, visually inspect, fix, and finish the site. Only ask me if blocked by credentials, a destructive external action, or genuinely missing critical information.
 
-> Read `ANTIGRAVITY_MASTER_PROMPT.md` completely and execute the entire website redesign end-to-end. Use `references/freewing-hero-reference.png` as the master visual reference. Inspect the existing project first, preserve existing content and functionality, then implement, test, fix and finish the full redesign. Do not stop at a plan or ask for approval between phases unless blocked by a credential, destructive external action, or genuinely missing critical information.
-
-4. Let the agent work through the whole repository.
-
-The master prompt instructs the agent to create `docs/BRAND_GUIDE.md` and `docs/UI_DESIGN_SYSTEM.md` inside the website project as part of the work.
+Do not give Antigravity additional piecemeal design prompts unless you intentionally want to override this package.
