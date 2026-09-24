@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 算力需求持續上升｜客戶提案簡報</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2e;--panel2:#10243d;--ink:#f3f8ff;--muted:#9eb1c8;--cyan:#38d6ff;--blue:#4c7dff;--lime:#7cf6b3;--orange:#ffae57;--red:#ff657a;--line:rgba(164,195,230,.18);--shadow:0 24px 80px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html,body{margin:0;background:#020711;color:var(--ink);font-family:Inter,"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;overflow:hidden}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 85% 15%,rgba(56,214,255,.12),transparent 30%),radial-gradient(circle at 5% 90%,rgba(76,125,255,.12),transparent 32%);pointer-events:none}
+.deck{height:100vh;width:100vw;position:relative}.slide{position:absolute;inset:0;padding:5.4vh 6vw 6.5vh;display:grid;grid-template-rows:auto 1fr auto;opacity:0;transform:translateX(5%);pointer-events:none;transition:.45s ease;background:linear-gradient(135deg,rgba(7,17,31,.98),rgba(5,14,27,.96))}.slide.active{opacity:1;transform:none;pointer-events:auto}.slide.prev{transform:translateX(-5%)}
+.eyebrow{font-size:clamp(12px,1vw,18px);letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);font-weight:800}.title{font-size:clamp(34px,4.4vw,78px);line-height:1.08;letter-spacing:-.045em;margin:.5rem 0 0;max-width:1150px}.subtitle{font-size:clamp(17px,1.55vw,27px);line-height:1.55;color:var(--muted);max-width:1050px;margin:1rem 0 0}.content{min-height:0;display:flex;align-items:center}.footer{display:flex;justify-content:space-between;align-items:end;color:#71869e;font-size:clamp(10px,.8vw,14px)}.source{max-width:80%;line-height:1.35}.page{font-variant-numeric:tabular-nums;color:#b9c8d9}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:5vw;align-items:center;width:100%}.hero-number{font-size:clamp(92px,13vw,230px);font-weight:900;line-height:.83;letter-spacing:-.08em;background:linear-gradient(135deg,#fff 20%,var(--cyan) 95%);-webkit-background-clip:text;color:transparent}.hero-label{font-size:clamp(20px,2vw,34px);font-weight:750;margin-top:1.4rem}.pill{display:inline-flex;padding:.45rem .75rem;border:1px solid rgba(56,214,255,.34);border-radius:999px;color:var(--cyan);background:rgba(56,214,255,.08);font-weight:750;font-size:clamp(12px,.9vw,16px)}
+.evidence-chain{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw;width:100%;align-items:stretch}.chain-card,.card{background:linear-gradient(145deg,rgba(16,36,61,.92),rgba(9,25,43,.92));border:1px solid var(--line);border-radius:22px;padding:1.7vw;box-shadow:var(--shadow)}.chain-card{position:relative}.chain-card:not(:last-child):after{content:"›";position:absolute;right:-1.1vw;top:43%;z-index:3;color:var(--cyan);font-size:2.5vw;font-weight:300}.chain-num{font-size:clamp(28px,3.2vw,56px);font-weight:900;color:var(--cyan)}.chain-title{font-size:clamp(17px,1.45vw,25px);font-weight:800;margin:.7rem 0}.chain-copy{font-size:clamp(13px,1vw,18px);color:var(--muted);line-height:1.55}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:100%}.metric{padding:2vw;border-radius:24px;border:1px solid var(--line);background:rgba(13,27,46,.9)}.metric .big{font-size:clamp(58px,7vw,120px);font-weight:900;line-height:1;color:var(--cyan);letter-spacing:-.06em}.metric .label{font-size:clamp(17px,1.4vw,24px);font-weight:800;margin-top:1rem}.metric .desc{font-size:clamp(13px,1.05vw,18px);line-height:1.55;color:var(--muted);margin-top:.6rem}.accent-lime .big{color:var(--lime)}
+.growth{display:grid;grid-template-columns:.9fr 1.1fr;gap:4vw;width:100%;align-items:center}.bars{display:flex;align-items:end;gap:2.5vw;height:45vh;padding:1rem 2rem 0;border-left:1px solid var(--line);border-bottom:1px solid var(--line)}.bar-group{flex:1;height:100%;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:.7rem}.bar{width:min(9vw,140px);border-radius:15px 15px 3px 3px;min-height:10px;background:linear-gradient(180deg,var(--cyan),var(--blue));box-shadow:0 0 28px rgba(56,214,255,.22)}.bar.v1{height:5%}.bar.v2{height:100%}.bar-value{font-size:clamp(16px,1.7vw,29px);font-weight:850}.bar-year{color:var(--muted);font-weight:700}.callout{font-size:clamp(22px,2.2vw,39px);line-height:1.35;font-weight:800}.callout strong{color:var(--cyan)}.note{margin-top:1.2rem;padding-left:1rem;border-left:3px solid var(--cyan);color:var(--muted);font-size:clamp(14px,1.1vw,19px);line-height:1.6}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3vw;width:100%}.card-kicker{color:var(--cyan);font-size:clamp(12px,.85vw,15px);font-weight:800;letter-spacing:.1em}.card-num{font-size:clamp(38px,4vw,70px);font-weight:900;letter-spacing:-.05em;margin:.6rem 0}.card-title{font-size:clamp(16px,1.35vw,23px);font-weight:800}.card-copy{color:var(--muted);font-size:clamp(12px,.95vw,17px);line-height:1.55;margin-top:.6rem}
+.capex{display:grid;grid-template-columns:1.15fr .85fr;gap:3vw;align-items:center;width:100%}.capex-list{display:grid;gap:1.1rem}.capex-row{display:grid;grid-template-columns:150px 1fr auto;gap:1rem;align-items:center}.company{font-size:clamp(15px,1.2vw,21px);font-weight:800}.track{height:18px;background:#14263d;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:99px}.money{font-size:clamp(18px,1.7vw,30px);font-weight:900;color:var(--cyan);white-space:nowrap}.quote{font-size:clamp(24px,2.4vw,43px);font-weight:850;line-height:1.3}.quote-mark{font-size:5rem;color:var(--cyan);line-height:.5}.quote-sub{font-size:clamp(14px,1vw,18px);color:var(--muted);line-height:1.6;margin-top:1rem}
+.energy{display:grid;grid-template-columns:.9fr 1.1fr;gap:4vw;width:100%;align-items:center}.energy-visual{display:grid;grid-template-columns:1fr auto 1fr;gap:1.2rem;align-items:center}.energy-box{padding:2rem 1rem;border-radius:24px;background:var(--panel);border:1px solid var(--line);text-align:center}.energy-num{font-size:clamp(50px,5.5vw,95px);font-weight:900;color:var(--cyan);line-height:1}.energy-unit{color:var(--muted);font-size:clamp(13px,1vw,17px)}.chev{font-size:3rem;color:var(--cyan)}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw;width:100%}.flow-item{padding:1.7vw;background:rgba(13,27,46,.9);border:1px solid var(--line);border-radius:22px;position:relative}.flow-item:not(:last-child):after{content:"+";position:absolute;right:-1.15vw;top:43%;font-size:2vw;color:var(--lime);font-weight:900}.flow-icon{font-size:clamp(34px,3vw,52px)}.flow-title{font-size:clamp(16px,1.25vw,22px);font-weight:800;margin:.7rem 0}.flow-copy{color:var(--muted);line-height:1.5;font-size:clamp(12px,.9vw,16px)}
+.close{display:grid;grid-template-columns:1.05fr .95fr;gap:4vw;width:100%;align-items:center}.close-line{font-size:clamp(28px,3vw,54px);line-height:1.25;font-weight:900}.close-line span{color:var(--cyan)}.stack{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.stack div{padding:1.2rem;border:1px solid var(--line);background:rgba(16,36,61,.75);border-radius:18px;font-size:clamp(14px,1.05vw,19px);font-weight:750}.sources{display:grid;grid-template-columns:1fr 1fr;gap:.8rem 2rem;align-content:center;width:100%;font-size:clamp(11px,.82vw,15px);line-height:1.4}.sources a{color:#b8ddff;text-decoration:none;border-bottom:1px solid rgba(184,221,255,.18);padding:.55rem 0}.sources b{color:var(--cyan)}
+.nav{position:fixed;right:2vw;bottom:2vh;z-index:10;display:flex;gap:.6rem}.nav button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(13,27,46,.86);color:#fff;font-size:20px;cursor:pointer}.progress{position:fixed;left:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--cyan));z-index:20;transition:.35s}.overview{position:fixed;inset:0;background:rgba(2,7,17,.96);z-index:30;padding:4vh 4vw;display:none;overflow:auto}.overview.show{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-content:start}.thumb{min-height:180px;padding:1.2rem;background:var(--panel);border:1px solid var(--line);border-radius:16px;cursor:pointer}.thumb b{display:block;color:var(--cyan);margin-bottom:.6rem}.thumb span{font-size:1.1rem;font-weight:800}.help{position:fixed;left:2vw;bottom:2vh;color:#60758c;font-size:12px;z-index:11}
+@media(max-width:800px){.slide{padding:4vh 5vw 8vh}.hero,.growth,.capex,.energy,.close{grid-template-columns:1fr;gap:2vh}.evidence-chain,.flow{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr}.compare{gap:1rem}.bars{height:28vh}.overview.show{grid-template-columns:1fr 1fr}.source{max-width:70%}.chain-card:not(:last-child):after,.flow-item:not(:last-child):after{display:none}}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+  <section class="slide active" data-title="封面">
+    <header><div class="eyebrow">AI INFRASTRUCTURE OUTLOOK · 2026</div><h1 class="title">未來算力需求<br>為什麼仍會持續上升？</h1><p class="subtitle">從實際使用量、供需缺口、資本支出與電力消耗，建立可驗證的客戶證據鏈。</p></header>
+    <div class="content"><div class="hero"><div><span class="pill">客戶提案版</span><div class="hero-label">結論先行</div><div class="callout">算力需求的成長已經反映在<strong>真實使用、投資與用電</strong>，並非只有市場預測。</div></div><div><div class="hero-number">4×</div><div class="hero-label">四組相互驗證的證據</div></div></div></div>
+    <footer class="footer"><span>AI Compute Demand Evidence</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="證據鏈">
+    <header><div class="eyebrow">THE PROOF CHAIN</div><h2 class="title">客人真正需要看到的四件事</h2><p class="subtitle">市場規模預測可能有誤差，但四種不同來源同時往上，就形成更可靠的判斷。</p></header>
+    <div class="content"><div class="evidence-chain"><div class="chain-card"><div class="chain-num">01</div><div class="chain-title">實際使用量</div><div class="chain-copy">Token、企業席次與API呼叫持續增加。</div></div><div class="chain-card"><div class="chain-num">02</div><div class="chain-title">供需缺口</div><div class="chain-copy">大型雲端業者多季表示需求高於供給。</div></div><div class="chain-card"><div class="chain-num">03</div><div class="chain-title">真實投資</div><div class="chain-copy">伺服器與資料中心資本支出大幅擴張。</div></div><div class="chain-card"><div class="chain-num">04</div><div class="chain-title">電力消耗</div><div class="chain-copy">AI資料中心用電增速遠高於整體用電。</div></div></div></div>
+    <footer class="footer"><span>方法：以營運數據交叉驗證預測</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="Google 使用量">
+    <header><div class="eyebrow">EVIDENCE 01 · REAL USAGE</div><h2 class="title">Google 的 AI 處理量，兩年增加超過 300 倍</h2></header>
+    <div class="content"><div class="growth"><div><div class="callout">每月 <strong>9.7兆</strong> tokens<br>增加到 <strong>3,200兆</strong> tokens</div><div class="note">約 330 倍。這是Google產品與API的實際處理量，不是未來市場規模預測。</div></div><div class="bars"><div class="bar-group"><div class="bar-value">9.7兆</div><div class="bar v1"></div><div class="bar-year">約兩年前</div></div><div class="bar-group"><div class="bar-value">3,200兆</div><div class="bar v2"></div><div class="bar-year">2026</div></div></div></div></div>
+    <footer class="footer"><span class="source">來源：Alphabet Investor Presentation, Jun. 2026</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="成長仍在加速">
+    <header><div class="eyebrow">USAGE IS STILL RISING</div><h2 class="title">規模已經很大，成長仍未停止</h2></header>
+    <div class="content"><div class="compare"><div class="metric"><div class="big">+37.5%</div><div class="label">Google API tokens，單季成長</div><div class="desc">約160億 tokens／分鐘，增加到220億 tokens／分鐘。</div></div><div class="metric accent-lime"><div class="big">320×</div><div class="label">企業 reasoning tokens，年增</div><div class="desc">OpenAI觀察到，每家企業的API推理token消耗一年增加320倍。</div></div></div></div>
+    <footer class="footer"><span class="source">來源：Alphabet 2026 Q2；OpenAI State of Enterprise AI 2025</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="為何效率不會壓低需求">
+    <header><div class="eyebrow">EFFICIENCY EXPANDS THE MARKET</div><h2 class="title">晶片效率提高，總算力需求仍可能增加</h2><p class="subtitle">單位運算成本下降後，更多人、更多流程與更多產品開始使用AI。</p></header>
+    <div class="content"><div class="flow"><div class="flow-item"><div class="flow-icon">⚙️</div><div class="flow-title">運算效率提升</div><div class="flow-copy">相同預算可以處理更多tokens。</div></div><div class="flow-item"><div class="flow-icon">↘</div><div class="flow-title">單位成本下降</div><div class="flow-copy">原本不划算的應用開始可行。</div></div><div class="flow-item"><div class="flow-icon">👥</div><div class="flow-title">使用場景擴大</div><div class="flow-copy">AI進入搜尋、客服、程式與影音流程。</div></div><div class="flow-item"><div class="flow-icon">▦</div><div class="flow-title">總運算量上升</div><div class="flow-copy">使用量增速超過單位效率的改善。</div></div></div></div>
+    <footer class="footer"><span>經濟學概念：Jevons paradox／傑文斯悖論</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="從訓練到推論與 Agent">
+    <header><div class="eyebrow">NEW COMPUTE WORKLOADS</div><h2 class="title">未來主力從一次訓練，轉向持續推論</h2></header>
+    <div class="content"><div class="grid3"><div class="card"><div class="card-kicker">TRAINING</div><div class="card-num">5個月</div><div class="card-title">頂尖模型訓練算力約翻倍一次</div><div class="card-copy">Stanford AI Index引用Epoch資料，顯示前沿模型仍持續擴大。</div></div><div class="card"><div class="card-kicker">REASONING</div><div class="card-num">N 次</div><div class="card-title">一次回答包含多輪內部推理</div><div class="card-copy">模型先規劃、驗證與修正，再輸出結果；每個任務消耗更多tokens。</div></div><div class="card"><div class="card-kicker">AGENTS</div><div class="card-num">24/7</div><div class="card-title">AI開始持續執行工作流程</div><div class="card-copy">搜尋、呼叫工具、讀檔、寫程式與測試，都會反覆使用算力。</div></div></div></div>
+    <footer class="footer"><span class="source">來源：Stanford AI Index 2025；推論與Agent段落為工作負載機制說明</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="資本支出">
+    <header><div class="eyebrow">EVIDENCE 02 · CAPITAL COMMITMENT</div><h2 class="title">科技巨頭正用資本支出為需求投票</h2><p class="subtitle">2026年公開財測，單位：十億美元。CapEx涵蓋伺服器、網路、土地與資料中心等項目。</p></header>
+    <div class="content"><div class="capex"><div class="capex-list"><div class="capex-row"><div class="company">Alphabet</div><div class="track"><div class="fill" style="width:100%"></div></div><div class="money">$175–185B</div></div><div class="capex-row"><div class="company">Meta</div><div class="track"><div class="fill" style="width:76%"></div></div><div class="money">$130–145B</div></div><div class="capex-row"><div class="company">Microsoft*</div><div class="track"><div class="fill" style="width:23%"></div></div><div class="money">$41B</div></div><div class="note">* Microsoft為FY2026 Q4單季；約三分之二CapEx投入CPU、GPU等短期資產。</div></div><div><div class="quote-mark">“</div><div class="quote">Customer demand continues to exceed available capacity.</div><div class="quote-sub">Microsoft FY2026 Q4：新增容量快速變現後，需求仍高於可用供給。</div></div></div></div>
+    <footer class="footer"><span class="source">來源：Alphabet、Meta、Microsoft官方財報與法說資料</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="用電驗證">
+    <header><div class="eyebrow">EVIDENCE 03 · PHYSICAL DEMAND</div><h2 class="title">用電量提供最直接的實體驗證</h2></header>
+    <div class="content"><div class="energy"><div><div class="energy-visual"><div class="energy-box"><div class="energy-num">485</div><div class="energy-unit">TWh · 2025</div></div><div class="chev">›</div><div class="energy-box"><div class="energy-num">950</div><div class="energy-unit">TWh · 2030</div></div></div><div class="note">全球資料中心用電五年接近翻倍，年複合成長率約14%。</div></div><div><div class="hero-number" style="font-size:clamp(85px,10vw,175px)">3×</div><div class="hero-label">AI資料中心用電，2025–2030</div><div class="note">IEA預估AI專用資料中心用電同期增加約三倍，年複合成長率約25%。</div></div></div></div>
+    <footer class="footer"><span class="source">來源：IEA, Key Questions on Energy and AI, 2026</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="實際成長已發生">
+    <header><div class="eyebrow">OBSERVED, NOT ONLY FORECAST</div><h2 class="title">2025年的實際用電成長，已高於全球平均</h2></header>
+    <div class="content"><div class="compare"><div class="metric"><div class="big">17%</div><div class="label">全球資料中心用電年增</div><div class="desc">AI資料中心的成長速度更快。</div></div><div class="metric accent-lime"><div class="big">3%</div><div class="label">全球整體用電年增</div><div class="desc">資料中心的增速約為全球整體用電的5.7倍。</div></div></div></div>
+    <footer class="footer"><span class="source">來源：IEA, Apr. 2026</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="對專案的意義">
+    <header><div class="eyebrow">BUSINESS IMPLICATION</div><h2 class="title">算力成長帶動的是整條基礎設施需求</h2></header>
+    <div class="content"><div class="close"><div><div class="close-line">商機不只在GPU，還包括每一台伺服器背後的<span>交付與營運能力</span>。</div><div class="note">客戶真正需要的是可取得、可部署、可穩定運行，並能持續擴充的整體方案。</div></div><div class="stack"><div>AI伺服器採購</div><div>機櫃與網路</div><div>高密度電力</div><div>液冷與散熱</div><div>包裝與運輸</div><div>架設與代管</div></div></div></div>
+    <footer class="footer"><span>對AI伺服器採購、建置與代管合作案的意義</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="結論">
+    <header><div class="eyebrow">CONCLUSION</div><h2 class="title">客戶可以帶走的三個結論</h2></header>
+    <div class="content"><div class="grid3"><div class="card"><div class="chain-num">01</div><div class="card-title">需求已經發生</div><div class="card-copy">Token用量、企業導入與API使用正在快速增加。</div></div><div class="card"><div class="chain-num">02</div><div class="card-title">擴產仍追不上需求</div><div class="card-copy">雲端業者投入巨額資本後，仍公開表示供不應求。</div></div><div class="card"><div class="chain-num">03</div><div class="card-title">實體基礎設施同步成長</div><div class="card-copy">IEA預估AI資料中心用電到2030年約增為三倍。</div></div></div></div>
+    <footer class="footer"><span>核心判斷：算力基礎設施仍處於長期擴張階段</span><span class="page"></span></footer>
+  </section>
+
+  <section class="slide" data-title="資料來源">
+    <header><div class="eyebrow">PRIMARY SOURCES</div><h2 class="title">資料來源</h2><p class="subtitle">簡報優先採用企業官方財報、國際機構與學術資料。</p></header>
+    <div class="content"><div class="sources"><a href="https://blog.google/alphabet/investor-presentation-june-2026/" target="_blank"><b>Google</b> · Alphabet Investor Presentation, Jun. 2026</a><a href="https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/" target="_blank"><b>Google</b> · Alphabet 2026 Q2 remarks</a><a href="https://openai.com/business/guides-and-resources/the-state-of-enterprise-ai-2025-report/" target="_blank"><b>OpenAI</b> · State of Enterprise AI 2025</a><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report/research-and-development" target="_blank"><b>Stanford HAI</b> · AI Index 2025</a><a href="https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary" target="_blank"><b>IEA</b> · Key Questions on Energy and AI</a><a href="https://www.iea.org/news/data-centre-electricity-use-surged-in-2025-even-with-tightening-bottlenecks-driving-a-scramble-for-solutions" target="_blank"><b>IEA</b> · 2025 actual electricity growth</a><a href="https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4" target="_blank"><b>Microsoft</b> · FY2026 Q4 earnings</a><a href="https://abc.xyz/investor/events/event-details/2026/2025-Q4-Earnings-Call-2026-Dr_C033hS6/default.aspx" target="_blank"><b>Alphabet</b> · 2025 Q4 earnings call</a><a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx" target="_blank"><b>Meta</b> · 2026 Q2 results</a></div></div>
+    <footer class="footer"><span>資料查核日期：2026-09-09</span><span class="page"></span></footer>
+  </section>
+</main>
+<div class="help">← → 翻頁　O 總覽　F 全螢幕</div><div class="nav"><button id="prev" aria-label="上一頁">‹</button><button id="next" aria-label="下一頁">›</button></div><div class="progress" id="progress"></div><div class="overview" id="overview"></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')],progress=document.getElementById('progress'),overview=document.getElementById('overview');let index=0;
+slides.forEach((s,i)=>s.querySelector('.page').textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0'));
+function show(n){index=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>{s.classList.toggle('active',i===index);s.classList.toggle('prev',i<index)});progress.style.width=((index+1)/slides.length*100)+'%';location.hash='slide-'+(index+1)}
+function toggleOverview(){overview.classList.toggle('show')}
+slides.forEach((s,i)=>{const t=document.createElement('div');t.className='thumb';t.innerHTML='<b>'+String(i+1).padStart(2,'0')+'</b><span>'+s.dataset.title+'</span>';t.onclick=()=>{toggleOverview();show(i)};overview.appendChild(t)});
+document.getElementById('prev').onclick=()=>show(index-1);document.getElementById('next').onclick=()=>show(index+1);
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key))show(index+1);if(['ArrowLeft','PageUp'].includes(e.key))show(index-1);if(e.key.toLowerCase()==='o')toggleOverview();if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.();if(e.key==='Escape'&&overview.classList.contains('show'))toggleOverview()});
+let sx=0;addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});addEventListener('touchend',e=>{let d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50)show(index+(d<0?1:-1))},{passive:true});
+const initial=parseInt(location.hash.replace('#slide-',''),10);show(Number.isFinite(initial)?initial-1:0);
+</script>
+</body>
+</html>

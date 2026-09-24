@@ -1,5 +1,102 @@
 [
   {
+    "id": "ai-compute-demand-evidence-2026",
+    "title": "AI 算力需求持續上升：數據佐證與客戶提案簡報",
+    "type": "presentation",
+    "category": "Market Insights",
+    "summary": "以客觀數據與巨頭資本支出為基礎的高說服力簡報，從推理算力轉移、能源消耗與摩爾定律極限剖析 AI 算力長期增長的必然趨勢。",
+    "tags": [
+      "AI算力",
+      "客戶提案",
+      "能源用量",
+      "商業洞察",
+      "資本支出"
+    ],
+    "tools": [
+      "HTML5",
+      "DataViz"
+    ],
+    "created": "2026-09-24",
+    "updated": "2026-09-24",
+    "url": "/presentations/ai-compute-demand-evidence-2026",
+    "cover": "/assets/placeholder.svg",
+    "featured": false
+  },
+  {
+    "id": "ai-learning-journey-l1-l6",
+    "title": "AI 學習旅程完整課程：L1–L6 階段式實戰",
+    "type": "presentation",
+    "category": "AI Education",
+    "summary": "由淺入深的漸進式 AI 學習旅程簡報，涵蓋日常生活對話、工作日常輔助到車縫專業問答，讓初學者無痛掌握生成式 AI 核心技巧。",
+    "tags": [
+      "AI學習",
+      "教學簡報",
+      "入門課程",
+      "Prompt",
+      "工作流"
+    ],
+    "tools": [
+      "HTML5",
+      "Astro",
+      "TailwindCSS"
+    ],
+    "created": "2026-09-24",
+    "updated": "2026-09-24",
+    "url": "/presentations/ai-learning-journey-l1-l6",
+    "cover": "/assets/placeholder.svg",
+    "featured": true
+  },
+  {
+    "id": "local-ai-terminology-encyclopedia",
+    "title": "本地 AI 模型名詞百科：視覺化互動簡報",
+    "type": "presentation",
+    "category": "Local AI",
+    "summary": "全方位的邊緣運算與本地開源大模型名詞百科，圖像化拆解 Dense vs MoE 架構、精度量化階級天梯、GGUF 與 Safetensors 生態差異。",
+    "tags": [
+      "本地AI",
+      "開源模型",
+      "GGUF",
+      "量化技術",
+      "MoE",
+      "技術百科"
+    ],
+    "tools": [
+      "HTML5",
+      "Ollama",
+      "Llama.cpp",
+      "Transformers"
+    ],
+    "created": "2026-09-24",
+    "updated": "2026-09-24",
+    "url": "/presentations/local-ai-terminology-encyclopedia",
+    "cover": "/assets/placeholder.svg",
+    "featured": true
+  },
+  {
+    "id": "youtube-team-launch-guide-2026",
+    "title": "YouTube 頻道團隊入門與營利指南 2026",
+    "type": "presentation",
+    "category": "Creator Ops",
+    "summary": "完整的 YouTube 創作者與經營團隊起步手冊，深度解析長影片與 Shorts 的演算法指標、多元營利管道、版權政策與發布檢核機制。",
+    "tags": [
+      "YouTube",
+      "團隊經營",
+      "Shorts",
+      "營利策略",
+      "版權檢核"
+    ],
+    "tools": [
+      "HTML5",
+      "Analytics",
+      "CreatorStudio"
+    ],
+    "created": "2026-09-24",
+    "updated": "2026-09-24",
+    "url": "/presentations/youtube-team-launch-guide-2026",
+    "cover": "/assets/placeholder.svg",
+    "featured": true
+  },
+  {
     "id": "demo-presentation",
     "title": "Charles AI Workspace 架構與自動化簡報",
     "type": "presentation",

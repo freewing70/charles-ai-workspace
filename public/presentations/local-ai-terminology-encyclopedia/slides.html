@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>本地 AI 模型名詞百科 | 視覺化互動簡報</title>
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --bg-card: rgba(18, 26, 47, 0.85);
+      --bg-card-hover: rgba(26, 38, 68, 0.95);
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-purple: #9d4edd;
+      --accent-pink: #f72585;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(0, 242, 254, 0.3);
+      --font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(79, 172, 254, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(157, 78, 221, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.03) 0%, transparent 60%);
+    }
+
+    /* Presentation Layout */
+    #presentation-app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+    }
+
+    /* Top Navigation Bar */
+    header {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-icon {
+      font-size: 1.15rem;
+      -webkit-text-fill-color: initial;
+    }
+
+    .slide-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 3px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-icon:hover {
+      background: rgba(0, 242, 254, 0.15);
+      border-color: var(--accent-cyan);
+      color: #fff;
+    }
+
+    /* Main Slide Viewport */
+    #slide-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      height: calc(100vh - 96px);
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 16px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(30px) scale(0.99);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+      overflow: hidden; /* Strict no scrollbar for clean presentation view */
+      user-select: text;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0) scale(1);
+    }
+
+    .slide.prev {
+      transform: translateX(-30px) scale(0.99);
+    }
+
+    /* Slide Headers */
+    .slide-header {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 8px;
+      flex-shrink: 0;
+    }
+
+    .slide-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      margin-bottom: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .slide-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .hardware-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 0.75rem;
+      color: var(--accent-emerald);
+      flex-shrink: 0;
+    }
+
+    /* Slide Content Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      gap: 12px;
+      min-height: 0; /* allows child containers to shrink nicely */
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 16px;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+      background: var(--bg-card-hover);
+      box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-accent-top { border-top: 3px solid var(--accent-cyan); }
+    .card-accent-purple { border-top: 3px solid var(--accent-purple); }
+    .card-accent-emerald { border-top: 3px solid var(--accent-emerald); }
+    .card-accent-amber { border-top: 3px solid var(--accent-amber); }
+    .card-accent-rose { border-top: 3px solid var(--accent-rose); }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Highlight Badges */
+    .pill {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      font-family: monospace;
+    }
+    .pill-cyan { background: rgba(0, 242, 254, 0.15); color: var(--accent-cyan); }
+    .pill-purple { background: rgba(157, 78, 221, 0.2); color: #d8b4fe; }
+    .pill-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+    .pill-amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .pill-rose { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+
+    /* Tables */
+    .table-container {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: rgba(18, 26, 47, 0.6);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.8rem;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--accent-cyan);
+      padding: 8px 12px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 6px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-main);
+    }
+
+    /* Key Callout Box */
+    .callout {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.06), rgba(157, 78, 221, 0.06));
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      border-left: 3px solid var(--accent-cyan);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.45;
+      flex-shrink: 0;
+    }
+
+    .callout-warning {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(244, 63, 94, 0.06));
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-left: 3px solid var(--accent-amber);
+    }
+
+    .callout-success {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(0, 242, 254, 0.06));
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-left: 3px solid var(--accent-emerald);
+    }
+
+    /* Bottom Control Bar */
+    footer {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: rgba(11, 15, 25, 0.9);
+      border-top: 1px solid var(--border-color);
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: rgba(0, 242, 254, 0.2);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .keyboard-hint {
+      color: var(--text-dim);
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-family: monospace;
+      color: var(--text-muted);
+    }
+
+    /* Modal / Overview Grid Mode */
+    #overview-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 15, 25, 0.95);
+      backdrop-filter: blur(15px);
+      z-index: 200;
+      padding: 30px;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    #overview-modal.open {
+      display: flex;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .overview-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .overview-card:hover, .overview-card.current {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 242, 254, 0.1);
+      transform: scale(1.02);
+    }
+
+    .overview-card-num {
+      font-size: 0.7rem;
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    .overview-card-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Hero / Cover Slide Styles */
+    .cover-slide {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 16px;
+    }
+
+    .cover-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 50%, var(--accent-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      line-height: 1.5;
+    }
+
+    .cover-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    /* Interactive Filename Dissector */
+    .filename-container {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .fn-display {
+      font-family: "Cascadia Code", "Fira Code", monospace;
+      font-size: 1.15rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: center;
+      background: rgba(11, 15, 25, 0.8);
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .fn-part {
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .fn-part:hover, .fn-part.active {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .fn-part-1 { background: rgba(79, 172, 254, 0.25); color: #70baff; border: 1px solid rgba(79, 172, 254, 0.5); }
+    .fn-part-2 { background: rgba(157, 78, 221, 0.25); color: #c084fc; border: 1px solid rgba(157, 78, 221, 0.5); }
+    .fn-part-3 { background: rgba(16, 185, 129, 0.25); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.5); }
+    .fn-part-4 { background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.5); }
+    .fn-part-5 { background: rgba(244, 63, 94, 0.25); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.5); }
+    .fn-part-6 { background: rgba(0, 242, 254, 0.25); color: #38bdf8; border: 1px solid rgba(0, 242, 254, 0.5); }
+
+    .fn-info-box {
+      min-height: 56px;
+      background: var(--bg-card);
+      border-radius: 6px;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.83rem;
+    }
+
+    /* Calculator Widget */
+    .calc-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .calc-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .form-group label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .form-control {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .calc-result {
+      background: rgba(11, 15, 25, 0.7);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .meter-bar {
+      height: 7px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .meter-fill-vram {
+      background: linear-gradient(90deg, #10b981, #00f2fe);
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .meter-fill-ram {
+      background: linear-gradient(90deg, #f59e0b, #f43f5e);
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    /* SVG Diagrams styling */
+    .diagram-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    svg.diagram {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Checklist interactive items */
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 0.8rem;
+    }
+
+    .checklist-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .checklist-item.checked {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+
+    .checkbox-icon {
+      width: 15px;
+      height: 15px;
+      border-radius: 3px;
+      border: 1.5px solid var(--text-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: transparent;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    .checklist-item.checked .checkbox-icon {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+      color: #000;
+    }
+
+    /* Search input for Glossary */
+    .glossary-search {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 900px) {
+      .slide { padding: 12px 20px; }
+      .grid-2, .grid-3, .grid-4, .calc-container { grid-template-columns: 1fr; }
+      .cover-title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="presentation-app">
+  <!-- Top Navigation -->
+  <header>
+    <div class="brand">
+      <span class="brand-icon">⚡</span>
+      <span>本地 AI 模型名詞百科</span>
+    </div>
+
+    <div class="slide-indicator">
+      <span id="current-slide-num">1</span> / <span id="total-slides-num">20</span>
+      <span style="opacity: 0.3;">|</span>
+      <span id="current-slide-category" style="color: var(--accent-cyan); font-weight: 500;">封面導覽</span>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn-icon" id="btn-overview" title="簡報全覽 (O)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>目錄</span>
+      </button>
+      <button class="btn-icon" id="btn-fullscreen" title="全螢幕模式 (F)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        <span>全螢幕</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Slide Viewport -->
+  <main id="slide-viewport">
+
+    <!-- SLIDE 1: Cover -->
+    <section class="slide active" data-category="封面導覽" data-title="首頁與硬體基準">
+      <div class="cover-slide">
+        <div class="slide-tag">✨ Local LLM Ultimate Field Guide</div>
+        <h1 class="cover-title">本地 AI 模型名詞百科</h1>
+        <p class="cover-desc">
+          從模型命名、Transformer 架構、量化精算法、KV Cache 到 LM Studio / llama.cpp 硬體調優的圖文全攻略
+        </p>
+        
+        <div class="hardware-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          個人化基準硬體：NVIDIA GeForce RTX 5070 Ti 16GB VRAM ｜ 32GB RAM
+        </div>
+
+        <div class="cover-chips">
+          <span class="pill pill-cyan">Hugging Face</span>
+          <span class="pill pill-purple">GGUF & llama.cpp</span>
+          <span class="pill pill-emerald">LM Studio & Ollama</span>
+          <span class="pill pill-amber">Dense vs MoE</span>
+          <span class="pill pill-rose">Q4_K_M 量化原理</span>
+        </div>
+
+        <div style="margin-top: 8px;">
+          <button class="nav-btn" onclick="nextSlide()" style="font-size: 0.9rem; padding: 8px 24px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));">
+            開始探索簡報 →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Roadmap -->
+    <section class="slide" data-category="學習路徑" data-title="核心架構與閱讀路徑">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">📚 Study Roadmap</div>
+          <h2 class="slide-title">六大核心主題學習地圖</h2>
+          <div class="slide-subtitle">遇到模型名稱或設定隨時回來查閱，建立由淺入深的直覺觀念</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-accent-top" onclick="goToSlide(2)" style="cursor:pointer;">
+            <div class="card-title"><span class="pill pill-cyan">01</span> 先看懂模型檔名</div>
+            <p class="card-text">拆解 <code class="pill">Qwen3.8-27B-Q4_K_M.gguf</code>，區分家族、大小、量化與容器格式。</p>
+          </div>
+          <div class="card card-accent-purple" onclick="goToSlide(3)" style="cursor:pointer;">
+            <div class="card-title"><span class="pill pill-purple">02</span> 模型本質與 Dense/MoE</div>
+            <p class="card-text">釐清架構 vs 權重 vs 檢查點；破解 MoE 專家模型「A3B 只要 3B 記憶體」的迷思。</p>
+          </div>
+          <div class="card card-accent-emerald" onclick="goToSlide(5)" style="cursor:pointer;">
+            <div class="card-title"><span class="pill pill-emerald">03</span> 精度與量化 (Q4_K_M)</div>
+            <p class="card-text">FP16 到 Q4_0、K-quants、I-quants 與 bpw 換算，權重如何壓縮而不失智。</p>
+          </div>
+          <div class="card card-accent-amber" onclick="goToSlide(7)" style="cursor:pointer;">
+            <div class="card-title"><span class="pill pill-amber">04</span> 檔案容器與生態</div>
+            <p class="card-text">GGUF vs safetensors 終極比較，以及 AWQ、GPTQ、EXL2 與 bitsandbytes。</p>
+          </div>
+          <div class="card card-accent-rose" onclick="goToSlide(11)" style="cursor:pointer;">
+            <div class="card-title"><span class="pill pill-rose">05</span> VRAM / RAM 與 KV Cache</div>
+            <p class="card-text">為什麼 16.8GB 模型塞不下 16GB 顯卡？長上下文如何吃光顯存與互動試算。</p>
+          </div>
+          <div class="card card-accent-top" onclick="goToSlide(15)" style="cursor:pointer;">
+            <div class="card-title"><span class="pill pill-cyan">06</span> RTX 5070 Ti 實戰選型</div>
+            <p class="card-text">16GB VRAM + 32GB RAM 下 8B、14B、27B 最佳日常三模型配置與避坑原則。</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          💡 <strong>核心心法：</strong><code>27B</code> 告訴你模型有多大；<code>Q4_K_M</code> 告訴你以多低的精度儲存；<code>GGUF</code> 告訴你資料裝在哪種容器裡。這三個概念完全獨立！
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Interactive Filename -->
+    <section class="slide" data-category="第一章" data-title="拆解一個模型檔名">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">🔍 Chapter 1: Filename Anatomy</div>
+          <h2 class="slide-title">5 秒拆解模型檔名結構</h2>
+          <div class="slide-subtitle">點擊下方檔名片段，查看其背後的工程含義與注意事項</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="filename-container">
+          <div class="fn-display">
+            <span class="fn-part fn-part-1 active" onclick="setFnInfo(1)">Qwen</span>
+            <span style="color:var(--text-dim);">-</span>
+            <span class="fn-part fn-part-2" onclick="setFnInfo(2)">3.8</span>
+            <span style="color:var(--text-dim);">-</span>
+            <span class="fn-part fn-part-3" onclick="setFnInfo(3)">27B</span>
+            <span style="color:var(--text-dim);">-</span>
+            <span class="fn-part fn-part-4" onclick="setFnInfo(4)">Uncensored</span>
+            <span style="color:var(--text-dim);">-</span>
+            <span class="fn-part fn-part-5" onclick="setFnInfo(5)">Q4_K_M</span>
+            <span class="fn-part fn-part-6" onclick="setFnInfo(6)">.gguf</span>
+          </div>
+
+          <div class="fn-info-box" id="fn-info-box">
+            <div style="font-size: 1.25rem;" id="fn-info-icon">🏷️</div>
+            <div>
+              <div style="font-weight: 700; color: #fff; margin-bottom: 2px;" id="fn-info-title">Qwen (模型家族 / 架構來源)</div>
+              <div style="color: var(--text-muted);" id="fn-info-desc">代表模型的架構血脈，例如 Llama、Gemma、Mistral、DeepSeek 等。決定底層 Transformer 設計與 Tokenizer 規格。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">💡 另一個進階 MoE 檔名對比</div>
+          <div style="font-family: monospace; font-size: 0.95rem; color: var(--accent-cyan); margin-bottom: 8px;">
+            Qwen3-30B-A3B-Instruct-Q5_K_M.gguf
+          </div>
+          <div class="grid-4" style="font-size: 0.78rem;">
+            <div class="card" style="padding:6px 10px;"><strong style="color:var(--accent-purple);">30B</strong>: 全模型總參數量約 300 億</div>
+            <div class="card" style="padding:6px 10px;"><strong style="color:var(--accent-emerald);">A3B</strong>: 每 token 啟用約 30 億參數 (MoE 專家架構)</div>
+            <div class="card" style="padding:6px 10px;"><strong style="color:var(--accent-amber);">Instruct</strong>: 經指令對話後訓練微調</div>
+            <div class="card" style="padding:6px 10px;"><strong style="color:var(--accent-rose);">Q5_K_M</strong>: 5-bit 級 K-quant 混合量化</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Model, Architecture, Weights -->
+    <section class="slide" data-category="第二章" data-title="模型、架構與權重本質">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">🧠 Chapter 2: The Trinity of AI Models</div>
+          <h2 class="slide-title">模型三位一體：架構、權重與檢查點</h2>
+          <div class="slide-subtitle">日常口語說的「模型」到底指的是哪一部分？</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-accent-top">
+            <div class="card-title">🏗️ Architecture (架構)</div>
+            <div style="color: var(--accent-cyan); font-weight:600; margin-bottom:4px; font-size:0.8rem;">「大腦構造藍圖」</div>
+            <p class="card-text">
+              模型的數學骨架，包含 Transformer 層數、Hidden Size 隱藏維度、Attention Heads、FFN 設計等。純架構代碼僅幾 KB。
+            </p>
+          </div>
+          <div class="card card-accent-purple">
+            <div class="card-title">⚖️ Weights (權重)</div>
+            <div style="color: var(--accent-purple); font-weight:600; margin-bottom:4px; font-size:0.8rem;">「神經元連接強度」</div>
+            <p class="card-text">
+              訓練後儲存的數十億個浮點數（張量 Tensors）。模型並未死記原文，而是將全世界的語言規律壓縮進這些矩陣中。
+            </p>
+          </div>
+          <div class="card card-accent-emerald">
+            <div class="card-title">💾 Checkpoint (檢查點)</div>
+            <div style="color: var(--accent-emerald); font-weight:600; margin-bottom:4px; font-size:0.8rem;">「某時刻的大腦存檔」</div>
+            <p class="card-text">
+              某個架構在特定訓練階段儲存下來的完整狀態（權重＋設定＋Tokenizer）。例如 Base 檔或 SFT 檔。
+            </p>
+          </div>
+        </div>
+
+        <div class="diagram-container">
+          <svg class="diagram" viewBox="0 0 800 110" width="100%" height="110">
+            <!-- Diagram Nodes -->
+            <rect x="30" y="25" width="200" height="60" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+            <text x="130" y="50" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">Token / 文字輸入</text>
+            <text x="130" y="70" fill="#94a3b8" font-size="10" text-anchor="middle">經過 Embedding 轉向量</text>
+
+            <path d="M 230 55 L 290 55" stroke="#64748b" stroke-width="1.5"/>
+
+            <rect x="290" y="15" width="220" height="80" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+            <text x="400" y="42" fill="#c084fc" font-size="12" font-weight="bold" text-anchor="middle">多層 Transformer 運算</text>
+            <text x="400" y="62" fill="#94a3b8" font-size="10" text-anchor="middle">Layer 1 ~ Layer N (GPU Offload)</text>
+            <text x="400" y="80" fill="#94a3b8" font-size="10" text-anchor="middle">Self-Attention + FFN / MLP</text>
+
+            <path d="M 510 55 L 570 55" stroke="#64748b" stroke-width="1.5"/>
+
+            <rect x="570" y="25" width="200" height="60" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+            <text x="670" y="50" fill="#34d399" font-size="12" font-weight="bold" text-anchor="middle">Logits → Softmax</text>
+            <text x="670" y="70" fill="#94a3b8" font-size="10" text-anchor="middle">下一個 Token 機率分布</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Dense vs MoE -->
+    <section class="slide" data-category="第三章" data-title="Dense 稠密 vs MoE 混合專家">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">⚡ Chapter 3: Model Architectures</div>
+          <h2 class="slide-title">Dense (稠密) 與 MoE (混合專家) 深度比較</h2>
+          <div class="slide-subtitle">破解「MoE 30B-A3B 只要 3B 記憶體」的重大迷思</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Dense Card -->
+          <div class="card card-accent-top">
+            <div class="card-title">🧱 Dense 稠密模型 (如 27B Dense)</div>
+            <p class="card-text" style="margin-bottom:8px;">
+              每個 token 在通過每一層時，<strong>都會動用模型全部約 27B 的主要權重</strong>進行計算。
+            </p>
+            <ul style="color:var(--text-muted); font-size:0.78rem; padding-left:18px; line-height:1.5;">
+              <li><strong>運算路徑：</strong>固定且全面，計算量大</li>
+              <li><strong>記憶體要求：</strong>儲存 27B 權重 (約 16.8GB GGUF)</li>
+              <li><strong>推論特性：</strong>對記憶體頻寬要求高，速度穩定可預測</li>
+              <li><strong>硬體適配：</strong>簡單直接，全卡 offload 即可滿速</li>
+            </ul>
+          </div>
+
+          <!-- MoE Card -->
+          <div class="card card-accent-purple">
+            <div class="card-title">🧩 MoE 混合專家模型 (如 30B-A3B)</div>
+            <p class="card-text" style="margin-bottom:8px;">
+              將 FFN 分成多個子專家（例如 128 個），Router 依 token 特性<strong>僅動態挑選 8 個專家</strong>計算。
+            </p>
+            <ul style="color:var(--text-muted); font-size:0.78rem; padding-left:18px; line-height:1.5;">
+              <li><strong>運算路徑：</strong>稀疏路由 (Active ~3.3B)，算力負擔輕</li>
+              <li><strong>記憶體要求：</strong><strong>仍需存放全部 30B 權重！</strong></li>
+              <li><strong>推論特性：</strong>生成速度可能極快，但顯存占用無法減少</li>
+              <li><strong>硬體適配：</strong>對 Expert Offload 與 RAM 頻寬極度敏感</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          ⚠️ <strong>MoE 最重要結論：</strong><code>A3B</code> (Active) 決定每 token 計算量與速度；<code>30B</code> (Total) 決定模型檔案大小與 VRAM / RAM 儲存量。MoE 絕對不會只占 3B 顯存！
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Precision & Quantization Basics -->
+    <section class="slide" data-category="第四章" data-title="精度與量化基礎">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">📉 Chapter 4: Precision & Quantization</div>
+          <h2 class="slide-title">精度、量化與 bpw (Bits Per Weight)</h2>
+          <div class="slide-subtitle">如何在節省 70% 顯存的同時，保留 95% 以上的大腦智慧？</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">🎚️ 浮點原始精度</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">
+              <p>• <strong>FP32 (32-bit):</strong> 極大，推論無必要</p>
+              <p>• <strong>BF16 / FP16 (16-bit):</strong> 原生訓練標準，1B 參數 ≈ 2GB 空間</p>
+              <p>• <strong>FP8 (8-bit):</strong> 新世代 GPU 原生格式</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">🗜️ 整數/區塊量化 (Quant)</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">
+              <p>• 將連續浮點數映射到離散區間</p>
+              <p>• 搭配 Block Scale 與 Offset 近似還原</p>
+              <p>• <strong>PTQ:</strong> 訓練後量化 (常見 GGUF)</p>
+              <p>• <strong>QAT:</strong> 訓練中感知量化</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">📏 核心指標 bpw</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">
+              <p>• <strong>Bits Per Weight:</strong> 每個參數平均 bit</p>
+              <p>• <code>Q4_K_M</code> 實際 bpw ≈ <strong>4.89</strong> (非 4.0!)</p>
+              <p>• 額外空間來自 Block Metadata 與敏感 Tensor 高精度保留</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-accent-emerald">
+          <div class="card-title">💡 量化會把 27B 變成 4B 嗎？</div>
+          <p class="card-text">
+            <strong>絕不會！</strong><code>27B Q4_K_M</code> 仍然擁有 270 億個神經網路參數，只是每個數字用較短的位元儲存。真正直接刪除神經元、Attention Head 或層數的技術叫做 <strong>Pruning (剪枝)</strong>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Quantization Spectrum (Ladder) -->
+    <section class="slide" data-category="第四章" data-title="常見 GGUF 量化等級速查天梯">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">📊 Quantization Tier List</div>
+          <h2 class="slide-title">GGUF 量化等級天梯速查表</h2>
+          <div class="slide-subtitle">以 Llama 3.1 8B 官方基準 bpw 為例，評估品質與適用情境</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>量化格式</th>
+                <th>平均 bpw</th>
+                <th>品質保留傾向</th>
+                <th>適合情境與定位</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="pill pill-rose">Q2_K</span></td>
+                <td>~3.16</td>
+                <td>極高損失風險</td>
+                <td>記憶體極度不足，只求能跑起來</td>
+              </tr>
+              <tr>
+                <td><span class="pill pill-amber">Q3_K_M / L</span></td>
+                <td>4.00 ~ 4.30</td>
+                <td>中度至明顯損失</td>
+                <td>顯存吃緊時的極限壓縮妥協</td>
+              </tr>
+              <tr>
+                <td><span class="pill pill-cyan">Q4_K_M</span></td>
+                <td>~4.89</td>
+                <td>黃金平衡點 (低損失)</td>
+                <td><strong>大眾首選！</strong>兼顧體積、速度與穩定品質</td>
+              </tr>
+              <tr>
+                <td><span class="pill pill-emerald">Q5_K_M</span></td>
+                <td>~5.70</td>
+                <td>極低損失</td>
+                <td>顯存充裕，重視邏輯、代碼與繁體中文品質</td>
+              </tr>
+              <tr>
+                <td><span class="pill pill-purple">Q6_K</span></td>
+                <td>~6.56</td>
+                <td>接近無損感知</td>
+                <td>8B / 14B 模型完整塞入 16GB VRAM 的極佳選擇</td>
+              </tr>
+              <tr>
+                <td><span class="pill">Q8_0</span></td>
+                <td>~8.50</td>
+                <td>幾乎等於原始精度</td>
+                <td>驗證基準、小型模型 (如 1.5B ~ 7B) 專用</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="padding:10px 14px;">
+            <div style="font-weight:600; color:var(--accent-cyan); font-size:0.85rem; margin-bottom:2px;">🔍 K-quants vs I-quants (IQ)</div>
+            <div style="font-size:0.78rem; color:var(--text-muted);">
+              <strong>K-quants:</strong> llama.cpp 超級區塊標準，泛用性與硬體加速最好。<br>
+              <strong>I-quants:</strong> 搭配 Importance Matrix (imatrix)，在 1~3 bit 極限壓縮下保護重要權重。
+            </div>
+          </div>
+          <div class="card" style="padding:10px 14px;">
+            <div style="font-weight:600; color:var(--accent-amber); font-size:0.85rem; margin-bottom:2px;">⚠️ 拒絕 Requantization (二次量化)</div>
+            <div style="font-size:0.78rem; color:var(--text-muted);">
+              千萬不要拿已量化的 Q8/Q4 檔再壓縮成 Q3，誤差會幾何級數放大！務必選擇由<strong>原始 BF16/FP16 直出</strong>的 GGUF。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: File Formats GGUF vs Safetensors -->
+    <section class="slide" data-category="第五章" data-title="模型檔案格式比較">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">📦 Chapter 5 & 6: File Formats & Ecosystems</div>
+          <h2 class="slide-title">GGUF vs safetensors 容器與生態</h2>
+          <div class="slide-subtitle">檔案容器不等於量化格式；選錯格式連載入都成問題</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent-top">
+            <div class="card-title">🗂️ GGUF (GGML Universal File)</div>
+            <p class="card-text" style="margin-bottom:6px;">
+              llama.cpp 生態專用的二進位容器。<strong>一體化封裝</strong>模型權重、Tokenizer、Chat Template、RoPE 等全部中繼資料 (Metadata)。
+            </p>
+            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.45;">
+              <p>✅ <strong>單檔即用：</strong>下載單一 <code>.gguf</code> 即可直接對話</p>
+              <p>✅ <strong>跨平台成熟：</strong>完美支援 CPU、CUDA、Metal、Vulkan</p>
+              <p>✅ <strong>混合卸載：</strong>可精確指定多少層進 GPU、多少留在 RAM</p>
+              <p>🎯 <strong>適用場景：</strong>LM Studio、Ollama、llama.cpp 本地推論</p>
+            </div>
+          </div>
+
+          <div class="card card-accent-purple">
+            <div class="card-title">🛡️ safetensors (Hugging Face)</div>
+            <p class="card-text" style="margin-bottom:6px;">
+              取代傳統危險 Python pickle 的純權重儲存格式，強調零反序列化安全漏洞與快速讀取。
+            </p>
+            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.45;">
+              <p>⚙️ <strong>生態分散：</strong>通常需要搭配 <code>config.json</code>、tokenizer 檔案</p>
+              <p>⚙️ <strong>常用精度：</strong>原生 BF16 / FP16 或 AWQ / GPTQ / bitsandbytes</p>
+              <p>⚙️ <strong>分片 Shards：</strong>常被拆成 <code>00001-of-00004.safetensors</code></p>
+              <p>🎯 <strong>適用場景：</strong>Transformers 訓練、LoRA 微調、vLLM 伺服器部署</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:10px 14px;">
+          <div class="card-title" style="font-size:0.88rem; margin-bottom:4px;">🌐 其他常見 GPU 量化生態速覽</div>
+          <div class="grid-4" style="font-size:0.78rem;">
+            <div><strong style="color:var(--accent-cyan);">AWQ:</strong> 適合 vLLM / TensorRT 高併發</div>
+            <div><strong style="color:var(--accent-purple);">EXL2:</strong> ExLlamaV2 NVIDIA 滿載極速</div>
+            <div><strong style="color:var(--accent-emerald);">GPTQ:</strong> 早期 GPU 4-bit 量化標準</div>
+            <div><strong style="color:var(--accent-amber);">NF4:</strong> QLoRA 低顯存微調專用</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Training & Post-Training Lifecycle -->
+    <section class="slide" data-category="第七章" data-title="模型訓練生命週期與名詞">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">🔄 Chapter 7: Training Lifecycle</div>
+          <h2 class="slide-title">從 Base、Instruct 到 Uncensored 的演化</h2>
+          <div class="slide-subtitle">預訓練、後訓練微調、對齊與社群 Merge 名詞詳解</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="diagram-container">
+          <svg class="diagram" viewBox="0 0 820 90" width="100%" height="90">
+            <!-- Stage 1 -->
+            <rect x="20" y="15" width="160" height="60" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+            <text x="100" y="40" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">1. Pre-training</text>
+            <text x="100" y="58" fill="#94a3b8" font-size="9.5" text-anchor="middle">海量文字 → Base Model</text>
+
+            <path d="M 180 45 L 220 45" stroke="#64748b" stroke-width="1.5"/>
+
+            <!-- Stage 2 -->
+            <rect x="220" y="15" width="170" height="60" rx="6" fill="#1e293b" stroke="#c084fc" stroke-width="1.5"/>
+            <text x="305" y="40" fill="#c084fc" font-size="11" font-weight="bold" text-anchor="middle">2. SFT (指令微調)</text>
+            <text x="305" y="58" fill="#94a3b8" font-size="9.5" text-anchor="middle">問答對 → Instruct Model</text>
+
+            <path d="M 390 45 L 430 45" stroke="#64748b" stroke-width="1.5"/>
+
+            <!-- Stage 3 -->
+            <rect x="430" y="15" width="180" height="60" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+            <text x="520" y="40" fill="#34d399" font-size="11" font-weight="bold" text-anchor="middle">3. Alignment (對齊)</text>
+            <text x="520" y="58" fill="#94a3b8" font-size="9.5" text-anchor="middle">RLHF / DPO / GRPO</text>
+
+            <path d="M 610 45 L 650 45" stroke="#64748b" stroke-width="1.5"/>
+
+            <!-- Stage 4 -->
+            <rect x="650" y="15" width="150" height="60" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="725" y="40" fill="#fbbf24" font-size="11" font-weight="bold" text-anchor="middle">4. Adaptation</text>
+            <text x="725" y="58" fill="#94a3b8" font-size="9.5" text-anchor="middle">LoRA / Merge / Distill</text>
+          </svg>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">🧩 LoRA 與 QLoRA</div>
+            <p class="card-text">
+              <strong>LoRA:</strong> 凍結基礎模型，只訓練外掛小矩陣 Adapter。<br>
+              <strong>QLoRA:</strong> 將 base 模型以 4-bit 載入後再插 LoRA，讓消費級顯卡也能微調！
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-title">🧪 Distillation (蒸餾)</div>
+            <p class="card-text">
+              讓小模型 (Student) 學習大模型 (Teacher) 的輸出與推理鏈。它是<strong>重新訓練</strong>的獨立模型，不是單純壓縮。
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-title">🔓 Uncensored / Abliterated</div>
+            <p class="card-text">
+              透過移除拒答數據或消融拒答激活方向。<strong>這不代表智力提升或事實更準</strong>，僅代表降低防禦性拒絕。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Transformer Architecture & Attention -->
+    <section class="slide" data-category="第八章" data-title="Transformer 架構與注意力機制">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">⚙️ Chapter 8: Inside Transformer</div>
+          <h2 class="slide-title">Transformer 注意力家族：MHA、MQA 與 GQA</h2>
+          <div class="slide-subtitle">Decoder-only 架構如何透過自注意力理解上下文與節省記憶體</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-accent-rose">
+            <div class="card-title">MHA (多頭注意力)</div>
+            <div style="color:var(--text-dim); font-size:0.75rem; margin-bottom:4px;">Multi-Head Attention</div>
+            <p class="card-text">
+              每個 Query Head 都有各自獨立的 Key/Value Head。表現力強，但 <strong>KV Cache 體積極大</strong>，長上下文容易爆顯存。
+            </p>
+          </div>
+          <div class="card card-accent-amber">
+            <div class="card-title">MQA (多查詢注意力)</div>
+            <div style="color:var(--text-dim); font-size:0.75rem; margin-bottom:4px;">Multi-Query Attention</div>
+            <p class="card-text">
+              所有 Query Heads 全部共用<strong>唯獨 1 組</strong> Key/Value Head。KV Cache 縮小到極限，但可能略微犧牲複雜推理能力。
+            </p>
+          </div>
+          <div class="card card-accent-emerald">
+            <div class="card-title">GQA (分組查詢注意力)</div>
+            <div style="color:var(--text-dim); font-size:0.75rem; margin-bottom:4px;">Grouped-Query Attention (現代主流)</div>
+            <p class="card-text">
+              將 Query 分組共用 KV (例如 32 個 Q 配 4 個 KV，即 8:1)。<strong>完美平衡了推論品質與 KV Cache 記憶體！</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">🔄 RoPE 與 YaRN 長上下文擴展</div>
+            <p class="card-text">
+              <strong>RoPE:</strong> 旋轉位置編碼，將前後順序直接旋轉進向量中。<br>
+              <strong>YaRN:</strong> 透過修改頻率縮放讓模型硬吃 64K / 128K context，但未經長文本訓練時檢索品質可能劣化。
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-title">🐍 SSM / Mamba 與 Hybrid 架構</div>
+            <p class="card-text">
+              非標準 Transformer 架構，以狀態轉移更新序列，長上下文計算量呈現線性成長。需要專屬 runtime 支援。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: Token, Context & Chat Template -->
+    <section class="slide" data-category="第九章" data-title="Token、上下文與提示格式">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">💬 Chapter 9: Token, Context & Chat Template</div>
+          <h2 class="slide-title">Tokenization 與 Chat Template 的致命陷阱</h2>
+          <div class="slide-subtitle">為什麼設定錯 Template，連最頂級的模型都會胡言亂語？</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent-top">
+            <div class="card-title">🔤 Token ≠ 中文字 ≠ 單字</div>
+            <p class="card-text" style="line-height:1.5;">
+              • 模型眼裡只有數字 (Token ID)，文字透過 <strong>Tokenizer (BPE / SentencePiece)</strong> 切割。<br>
+              • 一句繁體中文可能被切成 3~8 個 Token。<br>
+              • <strong>Special Tokens:</strong> <code>&lt;|im_start|&gt;</code>、<code>&lt;|im_end|&gt;</code>、<code>BOS</code>、<code>EOS</code>、<code>&lt;think&gt;</code> 等控制符號。
+            </p>
+          </div>
+
+          <div class="card card-accent-rose">
+            <div class="card-title">⚠️ Chat Template 嚴重性</div>
+            <p class="card-text" style="line-height:1.5;">
+              把對話歷史包裝成模型訓練時看懂的特殊格式。<br>
+              <strong>如果選錯 Chat Template 會發生：</strong>
+              <br>❌ 角色扮演混亂、模型自己幫 User 回話
+              <br>❌ 停不下來、產生無意義亂碼或特殊標籤外洩
+              <br>❌ 思考標籤 <code>&lt;think&gt;</code> 無法正常摺疊或提早截斷
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📐 Context Window (上下文視窗) 的真面目</div>
+          <p class="card-text">
+            Context 8192 <strong>不是指你可以輸入 8192 字再加上回答 8192 字</strong>！<br>
+            它是 <code>[系統提示詞 System] + [對話歷史] + [本次輸入] + [模型即將生成的輸出]</code> 的<strong>總和容量上限</strong>。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: Inference Pipeline & Performance -->
+    <section class="slide" data-category="第十章" data-title="推論流程與效能指標">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">⏱️ Chapter 10: Inference & Metrics</div>
+          <h2 class="slide-title">推論流程兩大階段：Prefill vs Decode</h2>
+          <div class="slide-subtitle">搞懂 TTFT、TPS、GPU Offload 與 Flash Attention 的加速奧秘</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent-top">
+            <div class="card-title">1️⃣ Prefill (Prompt Processing)</div>
+            <div style="color:var(--accent-cyan); font-weight:600; margin-bottom:4px; font-size:0.8rem;">「一次消化整段提問」</div>
+            <p class="card-text">
+              • <strong>運算特性：</strong>平行計算整段輸入，建立初始 KV Cache<br>
+              • <strong>決定指標：</strong><strong>TTFT (Time To First Token)</strong> 首字延遲<br>
+              • <strong>加速關鍵：</strong>Flash Attention、Evaluation Batch 大小、GPU 算力
+            </p>
+          </div>
+
+          <div class="card card-accent-purple">
+            <div class="card-title">2️⃣ Decode (Token Generation)</div>
+            <div style="color:var(--accent-purple); font-weight:600; margin-bottom:4px; font-size:0.8rem;">「逐字吐出回答」</div>
+            <p class="card-text">
+              • <strong>運算特性：</strong>自回歸單步生成，每吐一個字就要讀取一次全模型權重！<br>
+              • <strong>決定指標：</strong><strong>Generation tok/s (TPS)</strong> 生成速度<br>
+              • <strong>加速關鍵：</strong><strong>記憶體頻寬 (VRAM Bandwidth)</strong>、Q4/Q5 壓縮量化
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">⚡ Flash Attention</div>
+            <p class="card-text">重新編排 attention 矩陣存取，大幅降低顯存讀寫與中間快取，長 Context 必開！</p>
+          </div>
+          <div class="card">
+            <div class="card-title">🔮 Speculative Decoding</div>
+            <p class="card-text">先用小模型 (Draft) 或 MTP 預測多個 token，再由主模型一次平行驗證，達成 1.5x~2x 提速。</p>
+          </div>
+          <div class="card">
+            <div class="card-title">💾 mmap 與 NVMe SSD</div>
+            <p class="card-text">以記憶體映射載入模型。務必將模型放在 <strong>NVMe SSD</strong>，放傳統 HDD 換頁會造成嚴重卡頓。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: KV Cache Deep Dive -->
+    <section class="slide" data-category="第十一章" data-title="KV Cache 記憶體黑洞">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">🧠 Chapter 11: KV Cache Architecture</div>
+          <h2 class="slide-title">KV Cache：為什麼上下文越長顯存越爆？</h2>
+          <div class="slide-subtitle">自回歸推論必備的加速記憶，也是吃光 VRAM 的隱形殺手</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent-top">
+            <div class="card-title">❓ 為什麼需要 KV Cache？</div>
+            <p class="card-text" style="line-height:1.5;">
+              在生成第 1000 個 token 時，Attention 需要前 999 個 token 的 Key 和 Value。<br>
+              如果不把算過的 K/V 存起來，<strong>每生一個新字就要把前文全部重算一遍</strong>（計算複雜度會從 O(N) 飆升到 O(N²)）。<br>
+              因此，空間換時間，KV Cache 保存了過往所有注意力狀態。
+            </p>
+          </div>
+
+          <div class="card card-accent-rose">
+            <div class="card-title">💣 KV Cache 容量暴增公式</div>
+            <div style="background:rgba(0,0,0,0.4); padding:8px 10px; border-radius:6px; font-family:monospace; font-size:0.75rem; color:var(--accent-cyan); margin-bottom:8px;">
+              大小 ≈ 層數 × Context Tokens × KV Heads × Head Dim × 2(K+V) × 精度Bytes
+            </div>
+            <p class="card-text" style="font-size:0.78rem;">
+              <strong>危險操作：</strong>
+              <br>• 把 Context 從 8K 開到 32K / 128K（顯存暴增 4~16 倍！）
+              <br>• 多人並發 (Concurrent Slots) 未限制
+            </p>
+          </div>
+        </div>
+
+        <div class="card card-accent-emerald">
+          <div class="card-title">💡 救星策略：KV Cache 量化 (K-Quant / V-Quant)</div>
+          <p class="card-text">
+            LM Studio / llama.cpp 支援將 KV Cache 由 FP16 降為 <strong>Q8_0</strong> 甚至 <strong>Q4_0</strong>。<br>
+            • <strong>KV Q8_0:</strong> 記憶體直接砍半，品質幾乎零損失，是長對話極推薦的省顯存神技！<br>
+            • 注意：KV Cache 量化與模型權重量化互不干擾（可 Q4 模型搭配 Q8 KV Cache）。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: VRAM vs RAM & Interactive Calculator -->
+    <section class="slide" data-category="第十二與十三章" data-title="VRAM / RAM 運算與即時試算機">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">🧮 Chapter 12 & 13: Hardware & Memory Sizing</div>
+          <h2 class="slide-title">顯存計算與互動式負載試算機</h2>
+          <div class="slide-subtitle">為什麼 16.8GB 檔案塞不進 16GB 顯卡？動手調整參數看負載！</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="calc-container">
+          <!-- Form -->
+          <div class="calc-form">
+            <div style="font-weight:700; color:var(--accent-cyan); font-size:0.9rem; margin-bottom:2px;">⚙️ 選擇模型與推論設定</div>
+            
+            <div class="form-group">
+              <label>模型參數量 (Model Size)</label>
+              <select class="form-control" id="calc-size" onchange="runMemoryCalc()">
+                <option value="8">8B Dense (如 Llama 3.1 8B / Qwen 8B)</option>
+                <option value="14">14B Dense (如 Qwen 2.5 14B)</option>
+                <option value="27" selected>27B Dense (如 Gemma 2 27B / Qwen 27B)</option>
+                <option value="30">30B-A3B MoE (如 Qwen3 30B MoE)</option>
+                <option value="32">32B Dense (如 Qwen 2.5 32B)</option>
+                <option value="70">70B Dense (如 Llama 3.3 70B)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>權重量化格式 (Quantization)</label>
+              <select class="form-control" id="calc-quant" onchange="runMemoryCalc()">
+                <option value="4.89" selected>Q4_K_M (約 4.89 bpw - 標準推薦)</option>
+                <option value="5.70">Q5_K_M (約 5.70 bpw - 品質優先)</option>
+                <option value="6.56">Q6_K (約 6.56 bpw - 高保真)</option>
+                <option value="8.50">Q8_0 (約 8.50 bpw - 接近原版)</option>
+                <option value="16.0">FP16 (16.0 bpw - 無量化)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>上下文長度 (Context Length)</label>
+              <select class="form-control" id="calc-ctx" onchange="runMemoryCalc()">
+                <option value="4096">4K Tokens (極省顯存)</option>
+                <option value="8192" selected>8K Tokens (日常標準)</option>
+                <option value="16384">16K Tokens (長對話/中篇文檔)</option>
+                <option value="32768">32K Tokens (長代碼庫/大文檔)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Result -->
+          <div class="calc-result">
+            <div style="font-weight:700; color:#fff; font-size:0.9rem;">📊 預估記憶體配置 (RTX 5070 Ti 基準)</div>
+            
+            <div style="font-size:0.78rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+              <span>模型純權重檔案大小：</span>
+              <strong id="res-weight" style="color:#fff;">~16.5 GB</strong>
+            </div>
+
+            <div style="font-size:0.78rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+              <span>KV Cache + 運算 Buffer：</span>
+              <strong id="res-buffer" style="color:var(--accent-cyan);">~2.2 GB</strong>
+            </div>
+
+            <div style="font-size:0.82rem; font-weight:700; display:flex; justify-content:space-between; border-top:1px solid rgba(255,255,255,0.08); padding-top:4px;">
+              <span>總記憶體需求：</span>
+              <strong id="res-total" style="color:var(--accent-emerald);">~18.7 GB</strong>
+            </div>
+
+            <!-- VRAM Progress -->
+            <div style="margin-top:2px;">
+              <div style="display:flex; justify-content:space-between; font-size:0.72rem; margin-bottom:2px;">
+                <span>專用 VRAM 占用 (上限 16GB)</span>
+                <span id="res-vram-text">14.0 GB / 16 GB</span>
+              </div>
+              <div class="meter-bar">
+                <div class="meter-fill-vram" id="meter-vram" style="width: 87%;"></div>
+              </div>
+            </div>
+
+            <!-- RAM Progress -->
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:0.72rem; margin-bottom:2px;">
+                <span>系統 RAM 溢出占用 (上限 32GB)</span>
+                <span id="res-ram-text">4.7 GB / 32 GB</span>
+              </div>
+              <div class="meter-bar">
+                <div class="meter-fill-ram" id="meter-ram" style="width: 15%;"></div>
+              </div>
+            </div>
+
+            <div id="calc-verdict" class="callout" style="padding:6px 10px; font-size:0.75rem; margin-top:2px;">
+              ⚖️ <strong>混合推論狀態 (Hybrid CPU/GPU)：</strong>模型權重大於專用 VRAM，部分層將卸載至 RAM，速度可接受但受限於 RAM 頻寬。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: Sampling Parameters -->
+    <section class="slide" data-category="第十四章" data-title="生成取樣參數全解析">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">🎲 Chapter 14: Sampling & Generation</div>
+          <h2 class="slide-title">取樣參數：掌控隨機性與創造力</h2>
+          <div class="slide-subtitle">Temperature、Top-P、Min-P 與懲罰因子如何決定 AI 的語氣風格</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-accent-top">
+            <div class="card-title">🌡️ Temperature (溫度)</div>
+            <p class="card-text">
+              平滑或陡峭化機率分布。<br>
+              • <strong>低溫 (0.1 ~ 0.3):</strong> 嚴謹保守，適合寫代碼、結構化 JSON、數學。<br>
+              • <strong>中溫 (0.7 ~ 0.8):</strong> 平衡日常對話。<br>
+              • <strong>高溫 (>1.0):</strong> 隨機跳躍，容易胡言亂語。
+            </p>
+          </div>
+
+          <div class="card card-accent-purple">
+            <div class="card-title">🎯 Top-P vs Min-P</div>
+            <p class="card-text">
+              • <strong>Top-P (Nucleus):</strong> 依機率累加直到達到 P (如 0.9)，動態截斷低機率尾巴。<br>
+              • <strong>Min-P (現代推薦):</strong> 設定相對於最高機率 token 的最小比例閾值 (如 0.05)，高確定性時更精確，不確定時更多元。
+            </p>
+          </div>
+
+          <div class="card card-accent-amber">
+            <div class="card-title">🚫 重複懲罰 (Penalties)</div>
+            <p class="card-text">
+              • <strong>Repetition Penalty:</strong> 抑制重複出現過的話題與字句（設太高會破壞程式碼語法！）。<br>
+              • <strong>Frequency Penalty:</strong> 依出現次數持續遞增懲罰。<br>
+              • <strong>Presence Penalty:</strong> 只要出現過就一次性懲罰。
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🧠 Reasoning Budget (推理預算)</div>
+          <p class="card-text">
+            針對具備思考鏈（Thinking / Reasoning）架構的模型，限制其在 <code>&lt;think&gt;</code> 階段最多使用的 token 數。防止模型在簡單問題上陷入無限深思造成耗時。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: Evaluation & Application Architectures -->
+    <section class="slide" data-category="第十五與十六章" data-title="評測指標與進階應用 (RAG / Agent)">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">🚀 Chapter 15 & 16: Benchmarks & AI Applications</div>
+          <h2 class="slide-title">評測基準與現代 AI 應用架構</h2>
+          <div class="slide-subtitle">Perplexity 困惑度、VLM 視覺多模態、RAG 與 Tool Calling</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Left: Quality & Benchmarks -->
+          <div class="card card-accent-top">
+            <div class="card-title">📈 品質評測與困惑度 (PPL)</div>
+            <p class="card-text" style="line-height:1.5;">
+              • <strong>Perplexity (困惑度):</strong> 衡量模型對測試文本的預測能力，數值<strong>越低越好</strong>。是量化精度損失的重要客觀指標。<br>
+              • <strong>局限性：</strong>PPL 不代表指令遵循力、代碼正確性或繁中對話能力！<br>
+              • <strong>幻覺 (Hallucination):</strong> 模型自信地給出虛構事實。大模型不代表零幻覺。
+            </p>
+          </div>
+
+          <!-- Right: VLM & RAG -->
+          <div class="card card-accent-emerald">
+            <div class="card-title">👁️ VLM 視覺多模態與 mmproj</div>
+            <p class="card-text" style="line-height:1.5;">
+              • 視覺模型 (如 Qwen2-VL) 能辨識圖片。<br>
+              • <strong>在 GGUF 生態中：</strong>除了下載主文字權重，<strong>必須搭配 <code>mmproj-*.gguf</code> (視覺投影檔)</strong>，否則圖片辨識功能完全無法啟動！
+            </p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">📚 RAG (檢索增強生成)</div>
+            <p class="card-text">外掛知識庫！先用 Embedding 模型搜尋文件，再將上下文餵給 LLM 回答，不改變模型權重。</p>
+          </div>
+          <div class="card">
+            <div class="card-title">🛠️ Tool / Function Calling</div>
+            <p class="card-text">模型依照 JSON Schema 產生命令，讓程式調用天氣、數據庫或聯網搜尋，需要特定後訓練支援。</p>
+          </div>
+          <div class="card">
+            <div class="card-title">🤖 AI Agent (代理人)</div>
+            <p class="card-text">模型 + 工具 + 記憶 + 迴圈規劃能力，能自主拆解目標、執行步驟並自我修正。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: Local Inference Software Ecosystem -->
+    <section class="slide" data-category="第十七章" data-title="本地推論軟體生態全景">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">💻 Chapter 17: Local Inference Tools</div>
+          <h2 class="slide-title">本地 LLM 推論引擎與軟體生態</h2>
+          <div class="slide-subtitle">認識 llama.cpp、LM Studio、Ollama、vLLM 各自的強項與定位</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent-top">
+            <div class="card-title">🦙 llama.cpp & LM Studio</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">
+              <p>• <strong>llama.cpp:</strong> C/C++ 極致優化的跨平台核心推論庫，GGUF 標準制定者。</p>
+              <p>• <strong>LM Studio:</strong> 最強桌面 GUI 工具，具備搜尋下載、硬體監控、自訂參數、內建 OpenAI 相容 API 伺服器。</p>
+              <p>• <strong>優勢：</strong>極佳的 CPU+GPU 混合卸載、豐富的取樣控制、直覺易用。</p>
+            </div>
+          </div>
+
+          <div class="card card-accent-purple">
+            <div class="card-title">🦙 Ollama & vLLM</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.5;">
+              <p>• <strong>Ollama:</strong> 類似 Docker 概念的終端命令管理工具，一鍵 <code>ollama run</code>，極適合開發整合與背景常駐。</p>
+              <p>• <strong>vLLM:</strong> 專為高吞吐 GPU 伺服器設計，利用 PagedAttention 與 Continuous Batching，適合多人並發。</p>
+              <p>• <strong>ExLlamaV2:</strong> 專為 Windows/Linux NVIDIA GPU 打造的高速 EXL2 量化引擎。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          💡 <strong>重要觀念：</strong>LM Studio 和 Ollama 是<strong>「載入與執行工具」</strong>，不是模型本身。跑得順不順取決於背後的 GGUF 架構、量化等級以及 Runtime 版本相容性！
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: Hardware Practical Guide -->
+    <section class="slide" data-category="第十八章" data-title="RTX 5070 Ti 實戰硬體配置策略">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">🎯 Chapter 18: Hardware Match Guide</div>
+          <h2 class="slide-title">個人硬體 (16GB VRAM + 32GB RAM) 實戰配置</h2>
+          <div class="slide-subtitle">打造最舒服的日常本地 AI 工作流：黃金三模型組合</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <!-- Model 1: Fast -->
+          <div class="card card-accent-emerald">
+            <div class="card-title">⚡ 快速輕巧模型</div>
+            <div style="color:var(--accent-emerald); font-weight:700; margin-bottom:4px; font-size:0.85rem;">8B @ Q6_K / Q8_0</div>
+            <p class="card-text" style="font-size:0.78rem; line-height:1.5;">
+              • <strong>顯存占用：</strong>約 6~8 GB (100% 全入 VRAM)<br>
+              • <strong>生成速度：</strong>極速 (60~100+ tok/s)<br>
+              • <strong>定位：</strong>日常摘要、文本翻譯、郵件草擬、簡單代碼。互動行雲流水。
+            </p>
+          </div>
+
+          <!-- Model 2: Main Driver -->
+          <div class="card card-accent-top">
+            <div class="card-title">🏆 日常主力模型</div>
+            <div style="color:var(--accent-cyan); font-weight:700; margin-bottom:4px; font-size:0.85rem;">14B @ Q5_K_M / Q6_K</div>
+            <p class="card-text" style="font-size:0.78rem; line-height:1.5;">
+              • <strong>顯存占用：</strong>約 11~13 GB (全入 VRAM，保留 3GB 給 KV)<br>
+              • <strong>生成速度：</strong>舒適順暢 (35~50 tok/s)<br>
+              • <strong>定位：</strong>綜合能力最強甜點區！邏輯推理、繁中對話與程式碼全能。
+            </p>
+          </div>
+
+          <!-- Model 3: Heavy Thinking -->
+          <div class="card card-accent-purple">
+            <div class="card-title">🔬 深度推理模型</div>
+            <div style="color:var(--accent-purple); font-weight:700; margin-bottom:4px; font-size:0.85rem;">27B / 30B-MoE @ Q4_K_M</div>
+            <p class="card-text" style="font-size:0.78rem; line-height:1.5;">
+              • <strong>記憶體配置：</strong>VRAM ~13.5GB + RAM ~10GB (混合推論)<br>
+              • <strong>生成速度：</strong>中等 (12~20 tok/s)<br>
+              • <strong>定位：</strong>處理長篇複雜論文、架構重構或高難度寫作時載入。
+            </p>
+          </div>
+        </div>
+
+        <div class="callout callout-success">
+          ✨ <strong>選型哲學：</strong>不要永遠執著於跑最大的模型！把 14B 完整放入 16GB 高速顯存的流暢體驗，往往遠勝於勉強跑 32B 跨 RAM 換頁的卡頓感。
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: Pre-flight Checklist & Myths -->
+    <section class="slide" data-category="第十九與二十章" data-title="避坑指南與下載前檢查清單">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">📋 Chapter 19 & 20: Pre-Flight Checklist & Myths</div>
+          <h2 class="slide-title">下載前 8 大關鍵檢查清單 (互動式)</h2>
+          <div class="slide-subtitle">在 Hugging Face 點擊下載前，逐一核對以防踩雷</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="checklist-item" onclick="toggleCheck(this)">
+              <div class="checkbox-icon">✓</div>
+              <span>1. 確認檔案副檔名為 <strong>.gguf</strong> (非純 safetensors)</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+              <div class="checkbox-icon">✓</div>
+              <span>2. 選擇 <strong>Instruct / Chat</strong> 版本 (聊天勿下載 Base)</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+              <div class="checkbox-icon">✓</div>
+              <span>3. 量化等級優先挑選 <strong>Q4_K_M</strong> 或 <strong>Q5_K_M</strong></span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+              <div class="checkbox-icon">✓</div>
+              <span>4. 確認模型是否為 <strong>BF16 原始權重直出</strong> (非二次量化)</span>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="checklist-item" onclick="toggleCheck(this)">
+              <div class="checkbox-icon">✓</div>
+              <span>5. 若為 MoE 模型，同時確認 Total 與 Active 參數量</span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+              <div class="checkbox-icon">✓</div>
+              <span>6. 顯存預算需為 <strong>KV Cache 與 Buffer 保留 2GB 空間</strong></span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+              <div class="checkbox-icon">✓</div>
+              <span>7. 若為多分片模型 (00001-of-00002)，確認<strong>全部分片已載完</strong></span>
+            </div>
+            <div class="checklist-item" onclick="toggleCheck(this)">
+              <div class="checkbox-icon">✓</div>
+              <span>8. 模型放置於 <strong>C: NVMe SSD</strong> (避免放在 D: 傳統機械硬碟)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-accent-rose" style="padding:8px 12px;">
+          <div class="card-title" style="font-size:0.85rem; margin-bottom:2px;">🚫 三大最危險誤解警示</div>
+          <div class="grid-3" style="font-size:0.75rem;">
+            <div>❌ <strong>誤解 1:</strong> 共享 GPU 記憶體等於真顯存 (錯！經 PCIe 存取極慢)</div>
+            <div>❌ <strong>誤解 2:</strong> Q4 轉回 FP16 能恢復畫質 (錯！資訊丟失不可逆)</div>
+            <div>❌ <strong>誤解 3:</strong> Context 設越長越聰明 (錯！只會增加負擔且可能迷失)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: 10 Golden Rules & Interactive Glossary -->
+    <section class="slide" data-category="第二十一章與附錄" data-title="核心金句與縮寫速查庫">
+      <div class="slide-header">
+        <div>
+          <div class="slide-tag">💎 Chapter 21 & Appendix: Summary</div>
+          <h2 class="slide-title">掌控本地 AI 的十句精華金句</h2>
+          <div class="slide-subtitle">融會貫通所有概念，成為本地大型語言模型專家</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- 10 Rules -->
+          <div class="card card-accent-top">
+            <div class="card-title">🏆 必備核心認知</div>
+            <ol style="font-size:0.75rem; color:var(--text-muted); line-height:1.5; padding-left:16px;">
+              <li><code>B</code> 是參數量，不是檔案大小。</li>
+              <li>量化降低的是權重精度，不會把 27B 變成 4B。</li>
+              <li>GGUF 是容器格式，Q4_K_M 是量化壓縮方法。</li>
+              <li>MoE 的 Total 決定顯存占用，Active 決定每步計算量。</li>
+              <li>檔案大小小於 VRAM，不代表能 100% 塞進顯卡。</li>
+              <li>Context Length 會透過 KV Cache 顯著侵蝕顯存。</li>
+              <li>Prefill (TTFT) 與 Decode (TPS) 是兩種截然不同的速度。</li>
+              <li>Chat Template 選錯可以讓頂級模型瞬間變傻。</li>
+              <li>善用 KV Cache Q8_0 量化可在長對話中大幅拯救顯存。</li>
+              <li><strong>選模型不是挑最大，而是挑能在你的硬體上流暢運行的甜點款！</strong></li>
+            </ol>
+          </div>
+
+          <!-- Searchable Glossary -->
+          <div class="card card-accent-purple" style="display:flex; flex-direction:column;">
+            <div class="card-title">📖 常用縮寫速查庫 (即時搜尋)</div>
+            <input type="text" class="glossary-search" id="glossary-filter" placeholder="搜尋縮寫 (如 GQA, RoPE, DPO, TTFT...)" oninput="filterGlossary()">
+            <div style="flex:1; max-height:160px; overflow-y:auto; font-size:0.75rem;" id="glossary-list">
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>LLM:</strong> Large Language Model (大型語言模型)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>VLM:</strong> Vision-Language Model (視覺語言多模態模型)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>MoE:</strong> Mixture of Experts (混合專家稀疏架構)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>GQA:</strong> Grouped-Query Attention (分組查詢注意力)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>RoPE:</strong> Rotary Positional Embedding (旋轉位置編碼)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>KV Cache:</strong> Key-Value 快取 (自回歸歷史注意力儲存)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>bpw:</strong> Bits Per Weight (平均每個權重佔用位元數)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>TTFT:</strong> Time To First Token (首字生成等待延遲)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>TPS:</strong> Tokens Per Second (每秒生成 Token 速率)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>RAG:</strong> Retrieval-Augmented Generation (檢索增強生成)</div>
+              <div class="glossary-entry" style="margin-bottom:5px;"><strong>DPO / GRPO:</strong> 偏好對齊強化學習算法</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Controls -->
+  <footer>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="presentation-progress"></div>
+    </div>
+
+    <div class="keyboard-hint">
+      <span>快捷鍵：</span>
+      <span><span class="kbd">←</span> <span class="kbd">→</span> 切換頁面</span>
+      <span><span class="kbd">F</span> 全螢幕</span>
+      <span><span class="kbd">O</span> 目錄總覽</span>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <button class="nav-btn" id="btn-prev" onclick="prevSlide()" disabled>
+        ← 上一頁
+      </button>
+      <button class="nav-btn" id="btn-next" onclick="nextSlide()">
+        下一頁 →
+      </button>
+    </div>
+  </footer>
+
+  <!-- Overview Modal -->
+  <div id="overview-modal">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h2 style="color:#fff; font-size:1.2rem;">📑 簡報投影片全覽目錄</h2>
+      <button class="btn-icon" onclick="toggleOverview()" style="padding:6px 14px;">✕ 關閉總覽</button>
+    </div>
+    <div class="overview-grid" id="overview-grid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentSlideIndex = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  const currentSlideNumEl = document.getElementById('current-slide-num');
+  const totalSlidesNumEl = document.getElementById('total-slides-num');
+  const currentCategoryEl = document.getElementById('current-slide-category');
+  const progressBar = document.getElementById('presentation-progress');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const overviewModal = document.getElementById('overview-modal');
+  const overviewGrid = document.getElementById('overview-grid');
+
+  totalSlidesNumEl.textContent = totalSlides;
+
+  // Build Overview Cards
+  slides.forEach((slide, idx) => {
+    const card = document.createElement('div');
+    card.className = 'overview-card';
+    card.innerHTML = `
+      <div class="overview-card-num">SLIDE ${idx + 1} · ${slide.getAttribute('data-category')}</div>
+      <div class="overview-card-title">${slide.getAttribute('data-title')}</div>
+    `;
+    card.onclick = () => {
+      goToSlide(idx);
+      toggleOverview();
+    };
+    overviewGrid.appendChild(card);
+  });
+
+  function updateSlideView() {
+    slides.forEach((slide, idx) => {
+      slide.classList.remove('active', 'prev');
+      if (idx === currentSlideIndex) {
+        slide.classList.add('active');
+      } else if (idx < currentSlideIndex) {
+        slide.classList.add('prev');
+      }
+    });
+
+    currentSlideNumEl.textContent = currentSlideIndex + 1;
+    currentCategoryEl.textContent = slides[currentSlideIndex].getAttribute('data-category');
+    
+    const progress = ((currentSlideIndex + 1) / totalSlides) * 100;
+    progressBar.style.width = `${progress}%`;
+
+    btnPrev.disabled = currentSlideIndex === 0;
+    btnNext.disabled = currentSlideIndex === totalSlides - 1;
+
+    // Update active state in overview modal
+    const overviewCards = document.querySelectorAll('.overview-card');
+    overviewCards.forEach((c, idx) => {
+      c.classList.toggle('current', idx === currentSlideIndex);
+    });
+  }
+
+  function nextSlide() {
+    if (currentSlideIndex < totalSlides - 1) {
+      currentSlideIndex++;
+      updateSlideView();
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlideIndex > 0) {
+      currentSlideIndex--;
+      updateSlideView();
+    }
+  }
+
+  function goToSlide(idx) {
+    if (idx >= 0 && idx < totalSlides) {
+      currentSlideIndex = idx;
+      updateSlideView();
+    }
+  }
+
+  function toggleOverview() {
+    overviewModal.classList.toggle('open');
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => alert(err.message));
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  // Keyboard Navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      prevSlide();
+    } else if (e.key.toLowerCase() === 'o') {
+      e.preventDefault();
+      toggleOverview();
+    } else if (e.key.toLowerCase() === 'f') {
+      e.preventDefault();
+      toggleFullscreen();
+    } else if (e.key === 'Escape' && overviewModal.classList.contains('open')) {
+      toggleOverview();
+    }
+  });
+
+  document.getElementById('btn-overview').onclick = toggleOverview;
+  document.getElementById('btn-fullscreen').onclick = toggleFullscreen;
+
+  // Interactive Filename Dissector Data
+  const fnDetails = {
+    1: { icon: "🏷️", title: "Qwen (模型家族 / 架構來源)", desc: "代表模型的架構血脈（如 Llama, Gemma, Mistral, DeepSeek）。決定底層 Transformer 算子設計與 Tokenizer 詞表。" },
+    2: { icon: "🔢", title: "3.8 (版本與世代標示)", desc: "發布者或作者標示的版本迭代。注意：模型無全球強制命名法規，務必以官方 Model Card 為準。" },
+    3: { icon: "🧠", title: "27B (模型參數量：約 270 億)", desc: "B = Billion (十億)。參數量決定模型的推理上限與基準記憶體需求。27B 經過 Q4 壓縮後依然是 27B 參數！" },
+    4: { icon: "🔓", title: "Uncensored (社群未審查/降低拒答)", desc: "非標準規格。通常透過微調或權重消融削弱拒答機制，但不代表更聰明，亦不保證事實正確。" },
+    5: { icon: "🗜️", title: "Q4_K_M (4-bit 級 K-quant 混合量化)", desc: "llama.cpp 的 K-quant 方案，M 代表 Medium 混合精度（敏感張量保留較高精度）。是消費級本地 LLM 最佳平衡點！" },
+    6: { icon: "📦", title: ".gguf (GGML Universal File 容器)", desc: "二進位檔案封裝格式。將模型權重、Tokenizer、Chat Template、RoPE 等中繼資料合為一體，給 llama.cpp / LM Studio 執行。" }
+  };
+
+  function setFnInfo(id) {
+    document.querySelectorAll('.fn-part').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    const data = fnDetails[id];
+    document.getElementById('fn-info-icon').textContent = data.icon;
+    document.getElementById('fn-info-title').textContent = data.title;
+    document.getElementById('fn-info-desc').textContent = data.desc;
+  }
+
+  // Interactive Memory Calculator
+  function runMemoryCalc() {
+    const size = parseFloat(document.getElementById('calc-size').value);
+    const bpw = parseFloat(document.getElementById('calc-quant').value);
+    const ctx = parseInt(document.getElementById('calc-ctx').value);
+
+    // Weight size in GB
+    const weightGB = (size * 1000000000 * bpw) / 8 / 1073741824;
+    
+    // KV Cache estimation: Layers ~ 32 (8B) to 64 (70B), GQA ratio
+    const layers = size <= 8 ? 32 : (size <= 32 ? 48 : 80);
+    const kvHeads = size <= 8 ? 8 : (size <= 32 ? 8 : 8);
+    const headDim = 128;
+    // KV Cache FP16 = 2 bytes per element, K + V = 2
+    const kvBytes = layers * ctx * kvHeads * headDim * 2 * 2;
+    const kvGB = kvBytes / 1073741824;
+    const computeBufferGB = 1.0 + (size * 0.02); // Workspace buffers
+    const overheadGB = kvGB + computeBufferGB;
+    const totalGB = weightGB + overheadGB;
+
+    document.getElementById('res-weight').textContent = `~${weightGB.toFixed(1)} GB`;
+    document.getElementById('res-buffer').textContent = `~${overheadGB.toFixed(1)} GB (KV: ${kvGB.toFixed(1)}G)`;
+    document.getElementById('res-total').textContent = `~${totalGB.toFixed(1)} GB`;
+
+    // 16GB Dedicated VRAM Budget (leave 1.5GB for Windows/Desktop)
+    const availableVRAM = 14.5;
+    let vramUsed = Math.min(totalGB, 16.0);
+    let ramUsed = 0;
+    let verdictHTML = "";
+
+    if (totalGB <= availableVRAM) {
+      document.getElementById('meter-vram').style.width = `${(totalGB / 16) * 100}%`;
+      document.getElementById('meter-ram').style.width = `0%`;
+      document.getElementById('res-vram-text').textContent = `${totalGB.toFixed(1)} GB / 16 GB`;
+      document.getElementById('res-ram-text').textContent = `0 GB / 32 GB`;
+      verdictHTML = `🟢 <strong>全顯卡滿載 (Full GPU Offload)：</strong>模型與 KV Cache 能完全放入 16GB VRAM，推論速度極快、延遲極低！`;
+    } else {
+      vramUsed = 14.0;
+      ramUsed = totalGB - vramUsed;
+      const vramPercent = (vramUsed / 16) * 100;
+      const ramPercent = Math.min((ramUsed / 32) * 100, 100);
+
+      document.getElementById('meter-vram').style.width = `${vramPercent}%`;
+      document.getElementById('meter-ram').style.width = `${ramPercent}%`;
+      document.getElementById('res-vram-text').textContent = `${vramUsed.toFixed(1)} GB / 16 GB`;
+      document.getElementById('res-ram-text').textContent = `${ramUsed.toFixed(1)} GB / 32 GB`;
+
+      if (ramUsed > 28) {
+        verdictHTML = `🔴 <strong>記憶體危險 (OOM 風險)：</strong>系統 RAM 即將耗盡，極可能發生換頁停滯或崩潰，建議降低 Context 或選用更小模型！`;
+      } else {
+        verdictHTML = `⚖️ <strong>混合推論狀態 (Hybrid CPU/GPU)：</strong>模型權重大於專用 VRAM，部分層將留在系統 RAM，速度受限於 RAM 頻寬但可穩定運行。`;
+      }
+    }
+
+    document.getElementById('calc-verdict').innerHTML = verdictHTML;
+  }
+
+  // Checklist toggle
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+  }
+
+  // Glossary live search
+  function filterGlossary() {
+    const query = document.getElementById('glossary-filter').value.toLowerCase();
+    const entries = document.querySelectorAll('.glossary-entry');
+    entries.forEach(entry => {
+      const text = entry.textContent.toLowerCase();
+      entry.style.display = text.includes(query) ? 'block' : 'none';
+    });
+  }
+
+  // Initialize
+  updateSlideView();
+  runMemoryCalc();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 學習旅程｜完整課程 L1–L6 · Agenda + 正確比例縮圖</title>
+<style>
+:root{
+  --bg:#F6F1E9;
+  --paper:#FFFDF9;
+  --ink:#43382F;
+  --muted:#766B63;
+  --line:#E5DBCF;
+  --accent:#E86C16;
+  --accent-dark:#9C5D2E;
+  --sage:#89A168;
+  --sage-soft:#EAF0E1;
+  --shadow:0 12px 34px rgba(77,58,43,.08);
+}
+
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+button{font:inherit;cursor:pointer}
+
+.app{
+  height:100vh;
+  display:grid;
+  grid-template-rows:52px 1fr 50px;
+}
+
+/* ===== TOP ===== */
+.topbar{
+  background:rgba(255,253,249,.99);
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:250px 1fr 210px;
+  align-items:center;
+  gap:20px;
+  padding:3px 20px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+.brand-mark{
+  width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;
+  background:#FBF1E6;
+  border:1px solid #ECD8C5;
+  font-size:23px;
+}
+.brand-title{
+  font-size:19px;
+  font-weight:900;
+  line-height:1;
+  white-space:nowrap;
+}
+.brand-sub{
+  margin-top:2px;
+  font-size:10px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+
+.journey{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:4px;
+  align-items:start;
+  min-width:0;
+}
+.jstep{
+  position:relative;
+  text-align:center;
+  color:#7C7168;
+  font-size:10px;
+  line-height:1.12;
+  padding-top:14px;
+  white-space:nowrap;
+}
+.jstep::before{
+  content:"";
+  position:absolute;
+  top:6px;
+  left:0;
+  right:0;
+  height:2px;
+  background:#D7CDC2;
+}
+.jstep:first-child::before{left:50%}
+.jstep:last-child::before{right:50%}
+
+.jdot{
+  position:absolute;
+  top:-2px;
+  left:50%;
+  transform:translateX(-50%);
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:#E6E0D8;
+  border:2px solid #FFFDF9;
+  z-index:2;
+  display:grid;
+  place-items:center;
+  font-size:7px;
+  line-height:1;
+  font-weight:900;
+  color:#6F655D;
+}
+.jstep.active{
+  color:var(--ink);
+  font-weight:900;
+}
+.jstep.active .jdot{
+  background:var(--accent);
+  color:white;
+}
+.jstep.done .jdot{
+  background:var(--sage);
+  color:white;
+}
+
+.stage-pill{
+  justify-self:end;
+  padding:5px 11px;
+  border-radius:999px;
+  background:#FCF5EA;
+  border:1px solid #EADCCD;
+  font-size:12px;
+  white-space:nowrap;
+}
+.stage-pill b{color:var(--accent)}
+
+/* ===== STAGE ===== */
+.stage{
+  min-height:0;
+  padding:7px 14px;
+  display:grid;
+  place-items:center;
+}
+
+.slide-frame{
+  position:relative;
+  width:calc(100vw - 28px);
+  height:calc(100vh - 116px);
+  max-width:1720px;
+  background:var(--paper);
+  border:1px solid #E8DFD5;
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  display:none;
+  padding:24px 54px 20px;
+}
+.slide.active{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  animation:fade .2s ease both;
+}
+@keyframes fade{
+  from{opacity:0;transform:translateX(6px)}
+  to{opacity:1;transform:none}
+}
+.center{text-align:center;align-items:center}
+
+.eyebrow{
+  display:inline-block;
+  align-self:flex-start;
+  padding:5px 12px;
+  border-radius:999px;
+  background:var(--sage-soft);
+  color:#5D684F;
+  font-size:13px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.center .eyebrow{align-self:center}
+
+h1,h2,h3,p{margin-top:0}
+h1{
+  font-size:clamp(42px,4.6vw,68px);
+  line-height:1.03;
+  margin-bottom:10px;
+  letter-spacing:-.035em;
+}
+h2{
+  font-size:clamp(31px,3.15vw,50px);
+  line-height:1.08;
+  margin-bottom:10px;
+  letter-spacing:-.025em;
+}
+p{
+  font-size:clamp(18px,1.3vw,23px);
+  line-height:1.45;
+  color:var(--muted);
+  margin-bottom:9px;
+}
+.big{
+  font-size:clamp(27px,2.45vw,40px);
+  line-height:1.35;
+  font-weight:900;
+  color:#584A3F;
+}
+
+/* ===== LEVEL OVERVIEW ===== */
+.level-slide{
+  justify-content:flex-start !important;
+  padding-top:22px;
+}
+.level-slide h2{
+  margin-bottom:4px;
+}
+.level-slide > p{
+  margin-bottom:10px;
+}
+
+.level-grid{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(2,minmax(0,1fr));
+  gap:14px 20px;
+  flex:1;
+  min-height:0;
+}
+
+.level-card{
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:#FFF;
+  padding:15px 18px;
+  display:grid;
+  grid-template-columns:78px 1fr;
+  align-items:center;
+  gap:12px;
+  text-align:left;
+  position:relative;
+  min-height:0;
+  box-shadow:0 4px 12px rgba(65,49,37,.035);
+}
+.level-card.current{
+  border-color:#ED8A4B;
+  box-shadow:0 6px 16px rgba(210,103,35,.08);
+}
+
+.badge{
+  position:absolute;
+  top:12px;
+  right:12px;
+  padding:4px 9px;
+  border-radius:999px;
+  background:var(--accent);
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+}
+.icon-circle{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:31px;
+}
+.i1{background:#FCE8D9}
+.i2{background:#FBF0CF}
+.i3{background:#EAF2DF}
+.i4{background:#E6F1F7}
+.i5{background:#EFE8F7}
+.i6{background:#F8E4E3}
+
+.card-kicker{
+  color:var(--accent);
+  font-weight:900;
+  font-size:18px;
+  margin-bottom:1px;
+}
+.card-title{
+  font-weight:900;
+  font-size:clamp(20px,1.55vw,27px);
+  line-height:1.18;
+  margin-bottom:4px;
+}
+.card-desc{
+  color:var(--muted);
+  font-size:clamp(14px,1.05vw,18px);
+  line-height:1.32;
+}
+.encourage{
+  margin-top:10px;
+  font-size:clamp(16px,1.2vw,20px);
+  color:#67584D;
+}
+.encourage span{color:var(--accent)}
+
+/* ===== INTERACTIONS ===== */
+.two-buttons{
+  width:min(850px,100%);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin:18px auto 0;
+}
+.choice{
+  min-height:104px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:#FFF;
+  color:var(--ink);
+  font-size:26px;
+  font-weight:900;
+  padding:18px;
+}
+.choice:hover{border-color:#C8AA90}
+.choice.selected{
+  background:var(--sage-soft);
+  border-color:#B6C49F;
+  color:#59654B;
+}
+.choice.bad{
+  background:#F9E7E0;
+  border-color:#D8AA96;
+}
+
+.prompt{
+  width:min(920px,100%);
+  margin:12px auto 0;
+  background:#FFF;
+  border:2px dashed #D9C5B3;
+  border-radius:17px;
+  padding:19px 23px;
+  font-size:clamp(21px,1.65vw,28px);
+  line-height:1.48;
+  color:#52463D;
+  text-align:left;
+}
+.ingredients{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  flex-wrap:wrap;
+  margin-top:14px;
+  font-size:clamp(28px,2.6vw,42px);
+}
+.soft-card{
+  background:#FBF4EA;
+  border:1px solid #E9DBCD;
+  border-radius:16px;
+  padding:16px 20px;
+  font-size:20px;
+  line-height:1.48;
+}
+.reveal{
+  display:none;
+  margin-top:14px;
+  background:var(--sage-soft);
+  border-radius:15px;
+  padding:14px 18px;
+  font-size:18px;
+  color:#59644D;
+}
+.reveal.show{display:block}
+
+/* ===== TEACHER ===== */
+.teacher{
+  position:absolute;
+  right:14px;
+  bottom:10px;
+  max-width:330px;
+  display:none;
+  border:1px solid #E5DACD;
+  background:#FBF6EF;
+  color:#7A7067;
+  border-radius:10px;
+  padding:8px 10px;
+  font-size:11px;
+  line-height:1.35;
+}
+body.teacher-mode .teacher{display:block}
+
+/* ===== FOOTER ===== */
+.bottombar{
+  background:rgba(255,253,249,.99);
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  padding:4px 20px;
+}
+.navbtn{
+  border:1px solid var(--line);
+  background:#FFF;
+  color:var(--accent-dark);
+  border-radius:10px;
+  padding:7px 14px;
+  font-weight:900;
+  font-size:14px;
+  min-width:102px;
+}
+.navbtn.next{
+  background:linear-gradient(180deg,#D8792D,#B85D18);
+  border-color:#C4641B;
+  color:#FFF;
+}
+.navbtn:disabled{opacity:.35;cursor:not-allowed}
+.pagecount{
+  font-size:14px;
+  color:var(--muted);
+}
+.right-actions{
+  justify-self:end;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.teacher-toggle{
+  border:none;
+  background:#F8F3EC;
+  color:#75695F;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:12px;
+}
+
+/* ===== Smaller screens ===== */
+@media(max-width:1200px){
+  .app{grid-template-rows:50px 1fr 48px}
+  .topbar{
+    grid-template-columns:225px 1fr 170px;
+    padding:5px 12px;
+    gap:10px;
+  }
+  .brand-mark{width:36px;height:36px;font-size:20px}
+  .brand-title{font-size:19px}
+  .brand-sub{display:none}
+  .stage-pill{font-size:12px;padding:7px 9px}
+  .jstep{font-size:9px;padding-top:16px}
+  .jdot{width:17px;height:17px;font-size:7px}
+  .slide-frame{
+    width:calc(100vw - 16px);
+    height:calc(100vh - 106px);
+  }
+  .slide{padding:20px 30px 16px}
+  .level-card{grid-template-columns:64px 1fr;padding:12px}
+  .icon-circle{width:54px;height:54px;font-size:27px}
+  .level-grid{gap:10px 12px}
+  .badge{font-size:10px;top:9px;right:9px}
+}
+
+/* ===== LEVEL AGENDA ===== */
+.agenda-slide{
+  justify-content:flex-start !important;
+  padding-top:22px !important;
+}
+.agenda-slide h2{margin-bottom:4px}
+.agenda-slide > p{margin-bottom:10px}
+
+/* ===== SLIDE OVERVIEW / THUMBNAILS ===== */
+.overview-btn{
+  border:none;background:#F8F3EC;color:#75695F;border-radius:9px;
+  padding:7px 10px;font-size:12px;font-weight:800;
+}
+.overview-overlay{
+  position:fixed;inset:0;z-index:999;background:rgba(54,45,38,.56);
+  backdrop-filter:blur(4px);display:none;
+}
+.overview-overlay.open{display:block}
+.overview-panel{
+  position:absolute;inset:18px;background:#F8F3EA;border:1px solid #E1D6C9;
+  border-radius:22px;box-shadow:0 24px 70px rgba(50,38,28,.22);
+  display:grid;grid-template-rows:64px 1fr;overflow:hidden;
+}
+.overview-head{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:10px 18px 10px 22px;border-bottom:1px solid #DED3C7;background:#FFFDF9;
+}
+.overview-title{font-size:22px;font-weight:900;color:var(--ink)}
+.overview-sub{font-size:13px;color:var(--muted);margin-left:10px;font-weight:500}
+.overview-close{
+  border:1px solid var(--line);background:#FFF;color:var(--accent-dark);
+  border-radius:11px;padding:8px 14px;font-weight:900;
+}
+.thumb-grid{
+  overflow-y:auto;padding:18px;display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;align-content:start;
+}
+.thumb-card{
+  border:2px solid transparent;border-radius:15px;padding:7px;background:#ECE5DC;
+  cursor:pointer;transition:.14s ease;min-width:0;
+}
+.thumb-card:hover{transform:translateY(-2px);border-color:#D3B39A}
+.thumb-card.current{border-color:var(--accent);background:#F8E9DD}
+.thumb-preview{
+  width:100%;
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--paper);
+  position:relative;
+  box-shadow:0 4px 12px rgba(63,48,37,.08);
+}
+.thumb-canvas{
+  position:absolute;
+  top:0;
+  left:0;
+  transform-origin:top left;
+  pointer-events:none;
+  background:var(--paper);
+  overflow:hidden;
+}
+.thumb-slide{
+  display:flex !important;
+  position:absolute !important;
+  inset:0 !important;
+  box-sizing:border-box !important;
+}
+.thumb-slide .teacher{display:none !important}
+.thumb-slide .choice{pointer-events:none}
+.thumb-meta{
+  display:flex;justify-content:space-between;gap:8px;padding:7px 3px 0;
+  align-items:center;color:#6F645B;
+}
+.thumb-number{font-size:12px;font-weight:900;color:var(--accent-dark)}
+.thumb-title{
+  font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right;
+}
+.overview-level-filter{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.filter-btn{
+  border:1px solid var(--line);background:#FFF;color:#70655C;
+  padding:5px 9px;border-radius:999px;font-size:11px;font-weight:800;
+}
+.filter-btn.active{background:var(--accent);color:#FFF;border-color:var(--accent)}
+@media(max-width:1200px){
+  .thumb-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .overview-panel{inset:10px}
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">🌿</div>
+    <div>
+      <div class="brand-title">AI 學習旅程</div>
+      <div class="brand-sub">一步一步，讓 AI 成為你的好幫手</div>
+    </div>
+  </div>
+
+  <div class="journey">
+    <div class="jstep active"><span class="jdot">L1</span>跟 AI 說話</div>
+    <div class="jstep"><span class="jdot">L2</span>叫 AI 幫忙</div>
+    <div class="jstep"><span class="jdot">L3</span>一起工作</div>
+    <div class="jstep"><span class="jdot">L4</span>讓 AI 自己做</div>
+    <div class="jstep"><span class="jdot">L5</span>做小工具</div>
+    <div class="jstep"><span class="jdot">L6</span>AI 小幫手</div>
+  </div>
+
+  <div class="stage-pill">現在： <b id="stagePill">L1 跟 AI 說話</b></div>
+</header>
+
+<main class="stage">
+  <div class="slide-frame">
+
+    <section class="slide active center" data-level="1">
+      <div class="eyebrow">第一堂課 · AI 入門</div>
+      <h1>AI 沒有那麼難</h1>
+      <p>今天不是學電腦，也不是背指令。</p>
+      <div class="big">先把 AI 想成一個剛來上班的新助手。</div>
+      <div class="teacher">這一頁只讓大家放鬆，不談技術名詞。</div>
+    </section>
+
+    <section class="slide center level-slide agenda-slide" data-level="1" data-agenda="true">
+      <h2>我們會一步一步學到哪裡？</h2>
+      <p>不用擔心，很簡單，我們會慢慢來。</p>
+
+      <div class="level-grid">
+        <div class="level-card current">
+          <div class="badge">目前階段</div>
+          <div class="icon-circle i1">💬</div>
+          <div>
+            <div class="card-kicker">L1</div>
+            <div class="card-title">跟 AI 說話</div>
+            <div class="card-desc">我問問題，AI 回答我。</div>
+          </div>
+        </div>
+
+        <div class="level-card">
+          <div class="icon-circle i2">📝</div>
+          <div>
+            <div class="card-kicker">L2</div>
+            <div class="card-title">叫 AI 幫忙</div>
+            <div class="card-desc">把一件事情交給 AI。</div>
+          </div>
+        </div>
+
+        <div class="level-card">
+          <div class="icon-circle i3">👥</div>
+          <div>
+            <div class="card-kicker">L3</div>
+            <div class="card-title">跟 AI 一起工作</div>
+            <div class="card-desc">一步一步完成整件事。</div>
+          </div>
+        </div>
+
+        <div class="level-card">
+          <div class="icon-circle i4">⚙️</div>
+          <div>
+            <div class="card-kicker">L4</div>
+            <div class="card-title">讓 AI 自己做</div>
+            <div class="card-desc">重複的工作，交給 AI 自動處理。</div>
+          </div>
+        </div>
+
+        <div class="level-card">
+          <div class="icon-circle i5">💻</div>
+          <div>
+            <div class="card-kicker">L5</div>
+            <div class="card-title">叫 AI 做工具</div>
+            <div class="card-desc">不會寫程式，也能做小工具。</div>
+          </div>
+        </div>
+
+        <div class="level-card">
+          <div class="icon-circle i6">🤖</div>
+          <div>
+            <div class="card-kicker">L6</div>
+            <div class="card-title">打造 AI 小幫手</div>
+            <div class="card-desc">讓 AI 成為真正的工作助手。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="encourage"><span>♥</span> 你不需要很會電腦，跟著老師一步一步做，你一定做得到！ <span>♥</span></div>
+      <div class="teacher">整體地圖頁：只介紹方向，不展開技術細節。</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">先記住一件事</div>
+      <h2>你不用先懂 AI</h2>
+      <div class="big">你只需要先學會：<br>「怎麼把事情跟它講清楚。」</div>
+      <div class="teacher">用「新同事」比喻。</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">先不用談工作</div>
+      <h2>今天晚上吃什麼？</h2>
+      <p>假設家裡只剩下這些東西：</p>
+      <div class="ingredients">
+        <span>🥚 雞蛋</span>
+        <span>🥬 高麗菜</span>
+        <span>🥩 豬肉</span>
+      </div>
+      <div class="teacher">先問現場：「你會怎麼問 AI？」</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">其實可以直接講</div>
+      <h2>不用背任何特殊指令</h2>
+      <div class="prompt">
+        我今天晚餐不知道吃什麼。家裡有雞蛋、高麗菜、豬肉，兩個人吃，不要辣，也不想花超過 30 分鐘。
+      </div>
+      <p>現在請大家拿出手機，直接試一次。</p>
+      <div class="teacher">不要急著講 Prompt Engineering。</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">你用哪一個都可以</div>
+      <h2>今天不比工具</h2>
+      <div class="two-buttons">
+        <button class="choice" onclick="selectTool(this,'ChatGPT')">ChatGPT</button>
+        <button class="choice" onclick="selectTool(this,'Gemini')">Gemini</button>
+      </div>
+      <div class="reveal" id="toolReveal"></div>
+      <div class="teacher">避免進入「哪個比較強」的討論。</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">第二次問</div>
+      <h2>第一次答案不喜歡，怎麼辦？</h2>
+      <p>不用重新開始，就直接繼續講。</p>
+      <div class="prompt">
+        可以再簡單一點嗎？我不太會煮，而且我希望洗碗越少越好。
+      </div>
+      <div class="big" style="margin-top:14px;">可以繼續追問、繼續修改。</div>
+      <div class="teacher">這就是 iteration，但不用講英文。</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">現在回到你們最熟悉的事</div>
+      <h2>換 AI 來回答車縫問題</h2>
+      <div class="prompt">
+        請看這張照片。你覺得這個車縫成品可能有什麼問題？請用一般人也看得懂的方法說明。
+      </div>
+      <p>接下來，不是看 AI 多厲害，而是看它到底講得對不對。</p>
+      <div class="teacher">正式上課換成真實、不敏感的車縫照片。</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">來判斷看看</div>
+      <h2>AI 說得很有自信，就一定是對的嗎？</h2>
+      <div class="two-buttons">
+        <button class="choice" onclick="quiz(this,false)">一定對</button>
+        <button class="choice" onclick="quiz(this,true)">不一定</button>
+      </div>
+      <div class="reveal" id="quizReveal"></div>
+      <div class="teacher">讓資深師傅來判斷 AI。</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">今天最重要的一句話</div>
+      <h2>你是老師，AI 才是新人</h2>
+      <div class="big">你做了很多年的專業，<br>不是 AI 幾秒鐘就能取代的。</div>
+      <div class="soft-card" style="margin-top:14px;">AI 可以幫忙整理、回答、提供想法；最後判斷還是在你。</div>
+      <div class="teacher">這頁稍微停久一點。</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">最後一個練習</div>
+      <h2>如果 AI 說錯，就直接糾正它</h2>
+      <div class="prompt">
+        你剛剛這一點判斷錯了。真正的原因是＿＿＿＿。請根據我補充的內容，重新整理一次。
+      </div>
+      <p>你不是在跟 AI 比輸贏，而是在教它怎麼更接近你的需求。</p>
+      <div class="teacher">讓大家用自己的專業內容填空。</div>
+    </section>
+
+    <section class="slide center" data-level="1">
+      <div class="eyebrow">L1 完成</div>
+      <h2>你已經會使用 AI 的第一步了</h2>
+      <div class="soft-card" style="text-align:left;width:min(760px,100%);">
+        ✓ 會直接問 AI<br>
+        ✓ 會補充條件<br>
+        ✓ 會叫 AI 修改答案<br>
+        ✓ 知道 AI 不一定是對的<br>
+        ✓ 會用自己的專業糾正 AI
+      </div>
+      <div class="teacher">最後問：「今天哪一個回答最讓你意外？」</div>
+    </section>
+
+    
+    <section class="slide center agenda-slide" data-level="2" data-agenda="true">
+      <h2>我們會一步一步學到哪裡？</h2>
+      <p>現在進入 L2，不用急，我們一樣一步一步來。</p>
+      <div class="level-grid">
+        
+        <div class="level-card">
+          
+          <div class="icon-circle i1">💬</div>
+          <div>
+            <div class="card-kicker">L1</div>
+            <div class="card-title">跟 AI 說話</div>
+            <div class="card-desc">我問問題，AI 回答我。</div>
+          </div>
+        </div>
+        <div class="level-card current">
+          <div class="badge">目前階段</div>
+          <div class="icon-circle i2">📝</div>
+          <div>
+            <div class="card-kicker">L2</div>
+            <div class="card-title">叫 AI 幫忙</div>
+            <div class="card-desc">把一件事情交給 AI。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i3">👥</div>
+          <div>
+            <div class="card-kicker">L3</div>
+            <div class="card-title">跟 AI 一起工作</div>
+            <div class="card-desc">一步一步完成整件事。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i4">⚙️</div>
+          <div>
+            <div class="card-kicker">L4</div>
+            <div class="card-title">讓 AI 自己做</div>
+            <div class="card-desc">重複的工作，交給 AI 自動處理。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i5">💻</div>
+          <div>
+            <div class="card-kicker">L5</div>
+            <div class="card-title">叫 AI 做工具</div>
+            <div class="card-desc">不會寫程式，也能做小工具。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i6">🤖</div>
+          <div>
+            <div class="card-kicker">L6</div>
+            <div class="card-title">打造 AI 小幫手</div>
+            <div class="card-desc">讓 AI 成為真正的工作助手。</div>
+          </div>
+        </div>
+      </div>
+      <div class="encourage"><span>♥</span> 你不需要很會電腦，跟著老師一步一步做，你一定做得到！ <span>♥</span></div>
+      <div class="teacher">新 Level 開場 Agenda：先讓大家知道現在走到哪裡，再進入內容。</div>
+    </section>
+
+<section class="slide center" data-level="2">
+      <div class="eyebrow">L2 · 叫 AI 幫忙</div>
+      <h2>不只是問問題</h2>
+      <div class="big">現在開始，把一件工作<br>交給 AI 幫你做。</div>
+      <p>你負責說清楚需求，AI 負責先做出第一版。</p>
+      <div class="teacher">L1 → L2 的轉折：從問答案，變成交工作。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">L1 和 L2 差在哪裡？</div>
+      <h2>從「問」變成「交代」</h2>
+      <div class="two-buttons" style="margin-top:10px;">
+        <div class="soft-card" style="text-align:left;">
+          <b style="color:var(--accent);">L1</b><br>
+          「這個車縫問題可能是什麼原因？」<br><br>
+          <span style="color:var(--muted);">→ 我問，AI 回答。</span>
+        </div>
+        <div class="soft-card" style="text-align:left;">
+          <b style="color:var(--accent);">L2</b><br>
+          「把這段說明整理成新人看得懂的 5 個步驟。」<br><br>
+          <span style="color:var(--muted);">→ 我把事情交給 AI。</span>
+        </div>
+      </div>
+      <div class="teacher">只用「交代工作」這種白話說法，不講術語。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">工作現場的例子</div>
+      <h2>老師傅知道怎麼做，但新人可能聽不懂</h2>
+      <div class="soft-card" style="text-align:left;width:min(980px,100%);">
+        「這個先車這邊，再翻過來壓線，角的地方不要拉太緊，
+        不然會翹。然後最後再把多的線頭修掉。」
+      </div>
+      <p style="margin-top:14px;">這段話老師傅一聽就懂，但新人可能會漏掉步驟。</p>
+      <div class="teacher">先問現場：「如果是新人，你覺得哪裡會聽不懂？」</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">交給 AI 整理</div>
+      <h2>把經驗變成新人看得懂的說明</h2>
+      <div class="prompt">
+        下面是一位老師傅口頭說的工作內容：<br><br>
+        「這個先車這邊，再翻過來壓線，角的地方不要拉太緊，不然會翹。然後最後再把多的線頭修掉。」<br><br>
+        請幫我整理成新人看得懂的 5 個步驟，每一步都用簡單中文，不要使用太難的詞。
+      </div>
+      <div class="teacher">讓大家看到：不必自己先整理漂亮，AI 可以先幫忙整理。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">一個小技巧</div>
+      <h2>交代 AI 工作時，講清楚 4 件事</h2>
+      <div class="level-grid" style="grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);max-width:1050px;">
+        <div class="level-card"><div class="icon-circle i1">📍</div><div><div class="card-title">1. 背景</div><div class="card-desc">這是在做什麼事情？</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">🛠️</div><div><div class="card-title">2. 要它做什麼</div><div class="card-desc">整理、改寫、分類，還是做表格？</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">👤</div><div><div class="card-title">3. 給誰看</div><div class="card-desc">新人、主管、客戶，還是同事？</div></div></div>
+        <div class="level-card"><div class="icon-circle i4">📄</div><div><div class="card-title">4. 想要什麼樣子</div><div class="card-desc">5 個步驟、簡單中文、表格、條列。</div></div></div>
+      </div>
+      <div class="teacher">L2 核心框架，不要求背公式，只要理解。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">來比較看看</div>
+      <h2>哪一個比較容易得到好結果？</h2>
+      <div class="two-buttons">
+        <button class="choice" onclick="l2Quiz(this,false)">幫我整理一下這段</button>
+        <button class="choice" onclick="l2Quiz(this,true)">幫我整理成新人看得懂的 5 個步驟，每一步簡短清楚</button>
+      </div>
+      <div class="reveal" id="l2QuizReveal"></div>
+      <div class="teacher">讓學員先選，再揭曉。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">第二個例子</div>
+      <h2>AI 也可以幫你把話說得更清楚</h2>
+      <div class="soft-card" style="text-align:left;width:min(960px,100%);">
+        原本要傳給新人：<br><br>
+        「下午那批先不要做，等我過去看，昨天那個角還是有問題。」
+      </div>
+      <div class="prompt">
+        請幫我把上面的訊息改寫成一段清楚、簡單、不兇的工作通知，對象是剛來不久的新人。
+      </div>
+      <div class="teacher">示範「語氣」也能交代給 AI。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">一份內容，可以變成很多種樣子</div>
+      <h2>不只是改寫</h2>
+      <div class="level-grid" style="grid-template-columns:repeat(3,1fr);grid-template-rows:1fr;max-height:300px;">
+        <div class="level-card"><div class="icon-circle i2">📝</div><div><div class="card-title">新人教材</div><div class="card-desc">把經驗整理成步驟。</div></div></div>
+        <div class="level-card"><div class="icon-circle i4">✅</div><div><div class="card-title">檢查表</div><div class="card-desc">變成一項一項可以確認。</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">💬</div><div><div class="card-title">工作通知</div><div class="card-desc">把訊息改得更清楚。</div></div></div>
+      </div>
+      <p style="margin-top:16px;">重點不是「問 AI 一個答案」，而是讓它幫你把工作整理好。</p>
+      <div class="teacher">問現場：「你們平常哪一種最常需要？」</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">AI 做完，不能直接交出去</div>
+      <h2>最後一定要自己檢查 3 件事</h2>
+      <div class="level-grid" style="grid-template-columns:repeat(3,1fr);grid-template-rows:1fr;">
+        <div class="level-card"><div class="icon-circle i1">✔️</div><div><div class="card-title">有沒有講錯？</div><div class="card-desc">專業內容還是你最清楚。</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">🔎</div><div><div class="card-title">有沒有漏掉？</div><div class="card-desc">步驟或注意事項是否完整。</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">👀</div><div><div class="card-title">別人看得懂嗎？</div><div class="card-desc">新人真的能照著做嗎？</div></div></div>
+      </div>
+      <div class="teacher">AI 產出是第一版，不是最後版本。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">如果事情太大</div>
+      <h2>不要一次全部丟給 AI</h2>
+      <div class="soft-card" style="text-align:left;width:min(980px,100%);">
+        ❌「幫我把整套新人訓練做完」<br><br>
+        ✅「先把這一個車縫動作整理成 5 個步驟」<br>
+        ✅「再幫我補上 3 個最常見錯誤」<br>
+        ✅「最後整理成一張檢查表」
+      </div>
+      <div class="big" style="margin-top:16px;">一件一件交代，通常會更準。</div>
+      <div class="teacher">這是在為 L3 的工作流程概念鋪路。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">現在換你</div>
+      <h2>找一件你平常真的會做的事</h2>
+      <div class="big">選一件「你會做，但每次都要重複說明」的工作。</div>
+      <div class="soft-card" style="margin-top:18px;text-align:left;width:min(900px,100%);">
+        例如：<br>
+        • 怎麼教新人一個車縫步驟<br>
+        • 怎麼提醒常見錯誤<br>
+        • 怎麼把口頭說明整理成文字<br>
+        • 怎麼把工作內容變成檢查表
+      </div>
+      <div class="teacher">停 2～3 分鐘，讓每個人想一個自己的題目。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">L2 實作</div>
+      <h2>用這個方式直接跟 AI 說</h2>
+      <div class="prompt">
+        背景：這是＿＿＿＿的工作。<br><br>
+        我希望你幫我：＿＿＿＿。<br><br>
+        這份內容是給＿＿＿＿看的。<br><br>
+        請整理成＿＿＿＿的形式，而且要簡單、清楚。
+      </div>
+      <p>不用每次都照這個格式，但一開始可以拿它來練習。</p>
+      <div class="teacher">讓學員直接把自己的工作內容填進空格，現場操作。</div>
+    </section>
+
+    <section class="slide center" data-level="2">
+      <div class="eyebrow">L2 完成</div>
+      <h2>你已經不只是「問 AI」了</h2>
+      <div class="soft-card" style="text-align:left;width:min(800px,100%);">
+        ✓ 會把一件工作交給 AI<br>
+        ✓ 會告訴 AI 背景和對象<br>
+        ✓ 會指定想要的結果形式<br>
+        ✓ 知道 AI 做完還要自己檢查<br>
+        ✓ 知道事情太大時要拆小
+      </div>
+      <div class="big" style="margin-top:16px;">你已經開始把 AI 當成工作助手。</div>
+      <div class="teacher">請學員分享：哪一件工作最想交給 AI 幫忙？</div>
+    </section>
+
+    <!-- ===================== L3 ===================== -->
+    
+    <section class="slide center agenda-slide" data-level="3" data-agenda="true">
+      <h2>我們會一步一步學到哪裡？</h2>
+      <p>現在進入 L3，不用急，我們一樣一步一步來。</p>
+      <div class="level-grid">
+        
+        <div class="level-card">
+          
+          <div class="icon-circle i1">💬</div>
+          <div>
+            <div class="card-kicker">L1</div>
+            <div class="card-title">跟 AI 說話</div>
+            <div class="card-desc">我問問題，AI 回答我。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i2">📝</div>
+          <div>
+            <div class="card-kicker">L2</div>
+            <div class="card-title">叫 AI 幫忙</div>
+            <div class="card-desc">把一件事情交給 AI。</div>
+          </div>
+        </div>
+        <div class="level-card current">
+          <div class="badge">目前階段</div>
+          <div class="icon-circle i3">👥</div>
+          <div>
+            <div class="card-kicker">L3</div>
+            <div class="card-title">跟 AI 一起工作</div>
+            <div class="card-desc">一步一步完成整件事。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i4">⚙️</div>
+          <div>
+            <div class="card-kicker">L4</div>
+            <div class="card-title">讓 AI 自己做</div>
+            <div class="card-desc">重複的工作，交給 AI 自動處理。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i5">💻</div>
+          <div>
+            <div class="card-kicker">L5</div>
+            <div class="card-title">叫 AI 做工具</div>
+            <div class="card-desc">不會寫程式，也能做小工具。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i6">🤖</div>
+          <div>
+            <div class="card-kicker">L6</div>
+            <div class="card-title">打造 AI 小幫手</div>
+            <div class="card-desc">讓 AI 成為真正的工作助手。</div>
+          </div>
+        </div>
+      </div>
+      <div class="encourage"><span>♥</span> 你不需要很會電腦，跟著老師一步一步做，你一定做得到！ <span>♥</span></div>
+      <div class="teacher">新 Level 開場 Agenda：先讓大家知道現在走到哪裡，再進入內容。</div>
+    </section>
+
+<section class="slide center" data-level="3">
+      <div class="eyebrow">L3 · 跟 AI 一起工作</div>
+      <h2>一個工作，通常不只一個步驟</h2>
+      <div class="big">不要只丟一個大問題給 AI。<br>我們開始學會一步一步一起完成。</div>
+      <p>你決定方向，AI 幫忙處理每個步驟。</p>
+      <div class="teacher">L3 的核心：從單一任務進入「流程」。</div>
+    </section>
+
+    <section class="slide center" data-level="3">
+      <div class="eyebrow">先看差別</div>
+      <h2>同一件事，有兩種做法</h2>
+      <div class="two-buttons" style="margin-top:10px;">
+        <div class="soft-card" style="text-align:left;">
+          <b style="color:var(--accent);">一次全部丟給 AI</b><br><br>
+          「幫我做一套完整新人教材。」
+          <br><br><span style="color:var(--muted);">→ 結果常常太大、太亂、容易漏。</span>
+        </div>
+        <div class="soft-card" style="text-align:left;">
+          <b style="color:var(--accent);">一步一步做</b><br><br>
+          先整理步驟 → 找常見錯誤 → 做檢查表 → 再整理教材。
+          <br><br><span style="color:var(--muted);">→ 比較容易掌握。</span>
+        </div>
+      </div>
+      <div class="teacher">讓學員理解「拆步驟」不是工程概念，是平常工作的自然方式。</div>
+    </section>
+
+    <section class="slide center" data-level="3">
+      <div class="eyebrow">車縫情境</div>
+      <h2>例如：教新人完成一個車縫作業</h2>
+      <div class="big">我們可以把它拆成 4 步：</div>
+      <div class="level-grid" style="grid-template-columns:repeat(4,1fr);grid-template-rows:1fr;">
+        <div class="level-card"><div class="icon-circle i1">1</div><div><div class="card-title">整理步驟</div><div class="card-desc">先把老師傅的做法整理清楚。</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">2</div><div><div class="card-title">找易錯點</div><div class="card-desc">哪些地方新人最容易出錯？</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">3</div><div><div class="card-title">做檢查表</div><div class="card-desc">讓新人做完可以自己確認。</div></div></div>
+        <div class="level-card"><div class="icon-circle i4">4</div><div><div class="card-title">整理教材</div><div class="card-desc">最後再合成一份簡單教材。</div></div></div>
+      </div>
+      <div class="teacher">這頁建立「流程視角」。</div>
+    </section>
+
+    <section class="slide center" data-level="3">
+      <div class="eyebrow">第一步</div>
+      <h2>先叫 AI 整理工作步驟</h2>
+      <div class="prompt">
+        這是一位老師傅口頭說明的車縫流程：＿＿＿＿。<br><br>
+        先不要做成完整教材。<br>
+        請先幫我整理出正確的工作順序，每一步簡短清楚。
+      </div>
+      <p>先完成第一步，確認沒問題，再往下走。</p>
+      <div class="teacher">強調「先不要做完整教材」這句，示範如何控制 AI 範圍。</div>
+    </section>
+
+    <section class="slide center" data-level="3">
+      <div class="eyebrow">第二步</div>
+      <h2>再請 AI 找容易出錯的地方</h2>
+      <div class="prompt">
+        根據剛剛整理出的工作步驟，<br>
+        請列出新人最容易犯的 3 個錯誤，<br>
+        並說明每個錯誤要怎麼避免。
+      </div>
+      <div class="teacher">讓學員看到：第二個 Prompt 是接著第一個結果做，不是重新開始。</div>
+    </section>
+
+    <section class="slide center" data-level="3">
+      <div class="eyebrow">第三步</div>
+      <h2>再把內容變成檢查表</h2>
+      <div class="prompt">
+        請把前面的工作步驟和常見錯誤，<br>
+        整理成一張新人做完可以自己確認的檢查表。<br><br>
+        每一項都要簡短，而且可以直接勾選。
+      </div>
+      <div class="teacher">這裡讓大家理解，同一份內容可以逐步加工。</div>
+    </section>
+
+    <section class="slide center" data-level="3">
+      <div class="eyebrow">第四步</div>
+      <h2>最後才做成完整教材</h2>
+      <div class="prompt">
+        現在請把前面的「工作步驟、常見錯誤、檢查表」整合起來，<br>
+        做成一份給新人的簡單教學。<br><br>
+        語氣不要太正式，重點要容易看懂。
+      </div>
+      <div class="big" style="margin-top:14px;">一步一步做，結果通常更穩。</div>
+      <div class="teacher">這就是最基礎的 workflow 概念。</div>
+    </section>
+
+    <section class="slide center" data-level="3">
+      <div class="eyebrow">來判斷看看</div>
+      <h2>哪一種做法比較適合複雜工作？</h2>
+      <div class="two-buttons">
+        <button class="choice" onclick="genericQuiz(this,false,'l3QuizReveal','事情越大，一次全丟給 AI 越容易失控。')">一次全部叫 AI 做完</button>
+        <button class="choice" onclick="genericQuiz(this,true,'l3QuizReveal','對。把工作拆成幾個步驟，可以一段一段檢查，也比較容易修改。')">拆成幾步，一步一步做</button>
+      </div>
+      <div class="reveal" id="l3QuizReveal"></div>
+      <div class="teacher">讓大家自己選。</div>
+    </section>
+
+    <section class="slide center" data-level="3">
+      <div class="eyebrow">L3 實作</div>
+      <h2>把你的一件工作拆成 3～5 步</h2>
+      <div class="soft-card" style="text-align:left;width:min(960px,100%);">
+        先想一件你平常會做的工作：＿＿＿＿<br><br>
+        ① 第一個步驟：＿＿＿＿<br>
+        ② 第二個步驟：＿＿＿＿<br>
+        ③ 第三個步驟：＿＿＿＿<br>
+        ④ 還需要的話，再繼續拆。
+      </div>
+      <p>每完成一步，就先看結果對不對，再進下一步。</p>
+      <div class="teacher">讓學員用自己的工作內容拆解。</div>
+    </section>
+
+    <section class="slide center" data-level="3">
+      <div class="eyebrow">L3 完成</div>
+      <h2>你已經會跟 AI 一起完成工作</h2>
+      <div class="soft-card" style="text-align:left;width:min(820px,100%);">
+        ✓ 知道複雜工作要拆小<br>
+        ✓ 會讓 AI 一步一步處理<br>
+        ✓ 每一步都會先檢查再繼續<br>
+        ✓ 會把前一步結果拿來做下一步<br>
+        ✓ 能把多個小成果整合成完整工作
+      </div>
+      <div class="teacher">這裡可以問：「哪些工作你覺得最適合拆成流程？」</div>
+    </section>
+
+    <!-- ===================== L4 ===================== -->
+    
+    <section class="slide center agenda-slide" data-level="4" data-agenda="true">
+      <h2>我們會一步一步學到哪裡？</h2>
+      <p>現在進入 L4，不用急，我們一樣一步一步來。</p>
+      <div class="level-grid">
+        
+        <div class="level-card">
+          
+          <div class="icon-circle i1">💬</div>
+          <div>
+            <div class="card-kicker">L1</div>
+            <div class="card-title">跟 AI 說話</div>
+            <div class="card-desc">我問問題，AI 回答我。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i2">📝</div>
+          <div>
+            <div class="card-kicker">L2</div>
+            <div class="card-title">叫 AI 幫忙</div>
+            <div class="card-desc">把一件事情交給 AI。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i3">👥</div>
+          <div>
+            <div class="card-kicker">L3</div>
+            <div class="card-title">跟 AI 一起工作</div>
+            <div class="card-desc">一步一步完成整件事。</div>
+          </div>
+        </div>
+        <div class="level-card current">
+          <div class="badge">目前階段</div>
+          <div class="icon-circle i4">⚙️</div>
+          <div>
+            <div class="card-kicker">L4</div>
+            <div class="card-title">讓 AI 自己做</div>
+            <div class="card-desc">重複的工作，交給 AI 自動處理。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i5">💻</div>
+          <div>
+            <div class="card-kicker">L5</div>
+            <div class="card-title">叫 AI 做工具</div>
+            <div class="card-desc">不會寫程式，也能做小工具。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i6">🤖</div>
+          <div>
+            <div class="card-kicker">L6</div>
+            <div class="card-title">打造 AI 小幫手</div>
+            <div class="card-desc">讓 AI 成為真正的工作助手。</div>
+          </div>
+        </div>
+      </div>
+      <div class="encourage"><span>♥</span> 你不需要很會電腦，跟著老師一步一步做，你一定做得到！ <span>♥</span></div>
+      <div class="teacher">新 Level 開場 Agenda：先讓大家知道現在走到哪裡，再進入內容。</div>
+    </section>
+
+<section class="slide center" data-level="4">
+      <div class="eyebrow">L4 · 讓 AI 自己做</div>
+      <h2>有些事情，不需要每次重新叫它</h2>
+      <div class="big">如果一件事每天、每週都重複，<br>就可以開始想：能不能讓它自己做？</div>
+      <div class="teacher">L4 先教自動化思維，不急著碰技術工具。</div>
+    </section>
+
+    <section class="slide center" data-level="4">
+      <div class="eyebrow">先找「重複工作」</div>
+      <h2>什麼事情值得自動化？</h2>
+      <div class="level-grid" style="grid-template-columns:repeat(3,1fr);grid-template-rows:1fr;">
+        <div class="level-card"><div class="icon-circle i1">🔁</div><div><div class="card-title">一直重複</div><div class="card-desc">每天、每週都要做。</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">⏱️</div><div><div class="card-title">很花時間</div><div class="card-desc">內容不難，但很耗時間。</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">📋</div><div><div class="card-title">規則固定</div><div class="card-desc">每次做法差不多。</div></div></div>
+      </div>
+      <p style="margin-top:14px;">這三種事情，最值得先想能不能交給 AI 自動處理。</p>
+      <div class="teacher">這是 Automation 的篩選標準。</div>
+    </section>
+
+    <section class="slide center" data-level="4">
+      <div class="eyebrow">車縫現場例子</div>
+      <h2>每天都要做的品質異常整理</h2>
+      <div class="soft-card" style="text-align:left;width:min(980px,100%);">
+        每天下班前：<br>
+        ① 收集今天出現的異常<br>
+        ② 分類問題<br>
+        ③ 整理最常發生的項目<br>
+        ④ 寫成簡單報告<br>
+        ⑤ 明天早上給主管看
+      </div>
+      <div class="big" style="margin-top:14px;">如果每天都一樣，就可以想辦法讓它自動跑。</div>
+      <div class="teacher">不用真的串系統，先建立「固定流程可以自動化」的觀念。</div>
+    </section>
+
+    <section class="slide center" data-level="4">
+      <div class="eyebrow">自動化其實就是這樣</div>
+      <h2>先決定「什麼時候開始」</h2>
+      <div class="level-grid" style="grid-template-columns:repeat(3,1fr);grid-template-rows:1fr;">
+        <div class="level-card"><div class="icon-circle i1">🕔</div><div><div class="card-title">固定時間</div><div class="card-desc">例如每天 5 點整理。</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">📥</div><div><div class="card-title">有新資料時</div><div class="card-desc">例如收到新表單。</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">⚠️</div><div><div class="card-title">發生某件事</div><div class="card-desc">例如異常數量超過標準。</div></div></div>
+      </div>
+      <div class="teacher">這是在講 trigger，但不使用英文術語。</div>
+    </section>
+
+    <section class="slide center" data-level="4">
+      <div class="eyebrow">再決定「它要做什麼」</div>
+      <h2>一個自動流程，可以很簡單</h2>
+      <div class="big">收資料 → 整理 → 判斷 → 輸出 → 通知</div>
+      <div class="soft-card" style="margin-top:18px;text-align:left;width:min(980px,100%);">
+        例如：每天 5 點<br>
+        → 讀今天的異常紀錄<br>
+        → 分成車縫、材料、尺寸三類<br>
+        → 找出最多的問題<br>
+        → 產生摘要<br>
+        → 寄給主管
+      </div>
+      <div class="teacher">這頁建立自動化流程骨架。</div>
+    </section>
+
+    <section class="slide center" data-level="4">
+      <div class="eyebrow">不是所有事情都適合自動</div>
+      <h2>這些事情，仍然要人做決定</h2>
+      <div class="level-grid" style="grid-template-columns:repeat(3,1fr);grid-template-rows:1fr;">
+        <div class="level-card"><div class="icon-circle i1">🧠</div><div><div class="card-title">專業判斷</div><div class="card-desc">品質到底能不能接受？</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">🤝</div><div><div class="card-title">人際溝通</div><div class="card-desc">需要安撫、協調、說服。</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">🚨</div><div><div class="card-title">高風險決策</div><div class="card-desc">出錯會造成重大影響。</div></div></div>
+      </div>
+      <div class="teacher">建立「自動化不是放棄控制」的安全感。</div>
+    </section>
+
+    <section class="slide center" data-level="4">
+      <div class="eyebrow">來判斷看看</div>
+      <h2>哪一件事最適合先自動化？</h2>
+      <div class="two-buttons">
+        <button class="choice" onclick="genericQuiz(this,true,'l4QuizReveal','對。固定時間、固定格式、重複整理，是很適合自動化的工作。')">每天整理固定格式的異常紀錄</button>
+        <button class="choice" onclick="genericQuiz(this,false,'l4QuizReveal','這種工作需要很多現場判斷，不適合直接全自動。')">判斷一批成品到底要不要報廢</button>
+      </div>
+      <div class="reveal" id="l4QuizReveal"></div>
+      <div class="teacher">強調先自動「整理」，不要急著自動「決策」。</div>
+    </section>
+
+    <section class="slide center" data-level="4">
+      <div class="eyebrow">L4 實作</div>
+      <h2>找一件你每週重複做的事</h2>
+      <div class="soft-card" style="text-align:left;width:min(940px,100%);">
+        這件事是：＿＿＿＿<br><br>
+        多久做一次：＿＿＿＿<br><br>
+        每次固定會做的步驟：＿＿＿＿<br><br>
+        哪些步驟可以交給 AI：＿＿＿＿<br><br>
+        哪些地方一定要人檢查：＿＿＿＿
+      </div>
+      <div class="teacher">這頁就是自動化規劃的第一張紙。</div>
+    </section>
+
+    <section class="slide center" data-level="4">
+      <div class="eyebrow">L4 完成</div>
+      <h2>你開始會找出可以自動做的工作</h2>
+      <div class="soft-card" style="text-align:left;width:min(820px,100%);">
+        ✓ 會找出重複工作<br>
+        ✓ 知道什麼工作適合自動化<br>
+        ✓ 會想「什麼時候開始」<br>
+        ✓ 會畫出簡單的自動流程<br>
+        ✓ 知道哪些地方一定要保留人工確認
+      </div>
+      <div class="teacher">下一步將進入「自己做小工具」。</div>
+    </section>
+
+    <!-- ===================== L5 ===================== -->
+    
+    <section class="slide center agenda-slide" data-level="5" data-agenda="true">
+      <h2>我們會一步一步學到哪裡？</h2>
+      <p>現在進入 L5，不用急，我們一樣一步一步來。</p>
+      <div class="level-grid">
+        
+        <div class="level-card">
+          
+          <div class="icon-circle i1">💬</div>
+          <div>
+            <div class="card-kicker">L1</div>
+            <div class="card-title">跟 AI 說話</div>
+            <div class="card-desc">我問問題，AI 回答我。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i2">📝</div>
+          <div>
+            <div class="card-kicker">L2</div>
+            <div class="card-title">叫 AI 幫忙</div>
+            <div class="card-desc">把一件事情交給 AI。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i3">👥</div>
+          <div>
+            <div class="card-kicker">L3</div>
+            <div class="card-title">跟 AI 一起工作</div>
+            <div class="card-desc">一步一步完成整件事。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i4">⚙️</div>
+          <div>
+            <div class="card-kicker">L4</div>
+            <div class="card-title">讓 AI 自己做</div>
+            <div class="card-desc">重複的工作，交給 AI 自動處理。</div>
+          </div>
+        </div>
+        <div class="level-card current">
+          <div class="badge">目前階段</div>
+          <div class="icon-circle i5">💻</div>
+          <div>
+            <div class="card-kicker">L5</div>
+            <div class="card-title">叫 AI 做工具</div>
+            <div class="card-desc">不會寫程式，也能做小工具。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i6">🤖</div>
+          <div>
+            <div class="card-kicker">L6</div>
+            <div class="card-title">打造 AI 小幫手</div>
+            <div class="card-desc">讓 AI 成為真正的工作助手。</div>
+          </div>
+        </div>
+      </div>
+      <div class="encourage"><span>♥</span> 你不需要很會電腦，跟著老師一步一步做，你一定做得到！ <span>♥</span></div>
+      <div class="teacher">新 Level 開場 Agenda：先讓大家知道現在走到哪裡，再進入內容。</div>
+    </section>
+
+<section class="slide center" data-level="5">
+      <div class="eyebrow">L5 · 叫 AI 做工具</div>
+      <h2>你不一定要會寫程式</h2>
+      <div class="big">只要能把需求講清楚，<br>AI 就可以幫你做出簡單的小工具。</div>
+      <p>這就是我們後面才會告訴你的名稱：Vibe Coding。</p>
+      <div class="teacher">這裡才第一次正式出現 Vibe Coding 名稱。</div>
+    </section>
+
+    <section class="slide center" data-level="5">
+      <div class="eyebrow">先從真的有用開始</div>
+      <h2>不要一開始就做大系統</h2>
+      <div class="soft-card" style="text-align:left;width:min(980px,100%);">
+        ✅ 數量計算器<br>
+        ✅ 尺寸換算工具<br>
+        ✅ 工時估算表<br>
+        ✅ 簡單的檢查表網頁<br>
+        ✅ 新人教學小頁面<br><br>
+        ❌ 一開始就做完整 ERP、MES、工廠管理系統
+      </div>
+      <div class="teacher">建立小步快跑的期待。</div>
+    </section>
+
+    <section class="slide center" data-level="5">
+      <div class="eyebrow">車縫情境</div>
+      <h2>做一個簡單的「工時估算小工具」</h2>
+      <div class="big">輸入：數量、每件秒數、工作人數<br>輸出：大約需要幾小時</div>
+      <p>以前可能拿計算機算，現在可以叫 AI 幫你做一個按鈕式工具。</p>
+      <div class="teacher">用非常具體的小工具降低程式恐懼。</div>
+    </section>
+
+    <section class="slide center" data-level="5">
+      <div class="eyebrow">需求要怎麼講？</div>
+      <h2>先說清楚 4 件事</h2>
+      <div class="level-grid" style="grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);max-width:1050px;">
+        <div class="level-card"><div class="icon-circle i1">🎯</div><div><div class="card-title">1. 這工具要幹嘛</div><div class="card-desc">例如估算工時。</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">⌨️</div><div><div class="card-title">2. 我要輸入什麼</div><div class="card-desc">數量、秒數、人數。</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">📊</div><div><div class="card-title">3. 要輸出什麼</div><div class="card-desc">總分鐘、總小時。</div></div></div>
+        <div class="level-card"><div class="icon-circle i4">👆</div><div><div class="card-title">4. 怎麼操作</div><div class="card-desc">字要大、按鈕要清楚。</div></div></div>
+      </div>
+      <div class="teacher">其實就是需求定義。</div>
+    </section>
+
+    <section class="slide center" data-level="5">
+      <div class="eyebrow">直接這樣跟 AI 說</div>
+      <h2>不需要先學程式語言</h2>
+      <div class="prompt">
+        請幫我做一個可以在電腦瀏覽器打開的小工具。<br><br>
+        用途：估算車縫工作需要多少時間。<br>
+        輸入：產品數量、每件需要幾秒、工作人數。<br>
+        輸出：總共需要幾分鐘、幾小時。<br>
+        畫面要簡單、字大、按鈕清楚，適合 40～60 歲使用者。<br>
+        請做成單一 HTML 檔案。
+      </div>
+      <div class="teacher">讓學員看到「自然語言 → 小工具」的轉換。</div>
+    </section>
+
+    <section class="slide center" data-level="5">
+      <div class="eyebrow">第一版通常不會完美</div>
+      <h2>看到不喜歡，就直接叫它改</h2>
+      <div class="soft-card" style="text-align:left;width:min(960px,100%);">
+        「字再大一點。」<br>
+        「按鈕不要這麼多。」<br>
+        「不要深色背景。」<br>
+        「結果放到最上面。」<br>
+        「輸入錯誤時提醒我。」<br>
+        「手機也要看得清楚。」
+      </div>
+      <div class="big" style="margin-top:14px;">這就是 Vibe Coding 最重要的能力：一直說清楚、一直修。</div>
+      <div class="teacher">把 Debug 包裝成「叫它修改」。</div>
+    </section>
+
+    <section class="slide center" data-level="5">
+      <div class="eyebrow">但是一定要測試</div>
+      <h2>工具做出來，不代表一定算對</h2>
+      <div class="level-grid" style="grid-template-columns:repeat(3,1fr);grid-template-rows:1fr;">
+        <div class="level-card"><div class="icon-circle i1">🧮</div><div><div class="card-title">拿已知答案測</div><div class="card-desc">先用你自己會算的例子。</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">0️⃣</div><div><div class="card-title">測特殊狀況</div><div class="card-desc">0、空白、很大的數字。</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">👥</div><div><div class="card-title">讓別人試用</div><div class="card-desc">看看別人會不會按錯。</div></div></div>
+      </div>
+      <div class="teacher">這是在教最基礎的 QA。</div>
+    </section>
+
+    <section class="slide center" data-level="5">
+      <div class="eyebrow">來判斷看看</div>
+      <h2>AI 做的小工具，第一件事應該做什麼？</h2>
+      <div class="two-buttons">
+        <button class="choice" onclick="genericQuiz(this,false,'l5QuizReveal','先不要急著正式使用。AI 寫的工具也可能有錯。')">直接拿去正式使用</button>
+        <button class="choice" onclick="genericQuiz(this,true,'l5QuizReveal','對。先拿已知答案測試，確認計算和操作都正確。')">先拿幾個已知答案測試</button>
+      </div>
+      <div class="reveal" id="l5QuizReveal"></div>
+      <div class="teacher">強調工具也需要驗證。</div>
+    </section>
+
+    <section class="slide center" data-level="5">
+      <div class="eyebrow">L5 實作</div>
+      <h2>想一個你最想要的小工具</h2>
+      <div class="soft-card" style="text-align:left;width:min(940px,100%);">
+        工具名稱：＿＿＿＿<br><br>
+        它要幫我解決：＿＿＿＿<br><br>
+        我要輸入：＿＿＿＿<br><br>
+        我要看到的結果：＿＿＿＿<br><br>
+        使用的人是：＿＿＿＿
+      </div>
+      <p>先把需求說清楚，再叫 AI 做第一版。</p>
+      <div class="teacher">若現場時間允許，可以真的讓學員生成一個單一 HTML。</div>
+    </section>
+
+    <section class="slide center" data-level="5">
+      <div class="eyebrow">L5 完成</div>
+      <h2>你已經開始會「叫 AI 做工具」</h2>
+      <div class="soft-card" style="text-align:left;width:min(820px,100%);">
+        ✓ 知道先從小工具開始<br>
+        ✓ 會描述工具要做什麼<br>
+        ✓ 會說明輸入與輸出<br>
+        ✓ 會叫 AI 修改介面和功能<br>
+        ✓ 知道工具完成後一定要測試
+      </div>
+      <div class="teacher">這裡完成 Vibe Coding 的入門概念。</div>
+    </section>
+
+    <!-- ===================== L6 ===================== -->
+    
+    <section class="slide center agenda-slide" data-level="6" data-agenda="true">
+      <h2>我們會一步一步學到哪裡？</h2>
+      <p>現在進入 L6，不用急，我們一樣一步一步來。</p>
+      <div class="level-grid">
+        
+        <div class="level-card">
+          
+          <div class="icon-circle i1">💬</div>
+          <div>
+            <div class="card-kicker">L1</div>
+            <div class="card-title">跟 AI 說話</div>
+            <div class="card-desc">我問問題，AI 回答我。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i2">📝</div>
+          <div>
+            <div class="card-kicker">L2</div>
+            <div class="card-title">叫 AI 幫忙</div>
+            <div class="card-desc">把一件事情交給 AI。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i3">👥</div>
+          <div>
+            <div class="card-kicker">L3</div>
+            <div class="card-title">跟 AI 一起工作</div>
+            <div class="card-desc">一步一步完成整件事。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i4">⚙️</div>
+          <div>
+            <div class="card-kicker">L4</div>
+            <div class="card-title">讓 AI 自己做</div>
+            <div class="card-desc">重複的工作，交給 AI 自動處理。</div>
+          </div>
+        </div>
+        <div class="level-card">
+          
+          <div class="icon-circle i5">💻</div>
+          <div>
+            <div class="card-kicker">L5</div>
+            <div class="card-title">叫 AI 做工具</div>
+            <div class="card-desc">不會寫程式，也能做小工具。</div>
+          </div>
+        </div>
+        <div class="level-card current">
+          <div class="badge">目前階段</div>
+          <div class="icon-circle i6">🤖</div>
+          <div>
+            <div class="card-kicker">L6</div>
+            <div class="card-title">打造 AI 小幫手</div>
+            <div class="card-desc">讓 AI 成為真正的工作助手。</div>
+          </div>
+        </div>
+      </div>
+      <div class="encourage"><span>♥</span> 你不需要很會電腦，跟著老師一步一步做，你一定做得到！ <span>♥</span></div>
+      <div class="teacher">新 Level 開場 Agenda：先讓大家知道現在走到哪裡，再進入內容。</div>
+    </section>
+
+<section class="slide center" data-level="6">
+      <div class="eyebrow">L6 · 打造 AI 小幫手</div>
+      <h2>最後一級：把前面的能力串起來</h2>
+      <div class="big">不是只問 AI、也不是只做一個工具。<br>而是讓 AI 在工作裡固定扮演一個角色。</div>
+      <p>這就是「AI 小幫手」的概念。</p>
+      <div class="teacher">避免過早講 Agent、MCP、API 等名詞。</div>
+    </section>
+
+    <section class="slide center" data-level="6">
+      <div class="eyebrow">先想像一個角色</div>
+      <h2>例如：新人訓練 AI 小幫手</h2>
+      <div class="soft-card" style="text-align:left;width:min(980px,100%);">
+        新人有問題<br>
+        → AI 先回答基本流程<br>
+        → 找出相關 SOP<br>
+        → 提醒常見錯誤<br>
+        → 如果遇到無法判斷的問題<br>
+        → 再交給老師傅
+      </div>
+      <div class="teacher">讓 AI 做第一線助手，不取代老師傅。</div>
+    </section>
+
+    <section class="slide center" data-level="6">
+      <div class="eyebrow">一個 AI 小幫手，需要 4 樣東西</div>
+      <h2>它不是只有「一個聊天視窗」</h2>
+      <div class="level-grid" style="grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);max-width:1050px;">
+        <div class="level-card"><div class="icon-circle i1">🎯</div><div><div class="card-title">1. 角色</div><div class="card-desc">它負責幫忙什麼？</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">📚</div><div><div class="card-title">2. 資料</div><div class="card-desc">它可以參考哪些 SOP、文件、規則？</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">🔄</div><div><div class="card-title">3. 流程</div><div class="card-desc">收到問題後，要先做什麼再做什麼？</div></div></div>
+        <div class="level-card"><div class="icon-circle i4">🧍</div><div><div class="card-title">4. 人的把關</div><div class="card-desc">哪些事情一定要交給人決定？</div></div></div>
+      </div>
+      <div class="teacher">這四格其實就是最基礎的 Agent System 設計。</div>
+    </section>
+
+    <section class="slide center" data-level="6">
+      <div class="eyebrow">車縫情境</div>
+      <h2>AI 品質異常小幫手</h2>
+      <div class="big">拍照／輸入問題<br>↓<br>AI 先分類<br>↓<br>找 SOP 與常見原因<br>↓<br>提供檢查建議<br>↓<br>需要時交給主管或老師傅</div>
+      <div class="teacher">這頁讓學員把 L1～L5 的能力連成一個系統。</div>
+    </section>
+
+    <section class="slide center" data-level="6">
+      <div class="eyebrow">但是要設定界線</div>
+      <h2>AI 小幫手不能什麼都自己決定</h2>
+      <div class="soft-card" style="text-align:left;width:min(980px,100%);">
+        AI 可以：整理、查找、提醒、分類、產生草稿。<br><br>
+        人來決定：品質放行、報廢、責任歸屬、重大異常處置。
+      </div>
+      <div class="big" style="margin-top:14px;">AI 負責幫忙，人負責負責。</div>
+      <div class="teacher">這句話可以成為 L6 的核心安全原則。</div>
+    </section>
+
+    <section class="slide center" data-level="6">
+      <div class="eyebrow">來判斷看看</div>
+      <h2>好的 AI 小幫手，最重要的是什麼？</h2>
+      <div class="two-buttons">
+        <button class="choice" onclick="genericQuiz(this,false,'l6QuizReveal','不是越自動越好。沒有界線的 AI 反而容易出問題。')">什麼事情都讓 AI 自己決定</button>
+        <button class="choice" onclick="genericQuiz(this,true,'l6QuizReveal','對。AI 幫忙處理，人保留專業判斷與最後決定。')">AI 幫忙，人保留最後判斷</button>
+      </div>
+      <div class="reveal" id="l6QuizReveal"></div>
+      <div class="teacher">這頁收束整套課程價值觀。</div>
+    </section>
+
+    <section class="slide center" data-level="6">
+      <div class="eyebrow">L6 實作</div>
+      <h2>設計你自己的 AI 小幫手</h2>
+      <div class="soft-card" style="text-align:left;width:min(960px,100%);">
+        我希望它負責：＿＿＿＿<br><br>
+        它可以參考的資料：＿＿＿＿<br><br>
+        它收到問題後要做：＿＿＿＿ → ＿＿＿＿ → ＿＿＿＿<br><br>
+        哪些事情一定要交給人：＿＿＿＿
+      </div>
+      <div class="teacher">這是整門課的最終實作。</div>
+    </section>
+
+    <section class="slide center" data-level="6">
+      <div class="eyebrow">回頭看看</div>
+      <h2>你已經從「問 AI」走到「設計 AI 工作方式」</h2>
+      <div class="level-grid">
+        <div class="level-card"><div class="icon-circle i1">💬</div><div><div class="card-kicker">L1</div><div class="card-title">跟 AI 說話</div><div class="card-desc">會問、會追問、會糾正。</div></div></div>
+        <div class="level-card"><div class="icon-circle i2">📝</div><div><div class="card-kicker">L2</div><div class="card-title">叫 AI 幫忙</div><div class="card-desc">會把一件工作交給 AI。</div></div></div>
+        <div class="level-card"><div class="icon-circle i3">👥</div><div><div class="card-kicker">L3</div><div class="card-title">一起工作</div><div class="card-desc">會把複雜工作拆成流程。</div></div></div>
+        <div class="level-card"><div class="icon-circle i4">⚙️</div><div><div class="card-kicker">L4</div><div class="card-title">讓 AI 自己做</div><div class="card-desc">會找出能自動處理的工作。</div></div></div>
+        <div class="level-card"><div class="icon-circle i5">💻</div><div><div class="card-kicker">L5</div><div class="card-title">做小工具</div><div class="card-desc">會描述需求、測試與修改。</div></div></div>
+        <div class="level-card"><div class="icon-circle i6">🤖</div><div><div class="card-kicker">L6</div><div class="card-title">AI 小幫手</div><div class="card-desc">會設計 AI 在工作裡的角色。</div></div></div>
+      </div>
+      <div class="teacher">這頁是全課總複習。</div>
+    </section>
+
+    <section class="slide center" data-level="6">
+      <div class="eyebrow">整套課程完成</div>
+      <h1>AI 不是要取代你的專業</h1>
+      <div class="big">你的經驗，才是最重要的部分。<br>AI 是讓你的經驗更容易被使用、被整理、被傳下去。</div>
+      <div class="soft-card" style="margin-top:18px;width:min(900px,100%);">
+        從今天開始，不需要問「我懂不懂 AI？」<br><br>
+        只要開始問：<b>「這件事情，AI 能不能幫我一點忙？」</b>
+      </div>
+      <div class="teacher">建議用這頁作為結尾，停 30 秒後再做現場分享。</div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="bottombar">
+  <button class="navbtn" id="prevBtn" onclick="prevSlide()">← 上一頁</button>
+  <div class="pagecount"><span id="pageNow">1</span> / <span id="pageTotal"></span></div>
+  <div class="right-actions">
+    <button class="overview-btn" onclick="openOverview()">▦ 頁面總覽</button>
+    <button class="teacher-toggle" onclick="toggleTeacher()">💡 老師提示</button>
+    <button class="navbtn next" id="nextBtn" onclick="nextSlide()">下一頁 →</button>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let index=0;
+document.getElementById('pageTotal').textContent=slides.length;
+
+const levelNames={
+  1:'L1 跟 AI 說話',
+  2:'L2 叫 AI 幫忙',
+  3:'L3 跟 AI 一起工作',
+  4:'L4 讓 AI 自己做',
+  5:'L5 叫 AI 做工具',
+  6:'L6 打造 AI 小幫手'
+};
+
+function render(){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===index));
+  document.getElementById('pageNow').textContent=index+1;
+  document.getElementById('prevBtn').disabled=index===0;
+  document.getElementById('nextBtn').disabled=index===slides.length-1;
+
+  const level=Number(slides[index].dataset.level||1);
+  document.getElementById('stagePill').textContent=levelNames[level];
+
+  document.querySelectorAll('.jstep').forEach((el,i)=>{
+    const step=i+1;
+    el.classList.remove('active','done');
+    if(step<level) el.classList.add('done');
+    if(step===level) el.classList.add('active');
+  });
+}
+
+function nextSlide(){if(index<slides.length-1){index++;render();}}
+function prevSlide(){if(index>0){index--;render();}}
+function toggleTeacher(){document.body.classList.toggle('teacher-mode');}
+
+function selectTool(btn,tool){
+  btn.parentElement.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
+  btn.classList.add('selected');
+  const r=document.getElementById('toolReveal');
+  r.innerHTML='<b>你選擇 '+tool+'。</b> 很好。這堂課重點不是哪個比較強，而是你會不會把事情交代清楚。';
+  r.classList.add('show');
+}
+
+function quiz(btn,correct){
+  btn.parentElement.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected','bad'));
+  const r=document.getElementById('quizReveal');
+  if(correct){
+    btn.classList.add('selected');
+    r.innerHTML='<b>對。</b> AI 可能講得很完整，但還是會判斷錯。真正熟悉車縫的人是你。';
+  }else{
+    btn.classList.add('bad');
+    r.innerHTML='<b>這就是要小心的地方。</b> AI 有時候會很有自信地講錯答案。';
+  }
+  r.classList.add('show');
+}
+
+
+function l2Quiz(btn,correct){
+  btn.parentElement.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected','bad'));
+  const r=document.getElementById('l2QuizReveal');
+  if(correct){
+    btn.classList.add('selected');
+    r.innerHTML='<b>比較好。</b> 因為 AI 知道要做什麼、給誰看，而且知道你希望整理成什麼樣子。';
+  }else{
+    btn.classList.add('bad');
+    r.innerHTML='<b>AI 還是可以做，但結果可能比較不穩定。</b> 多講一點需求，通常會更接近你想要的結果。';
+  }
+  r.classList.add('show');
+}
+
+
+function genericQuiz(btn,correct,revealId,message){
+  btn.parentElement.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected','bad'));
+  const r=document.getElementById(revealId);
+  if(correct){
+    btn.classList.add('selected');
+    r.innerHTML='<b>答對了。</b> '+message;
+  }else{
+    btn.classList.add('bad');
+    r.innerHTML='<b>再想一下。</b> '+message;
+  }
+  r.classList.add('show');
+}
+
+
+
+let overviewBuilt=false;
+let thumbSourceWidth=0;
+let thumbSourceHeight=0;
+
+function stripIds(root){
+  if(root.removeAttribute) root.removeAttribute('id');
+  root.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+  root.querySelectorAll('[onclick]').forEach(el=>el.removeAttribute('onclick'));
+}
+
+function getSlideTitle(slide){
+  const h=slide.querySelector('h1,h2,.big');
+  return h ? h.textContent.replace(/\s+/g,' ').trim().slice(0,34) : '課程頁面';
+}
+
+function getSourceGeometry(){
+  const frame=document.querySelector('.slide-frame');
+  const rect=frame.getBoundingClientRect();
+  thumbSourceWidth=Math.max(1,rect.width);
+  thumbSourceHeight=Math.max(1,rect.height);
+}
+
+function freezeComputedLayout(original, clone){
+  const originalNodes=[original,...original.querySelectorAll('*')];
+  const cloneNodes=[clone,...clone.querySelectorAll('*')];
+
+  for(let i=0;i<Math.min(originalNodes.length,cloneNodes.length);i++){
+    const o=originalNodes[i];
+    const c=cloneNodes[i];
+    const cs=getComputedStyle(o);
+
+    // Preserve the layout-critical geometry/typography from the real slide.
+    c.style.fontFamily=cs.fontFamily;
+    c.style.fontSize=cs.fontSize;
+    c.style.fontWeight=cs.fontWeight;
+    c.style.lineHeight=cs.lineHeight;
+    c.style.letterSpacing=cs.letterSpacing;
+    c.style.textAlign=cs.textAlign;
+
+    c.style.display=cs.display;
+    c.style.position=cs.position;
+    c.style.flexDirection=cs.flexDirection;
+    c.style.flexWrap=cs.flexWrap;
+    c.style.justifyContent=cs.justifyContent;
+    c.style.alignItems=cs.alignItems;
+    c.style.alignContent=cs.alignContent;
+    c.style.flexGrow=cs.flexGrow;
+    c.style.flexShrink=cs.flexShrink;
+    c.style.flexBasis=cs.flexBasis;
+
+    c.style.gridTemplateColumns=cs.gridTemplateColumns;
+    c.style.gridTemplateRows=cs.gridTemplateRows;
+    c.style.gridColumnGap=cs.columnGap;
+    c.style.gridRowGap=cs.rowGap;
+
+    c.style.width=cs.width;
+    c.style.height=cs.height;
+    c.style.minWidth=cs.minWidth;
+    c.style.minHeight=cs.minHeight;
+    c.style.maxWidth=cs.maxWidth;
+    c.style.maxHeight=cs.maxHeight;
+
+    c.style.marginTop=cs.marginTop;
+    c.style.marginRight=cs.marginRight;
+    c.style.marginBottom=cs.marginBottom;
+    c.style.marginLeft=cs.marginLeft;
+    c.style.paddingTop=cs.paddingTop;
+    c.style.paddingRight=cs.paddingRight;
+    c.style.paddingBottom=cs.paddingBottom;
+    c.style.paddingLeft=cs.paddingLeft;
+
+    c.style.borderTopWidth=cs.borderTopWidth;
+    c.style.borderRightWidth=cs.borderRightWidth;
+    c.style.borderBottomWidth=cs.borderBottomWidth;
+    c.style.borderLeftWidth=cs.borderLeftWidth;
+    c.style.borderTopStyle=cs.borderTopStyle;
+    c.style.borderRightStyle=cs.borderRightStyle;
+    c.style.borderBottomStyle=cs.borderBottomStyle;
+    c.style.borderLeftStyle=cs.borderLeftStyle;
+    c.style.borderTopColor=cs.borderTopColor;
+    c.style.borderRightColor=cs.borderRightColor;
+    c.style.borderBottomColor=cs.borderBottomColor;
+    c.style.borderLeftColor=cs.borderLeftColor;
+    c.style.borderRadius=cs.borderRadius;
+
+    c.style.background=cs.background;
+    c.style.color=cs.color;
+    c.style.boxShadow=cs.boxShadow;
+    c.style.overflow=cs.overflow;
+    c.style.whiteSpace=cs.whiteSpace;
+  }
+}
+
+function makeSlideClone(slide){
+  // Temporarily render the original offscreen state as active only for measurement
+  // without changing what the user sees.
+  const wasActive=slide.classList.contains('active');
+  slide.classList.add('active');
+
+  const clone=slide.cloneNode(true);
+  stripIds(clone);
+  clone.classList.remove('active');
+  clone.classList.add('thumb-slide');
+
+  freezeComputedLayout(slide,clone);
+
+  if(!wasActive) slide.classList.remove('active');
+
+  clone.style.display='flex';
+  clone.style.position='absolute';
+  clone.style.inset='0';
+  clone.style.width=thumbSourceWidth+'px';
+  clone.style.height=thumbSourceHeight+'px';
+  clone.querySelectorAll('.teacher').forEach(el=>el.style.display='none');
+
+  return clone;
+}
+
+function buildOverview(){
+  const grid=document.getElementById('thumbGrid');
+  const filters=document.getElementById('overviewFilters');
+  grid.innerHTML='';
+  filters.innerHTML='';
+  getSourceGeometry();
+
+  const allBtn=document.createElement('button');
+  allBtn.className='filter-btn active';
+  allBtn.textContent='全部';
+  allBtn.onclick=()=>filterOverview('all',allBtn);
+  filters.appendChild(allBtn);
+
+  for(let lv=1;lv<=6;lv++){
+    const b=document.createElement('button');
+    b.className='filter-btn';
+    b.textContent='L'+lv;
+    b.onclick=()=>filterOverview(String(lv),b);
+    filters.appendChild(b);
+  }
+
+  slides.forEach((slide,i)=>{
+    const card=document.createElement('div');
+    card.className='thumb-card';
+    card.dataset.index=i;
+    card.dataset.level=slide.dataset.level||'1';
+
+    const preview=document.createElement('div');
+    preview.className='thumb-preview';
+    preview.style.aspectRatio=thumbSourceWidth+' / '+thumbSourceHeight;
+
+    const canvas=document.createElement('div');
+    canvas.className='thumb-canvas';
+    canvas.style.width=thumbSourceWidth+'px';
+    canvas.style.height=thumbSourceHeight+'px';
+
+    const clone=makeSlideClone(slide);
+    canvas.appendChild(clone);
+    preview.appendChild(canvas);
+
+    const meta=document.createElement('div');
+    meta.className='thumb-meta';
+    meta.innerHTML=
+      '<span class="thumb-number">'+(i+1)+'</span>'+
+      '<span class="thumb-title">'+getSlideTitle(slide)+'</span>';
+
+    card.appendChild(preview);
+    card.appendChild(meta);
+    card.onclick=()=>jumpToSlide(i);
+    grid.appendChild(card);
+  });
+
+  overviewBuilt=true;
+  requestAnimationFrame(scaleThumbs);
+}
+
+function scaleThumbs(){
+  document.querySelectorAll('.thumb-preview').forEach(preview=>{
+    const canvas=preview.querySelector('.thumb-canvas');
+    if(!canvas) return;
+    const scale=Math.min(
+      preview.clientWidth/thumbSourceWidth,
+      preview.clientHeight/thumbSourceHeight
+    );
+    canvas.style.transform='scale('+scale+')';
+  });
+}
+
+function rebuildOverview(){
+  overviewBuilt=false;
+  buildOverview();
+}
+
+function filterOverview(level,button){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  if(button) button.classList.add('active');
+  document.querySelectorAll('.thumb-card').forEach(card=>{
+    card.style.display=(level==='all'||card.dataset.level===level)?'block':'none';
+  });
+  requestAnimationFrame(scaleThumbs);
+}
+
+function openOverview(){
+  if(!overviewBuilt) buildOverview();
+  const overlay=document.getElementById('overviewOverlay');
+  overlay.classList.add('open');
+
+  document.querySelectorAll('.thumb-card').forEach(c=>c.classList.remove('current'));
+  const current=document.querySelector('.thumb-card[data-index="'+index+'"]');
+  if(current){
+    current.classList.add('current');
+    setTimeout(()=>current.scrollIntoView({block:'center',behavior:'smooth'}),60);
+  }
+  requestAnimationFrame(scaleThumbs);
+}
+
+function closeOverview(){
+  document.getElementById('overviewOverlay').classList.remove('open');
+}
+
+function overlayBackdropClose(e){
+  if(e.target.id==='overviewOverlay') closeOverview();
+}
+
+function jumpToSlide(i){
+  index=i;
+  render();
+  closeOverview();
+}
+
+let resizeTimer=null;
+window.addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(()=>{
+    if(overviewBuilt){
+      rebuildOverview();
+      if(document.getElementById('overviewOverlay').classList.contains('open')){
+        requestAnimationFrame(scaleThumbs);
+      }
+    }
+  },180);
+});
+
+document.addEventListener('keydown',e=>{
+  const overlay=document.getElementById('overviewOverlay');
+  if(e.key==='Escape' && overlay.classList.contains('open')){e.preventDefault();closeOverview();return;}
+  if((e.key==='o'||e.key==='O') && !e.ctrlKey && !e.metaKey){e.preventDefault();overlay.classList.contains('open')?closeOverview():openOverview();return;}
+  if(overlay.classList.contains('open')) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();nextSlide();}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prevSlide();}
+  if(e.key==='Home'){index=0;render();}
+  if(e.key==='End'){index=slides.length-1;render();}
+});
+
+render();
+</script>
+
+<div class="overview-overlay" id="overviewOverlay" onclick="overlayBackdropClose(event)">
+  <div class="overview-panel">
+    <div class="overview-head">
+      <div>
+        <span class="overview-title">頁面總覽</span>
+        <span class="overview-sub">點任何縮圖即可直接跳到那一頁</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="overview-level-filter" id="overviewFilters"></div>
+        <button class="overview-close" onclick="closeOverview()">關閉 ✕</button>
+      </div>
+    </div>
+    <div class="thumb-grid" id="thumbGrid"></div>
+  </div>
+</div>
+
+</body>
+</html>
