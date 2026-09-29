@@ -11,7 +11,7 @@ status: active
 visibility: public
 tags: ["Architecture", "Presentation", "StaticSite", "Codex"]
 tools: ["Astro", "TailwindCSS", "HTML5"]
-cover: /assets/placeholder.svg
+cover: "/assets/covers/demo-presentation.png"
 playUrl: /presentations/demo-presentation/slides.html
 featured: false
 relatedSkills: ["living-watercolor-rpg"]

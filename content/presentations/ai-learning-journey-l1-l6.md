@@ -11,7 +11,7 @@ status: "active"
 visibility: "public"
 tags: ["AI學習", "教學簡報", "入門課程", "Prompt", "工作流"]
 tools: ["HTML5", "Astro", "TailwindCSS"]
-cover: "/assets/placeholder.svg"
+cover: "/assets/covers/ai-learning-journey-l1-l6.png"
 playUrl: "/presentations/ai-learning-journey-l1-l6/slides.html"
 featured: true
 ---

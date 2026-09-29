@@ -11,7 +11,7 @@ status: "active"
 visibility: "public"
 tags: ["YouTube", "團隊經營", "Shorts", "營利策略", "版權檢核"]
 tools: ["HTML5", "Analytics", "CreatorStudio"]
-cover: "/assets/placeholder.svg"
+cover: "/assets/covers/youtube-team-launch-guide-2026.png"
 playUrl: "/presentations/youtube-team-launch-guide-2026/slides.html"
 featured: true
 ---

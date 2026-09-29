@@ -11,7 +11,7 @@ status: "active"
 visibility: "public"
 tags: ["AI算力", "客戶提案", "能源用量", "商業洞察", "資本支出"]
 tools: ["HTML5", "DataViz"]
-cover: "/assets/placeholder.svg"
+cover: "/assets/covers/ai-compute-demand-evidence-2026.png"
 playUrl: "/presentations/ai-compute-demand-evidence-2026/slides.html"
 featured: false
 ---
