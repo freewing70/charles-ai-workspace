@@ -10,12 +10,66 @@ const featuredItems = allItems.filter((i) => i.meta.featured);
 const recentItems = allItems.slice(0, 6);
 
 const categories = [
-  { name: "Skills", eyebrow: "LEARN", count: allItems.filter(i => i.meta.type === 'skill').length, href: "/skills", desc: "提示詞模組、系統規範與工作流技能封裝", badgeClass: "bg-blue-50 text-[#155EEF] border-blue-200/80" },
-  { name: "Tutorials", eyebrow: "EXPLORE", count: allItems.filter(i => i.meta.type === 'tutorial').length, href: "/tutorials", desc: "漸進式操作課程、核心原理與指引文件", badgeClass: "bg-sky-50 text-[#0284C7] border-sky-200/80" },
-  { name: "Presentations", eyebrow: "SHARE", count: allItems.filter(i => i.meta.type === 'presentation').length, href: "/presentations", desc: "HTML5 原生簡報、在線演練與全螢幕播放", badgeClass: "bg-amber-50 text-[#B45309] border-amber-200/80" },
-  { name: "Projects", eyebrow: "CREATE", count: allItems.filter(i => i.meta.type === 'project').length, href: "/projects", desc: "專案成果展示、工具鏈架構與實際產出", badgeClass: "bg-indigo-50 text-[#4338CA] border-indigo-200/80" },
-  { name: "Notes", eyebrow: "THINK", count: allItems.filter(i => i.meta.type === 'note').length, href: "/notes", desc: "模型實測評鑑、Prompt 實驗與前沿觀察", badgeClass: "bg-slate-100/70 text-[#475569] border-slate-200/80" },
-  { name: "Timeline", eyebrow: "JOURNEY", count: allItems.length, href: "/timeline", desc: "完整工作資產之建立與演進歷史足跡", badgeClass: "bg-slate-900 text-slate-100 border-slate-800" },
+  { 
+    name: "Skills", 
+    eyebrow: "LEARN", 
+    count: allItems.filter(i => i.meta.type === 'skill').length, 
+    href: "/skills", 
+    desc: "提示詞模組、系統規範與工作流技能封裝", 
+    badgeClass: "bg-blue-50 text-[#155EEF] border-blue-200/90",
+    glowClass: "group-hover:border-blue-500/40 group-hover:shadow-blue-500/10",
+    iconSvg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z" />`
+  },
+  { 
+    name: "Tutorials", 
+    eyebrow: "EXPLORE", 
+    count: allItems.filter(i => i.meta.type === 'tutorial').length, 
+    href: "/tutorials", 
+    desc: "漸進式操作課程、核心原理與指引文件", 
+    badgeClass: "bg-sky-50 text-[#0284C7] border-sky-200/90",
+    glowClass: "group-hover:border-sky-500/40 group-hover:shadow-sky-500/10",
+    iconSvg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />`
+  },
+  { 
+    name: "Presentations", 
+    eyebrow: "SHARE", 
+    count: allItems.filter(i => i.meta.type === 'presentation').length, 
+    href: "/presentations", 
+    desc: "HTML5 原生簡報、在線演練與全螢幕播放", 
+    badgeClass: "bg-amber-50 text-[#B45309] border-amber-200/90",
+    glowClass: "group-hover:border-amber-500/40 group-hover:shadow-amber-500/10",
+    iconSvg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12H4z" />`
+  },
+  { 
+    name: "Projects", 
+    eyebrow: "CREATE", 
+    count: allItems.filter(i => i.meta.type === 'project').length, 
+    href: "/projects", 
+    desc: "專案成果展示、工具鏈架構與實際產出", 
+    badgeClass: "bg-indigo-50 text-[#4338CA] border-indigo-200/90",
+    glowClass: "group-hover:border-indigo-500/40 group-hover:shadow-indigo-500/10",
+    iconSvg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />`
+  },
+  { 
+    name: "Notes", 
+    eyebrow: "THINK", 
+    count: allItems.filter(i => i.meta.type === 'note').length, 
+    href: "/notes", 
+    desc: "模型實測評鑑、Prompt 實驗與前沿觀察", 
+    badgeClass: "bg-slate-100 text-[#334155] border-slate-300/80",
+    glowClass: "group-hover:border-slate-400/40 group-hover:shadow-slate-500/10",
+    iconSvg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />`
+  },
+  { 
+    name: "Timeline", 
+    eyebrow: "JOURNEY", 
+    count: allItems.length, 
+    href: "/timeline", 
+    desc: "完整工作資產之建立與演進歷史足跡", 
+    badgeClass: "bg-slate-900 text-slate-100 border-slate-800",
+    glowClass: "group-hover:border-slate-800/60 group-hover:shadow-slate-900/10",
+    iconSvg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />`
+  },
 ];
 ---
 
@@ -24,53 +78,89 @@ const categories = [
   <Hero />
 
   <!-- Main Body Content Area -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
     
     <!-- Quick Category Exploration Grid -->
     <section>
       <div class="flex items-center justify-between mb-8">
         <div>
-          <span class="text-xs font-mono font-bold tracking-[0.25em] text-[#155EEF] uppercase">TAXONOMY</span>
-          <h2 class="text-2xl font-bold tracking-tight text-[#07172D] mt-1">六大知識資產單元</h2>
+          <span class="text-xs font-mono font-bold tracking-[0.28em] text-[#155EEF] uppercase">TAXONOMY</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#07172D] mt-1">六大知識資產單元</h2>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-500">
+          <span>Total {allItems.length} Published Assets</span>
         </div>
       </div>
+      
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((cat) => (
           <a
             href={cat.href}
-            class="freewing-card group p-6 flex flex-col justify-between"
+            class={`freewing-card group p-6 flex flex-col justify-between border border-slate-200/90 rounded-2xl bg-white shadow-xs hover:shadow-xl transition-all duration-300 ${cat.glowClass}`}
           >
             <div>
-              <div class="flex items-center justify-between mb-3.5">
-                <span class={`text-[11px] font-mono font-semibold tracking-wider uppercase px-2.5 py-0.5 rounded-full border shadow-2xs ${cat.badgeClass}`}>
-                  {cat.eyebrow}
-                </span>
-                <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200/80 shadow-2xs">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center text-slate-700 group-hover:bg-[#155EEF] group-hover:text-white group-hover:border-[#155EEF] transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={cat.iconSvg}></svg>
+                  </div>
+                  <span class={`text-[11px] font-mono font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full border shadow-2xs ${cat.badgeClass}`}>
+                    {cat.eyebrow}
+                  </span>
+                </div>
+                <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200/80 shadow-2xs font-semibold">
                   {cat.count} 項目
                 </span>
               </div>
-              <h3 class="text-lg font-bold text-[#07172D] group-hover:text-[#155EEF] transition-colors">
+              <h3 class="text-lg font-bold text-[#07172D] group-hover:text-[#155EEF] transition-colors flex items-center gap-1.5">
                 {cat.name}
               </h3>
               <p class="text-sm text-slate-600 mt-2 leading-relaxed">
                 {cat.desc}
               </p>
             </div>
-            <div class="mt-6 pt-3.5 border-t border-slate-100 text-xs font-semibold text-[#155EEF] group-hover:translate-x-1.5 transition-transform duration-300 flex items-center gap-1">
-              進入單元 &rarr;
+            <div class="mt-6 pt-4 border-t border-slate-100 text-xs font-bold text-[#155EEF] group-hover:translate-x-1.5 transition-transform duration-300 flex items-center gap-1">
+              <span>進入單元</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
             </div>
           </a>
         ))}
       </div>
     </section>
 
+    <!-- Quick Stats Banner -->
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#07172D] via-[#0B1B32] to-[#155EEF] p-8 text-white shadow-xl">
+      <!-- Decorative background blur -->
+      <div class="absolute -top-12 -right-12 w-64 h-64 bg-sky-400/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-white/10">
+        <div class="px-4">
+          <div class="text-3xl font-black text-sky-400 font-mono">{allItems.length}</div>
+          <div class="text-xs text-slate-300 mt-1 font-medium">總知識資產</div>
+        </div>
+        <div class="px-4">
+          <div class="text-3xl font-black text-amber-400 font-mono">{allItems.filter(i => i.meta.type === 'skill').length}</div>
+          <div class="text-xs text-slate-300 mt-1 font-medium">工作流技能</div>
+        </div>
+        <div class="px-4">
+          <div class="text-3xl font-black text-emerald-400 font-mono">{allItems.filter(i => i.meta.featured).length}</div>
+          <div class="text-xs text-slate-300 mt-1 font-medium">精選代表作</div>
+        </div>
+        <div class="px-4">
+          <div class="text-3xl font-black text-indigo-300 font-mono">100%</div>
+          <div class="text-xs text-slate-300 mt-1 font-medium">生產環境通過</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Featured Highlights Section -->
     {featuredItems.length > 0 && (
       <section>
         <div class="flex items-center justify-between mb-8">
           <div>
-            <span class="text-xs font-mono font-bold tracking-[0.25em] text-[#E8B85C] uppercase">HIGHLIGHTS</span>
-            <h2 class="text-2xl font-bold tracking-tight text-[#07172D] mt-1">精選內容與代表作</h2>
+            <span class="text-xs font-mono font-bold tracking-[0.28em] text-[#E8B85C] uppercase">HIGHLIGHTS</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#07172D] mt-1">精選內容與代表作</h2>
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -85,11 +175,14 @@ const categories = [
     <section>
       <div class="flex items-center justify-between mb-8">
         <div>
-          <span class="text-xs font-mono font-bold tracking-[0.25em] text-[#27A8FF] uppercase">RECENT ACTIVITY</span>
-          <h2 class="text-2xl font-bold tracking-tight text-[#07172D] mt-1">最近發布與更新</h2>
+          <span class="text-xs font-mono font-bold tracking-[0.28em] text-[#27A8FF] uppercase">RECENT ACTIVITY</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#07172D] mt-1">最近發布與更新</h2>
         </div>
-        <a href="/timeline" class="text-sm font-semibold text-[#155EEF] hover:text-[#0D47C2] flex items-center gap-1 transition-colors">
-          查看完整時間軸 &rarr;
+        <a href="/timeline" class="text-sm font-bold text-[#155EEF] hover:text-[#0D47C2] flex items-center gap-1.5 transition-colors group">
+          <span>查看時間軸</span>
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
         </a>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

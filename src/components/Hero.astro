@@ -2,53 +2,74 @@
 import WingLogo from './WingLogo.astro';
 ---
 
-<section class="relative min-h-[580px] lg:min-h-[660px] flex items-center justify-center overflow-hidden">
+<section class="relative min-h-[620px] lg:min-h-[720px] flex items-center justify-center overflow-hidden">
   <!-- Clean Atmospheric Background: Scenic nature landscape with NO text, NO logos, NO lettering -->
   <div class="absolute inset-0 z-0 pointer-events-none select-none">
     <img
       src="/assets/freewing-hero-clean-bg.jpg"
       alt="Atmospheric Mountain Sunrise & Cloud Sea"
-      class="w-full h-full object-cover object-center filter saturate-[1.05]"
+      class="w-full h-full object-cover object-center filter saturate-[1.08] contrast-[1.02]"
       fetchpriority="high"
     />
-    <!-- Delicate sunlight bloom & atmospheric gradient overlay -->
-    <div class="absolute inset-0 bg-gradient-to-b from-sky-400/10 via-transparent to-white/95"></div>
-    <div class="absolute inset-0 bg-radial from-amber-200/30 via-sky-300/10 to-transparent"></div>
-    <!-- Smooth Scrim blending into Cloud White content section -->
-    <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white via-white/90 to-transparent"></div>
+    <!-- Rich Multi-layer Ambient Glow Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-sky-400/15 via-transparent to-white/95"></div>
+    <div class="absolute inset-0 bg-hero-glow"></div>
+    
+    <!-- Subtle Floating Light Beam Effects -->
+    <div class="absolute top-12 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-b from-sky-200/20 via-blue-400/10 to-transparent blur-3xl rounded-full pointer-events-none"></div>
+
+    <!-- Smooth Scrim blending seamlessly into Cloud White content section -->
+    <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white via-white/90 to-transparent"></div>
   </div>
 
   <!-- Rebuilt Semantic Hero Content Layer -->
   <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center flex flex-col items-center">
     
+    <!-- Live Status Pill Badge -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-xs mb-8 transition-all hover:scale-105 cursor-default">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+      <span class="text-xs font-mono font-medium text-slate-700 tracking-wide">
+        AI Knowledge Base &bull; Live & Active
+      </span>
+    </div>
+
     <!-- Exactly ONE Wing-W Logo in Hero (140–190px wide on desktop, ~1:1.8 aspect ratio) -->
-    <div class="w-24 h-14 sm:w-32 sm:h-18 lg:w-40 lg:h-22 mb-7 drop-shadow-sm transition-transform duration-300 hover:scale-105">
+    <div class="relative group w-28 h-16 sm:w-36 sm:h-20 lg:w-44 lg:h-[96px] mb-8 drop-shadow-md transition-all duration-300 hover:scale-105">
+      <!-- Glow behind logo -->
+      <div class="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full group-hover:bg-blue-500/35 transition-all duration-500"></div>
       <WingLogo />
     </div>
 
-    <!-- Exactly ONE FREEWINGBIZ Brand Statement (64-80px desktop, Deep Navy + Royal/Sky Blue) -->
-    <h1 class="text-3xl sm:text-5xl lg:text-[68px] font-black tracking-[0.14em] text-[#07172D] mb-3 leading-none drop-shadow-xs">
-      FREEWING<span class="text-[#155EEF]">BIZ</span>
+    <!-- Exactly ONE FREEWINGBIZ Brand Statement (64-80px desktop) -->
+    <h1 class="text-4xl sm:text-6xl lg:text-[76px] font-black tracking-[0.14em] text-[#07172D] mb-3 leading-none drop-shadow-xs">
+      FREEWING<span class="bg-gradient-to-r from-[#155EEF] to-[#27A8FF] bg-clip-text text-transparent">BIZ</span>
     </h1>
 
     <!-- Exactly ONE CHARLES AI WORKSPACE Secondary Identity (18-24px desktop, wide tracking) -->
-    <h2 class="text-xs sm:text-base lg:text-lg font-semibold tracking-[0.32em] text-[#07172D] uppercase mb-6 opacity-90">
+    <h2 class="text-xs sm:text-base lg:text-lg font-bold tracking-[0.34em] text-[#07172D] uppercase mb-6 opacity-90">
       CHARLES AI WORKSPACE
     </h2>
 
-    <!-- Subtle Golden Sunlight Divider with Soft Glow -->
-    <div class="w-14 h-0.5 bg-gradient-to-r from-transparent via-[#E8B85C] to-transparent rounded-full mb-6 shadow-[0_0_10px_rgba(232,184,92,0.4)]"></div>
+    <!-- Subtle Golden Sunlight Divider with Glow -->
+    <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#E8B85C] to-transparent rounded-full mb-7 shadow-[0_0_12px_rgba(232,184,92,0.5)]"></div>
 
-    <!-- Experience Words: Exactly ONE occurrence (13-16px on desktop, clean single line on mobile) -->
-    <p class="text-[10px] sm:text-xs md:text-sm lg:text-[15px] font-semibold tracking-[0.18em] sm:tracking-[0.24em] lg:tracking-[0.28em] text-[#07172D] uppercase mb-8 sm:mb-10 opacity-75 whitespace-nowrap">
-      EXPLORE &nbsp;&bull;&nbsp; LEARN &nbsp;&bull;&nbsp; CREATE &nbsp;&bull;&nbsp; SHARE
-    </p>
+    <!-- Experience Chips: Interactive Pill Badge Bar -->
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
+      {["EXPLORE", "LEARN", "CREATE", "SHARE"].map((word, idx) => (
+        <span class="px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] text-[#07172D] bg-white/70 backdrop-blur-md border border-slate-200/80 shadow-2xs hover:border-[#155EEF]/50 hover:bg-white hover:text-[#155EEF] transition-all cursor-default">
+          {word}
+        </span>
+      ))}
+    </div>
 
-    <!-- Subordinate, Refined Search Component (max-w-xl) -->
+    <!-- High-Craft Glassmorphism Search Component (max-w-xl) -->
     <div class="w-full max-w-xl">
-      <form action="/search" method="get" class="flex items-center gap-2 bg-white/95 backdrop-blur-xl border border-slate-300/80 rounded-2xl p-2 shadow-md shadow-sky-950/5 focus-within:border-[#155EEF] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#155EEF]/12 transition-all duration-300">
-        <div class="pl-3.5 text-slate-400">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <form action="/search" method="get" class="group relative flex items-center gap-2 bg-white/95 backdrop-blur-2xl border border-slate-300/90 rounded-2xl p-2.5 shadow-xl shadow-sky-950/5 focus-within:border-[#155EEF] focus-within:ring-4 focus-within:ring-[#155EEF]/15 transition-all duration-300">
+        <div class="pl-3 text-slate-400 group-focus-within:text-[#155EEF] transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         </div>
@@ -56,13 +77,19 @@ import WingLogo from './WingLogo.astro';
           type="text"
           name="q"
           placeholder="搜尋 AI 技能、線上簡報、專案成果與實務筆記..."
-          class="flex-1 bg-transparent px-3 py-2 text-[#07172D] placeholder-slate-400 focus:outline-none text-sm font-medium"
+          class="flex-1 bg-transparent px-2 py-1.5 text-[#07172D] placeholder-slate-400 focus:outline-none text-sm font-medium"
         />
+        <kbd class="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-mono font-semibold text-slate-400 bg-slate-100 border border-slate-200 rounded-md">
+          ⌘K
+        </kbd>
         <button
           type="submit"
-          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white font-semibold text-xs transition-all duration-300 shadow-xs cursor-pointer active:scale-95"
+          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white font-semibold text-xs transition-all duration-300 shadow-md shadow-blue-500/20 cursor-pointer active:scale-95 flex items-center gap-1"
         >
-          搜尋
+          <span>搜尋</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
         </button>
       </form>
     </div>
