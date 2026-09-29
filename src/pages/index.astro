@@ -10,12 +10,12 @@ const featuredItems = allItems.filter((i) => i.meta.featured);
 const recentItems = allItems.slice(0, 6);
 
 const categories = [
-  { name: "Skills", eyebrow: "LEARN", count: allItems.filter(i => i.meta.type === 'skill').length, href: "/skills", desc: "提示詞模組、系統規範與工作流技能封裝" },
-  { name: "Tutorials", eyebrow: "EXPLORE", count: allItems.filter(i => i.meta.type === 'tutorial').length, href: "/tutorials", desc: "漸進式操作課程、核心原理與指引文件" },
-  { name: "Presentations", eyebrow: "SHARE", count: allItems.filter(i => i.meta.type === 'presentation').length, href: "/presentations", desc: "HTML5 原生簡報、在線演練與全螢幕播放" },
-  { name: "Projects", eyebrow: "CREATE", count: allItems.filter(i => i.meta.type === 'project').length, href: "/projects", desc: "專案成果展示、工具鏈架構與實際產出" },
-  { name: "Notes", eyebrow: "THINK", count: allItems.filter(i => i.meta.type === 'note').length, href: "/notes", desc: "模型實測評鑑、Prompt 實驗與前沿觀察" },
-  { name: "Timeline", eyebrow: "JOURNEY", count: allItems.length, href: "/timeline", desc: "完整工作資產之建立與演進歷史足跡" },
+  { name: "Skills", eyebrow: "LEARN", count: allItems.filter(i => i.meta.type === 'skill').length, href: "/skills", desc: "提示詞模組、系統規範與工作流技能封裝", badgeClass: "bg-blue-50 text-[#155EEF] border-blue-200/80" },
+  { name: "Tutorials", eyebrow: "EXPLORE", count: allItems.filter(i => i.meta.type === 'tutorial').length, href: "/tutorials", desc: "漸進式操作課程、核心原理與指引文件", badgeClass: "bg-sky-50 text-[#0284C7] border-sky-200/80" },
+  { name: "Presentations", eyebrow: "SHARE", count: allItems.filter(i => i.meta.type === 'presentation').length, href: "/presentations", desc: "HTML5 原生簡報、在線演練與全螢幕播放", badgeClass: "bg-amber-50 text-[#B45309] border-amber-200/80" },
+  { name: "Projects", eyebrow: "CREATE", count: allItems.filter(i => i.meta.type === 'project').length, href: "/projects", desc: "專案成果展示、工具鏈架構與實際產出", badgeClass: "bg-indigo-50 text-[#4338CA] border-indigo-200/80" },
+  { name: "Notes", eyebrow: "THINK", count: allItems.filter(i => i.meta.type === 'note').length, href: "/notes", desc: "模型實測評鑑、Prompt 實驗與前沿觀察", badgeClass: "bg-slate-100/70 text-[#475569] border-slate-200/80" },
+  { name: "Timeline", eyebrow: "JOURNEY", count: allItems.length, href: "/timeline", desc: "完整工作資產之建立與演進歷史足跡", badgeClass: "bg-slate-900 text-slate-100 border-slate-800" },
 ];
 ---
 
@@ -41,11 +41,11 @@ const categories = [
             class="freewing-card group p-6 flex flex-col justify-between"
           >
             <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-[11px] font-mono font-semibold tracking-wider text-[#155EEF] uppercase px-2 py-0.5 rounded bg-blue-50 border border-blue-200/60">
+              <div class="flex items-center justify-between mb-3.5">
+                <span class={`text-[11px] font-mono font-semibold tracking-wider uppercase px-2.5 py-0.5 rounded-full border shadow-2xs ${cat.badgeClass}`}>
                   {cat.eyebrow}
                 </span>
-                <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200/80">
+                <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200/80 shadow-2xs">
                   {cat.count} 項目
                 </span>
               </div>
@@ -56,7 +56,7 @@ const categories = [
                 {cat.desc}
               </p>
             </div>
-            <div class="mt-5 pt-3 border-t border-slate-100 text-xs font-semibold text-[#155EEF] group-hover:translate-x-1 transition-transform flex items-center gap-1">
+            <div class="mt-6 pt-3.5 border-t border-slate-100 text-xs font-semibold text-[#155EEF] group-hover:translate-x-1.5 transition-transform duration-300 flex items-center gap-1">
               進入單元 &rarr;
             </div>
           </a>

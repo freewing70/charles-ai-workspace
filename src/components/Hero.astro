@@ -12,10 +12,10 @@ import WingLogo from './WingLogo.astro';
       fetchpriority="high"
     />
     <!-- Delicate sunlight bloom & atmospheric gradient overlay -->
-    <div class="absolute inset-0 bg-gradient-to-b from-sky-400/10 via-transparent to-white"></div>
-    <div class="absolute inset-0 bg-radial from-amber-200/25 via-transparent to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-sky-400/10 via-transparent to-white/95"></div>
+    <div class="absolute inset-0 bg-radial from-amber-200/30 via-sky-300/10 to-transparent"></div>
     <!-- Smooth Scrim blending into Cloud White content section -->
-    <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white via-white/85 to-transparent"></div>
+    <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white via-white/90 to-transparent"></div>
   </div>
 
   <!-- Rebuilt Semantic Hero Content Layer -->
@@ -36,8 +36,8 @@ import WingLogo from './WingLogo.astro';
       CHARLES AI WORKSPACE
     </h2>
 
-    <!-- Subtle Golden Sunlight Divider -->
-    <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-[#E8B85C] to-transparent rounded-full mb-6"></div>
+    <!-- Subtle Golden Sunlight Divider with Soft Glow -->
+    <div class="w-14 h-0.5 bg-gradient-to-r from-transparent via-[#E8B85C] to-transparent rounded-full mb-6 shadow-[0_0_10px_rgba(232,184,92,0.4)]"></div>
 
     <!-- Experience Words: Exactly ONE occurrence (13-16px on desktop, clean single line on mobile) -->
     <p class="text-[10px] sm:text-xs md:text-sm lg:text-[15px] font-semibold tracking-[0.18em] sm:tracking-[0.24em] lg:tracking-[0.28em] text-[#07172D] uppercase mb-8 sm:mb-10 opacity-75 whitespace-nowrap">
@@ -46,7 +46,7 @@ import WingLogo from './WingLogo.astro';
 
     <!-- Subordinate, Refined Search Component (max-w-xl) -->
     <div class="w-full max-w-xl">
-      <form action="/search" method="get" class="flex items-center gap-2 bg-white/90 backdrop-blur-md border border-slate-300/80 rounded-2xl p-2 shadow-md shadow-sky-950/5 focus-within:border-[#155EEF] focus-within:bg-white focus-within:ring-3 focus-within:ring-[#155EEF]/15 transition-all">
+      <form action="/search" method="get" class="flex items-center gap-2 bg-white/95 backdrop-blur-xl border border-slate-300/80 rounded-2xl p-2 shadow-md shadow-sky-950/5 focus-within:border-[#155EEF] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#155EEF]/12 transition-all duration-300">
         <div class="pl-3.5 text-slate-400">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -60,7 +60,7 @@ import WingLogo from './WingLogo.astro';
         />
         <button
           type="submit"
-          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white font-semibold text-xs transition-all shadow-xs cursor-pointer"
+          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white font-semibold text-xs transition-all duration-300 shadow-xs cursor-pointer active:scale-95"
         >
           搜尋
         </button>
