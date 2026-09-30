@@ -11,12 +11,11 @@ status: active
 visibility: public
 tags: ["watercolor", "JRPG", "character", "environment", "Codex", "PromptEngineering"]
 tools: ["Codex", "GPT Image", "Midjourney"]
-cover: /assets/placeholder.svg
+cover: /assets/covers/living-watercolor-rpg.jpg
 contentPath: skills/living-watercolor-rpg/SKILL.md
 repositoryUrl: https://github.com/charles/living-watercolor-rpg
 downloadUrl: /assets/examples/watercolor-presets.json
 featured: true
-relatedProjects: ["jrpg-concept-art-pipeline"]
 relatedPresentations: ["demo-presentation"]
 ---
 
