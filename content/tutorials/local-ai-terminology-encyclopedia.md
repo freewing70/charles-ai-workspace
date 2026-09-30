@@ -1,7 +1,7 @@
 ---
 id: "local-ai-terminology-encyclopedia"
 title: "本地 AI 模型名詞百科：視覺化互動簡報"
-type: "presentation"
+type: "tutorial"
 category: "Local AI"
 summary: "全方位的邊緣運算與本地開源大模型名詞百科，圖像化拆解 Dense vs MoE 架構、精度量化階級天梯、GGUF 與 Safetensors 生態差異。"
 created: "2026-09-24"

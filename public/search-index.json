@@ -49,7 +49,7 @@
   {
     "id": "ai-learning-journey-l1-l6",
     "title": "AI 學習旅程完整課程：L1–L6 階段式實戰",
-    "type": "presentation",
+    "type": "tutorial",
     "category": "AI Education",
     "summary": "由淺入深的漸進式 AI 學習旅程簡報，涵蓋日常生活對話、工作日常輔助到車縫專業問答，讓初學者無痛掌握生成式 AI 核心技巧。",
     "tags": [
@@ -66,14 +66,14 @@
     ],
     "created": "2026-09-24",
     "updated": "2026-09-24",
-    "url": "/presentations/ai-learning-journey-l1-l6",
+    "url": "/tutorials/ai-learning-journey-l1-l6",
     "cover": "/assets/covers/ai-learning-journey-l1-l6.png",
     "featured": true
   },
   {
     "id": "local-ai-terminology-encyclopedia",
     "title": "本地 AI 模型名詞百科：視覺化互動簡報",
-    "type": "presentation",
+    "type": "tutorial",
     "category": "Local AI",
     "summary": "全方位的邊緣運算與本地開源大模型名詞百科，圖像化拆解 Dense vs MoE 架構、精度量化階級天梯、GGUF 與 Safetensors 生態差異。",
     "tags": [
@@ -92,14 +92,14 @@
     ],
     "created": "2026-09-24",
     "updated": "2026-09-24",
-    "url": "/presentations/local-ai-terminology-encyclopedia",
+    "url": "/tutorials/local-ai-terminology-encyclopedia",
     "cover": "/assets/covers/local-ai-terminology-encyclopedia.png",
     "featured": true
   },
   {
     "id": "youtube-team-launch-guide-2026",
     "title": "YouTube 頻道團隊入門與營利指南 2026",
-    "type": "presentation",
+    "type": "tutorial",
     "category": "Creator Ops",
     "summary": "完整的 YouTube 創作者與經營團隊起步手冊，深度解析長影片與 Shorts 的演算法指標、多元營利管道、版權政策與發布檢核機制。",
     "tags": [
@@ -116,32 +116,9 @@
     ],
     "created": "2026-09-24",
     "updated": "2026-09-24",
-    "url": "/presentations/youtube-team-launch-guide-2026",
+    "url": "/tutorials/youtube-team-launch-guide-2026",
     "cover": "/assets/covers/youtube-team-launch-guide-2026.png",
     "featured": true
-  },
-  {
-    "id": "demo-presentation",
-    "title": "Charles AI Workspace 架構與自動化簡報",
-    "type": "presentation",
-    "category": "Architecture",
-    "summary": "介紹 Charles AI Workspace 的靜態優先架構、內容模組規劃與自動化 CI/CD 流水線。",
-    "tags": [
-      "Architecture",
-      "Presentation",
-      "StaticSite",
-      "Codex"
-    ],
-    "tools": [
-      "Astro",
-      "TailwindCSS",
-      "HTML5"
-    ],
-    "created": "2026-09-23",
-    "updated": "2026-09-23",
-    "url": "/presentations/demo-presentation",
-    "cover": "/assets/covers/demo-presentation.png",
-    "featured": false
   },
   {
     "id": "living-watercolor-rpg",

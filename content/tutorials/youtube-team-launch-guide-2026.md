@@ -1,7 +1,7 @@
 ---
 id: "youtube-team-launch-guide-2026"
 title: "YouTube 頻道團隊入門與營利指南 2026"
-type: "presentation"
+type: "tutorial"
 category: "Creator Ops"
 summary: "完整的 YouTube 創作者與經營團隊起步手冊，深度解析長影片與 Shorts 的演算法指標、多元營利管道、版權政策與發布檢核機制。"
 created: "2026-09-24"

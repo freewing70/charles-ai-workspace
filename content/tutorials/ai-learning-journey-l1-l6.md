@@ -1,7 +1,7 @@
 ---
 id: "ai-learning-journey-l1-l6"
 title: "AI 學習旅程完整課程：L1–L6 階段式實戰"
-type: "presentation"
+type: "tutorial"
 category: "AI Education"
 summary: "由淺入深的漸進式 AI 學習旅程簡報，涵蓋日常生活對話、工作日常輔助到車縫專業問答，讓初學者無痛掌握生成式 AI 核心技巧。"
 created: "2026-09-24"
