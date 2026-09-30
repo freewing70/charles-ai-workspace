@@ -1,5 +1,29 @@
 [
   {
+    "id": "ink-wuxia-fantasy",
+    "title": "水墨武俠風 Skill",
+    "type": "skill",
+    "category": "Prompt Engineering",
+    "summary": "專為東方水墨、俠客劍意與巨龍雲霧視覺打造的 Prompt 模組，兼具飛墨氣勁與潑墨留白意境。",
+    "tags": [
+      "ink-wash",
+      "wuxia",
+      "dragon",
+      "PromptEngineering",
+      "water-ink"
+    ],
+    "tools": [
+      "Codex",
+      "GPT Image",
+      "Midjourney"
+    ],
+    "created": "2026-09-30",
+    "updated": "2026-09-30",
+    "url": "/skills/ink-wuxia-fantasy",
+    "cover": "/assets/covers/ink-wuxia-fantasy.jpg",
+    "featured": true
+  },
+  {
     "id": "ai-compute-demand-evidence-2026",
     "title": "AI 算力需求持續上升：數據佐證與客戶提案簡報",
     "type": "presentation",
