@@ -7,6 +7,7 @@ interface Props {
   description?: string;
   image?: string;
   isTransparentNav?: boolean;
+  type?: 'website' | 'article';
 }
 
 const {
@@ -14,9 +15,33 @@ const {
   description = "FreewingBiz — Charles AI Workspace · AI × Knowledge × Creation × A Better Tomorrow",
   image = "/assets/freewing-hero-reference.png",
   isTransparentNav = false,
+  type = 'website'
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+const siteBase = Astro.site ? Astro.site.origin : 'https://freewing.biz';
+const canonicalURL = new URL(currentPath, siteBase).href;
+const imageUrl = image.startsWith('http') ? image : `${siteBase}${image.startsWith('/') ? '' : '/'}${image}`;
+
+const siteTitle = title.includes("FreewingBiz") ? title : `${title} | FreewingBiz · Charles AI Workspace`;
+
+// Structured Data (JSON-LD)
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "FreewingBiz",
+  "alternateName": "Charles AI Workspace",
+  "url": siteBase,
+  "description": "AI × Knowledge × Creation × A Better Tomorrow — 探索、學習、創作與分享個人 AI 工作資產。",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${siteBase}/search?q={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
 
 const navItems = [
   { label: "Home", href: "/", eyebrow: "START" },
@@ -35,12 +60,29 @@ const navItems = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" type="application/rss+xml" title="FreewingBiz RSS Feed" href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title.includes("FreewingBiz") ? title : `${title} | FreewingBiz · Charles AI Workspace`}</title>
+    <title>{siteTitle}</title>
     <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="FreewingBiz · Charles AI Workspace" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:locale" content="zh_TW" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
   </head>
   <body class="bg-white text-[#0B1B32] min-h-screen flex flex-col antialiased selection:bg-[#B9DCFF] selection:text-[#07172D]">
     

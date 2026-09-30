@@ -17,6 +17,8 @@
     "add-content": "tsx scripts/add-content.ts"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.3.4",
     "fuse.js": "^7.5.0",
     "gray-matter": "^4.0.3",
