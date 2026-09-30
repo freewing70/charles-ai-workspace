@@ -1,0 +1,76 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import WingLogo from '../components/WingLogo.astro';
+---
+
+<MainLayout title="關於我們 (About Us) | FreewingBiz" description="FreewingBiz · Charles AI Workspace — 專注於 AI 工作流、自動化技能庫、實戰教學與知識產出的創作者空間。">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+    <!-- Hero Banner -->
+    <div class="p-8 sm:p-12 bg-gradient-to-br from-[#07172D] via-[#0B1B32] to-[#155EEF] rounded-3xl text-white shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-sky-400/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 space-y-4">
+        <div class="w-14 h-9 flex items-center justify-center">
+          <WingLogo variant="color" />
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          FREEWING<span class="text-[#27A8FF]">BIZ</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 font-medium max-w-2xl leading-relaxed">
+          Charles AI Workspace · AI × Knowledge × Creation × A Better Tomorrow
+        </p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="prose prose-slate max-w-none space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
+      <section>
+        <h2 class="text-2xl font-bold text-[#07172D] mb-4">關於 FreewingBiz 工作區</h2>
+        <p>
+          <strong>FreewingBiz (Charles AI Workspace)</strong> 是一個專注於前沿人工智能（AI）技術實踐、工作流技能封裝、教學課程與知識產出的開放知識庫。我們致力於將複雜的 AI 技術（包含大語言模型、 Agent 智能體系統、提示詞工程與自動化開發）轉化為可落地、可重用的資產。
+        </p>
+      </section>
+
+      <section class="grid grid-cols-1 sm:grid-cols-2 gap-6 not-prose my-8">
+        <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+          <div class="text-[#155EEF] font-bold text-lg mb-2">⚡ AI Skills 技能庫</div>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            模組化封裝的 Prompt 技能、水墨與藝術風格生成指令、系統規範與 AI Agent 自動化工作流。
+          </p>
+        </div>
+
+        <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+          <div class="text-[#0284C7] font-bold text-lg mb-2">📚 Tutorials 實戰教學</div>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            從基礎術語百科到進階 AI 團隊打造與架構指引，提供圖文並茂且可全螢幕播放之深度課程。
+          </p>
+        </div>
+
+        <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+          <div class="text-[#B45309] font-bold text-lg mb-2">📊 Presentations 在線簡報</div>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            HTML5 原生無縫簡報系統，提供全螢幕展示與關鍵趨勢演繹，適合技術交流與分享。
+          </p>
+        </div>
+
+        <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+          <div class="text-[#4338CA] font-bold text-lg mb-2">🚀 Projects & Notes</div>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            記錄模型實測評鑑、技術實驗與成果專案，持續拓展 AI 輔助創作與開發的邊界。
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-[#07172D] mb-4">聯絡與合作</h2>
+        <p>
+          若您對本網站的 AI 技能、教學內容、企業 AI 導入顧問或合作有興趣，歡迎透過以下方式與我們聯繫：
+        </p>
+        <div class="mt-4 p-4 bg-blue-50/70 border border-blue-200/80 rounded-xl text-xs sm:text-sm text-slate-700 space-y-1.5 font-mono">
+          <div><strong>Website:</strong> https://freewing.biz</div>
+          <div><strong>Platform:</strong> FreewingBiz · Charles AI Workspace</div>
+          <div><strong>Status:</strong> Open for Collaboration & Knowledge Sharing</div>
+        </div>
+      </section>
+    </div>
+  </div>
+</MainLayout>

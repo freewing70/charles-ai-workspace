@@ -217,15 +217,14 @@ const navItems = [
           <!-- Column 3: System & Info -->
           <div>
             <h4 class="text-xs font-mono uppercase tracking-[0.2em] text-[#27A8FF] font-semibold mb-4">
-              工作區核心
+              工作區資訊
             </h4>
             <ul class="space-y-2.5 text-sm text-slate-300">
+              <li><a href="/about" class="hover:text-white transition-colors">關於我們 (About)</a></li>
+              <li><a href="/privacy" class="hover:text-white transition-colors">隱私權政策 (Privacy)</a></li>
               <li><a href="/timeline" class="hover:text-white transition-colors">活動時間軸 (Timeline)</a></li>
               <li><a href="/search" class="hover:text-white transition-colors">全站即時檢索 (Search)</a></li>
-              <li class="pt-2 text-xs text-slate-400 font-mono">
-                Static-First &bull; Astro 5<br />
-                Cloudflare Global Edge
-              </li>
+              <li><a href="/rss.xml" class="hover:text-white transition-colors text-xs text-slate-400 font-mono">RSS 訂閱源 (/rss.xml)</a></li>
             </ul>
           </div>
         </div>
@@ -235,14 +234,14 @@ const navItems = [
           <div>
             &copy; {new Date().getFullYear()} FreewingBiz · Charles AI Workspace. All rights reserved.
           </div>
-          <div class="flex items-center gap-6 font-mono text-[11px]">
-            <span>Explore</span>
+          <div class="flex items-center gap-4 sm:gap-6 font-mono text-[11px]">
+            <a href="/about" class="hover:text-slate-200 transition-colors">About</a>
             <span>&bull;</span>
-            <span>Learn</span>
+            <a href="/privacy" class="hover:text-slate-200 transition-colors">Privacy</a>
             <span>&bull;</span>
-            <span>Create</span>
+            <a href="/sitemap-index.xml" target="_blank" class="hover:text-slate-200 transition-colors">Sitemap</a>
             <span>&bull;</span>
-            <span>Share</span>
+            <a href="/rss.xml" target="_blank" class="hover:text-slate-200 transition-colors">RSS</a>
           </div>
         </div>
       </div>

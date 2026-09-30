@@ -1,0 +1,48 @@
+---
+interface Props {
+  slotId?: string;
+  clientId?: string;
+  format?: 'auto' | 'rectangle' | 'horizontal' | 'vertical';
+  className?: string;
+  label?: string;
+}
+
+const {
+  slotId,
+  clientId = import.meta.env.PUBLIC_ADSENSE_CLIENT_ID || "",
+  format = "auto",
+  className = "",
+  label = "廣告"
+} = Astro.props;
+
+const isConfigured = Boolean(clientId && slotId);
+---
+
+<div class={`w-full my-8 text-center overflow-hidden ${className}`}>
+  {label && (
+    <div class="text-[10px] font-mono tracking-widest text-slate-400 uppercase mb-1.5">
+      {label}
+    </div>
+  )}
+
+  {isConfigured ? (
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client={clientId}
+         data-ad-slot={slotId}
+         data-ad-format={format}
+         data-full-width-responsive="true"></ins>
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  ) : (
+    <div class="p-6 rounded-2xl bg-slate-50 border border-dashed border-slate-300 text-slate-400 text-xs font-mono flex flex-col items-center justify-center gap-1.5 transition-all hover:bg-slate-100/80">
+      <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+      </svg>
+      <span>[ AdSense 廣告儲位預留區 ]</span>
+      <span class="text-[11px] text-slate-400 font-normal">（審核通過並設定 發佈商 ID 後將在此顯示廣告）</span>
+    </div>
+  )}
+</div>
