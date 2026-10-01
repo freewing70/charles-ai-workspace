@@ -8,6 +8,11 @@ interface Props {
   image?: string;
   isTransparentNav?: boolean;
   type?: 'website' | 'article';
+  contentType?: 'newspaper' | 'tutorial' | 'skill' | 'presentation' | 'project' | 'note';
+  publishedDate?: string;
+  modifiedDate?: string;
+  authorName?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -15,17 +20,22 @@ const {
   description = "FreewingBiz — Charles AI Workspace · AI × Knowledge × Creation × A Better Tomorrow",
   image = "/assets/freewing-hero-reference.png",
   isTransparentNav = false,
-  type = 'website'
+  type = 'website',
+  contentType,
+  publishedDate,
+  modifiedDate,
+  authorName = 'Charles',
+  noindex = false,
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const siteBase = Astro.site ? Astro.site.origin : 'https://freewing.biz';
+const siteBase = Astro.site ? Astro.site.origin : 'https://freewingbiz.com';
 const canonicalURL = new URL(currentPath, siteBase).href;
 const imageUrl = image.startsWith('http') ? image : `${siteBase}${image.startsWith('/') ? '' : '/'}${image}`;
 
 const siteTitle = title.includes("FreewingBiz") ? title : `${title} | FreewingBiz · Charles AI Workspace`;
 
-// Structured Data (JSON-LD)
+// Structured Data (JSON-LD) - WebSite
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -42,6 +52,89 @@ const websiteSchema = {
     "query-input": "required name=search_term_string"
   }
 };
+
+// BreadcrumbList JSON-LD
+const categoryNames: Record<string, { name: string; path: string }> = {
+  skills: { name: "Skills 技能庫", path: "/skills" },
+  tutorials: { name: "Tutorials 實戰教學", path: "/tutorials" },
+  presentations: { name: "Presentations 線上簡報", path: "/presentations" },
+  projects: { name: "Projects 成果專案", path: "/projects" },
+  notes: { name: "Notes 研究筆記", path: "/notes" },
+  newspapers: { name: "AI 模型日報", path: "/newspapers" },
+  about: { name: "關於我們", path: "/about" },
+  privacy: { name: "隱私權政策", path: "/privacy" },
+  timeline: { name: "活動時間軸", path: "/timeline" },
+  search: { name: "全站搜尋", path: "/search" }
+};
+
+const pathSegments = currentPath.split('/').filter(Boolean);
+const breadcrumbItems = [
+  { "@type": "ListItem", "position": 1, "name": "首頁", "item": siteBase }
+];
+
+if (pathSegments.length > 0) {
+  const catKey = pathSegments[0];
+  const catInfo = categoryNames[catKey] || { name: catKey, path: `/${catKey}` };
+  breadcrumbItems.push({
+    "@type": "ListItem",
+    "position": 2,
+    "name": catInfo.name,
+    "item": `${siteBase}${catInfo.path}`
+  });
+
+  if (pathSegments.length > 1) {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      "position": 3,
+      "name": title.split(' | ')[0],
+      "item": canonicalURL
+    });
+  }
+}
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbItems
+};
+
+// Item Specific JSON-LD Schema
+let itemSchema: Record<string, any> | null = null;
+if (contentType || pathSegments.length > 1) {
+  let schemaType = "Article";
+  if (contentType === "newspaper") schemaType = "NewsArticle";
+  else if (contentType === "tutorial") schemaType = "TechArticle";
+  else if (contentType === "skill" || contentType === "presentation" || contentType === "project") schemaType = "CreativeWork";
+
+  itemSchema = {
+    "@context": "https://schema.org",
+    "@type": schemaType,
+    "headline": title.split(' | ')[0],
+    "description": description,
+    "url": canonicalURL,
+    "image": imageUrl,
+    "datePublished": publishedDate || '2026-09-24',
+    "dateModified": modifiedDate || publishedDate || '2026-09-24',
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonicalURL
+    },
+    "author": {
+      "@type": "Person",
+      "name": authorName,
+      "url": `${siteBase}/about`
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FreewingBiz",
+      "url": siteBase,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteBase}/favicon.svg`
+      }
+    }
+  };
+}
 
 const navItems = [
   { label: "Home", href: "/", eyebrow: "START" },
@@ -64,6 +157,7 @@ const navItems = [
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" type="application/rss+xml" title="FreewingBiz RSS Feed" href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <title>{siteTitle}</title>
     <meta name="description" content={description} />
 
@@ -84,6 +178,8 @@ const navItems = [
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    {itemSchema && <script type="application/ld+json" set:html={JSON.stringify(itemSchema)} />}
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8717561016919983" crossorigin="anonymous"></script>

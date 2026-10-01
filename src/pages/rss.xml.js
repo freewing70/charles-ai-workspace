@@ -8,7 +8,7 @@ export async function GET(context) {
   return rss({
     title: 'FreewingBiz · Charles AI Workspace',
     description: 'AI × Knowledge × Creation × A Better Tomorrow — 探索、學習、創作與分享個人 AI 工作資產。',
-    site: context.site || 'https://freewing.biz',
+    site: context.site || 'https://freewingbiz.com',
     items: items.map((item) => ({
       title: item.meta.title,
       pubDate: new Date(item.meta.created || item.meta.updated),

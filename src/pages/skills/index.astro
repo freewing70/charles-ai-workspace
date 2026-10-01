@@ -8,7 +8,10 @@ const skills = getItemsByType('skill', false);
 const allTags = Array.from(new Set(skills.flatMap(s => s.meta.tags)));
 ---
 
-<MainLayout title="AI Skills 技能目錄">
+<MainLayout 
+  title="AI Skills 技能目錄 | FreewingBiz" 
+  description="FreewingBiz AI Skills 技能庫 — 包含東方水墨風視覺生成、Prompt 模组、系統規範與 AI Agent 自動化工作流。"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <SectionHeader
       eyebrow="LEARN"

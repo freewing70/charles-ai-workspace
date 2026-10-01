@@ -12,10 +12,11 @@ const coverUrl = getAssetUrl(item.cover);
 
 const typeBadgeStyles: Record<string, { label: string; class: string; eyebrow: string }> = {
   skill: { label: "Skill", class: "bg-blue-50/95 text-[#155EEF] border-blue-200/90", eyebrow: "LEARN" },
-  tutorial: { label: "Tutorial", class: "bg-sky-50/95 text-[#0284C7] border-sky-200/90", eyebrow: "EXPLORE" },
+  tutorial: { label: "Tutorial", class: "bg-sky-50/95 text-[#0369A1] border-sky-200/90", eyebrow: "EXPLORE" },
   presentation: { label: "Presentation", class: "bg-amber-50/95 text-[#B45309] border-amber-200/90", eyebrow: "SHARE" },
   project: { label: "Project", class: "bg-indigo-50/95 text-[#4338CA] border-indigo-200/90", eyebrow: "CREATE" },
   note: { label: "Note", class: "bg-slate-100/95 text-[#334155] border-slate-300/90", eyebrow: "THINK" },
+  newspaper: { label: "Newspaper", class: "bg-rose-50/95 text-[#BE123C] border-rose-200/90", eyebrow: "DAILY" },
 };
 
 const badge = typeBadgeStyles[item.type] || { label: item.type, class: "bg-gray-50/95 text-gray-600 border-gray-200", eyebrow: "ASSET" };
@@ -27,6 +28,8 @@ const badge = typeBadgeStyles[item.type] || { label: item.type, class: "bg-gray-
     <img
       src={coverUrl}
       alt={item.title}
+      width="640"
+      height="360"
       loading="lazy"
       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
     />
@@ -56,7 +59,7 @@ const badge = typeBadgeStyles[item.type] || { label: item.type, class: "bg-gray-
     <div>
       <div class="flex items-center justify-between text-xs text-slate-500 mb-2 font-mono">
         <span class="font-semibold text-slate-700">{item.category}</span>
-        <time datetime={item.updated} class="opacity-80">{item.updated}</time>
+        <time datetime={item.updated} class="font-semibold text-slate-600">{item.updated}</time>
       </div>
       <h3 class="text-base font-extrabold text-[#0B1B32] group-hover:text-[#155EEF] transition-colors line-clamp-1">
         <a href={route}>

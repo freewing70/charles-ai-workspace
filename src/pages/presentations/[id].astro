@@ -22,7 +22,15 @@ const htmlContent = marked.parse(item.content);
 const playUrl = item.meta.playUrl || `/presentations/${item.meta.id}/slides.html`;
 ---
 
-<MainLayout title={item.meta.title} description={item.meta.summary}>
+<MainLayout 
+  title={item.meta.title} 
+  description={item.meta.summary}
+  image={item.meta.cover}
+  type="article"
+  contentType="presentation"
+  publishedDate={item.meta.created}
+  modifiedDate={item.meta.updated}
+>
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-xs text-slate-500 font-mono mb-8">

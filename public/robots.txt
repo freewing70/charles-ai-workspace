@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://freewing.biz/sitemap-index.xml
+Sitemap: https://freewingbiz.com/sitemap-index.xml

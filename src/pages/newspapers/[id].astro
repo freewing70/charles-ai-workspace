@@ -31,7 +31,15 @@ const embedUrl = getYouTubeEmbedUrl(meta.youtubeUrl);
 const htmlUrl = meta.htmlPath || `/newspapers/${meta.id}.html`;
 ---
 
-<MainLayout title={`${meta.title} | FreewingBiz`} description={meta.summary} image={meta.cover}>
+<MainLayout 
+  title={`${meta.title} | FreewingBiz`} 
+  description={meta.summary} 
+  image={meta.cover}
+  type="article"
+  contentType="newspaper"
+  publishedDate={meta.created}
+  modifiedDate={meta.updated}
+>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
     
     <!-- Top Action Breadcrumb & Back -->

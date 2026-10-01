@@ -22,7 +22,15 @@ const htmlContent = marked.parse(item.content);
 const coverUrl = getAssetUrl(item.meta.cover);
 ---
 
-<MainLayout title={item.meta.title} description={item.meta.summary} image={coverUrl}>
+<MainLayout 
+  title={item.meta.title} 
+  description={item.meta.summary} 
+  image={coverUrl}
+  type="article"
+  contentType="skill"
+  publishedDate={item.meta.created}
+  modifiedDate={item.meta.updated}
+>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     
     <!-- Breadcrumb -->
