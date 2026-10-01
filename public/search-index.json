@@ -1,5 +1,32 @@
 [
   {
+    "id": "2026-10-01",
+    "title": "Chow 的 AI 模型日報｜第 004 號 (2026.10.01)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Google 發布旗艦模型 Gemini 4 Argon；川普在白宮與 AI 巨頭簽署自律公約；中國電信開源 12 億參數 TeleOCR；HPE 狂攬 12 億美元 AI 訂單；Appier 研究登上 NeurIPS。",
+    "tags": [
+      "AI模型日報",
+      "Gemini 4",
+      "川普AI公約",
+      "TeleOCR",
+      "HPE",
+      "Appier"
+    ],
+    "tools": [
+      "Google",
+      "Anthropic",
+      "OpenAI",
+      "Nvidia",
+      "Meta"
+    ],
+    "created": "2026-10-01",
+    "updated": "2026-10-01",
+    "url": "/newspapers/2026-10-01",
+    "cover": "/assets/newspaper-2026-10-01-cover.png",
+    "featured": true
+  },
+  {
     "id": "ink-wuxia-fantasy",
     "title": "水墨武俠風 Skill",
     "type": "skill",

@@ -1,0 +1,187 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import AdBanner from '../../components/AdBanner.astro';
+import { getAllItems, getItemById } from '../../lib/content';
+
+export function getStaticPaths() {
+  const items = getAllItems(true);
+  const newspapers = items.filter((item) => item.meta.type === 'newspaper');
+  return newspapers.map((item) => ({
+    params: { id: item.meta.id },
+  }));
+}
+
+const { id } = Astro.params;
+const item = getItemById(id as string, true);
+
+if (!item) {
+  throw new Error(`Newspaper not found: ${id}`);
+}
+
+const { meta, content } = item;
+
+// Helper to extract YouTube Video ID
+function getYouTubeEmbedUrl(url?: string): string | null {
+  if (!url) return null;
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  return match ? `https://www.youtube.com/embed/${match[1]}?autoplay=0&rel=0` : null;
+}
+
+const embedUrl = getYouTubeEmbedUrl(meta.youtubeUrl);
+const htmlUrl = meta.htmlPath || `/newspapers/${meta.id}.html`;
+---
+
+<MainLayout title={`${meta.title} | FreewingBiz`} description={meta.summary} image={meta.cover}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    
+    <!-- Top Action Breadcrumb & Back -->
+    <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-200">
+      <a 
+        href="/newspapers" 
+        class="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-600 hover:text-rose-600 transition-colors uppercase tracking-wider"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        <span>返回 AI 模型日報列表</span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <a 
+          href={htmlUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3.5 py-1.5 rounded-lg border border-slate-200 hover:border-slate-300 bg-white text-slate-700 hover:text-slate-900 text-xs font-semibold shadow-2xs transition-all flex items-center gap-1.5"
+          title="在新頁面全螢幕開啟原始報紙"
+        >
+          <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+          <span>獨立報紙分頁</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Header Lockup -->
+    <div class="space-y-4">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200/80 text-xs font-mono font-bold tracking-wider uppercase">
+          NEWSPAPER • ISSUE {meta.id}
+        </span>
+        <span class="text-xs font-mono text-slate-400">發布日期：{meta.created}</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#07172D] leading-tight">
+        {meta.title}
+      </h1>
+
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-4xl">
+        {meta.summary}
+      </p>
+    </div>
+
+    <!-- YouTube Video Feature Section (if present) -->
+    {embedUrl && (
+      <div class="rounded-3xl bg-gradient-to-br from-[#07172D] via-[#171716] to-[#4c0519] p-6 sm:p-8 text-white shadow-xl space-y-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-rose-600 flex items-center justify-center text-white shadow-md">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-base font-bold text-white leading-none">YouTube 本期影音節目導讀</h2>
+              <span class="text-xs text-rose-300 font-mono mt-1 block">收聽 Chow 講解 5 大 AI 科技頭條與深度觀點</span>
+            </div>
+          </div>
+
+          <a 
+            href={meta.youtubeUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-rose-300 hover:text-white transition-colors"
+          >
+            <span>在 YouTube 開啟</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- 16:9 Responsive Video Container -->
+        <div class="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black aspect-video shadow-2xl">
+          <iframe 
+            src={embedUrl} 
+            title={meta.title} 
+            class="absolute top-0 left-0 w-full h-full border-0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    )}
+
+    <!-- Interactive Interactive Newspaper Display Section -->
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+          </svg>
+          <h2 class="text-xl font-bold text-[#07172D]">復古雙欄報紙閱讀器</h2>
+        </div>
+
+        <button 
+          id="fullscreen-btn"
+          class="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-700 text-xs font-semibold transition-all border border-slate-200/80 flex items-center gap-1.5"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-2V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+          </svg>
+          <span>全螢幕閱讀模式</span>
+        </button>
+      </div>
+
+      <!-- Iframe Newspaper Container -->
+      <div 
+        id="newspaper-container"
+        class="w-full bg-[#f4f1e8] rounded-3xl border border-slate-300/80 shadow-xl overflow-hidden transition-all duration-300"
+      >
+        <iframe 
+          id="newspaper-iframe"
+          src={htmlUrl} 
+          title={meta.title} 
+          class="w-full h-[900px] border-0 rounded-3xl"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- AdSense Banner Container -->
+    <AdBanner label="廣告內容" slotId="1234567890" />
+  </div>
+
+  <!-- Interactive Script for Fullscreen Toggle -->
+  <script is:inline>
+    const fsBtn = document.getElementById('fullscreen-btn');
+    const container = document.getElementById('newspaper-container');
+    const iframe = document.getElementById('newspaper-iframe');
+
+    if (fsBtn && container && iframe) {
+      fsBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          if (container.requestFullscreen) {
+            container.requestFullscreen();
+          } else if (container.webkitRequestFullscreen) {
+            container.webkitRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+        }
+      });
+    }
+  </script>
+</MainLayout>

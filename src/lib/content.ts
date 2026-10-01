@@ -96,6 +96,8 @@ export function getAllItems(includePrivate = false): LoadedItem[] {
                 relatedProjects: data.relatedProjects,
                 relatedPresentations: data.relatedPresentations,
                 playUrl: data.playUrl,
+                youtubeUrl: data.youtubeUrl || data.playUrl,
+                htmlPath: data.htmlPath,
                 repositoryUrl: data.repositoryUrl,
                 downloadUrl: data.downloadUrl,
               };

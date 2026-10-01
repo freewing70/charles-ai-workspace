@@ -33,6 +33,8 @@ export function getContentRoute(type: string, id: string): string {
       return `/projects/${id}`;
     case 'note':
       return `/notes/${id}`;
+    case 'newspaper':
+      return `/newspapers/${id}`;
     default:
       return `/${type}/${id}`;
   }

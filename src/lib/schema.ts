@@ -5,7 +5,8 @@ export const ContentTypeSchema = z.enum([
   'tutorial',
   'presentation',
   'project',
-  'note'
+  'note',
+  'newspaper'
 ]);
 
 export const VisibilitySchema = z.enum(['public', 'private', 'unlisted']);
@@ -30,6 +31,8 @@ export const ContentMetadataSchema = z.object({
   repositoryUrl: z.string().optional(),
   downloadUrl: z.string().optional(),
   playUrl: z.string().optional(),
+  youtubeUrl: z.string().optional(),
+  htmlPath: z.string().optional(),
   featured: z.boolean().default(false),
   relatedSkills: z.array(z.string()).optional(),
   relatedProjects: z.array(z.string()).optional(),
