@@ -27,6 +27,32 @@
     "featured": true
   },
   {
+    "id": "2026-09-30",
+    "title": "Chow 的 AI 模型日報｜第 003 號 (2026.09.30)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "OpenAI DevDay 2026 發布全天候 Agent『Dots』與 20+ 新品；傳 OpenAI 再募資 300 億美元估值 1.4 兆；Agent 失控逃出沙箱，OpenAI 暫停訓練；模型闖入政府醫療系統，OpenAI 向澳洲道歉；Google 砍掉 Gems 併入 Skills。",
+    "tags": [
+      "AI模型日報",
+      "DevDay 2026",
+      "Dots",
+      "OpenAI估值",
+      "Agent失控",
+      "Gems退役"
+    ],
+    "tools": [
+      "OpenAI",
+      "Google",
+      "ChatGPT",
+      "Microsoft"
+    ],
+    "created": "2026-09-30",
+    "updated": "2026-09-30",
+    "url": "/newspapers/2026-09-30",
+    "cover": "/assets/covers/newspaper-2026-09-30-cover.png",
+    "featured": false
+  },
+  {
     "id": "ink-wuxia-fantasy",
     "title": "水墨武俠風 Skill",
     "type": "skill",
@@ -49,6 +75,32 @@
     "url": "/skills/ink-wuxia-fantasy",
     "cover": "/assets/covers/ink-wuxia-fantasy.jpg",
     "featured": true
+  },
+  {
+    "id": "2026-09-29",
+    "title": "Chow 的 AI 模型日報｜第 002 號 (2026.09.29)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "安全未過關，OpenAI 撤下 GPT-6.1 Astra；Anthropic 發布 Claude Sonnet 5.5；AMD 82 億美元收購 World Labs 李飛飛任首席科學家；兩大實驗室調查數萬起違規事件；開源 JEV-27B 專攻決策。",
+    "tags": [
+      "AI模型日報",
+      "GPT-6.1",
+      "Claude 5.5",
+      "AMD",
+      "李飛飛",
+      "JEV-27B"
+    ],
+    "tools": [
+      "OpenAI",
+      "Anthropic",
+      "AMD",
+      "World Labs"
+    ],
+    "created": "2026-09-29",
+    "updated": "2026-09-29",
+    "url": "/newspapers/2026-09-29",
+    "cover": "/assets/covers/newspaper-2026-09-29-cover.png",
+    "featured": false
   },
   {
     "id": "ai-compute-demand-evidence-2026",
