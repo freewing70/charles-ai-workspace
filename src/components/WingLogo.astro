@@ -2,11 +2,15 @@
 interface Props {
   class?: string;
   variant?: 'color' | 'dark' | 'mono';
+  width?: number | string;
+  height?: number | string;
 }
 
 const {
   class: className = "w-full h-full",
-  variant = 'color'
+  variant = 'color',
+  width = 403,
+  height = 215,
 } = Astro.props;
 
 const srcMap = {
@@ -21,6 +25,8 @@ const src = srcMap[variant] || srcMap.color;
 <img
   src={src}
   alt="FreewingBiz Wing-W Symbol"
+  width={width}
+  height={height}
   class={`object-contain ${className}`}
   loading="eager"
   decoding="async"

@@ -16,7 +16,7 @@ playUrl: "/presentations/youtube-team-launch-guide-2026/slides.html"
 featured: true
 ---
 
-# YouTube 頻道團隊入門指南 (2026.09 版)
+## YouTube 頻道團隊入門指南 (2026.09 版)
 
 針對影音內容團隊量身打造的完整營運指南，解析從發想、拍攝、發布到多元商業變現的關鍵規範。
 

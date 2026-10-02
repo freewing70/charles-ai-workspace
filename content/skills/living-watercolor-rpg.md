@@ -3,7 +3,7 @@ id: living-watercolor-rpg
 title: Living Watercolor RPG
 type: skill
 category: Image Generation
-summary: 專為 JRPG 風格角色與環境概念圖打造的動態水彩提示詞模組，兼具通透水漬漸層與墨線手感。
+summary: 專為獨立遊戲開發者與數位插畫師調校的 JRPG 動態水彩提示詞技能庫，透過嚴謹色彩與墨線手感指令，確保角色與環境概念圖具備通透水漬層次與高度風格一致性的美術產出成果。
 created: "2026-09-23"
 updated: "2026-09-23"
 version: "1.1"
@@ -19,7 +19,7 @@ featured: true
 relatedPresentations: ["demo-presentation"]
 ---
 
-# Living Watercolor RPG Skill v1.1
+## Living Watercolor RPG Skill v1.1
 
 本模組提供針對生成式 AI 圖像引擎的高度調校參數與系統提示詞。
 

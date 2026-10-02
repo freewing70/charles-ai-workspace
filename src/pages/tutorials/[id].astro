@@ -1,7 +1,7 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getAllItems, getItemById } from '../../lib/content';
-import { marked } from 'marked';
+import { renderMarkdown } from '../../lib/markdown';
 
 export function getStaticPaths() {
   const items = getAllItems(false).filter(i => i.meta.type === 'tutorial');
@@ -17,7 +17,7 @@ if (!item) {
   return Astro.redirect('/404');
 }
 
-const htmlContent = marked.parse(item.content);
+const htmlContent = renderMarkdown(item.content);
 const playUrl = item.meta.playUrl || (item.meta.type === 'tutorial' ? `/presentations/${item.meta.id}/slides.html` : null);
 ---
 
@@ -44,7 +44,7 @@ const playUrl = item.meta.playUrl || (item.meta.type === 'tutorial' ? `/presenta
     <div class="freewing-card p-6 sm:p-10 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-slate-200 shadow-xs">
       <div>
         <div class="flex items-center gap-2 text-xs font-mono text-slate-500 mb-2">
-          <span class="px-2.5 py-0.5 rounded-full bg-sky-50 text-[#0284C7] border border-sky-200 font-semibold">
+          <span class="px-2.5 py-0.5 rounded-full bg-sky-50 text-[#0369A1] border border-sky-200 font-semibold">
             {item.meta.category}
           </span>
           <span>v{item.meta.version}</span>

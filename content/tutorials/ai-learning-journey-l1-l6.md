@@ -16,7 +16,7 @@ playUrl: "/presentations/ai-learning-journey-l1-l6/slides.html"
 featured: true
 ---
 
-# AI 學習旅程｜完整課程 L1–L6
+## AI 學習旅程｜完整課程 L1–L6
 
 本簡報專為零基礎到日常應用的學習者設計，強調「不用先懂技術，也不必硬背特殊指令」。
 

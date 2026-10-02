@@ -2,7 +2,7 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getAllItems, getItemById } from '../../lib/content';
 import { getAssetUrl, getContentRoute } from '../../lib/assets';
-import { marked } from 'marked';
+import { renderMarkdown } from '../../lib/markdown';
 
 export function getStaticPaths() {
   const items = getAllItems(false).filter(i => i.meta.type === 'project');
@@ -18,7 +18,7 @@ if (!item) {
   return Astro.redirect('/404');
 }
 
-const htmlContent = marked.parse(item.content);
+const htmlContent = renderMarkdown(item.content);
 ---
 
 <MainLayout title={item.meta.title} description={item.meta.summary}>

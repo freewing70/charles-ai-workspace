@@ -3,7 +3,7 @@ id: ink-wuxia-fantasy
 title: 水墨武俠風 Skill
 type: skill
 category: Prompt Engineering
-summary: 專為東方水墨、俠客劍意與巨龍雲霧視覺打造的 Prompt 模組，兼具飛墨氣勁與潑墨留白意境。
+summary: 專為遊戲概念美術師與 AI 創作者打造的東方水墨 Prompt 模組，系統化規範俠客劍意、巨龍雲霧與飛白留白意境，協助團隊穩定生成高辨識度、極具張力的傳統國風武俠視覺成果。
 created: "2026-09-30"
 updated: "2026-09-30"
 version: "1.0"
@@ -17,7 +17,7 @@ downloadUrl: /assets/downloads/ink-wuxia-fantasy-skill.zip
 featured: true
 ---
 
-# 水墨武俠風 Skill (Ink Wuxia Fantasy) v1.0
+## 水墨武俠風 Skill (Ink Wuxia Fantasy) v1.0
 
 本技能提供東方水墨（Ink-Wash）、武俠劍意、雲霧巨龍與極簡墨氣特效的 AI 提示詞架構與視覺指導規範。
 

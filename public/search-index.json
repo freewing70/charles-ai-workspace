@@ -57,7 +57,7 @@
     "title": "水墨武俠風 Skill",
     "type": "skill",
     "category": "Prompt Engineering",
-    "summary": "專為東方水墨、俠客劍意與巨龍雲霧視覺打造的 Prompt 模組，兼具飛墨氣勁與潑墨留白意境。",
+    "summary": "專為遊戲概念美術師與 AI 創作者打造的東方水墨 Prompt 模組，系統化規範俠客劍意、巨龍雲霧與飛白留白意境，協助團隊穩定生成高辨識度、極具張力的傳統國風武俠視覺成果。",
     "tags": [
       "ink-wash",
       "wuxia",
@@ -204,7 +204,7 @@
     "title": "Living Watercolor RPG",
     "type": "skill",
     "category": "Image Generation",
-    "summary": "專為 JRPG 風格角色與環境概念圖打造的動態水彩提示詞模組，兼具通透水漬漸層與墨線手感。",
+    "summary": "專為獨立遊戲開發者與數位插畫師調校的 JRPG 動態水彩提示詞技能庫，透過嚴謹色彩與墨線手感指令，確保角色與環境概念圖具備通透水漬層次與高度風格一致性的美術產出成果。",
     "tags": [
       "watercolor",
       "JRPG",

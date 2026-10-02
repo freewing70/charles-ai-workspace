@@ -33,7 +33,7 @@ const siteBase = Astro.site ? Astro.site.origin : 'https://freewingbiz.com';
 const canonicalURL = new URL(currentPath, siteBase).href;
 const imageUrl = image.startsWith('http') ? image : `${siteBase}${image.startsWith('/') ? '' : '/'}${image}`;
 
-const siteTitle = title.includes("FreewingBiz") ? title : `${title} | FreewingBiz · Charles AI Workspace`;
+const siteTitle = title.includes("FreewingBiz") ? title : `${title} | FreewingBiz`;
 
 // Structured Data (JSON-LD) - WebSite
 const websiteSchema = {
@@ -181,8 +181,33 @@ const navItems = [
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     {itemSchema && <script type="application/ld+json" set:html={JSON.stringify(itemSchema)} />}
 
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8717561016919983" crossorigin="anonymous"></script>
+    <!-- Google AdSense (Deferred to protect LCP & main thread) -->
+    <script is:inline>
+      function loadAdSense() {
+        if (window.__adsenseLoaded) return;
+        window.__adsenseLoaded = true;
+        const script = document.createElement('script');
+        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8717561016919983";
+        script.async = true;
+        script.crossOrigin = "anonymous";
+        document.head.appendChild(script);
+      }
+      if (document.readyState === 'complete') {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadAdSense);
+        } else {
+          setTimeout(loadAdSense, 1000);
+        }
+      } else {
+        window.addEventListener('load', () => {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(loadAdSense);
+          } else {
+            setTimeout(loadAdSense, 1000);
+          }
+        });
+      }
+    </script>
 
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FPF8XB00W3"></script>

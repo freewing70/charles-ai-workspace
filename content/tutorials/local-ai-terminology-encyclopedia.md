@@ -16,7 +16,7 @@ playUrl: "/presentations/local-ai-terminology-encyclopedia/slides.html"
 featured: true
 ---
 
-# 本地 AI 模型名詞百科
+## 本地 AI 模型名詞百科
 
 針對開源模型愛好者、邊緣運算工程師與自建 AI 團隊打造的沉浸式名詞速查與學習地圖。
 

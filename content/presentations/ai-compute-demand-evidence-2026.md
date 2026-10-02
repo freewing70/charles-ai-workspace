@@ -16,7 +16,7 @@ playUrl: "/presentations/ai-compute-demand-evidence-2026/slides.html"
 featured: false
 ---
 
-# AI 算力需求持續上升｜客戶提案簡報
+## AI 算力需求持續上升｜客戶提案簡報
 
 面對市場對 AI 泡沫化的質疑，本簡報透過扎實的硬體與數據驗證，回答企業決策者最關切的算力需求走向。
 

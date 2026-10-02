@@ -15,7 +15,7 @@ cover: /assets/placeholder.svg
 featured: false
 ---
 
-# 私有內部測試
+## 私有內部測試
 
 如果這份筆記的內容出現在任何公開的靜態 HTML、Sitemap、或 `search-index.json` 中，代表 Build-time 隔離機制失效！
 在正常隔離下，這份文件將完全被編譯流程排除。
