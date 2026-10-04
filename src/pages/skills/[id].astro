@@ -5,7 +5,7 @@ import { getAssetUrl, getContentRoute } from '../../lib/assets';
 import { renderMarkdown } from '../../lib/markdown';
 
 export function getStaticPaths() {
-  const items = getAllItems(false).filter(i => i.meta.type === 'skill');
+  const items = getAllItems(false).filter(i => i.meta.type === 'skill' && i.meta.id !== 'ai-film-director');
   return items.map((item) => ({
     params: { id: item.meta.id },
   }));
