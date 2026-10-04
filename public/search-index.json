@@ -1,5 +1,31 @@
 [
   {
+    "id": "2026-10-04",
+    "title": "Chow 的 AI 模型日報｜第 007 號 (2026.10.04)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "OpenAI 安全主管 David Robinson 辭職並批評公司文化；Cloudflare 開源決策模型 Clef；Aleph Alpha 推出百萬 token 上下文模型 Kolibri-1；Ai2 開源科學報告模型 AstaBrief 8B；白宮與六大科技公司簽署自願性超智能安全協議。",
+    "tags": [
+      "AI模型日報",
+      "OpenAI",
+      "Cloudflare Clef",
+      "Kolibri-1",
+      "AstaBrief 8B",
+      "AI安全"
+    ],
+    "tools": [
+      "OpenAI",
+      "Cloudflare",
+      "Aleph Alpha",
+      "Ai2"
+    ],
+    "created": "2026-10-04",
+    "updated": "2026-10-04",
+    "url": "/newspapers/2026-10-04",
+    "cover": "/assets/covers/newspaper-2026-10-04-cover.png",
+    "featured": true
+  },
+  {
     "id": "2026-10-03",
     "title": "Chow 的 AI 模型日報｜第 006 號 (2026.10.03)",
     "type": "newspaper",
