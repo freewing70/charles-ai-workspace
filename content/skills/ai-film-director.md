@@ -11,7 +11,7 @@ status: active
 visibility: public
 tags: ["AI Film Director", "Higgsfield Studio", "Higgsfield", "HELL GRIND", "AI電影", "World State", "角色一致性", "Prompt Compiler"]
 tools: ["Codex", "Claude", "Gemini", "Seedance", "Veo", "Kling", "WAN", "LTX"]
-cover: /assets/covers/ai-film-director.svg
+cover: /assets/covers/ai-film-director.png
 downloadUrl: /assets/downloads/AI_FILM_DIRECTOR_1.0.zip
 featured: true
 ---
