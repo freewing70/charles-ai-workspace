@@ -1,6 +1,6 @@
 ---
 id: ai-film-director
-title: AI Film Director｜維護世界，編譯鏡頭。
+title: AI Film Director｜Higgsfield Studio《HELL GRIND》研究與 AI 電影製作系統
 type: skill
 category: AI 電影製作
 summary: 從 Higgsfield《HELL GRIND》製作研究出發的開源 AI 電影製作系統，整合角色一致性、Asset Library、World State、GEO、Acting、Camera、Prompt Compiler、生成 QC 與連戲管理。
@@ -9,7 +9,7 @@ updated: "2026-10-04"
 version: "1.0"
 status: active
 visibility: public
-tags: ["AI Film Director", "HELL GRIND", "AI電影", "World State", "角色一致性", "Prompt Compiler"]
+tags: ["AI Film Director", "Higgsfield Studio", "Higgsfield", "HELL GRIND", "AI電影", "World State", "角色一致性", "Prompt Compiler"]
 tools: ["Codex", "Claude", "Gemini", "Seedance", "Veo", "Kling", "WAN", "LTX"]
 cover: /assets/covers/ai-film-director.svg
 downloadUrl: /assets/downloads/AI_FILM_DIRECTOR_1.0.zip
