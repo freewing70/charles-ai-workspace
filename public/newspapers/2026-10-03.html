@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#171716" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:," />
+  <title>AI 模型日報｜2026.10.03</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f4f1e8;
+      --paper-raised: #fbf9f3;
+      --ink: #171715;
+      --muted: #5f5c55;
+      --rule: #25231f;
+      --soft-rule: #b9b4a8;
+      --accent: #a7241b;
+      --accent-soft: #e9d5cf;
+      --note: #ece7da;
+      --shadow: rgba(44, 39, 30, .16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #171716;
+        --paper-raised: #1e1e1c;
+        --ink: #f2efe6;
+        --muted: #bdb8ad;
+        --rule: #ece7dc;
+        --soft-rule: #5b5850;
+        --accent: #ef6b5f;
+        --accent-soft: #4a2825;
+        --note: #24231f;
+        --shadow: rgba(0, 0, 0, .32);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 22% 14%, color-mix(in srgb, var(--ink) 2%, transparent) 0 1px, transparent 1.2px) 0 0 / 12px 12px,
+        var(--paper);
+      color: var(--ink);
+      font-family: "Noto Serif TC", serif;
+      line-height: 1.72;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page {
+      width: min(1240px, calc(100% - 32px));
+      margin: 28px auto 52px;
+      background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+      border: 1px solid var(--soft-rule);
+      box-shadow: 0 18px 54px var(--shadow);
+      padding: clamp(18px, 3vw, 44px);
+    }
+    .utility {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .utility .edition { color: var(--accent); }
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 20px;
+      padding: 18px 0 16px;
+      border-bottom: 5px double var(--rule);
+    }
+    .masthead h1 {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(34px, 6.4vw, 78px);
+      line-height: .98;
+      letter-spacing: -.065em;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .masthead-side {
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .masthead-side.right { text-align: right; }
+    .masthead-side strong {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+    .index-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: "Noto Sans TC", sans-serif;
+    }
+    .index-nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px 12px;
+      text-decoration: none;
+      border-right: 1px solid var(--soft-rule);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .index-nav a:last-child { border-right: 0; }
+    .index-nav a:hover, .index-nav a:focus-visible { background: var(--accent-soft); outline: none; }
+    .index-nav b {
+      color: var(--accent);
+      font-family: "Noto Serif TC", serif;
+      font-size: 18px;
+    }
+    .index-nav span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .lead-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.15fr) minmax(250px, .85fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 2px solid var(--rule);
+    }
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .kicker::after { content: ""; flex: 1; height: 1px; background: var(--accent); }
+    .lead h2 {
+      margin: 0 0 14px;
+      max-width: 18ch;
+      font-size: clamp(34px, 5.2vw, 66px);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+      font-weight: 900;
+    }
+    .deck {
+      margin: 0 0 18px;
+      max-width: 46em;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 23px);
+      line-height: 1.58;
+      font-weight: 600;
+    }
+    .story-body {
+      columns: 2 260px;
+      column-gap: 28px;
+      column-rule: 1px solid var(--soft-rule);
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 15px;
+    }
+    .story-body p { margin: 0 0 1em; }
+    .story-body p:first-child::first-letter {
+      float: left;
+      margin: .1em .1em 0 0;
+      color: var(--accent);
+      font-size: 4.35em;
+      line-height: .72;
+      font-weight: 900;
+    }
+    .why {
+      margin-top: 18px;
+      padding: 16px 18px 17px;
+      background: var(--note);
+      border-top: 3px solid var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      line-height: 1.62;
+    }
+    .why strong { color: var(--accent); }
+    .source-link {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-top: 12px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .source-link::after { content: "↗"; font-size: 13px; }
+    .source-link:hover, .source-link:focus-visible {
+      color: var(--ink);
+      outline: none;
+      text-decoration-thickness: 2px;
+    }
+    .briefing {
+      align-self: start;
+      border-top: 8px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .briefing h3 {
+      margin: 0;
+      padding: 10px 0 8px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+    .briefing ol { list-style: none; padding: 0; margin: 0; }
+    .briefing li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--soft-rule);
+    }
+    .briefing li:last-child { border-bottom: 0; }
+    .briefing .num {
+      color: var(--accent);
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .briefing a { text-decoration: none; font-weight: 700; line-height: 1.45; }
+    .briefing a:hover { color: var(--accent); }
+    .briefing small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .stories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 28px;
+    }
+    .story {
+      padding: 26px 0 28px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .story:nth-child(odd) { border-right: 1px solid var(--soft-rule); padding-right: 28px; }
+    .story-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    .story-number {
+      min-width: 44px;
+      padding-top: 2px;
+      color: var(--accent);
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .story h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.22;
+      letter-spacing: -.035em;
+    }
+    .story .subline {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+    .story p {
+      margin: 0 0 .9em;
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 14.5px;
+    }
+    .story .why { margin-top: 14px; }
+    .closing {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding-top: 18px;
+      font-family: "Noto Sans TC", sans-serif;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .closing strong { color: var(--ink); }
+    .mark {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 4px 9px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .back-top {
+      display: inline-block;
+      color: var(--ink);
+      text-underline-offset: 3px;
+    }
+    @media (max-width: 820px) {
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; padding: 14px 18px 32px; }
+      .utility { font-size: 10px; }
+      .masthead { grid-template-columns: 1fr; gap: 8px; padding: 14px 0 13px; }
+      .masthead h1 { grid-row: 1; white-space: normal; font-size: clamp(40px, 12vw, 62px); }
+      .masthead-side { display: flex; justify-content: space-between; text-align: left; }
+      .masthead-side.right { display: none; }
+      .index-nav { grid-template-columns: repeat(5, 1fr); }
+      .index-nav a { justify-content: center; padding: 8px 4px; }
+      .index-nav b { font-size: 17px; }
+      .index-nav span { display: none; }
+      .lead-grid { grid-template-columns: 1fr; gap: 24px; padding: 22px 0; }
+      .lead h2 { font-size: clamp(36px, 10vw, 54px); max-width: none; }
+      .story-body { columns: 1; text-align: left; }
+      .briefing { margin-top: 4px; }
+      .stories { grid-template-columns: 1fr; }
+      .story:nth-child(odd) { border-right: 0; padding-right: 0; }
+      .story { padding: 22px 0 24px; }
+      .story p { text-align: left; }
+      .closing { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 390px) {
+      .page { padding-inline: 14px; }
+      .utility span:last-child { text-align: right; }
+      .masthead h1 { font-size: 39px; }
+      .story-head { grid-template-columns: 38px 1fr; gap: 8px; }
+      .story-number { min-width: 38px; font-size: 30px; }
+    }
+    @media print {
+      body { background: white; }
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; }
+      .index-nav { display: none; }
+      .story, .lead-grid { break-inside: avoid; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main class="page" id="top">
+    <div class="utility">
+      <span class="edition">第 006 號・國際市場版</span>
+      <span>2026 年 10 月 3 日　星期六</span>
+    </div>
+
+    <header class="masthead">
+      <div class="masthead-side">
+        <strong>每日五則</strong>
+        模型・安全・市場・開源
+      </div>
+      <h1>Chow 的 AI 模型日報</h1>
+      <div class="masthead-side right">
+        <strong>SATURDAY EDITION</strong>
+        第 006 號
+      </div>
+    </header>
+
+    <nav class="index-nav" aria-label="本期新聞索引">
+      <a href="#story-1"><b>01</b><span>旗艦模型</span></a>
+      <a href="#story-2"><b>02</b><span>晶片設計</span></a>
+      <a href="#story-3"><b>03</b><span>開源決策</span></a>
+      <a href="#story-4"><b>04</b><span>算力平台</span></a>
+      <a href="#story-5"><b>05</b><span>AI條約</span></a>
+    </nav>
+
+    <section class="lead-grid" id="story-1">
+            <article class="lead">
+        <p class="kicker">今日頭條　FRONT PAGE</p>
+        <h2>Google 把最強模型鎖起來：Gemini 4 Argon 只開放資安專家</h2>
+        <p class="deck">Google 週三宣布，最強大的旗艦模型 Gemini 4 Argon 暫不公開發佈，只提供給受審查的資安專家，以免遭駭客濫用。</p>
+        <div class="story-body">
+          <p>Google 首席 AI 架構師 Koray Kavukcuoglu 在部落格寫道「安全地釋出這個等級的前沿能力，需要分階段進行」。Google 會主動向美國政府提前開放模型，並在擴大存取前收集測試者回饋。Argon 擅長軟體工程、法律與金融等複雜任務，以及網路防禦，尤其以尋找並修補重大軟體漏洞的能力領先——早期測試者已用它發現全球醫院軟體中一個暴露敏感個資的漏洞，是其他先進模型錯過的。</p>
+          <p>模型內建拒絕協助網路攻擊與化武、生武、核武研發的防線，還部署了思維鏈監控與強化訓練沙盒。此舉緊隨白宮安全自律協議，並與 Anthropic 限制 Claude Mythos Preview 的作法如出一轍。</p>
+        </div>
+        <div class="why"><strong>為什麼重要：</strong> 最強模型開始只在「受信任圈」流轉，意味前沿 AI 正在變成一種準戰略資產；部署門檻不再只是算力，而是「被信任的資格」。</div>
+        <a class="source-link" href="https://www.ndtv.com/world-news/google-restricts-access-to-new-ai-model-over-safety-concerns-12122677" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・NDTV</a>
+      </article>
+
+            <aside class="briefing" aria-label="今日五看">
+        <h3>今日五看</h3>
+        <ol>
+          <li><span class="num">1</span><div><a href="#story-1">Gemini 4 資安旗艦</a><small>旗艦模型只開放資安專家</small></div></li>
+          <li><span class="num">2</span><div><a href="#story-2">GPT-Synopsys 晶片模型</a><small>晶片設計工具裝上AI大腦</small></div></li>
+          <li><span class="num">3</span><div><a href="#story-3">開源決策模型 Clef</a><small>39毫秒做決策的模型</small></div></li>
+          <li><span class="num">4</span><div><a href="#story-4">CoreWeave 開發平台</a><small>把模型開發全流程收編</small></div></li>
+          <li><span class="num">5</span><div><a href="#story-5">華盛頓模式AI條約</a><small>華盛頓模式送上聯合國</small></div></li>
+        </ol>
+      </aside>
+    </section>
+
+    <section class="stories" aria-label="本期新聞">
+            <article class="story" id="story-2">
+        <div class="story-head"><span class="story-number">02</span><h2>OpenAI 攜手 Synopsys，要讓 AI 變成晶片設計工程師</h2></div>
+        <p class="subline">OpenAI 與半導體設計軟體巨頭 Synopsys 簽下多年策略合作，將共同開發專為晶片設計打造的 GPT-Synopsys 模型，並共享收益。</p>
+        <p>雙方簽下多年的擴張性協議，涵蓋共同開發專用模型、收益分潤與全球聯合行銷。目標是讓前沿模型學會像資深工程師一樣操作 Synopsys 的 EDA 工具、解讀輸出、反覆優化設計，讓工程師能探索更多設計方案，並優化功耗、效能與面積（PPA）。</p>
+        <p>Synopsys 執行長 Sassine Ghazi 表示，協議將擴大取得 Synopsys 先進設計能力與底層工程工具的管道，加速日益複雜的晶片上市。目前的 Agent 只是把通用模型接上 EDA 工具，下一步是讓模型成為「原生專家使用者」。</p>
+        <div class="why"><strong>為什麼重要：</strong> AI 正在從「寫程式」深入「設計生產程式的晶片」；專用領域模型與工具深度綁定的商業模式，正成為模型變現的新正規軍。</div>
+        <a class="source-link" href="https://www.hpcwire.com/aiwire/2026/10/02/synopsys-and-openai-partner-to-develop-specialized-ai-model-for-chip-design/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・HPCwire（AIwire）</a>
+      </article>
+
+            <article class="story" id="story-3">
+        <div class="story-head"><span class="story-number">03</span><h2>Cloudflare 開源「決策模型」Clef：39 毫秒替 Agent 拿主意</h2></div>
+        <p class="subline">Cloudflare 本週推出兩款開源決策模型 Clef 與 Clef-flash，中位數回應僅 39 毫秒，直接叫陣 TypeSafe AI 的 Jev。</p>
+        <p>兩款模型都基於 Qwen、支援文字與圖像，特點是不寫推理長文，而是直接輸出預設選項的機率分佈，讓下游軟體即時行動。Clef-flash 中位數 39 毫秒，大版 Clef 209 毫秒，適用於工單分級、團隊指派、是否轉人工等分類決策。Cloudflare 同時在 Workers AI 上提供 RL 微調服務，權重採 Apache-2.0 開放。</p>
+        <p>公司直言「人類不一定再需要介入 Agent 的每一個決策」。同日 AWS 生態的 Strands 也推出 20 億參數的本地決策模型 Strands Decider 2B，決策模型顯然已成一條新賽道。</p>
+        <div class="why"><strong>為什麼重要：</strong> Agent 戰場從「寫得多漂亮」轉向「決策有多快多便宜」；決策模型正在成為大型語言模型之下的一層新基礎設施。</div>
+        <a class="source-link" href="https://aidailypost.com/news/cloudflares-clef-ai-model-makes-decisions" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・AI Daily Post</a>
+      </article>
+
+            <article class="story" id="story-4">
+        <div class="story-head"><span class="story-number">04</span><h2>CoreWeave Forge 上線：把模型開發的整個循環收進一個平台</h2></div>
+        <p class="subline">AI 雲端大廠 CoreWeave 發佈 Forge 開發層，把訓練、推理、評測、實驗追蹤與 Agent 開發收進單一環境。</p>
+        <p>Forge 整合 CoreWeave 去年約 10 億美元收購的 Weights &amp; Biases、強化學習新創 OpenPipe 的後訓練技術，以及開源 notebook 專案 marimo，加上自家的推理、訓練、模型倉庫與沙盒服務。主打「AI 改善循環」：上線、觀察、整理、改進、評測、再部署一次打通。</p>
+        <p>MasterClass 與 Canva 已採用，提供免費、Pro 與企業三種版本，並保留與其他模型、框架與雲端的互通。消息在其 AI 雲大會 Fully Connected（逾 4,500 人與會）上公佈。</p>
+        <div class="why"><strong>為什麼重要：</strong> 算力商正從「租 GPU」上移到「軟體平台」，CoreWeave 想成為模型團隊的一站式作業系統；誰收攏開發循環，誰就黏住客戶。</div>
+        <a class="source-link" href="https://www.businesswire.com/news/home/20260930545351/en/CoreWeave-Forge-Launches-Turning-the-AI-Loop-Production-Run-Into-a-Better-Model-and-Agent" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Business Wire（CoreWeave 官方發布）</a>
+      </article>
+
+            <article class="story" id="story-5">
+        <div class="story-head"><span class="story-number">05</span><h2>哈薩克總統：把「華盛頓模式」AI 安全協議搬上聯合國</h2></div>
+        <p class="subline">哈薩克總統托卡耶夫提議，將白宮日前與科技巨頭簽署的 AI 安全自律協議（「華盛頓模式」）送交聯合國，作為國際條約的藍本。</p>
+        <p>托卡耶夫在 AI 發展委員會會議上表示，川普與科技公司簽署的自願協議「非常及時且重要」，AI 風險跨越國界、需要各國與私部門協同行動。經專家審查後，華盛頓協議可成為各國效仿的範本；他相信這套模式能成為聯合國主導的國際條約基礎。</p>
+        <p>哈薩克願擔任建設性對話的平台，相關倡議將在 12 月邁阿密 G20 峰會提出。美國政府也已設立自願流程，在發布前審查最強大的 AI 模型。</p>
+        <div class="why"><strong>為什麼重要：</strong> AI 監管話語權從企業自律向國際條約挪動；誰定義「安全」，誰就握有未來模型的通關門票。</div>
+        <a class="source-link" href="https://en.tengrinews.kz/kazakhstan_news/tokayev-proposed-bringing-the-washington-model-for-ai-273989/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Tengrinews</a>
+      </article>
+    </section>
+
+    <footer class="closing">
+      <div><strong>編輯備註：</strong> 本期內容取材自 2026 年 9 月 30 日–10 月 3 日國際媒體報導；各方說法以原始報導為準。</div>
+      <div><span class="mark">每日五則</span>　<a class="back-top" href="#top">回到版首</a></div>
+    </footer>
+  </main>
+<script>
+window.addEventListener('load', () => {
+  const r = document.querySelector('.page').getBoundingClientRect();
+  document.title = 'RECT:' + [r.x, r.y, r.width, r.height].map(v => Math.round(v)).join(',');
+});
+</script>
+</body>
+
+</html>

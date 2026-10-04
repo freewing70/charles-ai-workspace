@@ -1,5 +1,32 @@
 [
   {
+    "id": "2026-10-03",
+    "title": "Chow 的 AI 模型日報｜第 006 號 (2026.10.03)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Google 限制 Gemini 4 Argon 僅供資安專家使用；OpenAI 與 Synopsys 合作開發晶片設計模型；Cloudflare 開源 39 毫秒決策模型 Clef；CoreWeave Forge 整合模型開發全流程；哈薩克倡議將華盛頓 AI 安全模式推向聯合國。",
+    "tags": [
+      "AI模型日報",
+      "Gemini 4 Argon",
+      "GPT-Synopsys",
+      "Cloudflare Clef",
+      "CoreWeave Forge",
+      "AI安全"
+    ],
+    "tools": [
+      "Google",
+      "OpenAI",
+      "Synopsys",
+      "Cloudflare",
+      "CoreWeave"
+    ],
+    "created": "2026-10-03",
+    "updated": "2026-10-03",
+    "url": "/newspapers/2026-10-03",
+    "cover": "/assets/covers/newspaper-2026-10-03-cover.png",
+    "featured": true
+  },
+  {
     "id": "2026-10-02",
     "title": "Chow 的 AI 模型日報｜第 005 號 (2026.10.02)",
     "type": "newspaper",
