@@ -1,5 +1,32 @@
 [
   {
+    "id": "2026-10-05",
+    "title": "Chow 的 AI 模型日報｜第 008 號 (2026.10.05)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Anthropic 傳感恩節前啟動 IPO 估值上看 2 兆美元；OpenAI 結盟 Synopsys 共推晶片設計 AI；Google 大砍免費版 Gemini 只留 Flash-Lite；奧特曼警告 AI 宗教化是真威脅；研究揭阿里 Qwen 審查率近九成。",
+    "tags": [
+      "AI模型日報",
+      "Anthropic IPO",
+      "OpenAI",
+      "Synopsys",
+      "Gemini",
+      "Qwen"
+    ],
+    "tools": [
+      "Anthropic",
+      "OpenAI",
+      "Synopsys",
+      "Google",
+      "Alibaba"
+    ],
+    "created": "2026-10-05",
+    "updated": "2026-10-05",
+    "url": "/newspapers/2026-10-05",
+    "cover": "/assets/covers/newspaper-2026-10-05-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-04",
     "title": "Chow 的 AI 模型日報｜第 007 號 (2026.10.04)",
     "type": "newspaper",
@@ -109,7 +136,7 @@
     "updated": "2026-10-02",
     "url": "/newspapers/2026-10-02",
     "cover": "/assets/covers/newspaper-2026-10-02-cover.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-01",
