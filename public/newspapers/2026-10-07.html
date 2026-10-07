@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#171716" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:," />
+  <title>AI 模型日報｜2026.10.07</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f4f1e8;
+      --paper-raised: #fbf9f3;
+      --ink: #171715;
+      --muted: #5f5c55;
+      --rule: #25231f;
+      --soft-rule: #b9b4a8;
+      --accent: #a7241b;
+      --accent-soft: #e9d5cf;
+      --note: #ece7da;
+      --shadow: rgba(44, 39, 30, .16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #171716;
+        --paper-raised: #1e1e1c;
+        --ink: #f2efe6;
+        --muted: #bdb8ad;
+        --rule: #ece7dc;
+        --soft-rule: #5b5850;
+        --accent: #ef6b5f;
+        --accent-soft: #4a2825;
+        --note: #24231f;
+        --shadow: rgba(0, 0, 0, .32);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 22% 14%, color-mix(in srgb, var(--ink) 2%, transparent) 0 1px, transparent 1.2px) 0 0 / 12px 12px,
+        var(--paper);
+      color: var(--ink);
+      font-family: "Noto Serif TC", serif;
+      line-height: 1.72;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page {
+      width: min(1240px, calc(100% - 32px));
+      margin: 28px auto 52px;
+      background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+      border: 1px solid var(--soft-rule);
+      box-shadow: 0 18px 54px var(--shadow);
+      padding: clamp(18px, 3vw, 44px);
+    }
+    .utility {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .utility .edition { color: var(--accent); }
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 20px;
+      padding: 18px 0 16px;
+      border-bottom: 5px double var(--rule);
+    }
+    .masthead h1 {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(34px, 6.4vw, 78px);
+      line-height: .98;
+      letter-spacing: -.065em;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .masthead-side {
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .masthead-side.right { text-align: right; }
+    .masthead-side strong {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+    .index-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: "Noto Sans TC", sans-serif;
+    }
+    .index-nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px 12px;
+      text-decoration: none;
+      border-right: 1px solid var(--soft-rule);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .index-nav a:last-child { border-right: 0; }
+    .index-nav a:hover, .index-nav a:focus-visible { background: var(--accent-soft); outline: none; }
+    .index-nav b {
+      color: var(--accent);
+      font-family: "Noto Serif TC", serif;
+      font-size: 18px;
+    }
+    .index-nav span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .lead-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.15fr) minmax(250px, .85fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 2px solid var(--rule);
+    }
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .kicker::after { content: ""; flex: 1; height: 1px; background: var(--accent); }
+    .lead h2 {
+      margin: 0 0 14px;
+      max-width: 18ch;
+      font-size: clamp(34px, 5.2vw, 66px);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+      font-weight: 900;
+    }
+    .deck {
+      margin: 0 0 18px;
+      max-width: 46em;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 23px);
+      line-height: 1.58;
+      font-weight: 600;
+    }
+    .story-body {
+      columns: 2 260px;
+      column-gap: 28px;
+      column-rule: 1px solid var(--soft-rule);
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 15px;
+    }
+    .story-body p { margin: 0 0 1em; }
+    .story-body p:first-child::first-letter {
+      float: left;
+      margin: .1em .1em 0 0;
+      color: var(--accent);
+      font-size: 4.35em;
+      line-height: .72;
+      font-weight: 900;
+    }
+    .why {
+      margin-top: 18px;
+      padding: 16px 18px 17px;
+      background: var(--note);
+      border-top: 3px solid var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      line-height: 1.62;
+    }
+    .why strong { color: var(--accent); }
+    .source-link {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-top: 12px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .source-link::after { content: "↗"; font-size: 13px; }
+    .source-link:hover, .source-link:focus-visible {
+      color: var(--ink);
+      outline: none;
+      text-decoration-thickness: 2px;
+    }
+    .briefing {
+      align-self: start;
+      border-top: 8px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .briefing h3 {
+      margin: 0;
+      padding: 10px 0 8px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+    .briefing ol { list-style: none; padding: 0; margin: 0; }
+    .briefing li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--soft-rule);
+    }
+    .briefing li:last-child { border-bottom: 0; }
+    .briefing .num {
+      color: var(--accent);
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .briefing a { text-decoration: none; font-weight: 700; line-height: 1.45; }
+    .briefing a:hover { color: var(--accent); }
+    .briefing small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .stories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 28px;
+    }
+    .story {
+      padding: 26px 0 28px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .story:nth-child(odd) { border-right: 1px solid var(--soft-rule); padding-right: 28px; }
+    .story-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    .story-number {
+      min-width: 44px;
+      padding-top: 2px;
+      color: var(--accent);
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .story h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.22;
+      letter-spacing: -.035em;
+    }
+    .story .subline {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+    .story p {
+      margin: 0 0 .9em;
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 14.5px;
+    }
+    .story .why { margin-top: 14px; }
+    .closing {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding-top: 18px;
+      font-family: "Noto Sans TC", sans-serif;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .closing strong { color: var(--ink); }
+    .mark {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 4px 9px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .back-top {
+      display: inline-block;
+      color: var(--ink);
+      text-underline-offset: 3px;
+    }
+    @media (max-width: 820px) {
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; padding: 14px 18px 32px; }
+      .utility { font-size: 10px; }
+      .masthead { grid-template-columns: 1fr; gap: 8px; padding: 14px 0 13px; }
+      .masthead h1 { grid-row: 1; white-space: normal; font-size: clamp(40px, 12vw, 62px); }
+      .masthead-side { display: flex; justify-content: space-between; text-align: left; }
+      .masthead-side.right { display: none; }
+      .index-nav { grid-template-columns: repeat(5, 1fr); }
+      .index-nav a { justify-content: center; padding: 8px 4px; }
+      .index-nav b { font-size: 17px; }
+      .index-nav span { display: none; }
+      .lead-grid { grid-template-columns: 1fr; gap: 24px; padding: 22px 0; }
+      .lead h2 { font-size: clamp(36px, 10vw, 54px); max-width: none; }
+      .story-body { columns: 1; text-align: left; }
+      .briefing { margin-top: 4px; }
+      .stories { grid-template-columns: 1fr; }
+      .story:nth-child(odd) { border-right: 0; padding-right: 0; }
+      .story { padding: 22px 0 24px; }
+      .story p { text-align: left; }
+      .closing { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 390px) {
+      .page { padding-inline: 14px; }
+      .utility span:last-child { text-align: right; }
+      .masthead h1 { font-size: 39px; }
+      .story-head { grid-template-columns: 38px 1fr; gap: 8px; }
+      .story-number { min-width: 38px; font-size: 30px; }
+    }
+    @media print {
+      body { background: white; }
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; }
+      .index-nav { display: none; }
+      .story, .lead-grid { break-inside: avoid; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main class="page" id="top">
+    <div class="utility">
+      <span class="edition">第 010 號・國際市場版</span>
+      <span>2026 年 10 月 7 日　星期三</span>
+    </div>
+
+    <header class="masthead">
+      <div class="masthead-side">
+        <strong>每日五則</strong>
+        模型・安全・市場・開源
+      </div>
+      <h1>Chow 的 AI 模型日報</h1>
+      <div class="masthead-side right">
+        <strong>WEDNESDAY EDITION</strong>
+        第 010 號
+      </div>
+    </header>
+
+    <nav class="index-nav" aria-label="本期新聞索引">
+      <a href="#story-1"><b>01</b><span>旗艦模型</span></a>
+      <a href="#story-2"><b>02</b><span>募資</span></a>
+      <a href="#story-3"><b>03</b><span>軍方</span></a>
+      <a href="#story-4"><b>04</b><span>晶片</span></a>
+      <a href="#story-5"><b>05</b><span>監管</span></a>
+    </nav>
+
+    <section class="lead-grid" id="story-1">
+            <article class="lead">
+        <p class="kicker">今日頭條　FRONT PAGE</p>
+        <h2>法國 Mistral 發布「Le Chonk」：1 兆參數旗艦模型，10 月底開放權重</h2>
+        <p class="deck">歐洲 AI 希望之星法國 Mistral 在 10 月 6 日發布旗艦模型 Mistral Large 4（內部代號 Le Chonk），是五個月來首次重大模型發布，喊話要正面挑戰中國開源模型。</p>
+        <div class="story-body">
+          <p>Large 4 是原生多模態混合專家（MoE）架構，總參數 1 兆、每次運算只啟用 490 億參數，並具百萬 token 上下文、160 種以上語言能力。資安是最大亮點：在 Artificial Analysis 的 Cyber Index 漏洞複現與修補測試中拿下 82%，全球前五、開放權重模型非中國區第一；反觀 GPT-6 Astra、Claude Opus 5.5 因安全過濾拒絕作答，在該項目幾乎零分。</p>
+          <p>模型在歐洲自有資料中心、用 3,800 顆 Nvidia Grace Blackwell 從零訓練，10 月 27 日開放權重下載，現階段透過 API 預覽，同時讓資安專家與政府單位以「降低防護版本」做紅隊測試。</p>
+        </div>
+        <div class="why"><strong>為什麼重要：</strong> 歐洲終於在開放權重賽道重回檯面，而且選了最聰明的戰場——當封閉模型在資安測試被自家安全過濾「卡死」，開放模型反而拿到最高分。</div>
+        <a class="source-link" href="https://techcrunch.com/2026/10/06/mistrals-new-1t-model-aims-to-leapfrog-closed-and-open-rivals/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Reuters / TechCrunch / Mistral 官方</a>
+      </article>
+
+            <aside class="briefing" aria-label="今日五看">
+        <h3>今日五看</h3>
+        <ol>
+          <li><span class="num">1</span><div><a href="#story-1">旗艦 Le Chonk</a><small>Le Chonk 主攻資安</small></div></li>
+          <li><span class="num">2</span><div><a href="#story-2">1.4 兆元募資案</a><small>300 億美元融資談判啟動</small></div></li>
+          <li><span class="num">3</span><div><a href="#story-3">美軍停用 Claude</a><small>五角大廈切斷 Claude</small></div></li>
+          <li><span class="num">4</span><div><a href="#story-4">晶片售後回租 80 億</a><small>80 億晶片進 SPV 回租</small></div></li>
+          <li><span class="num">5</span><div><a href="#story-5">歐盟 AI 隱形水印</a><small>OpenAI 加文字浮水印</small></div></li>
+        </ol>
+      </aside>
+    </section>
+
+    <section class="stories" aria-label="本期新聞">
+            <article class="story" id="story-2">
+        <div class="story-head"><span class="story-number">02</span><h2>OpenAI 傳洽談 300 億美元融資、估值上看 1.4 兆美元</h2></div>
+        <p class="subline">彭博 10 月 6 日報導，OpenAI 正與阿布達比 MGX 等阿聯基金、貝萊德洽談至少 300 億美元融資，投前估值約 1.4 兆美元，IPO 至少延後一年。</p>
+        <p>阿聯基金擬組成財團認購最高 100 億美元；現有投資人 Thrive Capital、Andreessen Horowitz 與加州大學捐贈基金也參與洽談。這是 OpenAI 今年 3 月以 8,520 億美元估值募得 1,220 億美元後的下一輪，估值半年漲六成。</p>
+        <p>營收方面，OpenAI 年化營收已逼近 700 億美元；但 FT 引述內部簡報指出，2026 至 2030 年累計負自由現金流將高達 2,780 億美元。關於估值基礎，彭博報導為「投前」1.4 兆美元，也有媒體稱此為含新資金的估值，各方說法不一。</p>
+        <div class="why"><strong>為什麼重要：</strong> 只有主權基金才跟得上的燒錢速度——當 AI 前沿模型的基建成本改寫融資遊戲，資本戰場已經變成「國家級金主」的俱樂部。</div>
+        <a class="source-link" href="https://www.businesstimes.com.sg/international/openai-us30-billion-round-talks-uae-funds-blackrock" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Bloomberg（經 Business Times 轉載）</a>
+      </article>
+
+            <article class="story" id="story-3">
+        <div class="story-head"><span class="story-number">03</span><h2>五角大廈證實停用 Anthropic 工具：軍方與 AI 公司的安全對峙收場</h2></div>
+        <p class="subline">BBC 報導，五角大廈官員證實已全面停用 Anthropic 產品；年初被列為供應鏈國安風險後，原定 8 月底淘汰，實際拖延至今才完成。</p>
+        <p>導火線是五角大廈要求 Anthropic 移除 Claude 的安全防護、給軍方不受限的完整存取，Anthropic 以大規模監控與自主武器疑慮拒絕。國防部長 Hegseth 2 月將該公司列為「國家安全供應鏈風險」——原本是針對敵對國家企業的法律手段——並限期 8 月底全面淘汰。</p>
+        <p>但多名知情人士向 BBC 透露，上週 Claude 仍在國防部的研究、情資彙整，甚至對伊朗軍事行動的目標辨識中使用。Anthropic 稱該認定「史無前例且違法」，已對川普政府提告。</p>
+        <div class="why"><strong>為什麼重要：</strong> 美國政府第一次把自家頂尖 AI 公司當成「對手國家級」供應鏈風險——模型公司的安全紅線，第一次在現實世界付出實質代價。</div>
+        <a class="source-link" href="https://www.myjoyonline.com/pentagon-stops-using-anthropic-ai-tools-after-blacklisting-company-bbc-told/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・BBC（經 MyJoyOnline 轉載）</a>
+      </article>
+
+            <article class="story" id="story-4">
+        <div class="story-head"><span class="story-number">04</span><h2>Amazon 把 80 億美元 Nvidia 晶片裝進 SPV：AI 基建的「華爾街化」</h2></div>
+        <p class="subline">FT 報導，Amazon 計畫把約 80 億美元的 Nvidia Grace Blackwell 晶片裝進特殊目的公司（SPV）再租回：硬體留在自家資料中心，帳面負擔轉給外部投資人。</p>
+        <p>結構是：晶片移轉至 SPV → SPV 發債向外部投資人籌資 → Amazon 租回繼續使用；外部投資人最高可認購 10% 股權，Amazon 本身不持股。涉及晶片橫跨內華達、維吉尼亞等 5 州十多座資料中心，投資人預期憑 Amazon 的 AA 信評拿到投資級債評。</p>
+        <p>目的在於輕資產營運：Amazon 本季資本開支 542 億美元、自由現金流為負 76 億，同季把 2026 全年資本開支預期上調至約 2,200 億美元。同類結構還有 Meta Hyperion（270 億美元）與 xAI Colossus 2（200 億美元）。</p>
+        <div class="why"><strong>為什麼重要：</strong> 昨天是博通借錢給 Anthropic 租晶片，今天是 Amazon 賣晶片給華爾街再租回——AI 基建融資正在金融化，晶片正式成為金融資產。</div>
+        <a class="source-link" href="https://www.cnbctv18.com/business/amazon-explores-shifting-8-billion-nvidia-chips-to-investors-and-leasing-them-back-20003546.htm" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Financial Times（經 CNBC TV18 / Reuters 轉載）</a>
+      </article>
+
+            <article class="story" id="story-5">
+        <div class="story-head"><span class="story-number">05</span><h2>OpenAI 歐盟啟動 AI 隱形浮水印 textGrain：AI 法案第一槍</h2></div>
+        <p class="subline">OpenAI 10 月 5 日宣布，未來幾週內在歐盟為符合條件的 ChatGPT 和 Codex 文本輸出加上隱形浮水印 textGrain，配合《AI 法案》透明度規則。</p>
+        <p>技術方式是微調模型用詞，留下人眼不可見的統計信號，複製貼上不會消失。200 token 文本檢出率約 80%、400 token 約 95%，但相當脆弱：10% 同義詞替換就讓檢出率從約 92% 跌到 66%，25% 替換跌到 17%，短文本、數學題、翻譯文本也難以檢出。</p>
+        <p>檢測器初期只開放給獲批研究人員與專業機構，全球 API 客戶可自願開啟（預設關閉）。值得注意的是，Anthropic 8 月為 Claude 加上浮水印後，4 小時內就被開源抹除工具破解。</p>
+        <div class="why"><strong>為什麼重要：</strong> 這是《AI 法案》透明度條款的第一個大型落地案例——也是第一個公開承認「防君子不防小人」的合規工具，連脆弱度都寫進了技術報告裡。</div>
+        <a class="source-link" href="https://techcrunch.com/2026/10/05/openai-will-start-watermarking-chatgpts-text-in-the-eu/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・TechCrunch</a>
+      </article>
+    </section>
+
+    <footer class="closing">
+      <div><strong>編輯備註：</strong> 本期內容取材自 2026 年 10 月 4–7 日國際媒體報導；各方說法以原始報導為準。</div>
+      <div><span class="mark">每日五則</span>　<a class="back-top" href="#top">回到版首</a></div>
+    </footer>
+  </main>
+<script>
+window.addEventListener('load', () => {
+  const r = document.querySelector('.page').getBoundingClientRect();
+  document.title = 'RECT:' + [r.x, r.y, r.width, r.height].map(v => Math.round(v)).join(',');
+});
+</script>
+</body>
+
+</html>

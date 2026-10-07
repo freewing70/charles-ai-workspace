@@ -1,5 +1,34 @@
 [
   {
+    "id": "2026-10-07",
+    "title": "Chow 的 AI 模型日報｜第 010 號 (2026.10.07)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "法國 Mistral 發布 1 兆參數旗艦模型 Le Chonk 並於 10 月底開放權重；OpenAI 洽談 300 億美元融資且估值上看 1.4 兆美元；五角大廈證實停用 Anthropic Claude 工具；Amazon 將 80 億美元 Nvidia 晶片放入 SPV 售後回租；OpenAI 於歐盟為 ChatGPT 文本導入 textGrain 隱形浮水印。",
+    "tags": [
+      "AI模型日報",
+      "Mistral",
+      "Le Chonk",
+      "OpenAI",
+      "Anthropic",
+      "Amazon",
+      "Nvidia",
+      "textGrain"
+    ],
+    "tools": [
+      "Mistral AI",
+      "OpenAI",
+      "Anthropic",
+      "Amazon AWS",
+      "Nvidia"
+    ],
+    "created": "2026-10-07",
+    "updated": "2026-10-07",
+    "url": "/newspapers/2026-10-07",
+    "cover": "/assets/covers/newspaper-2026-10-07-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-06",
     "title": "Chow 的 AI 模型日報｜第 009 號 (2026.10.06)",
     "type": "newspaper",
@@ -24,7 +53,7 @@
     "updated": "2026-10-06",
     "url": "/newspapers/2026-10-06",
     "cover": "/assets/covers/newspaper-2026-10-06-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-05",
