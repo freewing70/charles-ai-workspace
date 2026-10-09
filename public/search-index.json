@@ -1,5 +1,37 @@
 [
   {
+    "id": "2026-10-09",
+    "title": "Chow 的 AI 模型日報｜第 012 號 (2026.10.09)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "微軟發表 Windows 混合智能戰略，攜手輝達將 AI 與 Agent 搬回桌面運算；OpenAI 正式全面推送 GPT-6 與 Intelligent UI 互動介面；Anthropic 推出 Claude Haiku 5.5 並大幅降價 75%；GPU 算力雲 Lambda 在 IPO 前募資 40 億美元，未履約訂單暴增至 500 億美元；芬蘭監管機構因未完成環評勒令叫停 Google 歐洲大型資料中心建置。",
+    "tags": [
+      "AI模型日報",
+      "Microsoft",
+      "Windows",
+      "Copilot",
+      "OpenAI",
+      "GPT-6",
+      "Anthropic",
+      "Claude Haiku 5.5",
+      "Lambda",
+      "Google",
+      "資料中心"
+    ],
+    "tools": [
+      "Microsoft",
+      "OpenAI",
+      "Anthropic",
+      "Lambda Labs",
+      "Google"
+    ],
+    "created": "2026-10-09",
+    "updated": "2026-10-09",
+    "url": "/newspapers/2026-10-09",
+    "cover": "/assets/covers/newspaper-2026-10-09-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-08",
     "title": "Chow 的 AI 模型日報｜第 011 號 (2026.10.08)",
     "type": "newspaper",
@@ -31,7 +63,7 @@
     "updated": "2026-10-08",
     "url": "/newspapers/2026-10-08",
     "cover": "/assets/covers/newspaper-2026-10-08-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-07",

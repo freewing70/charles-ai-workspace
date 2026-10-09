@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#171716" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:," />
+  <title>AI 模型日報｜2026.10.09</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f4f1e8;
+      --paper-raised: #fbf9f3;
+      --ink: #171715;
+      --muted: #5f5c55;
+      --rule: #25231f;
+      --soft-rule: #b9b4a8;
+      --accent: #a7241b;
+      --accent-soft: #e9d5cf;
+      --note: #ece7da;
+      --shadow: rgba(44, 39, 30, .16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #171716;
+        --paper-raised: #1e1e1c;
+        --ink: #f2efe6;
+        --muted: #bdb8ad;
+        --rule: #ece7dc;
+        --soft-rule: #5b5850;
+        --accent: #ef6b5f;
+        --accent-soft: #4a2825;
+        --note: #24231f;
+        --shadow: rgba(0, 0, 0, .32);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 22% 14%, color-mix(in srgb, var(--ink) 2%, transparent) 0 1px, transparent 1.2px) 0 0 / 12px 12px,
+        var(--paper);
+      color: var(--ink);
+      font-family: "Noto Serif TC", serif;
+      line-height: 1.72;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page {
+      width: min(1240px, calc(100% - 32px));
+      margin: 28px auto 52px;
+      background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+      border: 1px solid var(--soft-rule);
+      box-shadow: 0 18px 54px var(--shadow);
+      padding: clamp(18px, 3vw, 44px);
+    }
+    .utility {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .utility .edition { color: var(--accent); }
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 20px;
+      padding: 18px 0 16px;
+      border-bottom: 5px double var(--rule);
+    }
+    .masthead h1 {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(34px, 6.4vw, 78px);
+      line-height: .98;
+      letter-spacing: -.065em;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .masthead-side {
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .masthead-side.right { text-align: right; }
+    .masthead-side strong {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+    .index-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: "Noto Sans TC", sans-serif;
+    }
+    .index-nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px 12px;
+      text-decoration: none;
+      border-right: 1px solid var(--soft-rule);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .index-nav a:last-child { border-right: 0; }
+    .index-nav a:hover, .index-nav a:focus-visible { background: var(--accent-soft); outline: none; }
+    .index-nav b {
+      color: var(--accent);
+      font-family: "Noto Serif TC", serif;
+      font-size: 18px;
+    }
+    .index-nav span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .lead-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.15fr) minmax(250px, .85fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 2px solid var(--rule);
+    }
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .kicker::after { content: ""; flex: 1; height: 1px; background: var(--accent); }
+    .lead h2 {
+      margin: 0 0 14px;
+      max-width: 18ch;
+      font-size: clamp(34px, 5.2vw, 66px);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+      font-weight: 900;
+    }
+    .deck {
+      margin: 0 0 18px;
+      max-width: 46em;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 23px);
+      line-height: 1.58;
+      font-weight: 600;
+    }
+    .story-body {
+      columns: 2 260px;
+      column-gap: 28px;
+      column-rule: 1px solid var(--soft-rule);
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 15px;
+    }
+    .story-body p { margin: 0 0 1em; }
+    .story-body p:first-child::first-letter {
+      float: left;
+      margin: .1em .1em 0 0;
+      color: var(--accent);
+      font-size: 4.35em;
+      line-height: .72;
+      font-weight: 900;
+    }
+    .why {
+      margin-top: 18px;
+      padding: 16px 18px 17px;
+      background: var(--note);
+      border-top: 3px solid var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      line-height: 1.62;
+    }
+    .why strong { color: var(--accent); }
+    .source-link {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-top: 12px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .source-link::after { content: "↗"; font-size: 13px; }
+    .source-link:hover, .source-link:focus-visible {
+      color: var(--ink);
+      outline: none;
+      text-decoration-thickness: 2px;
+    }
+    .briefing {
+      align-self: start;
+      border-top: 8px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .briefing h3 {
+      margin: 0;
+      padding: 10px 0 8px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+    .briefing ol { list-style: none; padding: 0; margin: 0; }
+    .briefing li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--soft-rule);
+    }
+    .briefing li:last-child { border-bottom: 0; }
+    .briefing .num {
+      color: var(--accent);
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .briefing a { text-decoration: none; font-weight: 700; line-height: 1.45; }
+    .briefing a:hover { color: var(--accent); }
+    .briefing small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .stories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 28px;
+    }
+    .story {
+      padding: 26px 0 28px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .story:nth-child(odd) { border-right: 1px solid var(--soft-rule); padding-right: 28px; }
+    .story-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    .story-number {
+      min-width: 44px;
+      padding-top: 2px;
+      color: var(--accent);
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .story h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.22;
+      letter-spacing: -.035em;
+    }
+    .story .subline {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+    .story p {
+      margin: 0 0 .9em;
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 14.5px;
+    }
+    .story .why { margin-top: 14px; }
+    .closing {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding-top: 18px;
+      font-family: "Noto Sans TC", sans-serif;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .closing strong { color: var(--ink); }
+    .mark {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 4px 9px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .back-top {
+      display: inline-block;
+      color: var(--ink);
+      text-underline-offset: 3px;
+    }
+    @media (max-width: 820px) {
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; padding: 14px 18px 32px; }
+      .utility { font-size: 10px; }
+      .masthead { grid-template-columns: 1fr; gap: 8px; padding: 14px 0 13px; }
+      .masthead h1 { grid-row: 1; white-space: normal; font-size: clamp(40px, 12vw, 62px); }
+      .masthead-side { display: flex; justify-content: space-between; text-align: left; }
+      .masthead-side.right { display: none; }
+      .index-nav { grid-template-columns: repeat(5, 1fr); }
+      .index-nav a { justify-content: center; padding: 8px 4px; }
+      .index-nav b { font-size: 17px; }
+      .index-nav span { display: none; }
+      .lead-grid { grid-template-columns: 1fr; gap: 24px; padding: 22px 0; }
+      .lead h2 { font-size: clamp(36px, 10vw, 54px); max-width: none; }
+      .story-body { columns: 1; text-align: left; }
+      .briefing { margin-top: 4px; }
+      .stories { grid-template-columns: 1fr; }
+      .story:nth-child(odd) { border-right: 0; padding-right: 0; }
+      .story { padding: 22px 0 24px; }
+      .story p { text-align: left; }
+      .closing { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 390px) {
+      .page { padding-inline: 14px; }
+      .utility span:last-child { text-align: right; }
+      .masthead h1 { font-size: 39px; }
+      .story-head { grid-template-columns: 38px 1fr; gap: 8px; }
+      .story-number { min-width: 38px; font-size: 30px; }
+    }
+    @media print {
+      body { background: white; }
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; }
+      .index-nav { display: none; }
+      .story, .lead-grid { break-inside: avoid; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main class="page" id="top">
+    <div class="utility">
+      <span class="edition">第 012 號・國際市場版</span>
+      <span>2026 年 10 月 9 日　星期五</span>
+    </div>
+
+    <header class="masthead">
+      <div class="masthead-side">
+        <strong>每日五則</strong>
+        模型・安全・市場・開源
+      </div>
+      <h1>Chow 的 AI 模型日報</h1>
+      <div class="masthead-side right">
+        <strong>FRIDAY EDITION</strong>
+        第 012 號
+      </div>
+    </header>
+
+    <nav class="index-nav" aria-label="本期新聞索引">
+      <a href="#story-1"><b>01</b><span>微軟發表</span></a>
+      <a href="#story-2"><b>02</b><span>GPT6</span></a>
+      <a href="#story-3"><b>03</b><span>降價戰</span></a>
+      <a href="#story-4"><b>04</b><span>算力募資</span></a>
+      <a href="#story-5"><b>05</b><span>環評停工</span></a>
+    </nav>
+
+    <section class="lead-grid" id="story-1">
+            <article class="lead">
+        <p class="kicker">今日頭條　FRONT PAGE</p>
+        <h2>微軟 Windows 大轉向：AI 搬回桌面，agent 在本機開工</h2>
+        <p class="deck">雲端太貴，那就搬回家——微軟 10 月 7 日發表會把 AI 運算從 Azure 拉回你桌上的 Windows 電腦。</p>
+        <div class="story-body">
+          <p>微軟在 10 月 7 日的 Windows 發表會上宣布「混合智能」（hybrid intelligence）戰略：Copilot 會自動判斷任務該交給本機模型還是雲端模型，本機任務號稱「不計額外費用」。旗艦新機 Surface Laptop Ultra 搭載 Nvidia RTX Spark 晶片，起價 2,599 美元、頂規 128GB 記憶體版本 5,899 美元，已開放預購、10 月 16 日出貨，劍指 MacBook Pro。微軟自研編程模型 MAI-Code-1.1 Flash（137B 參數、3-bit 量化、256K 上下文）可在本機執行，同時宣布支援 Nvidia Nemotron、DeepSeek V4 等第三方本機模型。</p>
+          <p>安全牌同步打出：Microsoft Execution Containers（MXC）正式 GA——Windows 內建 OS 層 agent 沙盒，IT 部門設規則、作業系統強制執行。Reuters 引述 Davuluri 稱 Anthropic、OpenAI、Nvidia 都會採用，不過 GeekWire 報導的整合口徑較保守，各方說法不一。黃仁勳親赴現場與 Nadella 對談，稱 MXC 將「像 DirectX 革命化應用程式一樣，革命化 agent 的建造與部署」。</p>
+        </div>
+        <div class="why"><strong>為什麼重要：</strong> 「雲端回桌面」——當推理成本成為雲端業者的沉重負擔，微軟把帳單搬回用戶買單的 PC；安全敘事也從上週 Astra 延期的陰影，翻轉成 Windows 賣點的主軸。</div>
+        <a class="source-link" href="https://www.pymnts.com/news/artificial-intelligence/2026/microsoft-turns-windows-pcs-into-command-centers-for-ai-agents/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Reuters（via PYMNTS）／The Neuron</a>
+      </article>
+
+            <aside class="briefing" aria-label="今日五看">
+        <h3>今日五看</h3>
+        <ol>
+          <li><span class="num">1</span><div><a href="#story-1">微軟混合智能發表會</a><small>微軟 AI 從雲端搬回桌面</small></div></li>
+          <li><span class="num">2</span><div><a href="#story-2">GPT-6 全面上線</a><small>GPT-6：回覆變互動介面</small></div></li>
+          <li><span class="num">3</span><div><a href="#story-3">Haiku 5.5 降價</a><small>Haiku 5.5 大幅降價</small></div></li>
+          <li><span class="num">4</span><div><a href="#story-4">算力雲 40 億募資</a><small>算力雲募資 40 億</small></div></li>
+          <li><span class="num">5</span><div><a href="#story-5">芬蘭叫停 Google</a><small>芬蘭叫停 Google 建廠</small></div></li>
+        </ol>
+      </aside>
+    </section>
+
+    <section class="stories" aria-label="本期新聞">
+            <article class="story" id="story-2">
+        <div class="story-head"><span class="story-number">02</span><h2>GPT-6 全面上線：ChatGPT 回覆變成互動介面</h2></div>
+        <p class="subline">12 億人用的 ChatGPT 不再只是一堵文字牆。</p>
+        <p>OpenAI 10 月 7 日宣布，GPT-6 與全新「Intelligent UI」全面推送至 ChatGPT：付費用戶用 GPT-6 Sol、免費與 Go 用戶用 GPT-6 Luna。回答會依問題自動長出互動介面：食譜附圖文步驟、可點按調整人數；腳踏車零件圖可逐一點選學習；需要時還能現場生出計算機、分帳小工具甚至小遊戲。</p>
+        <p>背後是原生可串流元件庫＋即時編譯器，介面隨生成逐段浮現；GPT-6 也能在「繼續思考」的同時先開始作答，搜尋類問題平均提早 44% 開口。限制：Pro 級推理仍用 GPT-6 Astra 且不支援新介面；Codex 與 ChatGPT Work 的模型維持不變。</p>
+        <div class="why"><strong>為什麼重要：</strong> OpenAI 把「介面」本身變成模型的輸出——Google Gemini 3 的 Generative Interface 沒能拉開差距，這次 OpenAI 用 12 億週活用戶的規模正面對決，聊天機器人的形態之爭正式開打。</div>
+        <a class="source-link" href="https://www.macrumors.com/2026/10/07/chatgpt-intelligent-ui/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・MacRumors／Gizmodo</a>
+      </article>
+
+            <article class="story" id="story-3">
+        <div class="story-head"><span class="story-number">03</span><h2>Anthropic 發表 Claude Haiku 5.5：便宜 75%，小模型價格戰開打</h2></div>
+        <p class="subline">又快又便宜——Anthropic 的小鋼砲更新了，價格直接砍 75%。</p>
+        <p>Anthropic 10 月 7 日發表 Claude Haiku 5.5，定位高頻、成本敏感任務（摘要、分類、即時客服、語音助理）。定價比 Haiku 4.5 平均便宜 75%；10 萬 token 以內的請求最高便宜 90%（輸入每百萬 token 0.10 美元、輸出 0.50 美元）。這是第一款內建資安防護的 Haiku 模型，針對高風險資安請求設限，日常任務不受影響。</p>
+        <p>5.5 家族三款（Opus、Sonnet、Haiku）到齊，距離 Anthropic 預定的 11 月 IPO 又近一步。不過 The Decoder 提醒：新 tokenizer 每任務 token 耗量略增，實際省下的錢可能比帳面少。</p>
+        <div class="why"><strong>為什麼重要：</strong> 價格戰從旗艦大模型燒到小模型——Haiku 正是客服與摘要等高頻場景的主力，75% 降價等於直接重寫推理成本的底線，也為 IPO 故事添柴。</div>
+        <a class="source-link" href="https://the-decoder.com/claude-haiku-5-5-arrives-with-massive-price-cuts-proving-the-ai-pricing-arms-race-is-far-from-over/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・The Decoder／NDTV</a>
+      </article>
+
+            <article class="story" id="story-4">
+        <div class="story-head"><span class="story-number">04</span><h2>算力雲 Lambda IPO 前募 40 億美元：訂單一季翻三倍</h2></div>
+        <p class="subline">AI 算力有多搶手？看這家雲端公司的訂單簿：三個月翻三倍。</p>
+        <p>WSJ 10 月 6 日披露（Reuters 轉載）：Nvidia 投資的「neocloud」算力雲 Lambda 正在募資最高 40 億美元，投前估值 145 億美元，由 Blackstone 與 Coatue 領投，為 IPO 前最後一輪，目標 2027 年上市。未履約訂單從 6 月的 150 億美元暴增至 9 月的 500 億美元。</p>
+        <p>公司 5 月已換帥：共同創辦人 Stephen Balaban 交棒給前 SoftBank International 執行長 Michel Combes 擔任 CEO，自己轉任 CTO，明顯備戰公開市場。對照組：同為 Nvidia 系的 CoreWeave 市值逾 500 億美元、訂單積壓 1,040 億美元；Nscale 9 月申請 IPO、積壓 1,030 億美元。</p>
+        <div class="why"><strong>為什麼重要：</strong> neocloud 訂單簿是算力需求最誠實的溫度計——Lambda 一季翻三倍，說明 AI 基建的資本開支派對還沒散場。</div>
+        <a class="source-link" href="https://www.reuters.com/technology/nvidia-backed-lambda-targets-4-billion-raise-ahead-planned-ipo-wsj-reports-2026-10-06/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・WSJ（via Reuters）</a>
+      </article>
+
+            <article class="story" id="story-5">
+        <div class="story-head"><span class="story-number">05</span><h2>芬蘭叫停 Google 資料中心：環評未過先動工，勒令停工</h2></div>
+        <p class="subline">環評沒做完就先砍樹——芬蘭監管機關直接喊停。</p>
+        <p>芬蘭監管機關 LVV 10 月 7 日下令：Google 代理公司 Tuike Finland 必須立即停工（最遲 10 月 23 日），不得在 Muhos 與 Kajaani 兩處預定地進行顯著改變環境的準備工程。調查發現業者已砍伐數百公頃林地、剝除表土、修築道路與儲料場、改變排水，卻未先完成法定環境影響評估。Google 承認疏失、表示將遵從指示；該項目是 Google 自稱在歐洲最大單筆投資。</p>
+        <p>芬蘭環境部長強調：國內外企業一律守法，責任沿承包鏈上溯。背景：反資料中心浪潮持續擴大——美國參議院兩黨議員同週提案要求資料中心自付電網升級費用；密爾瓦基市議會也在審議一年暫停令。</p>
+        <div class="why"><strong>為什麼重要：</strong> AI 擴張的瓶頸不只晶片——環評、用水、用電與地方政治正從美國地方議會蔓延到北歐國家層級，成為算力落地的硬約束。</div>
+        <a class="source-link" href="https://www.aljazeera.com/amp/news/2026/10/7/finland-orders-halt-to-work-on-google-data-sites-over-environment-concerns" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Al Jazeera／CGTN</a>
+      </article>
+    </section>
+
+    <footer class="closing">
+      <div><strong>編輯備註：</strong> 本期內容取材自 2026 年 10 月 6–9 日國際媒體報導；各方說法以原始報導為準。</div>
+      <div><span class="mark">每日五則</span>　<a class="back-top" href="#top">回到版首</a></div>
+    </footer>
+  </main>
+<script>
+window.addEventListener('load', () => {
+  const r = document.querySelector('.page').getBoundingClientRect();
+  document.title = 'RECT:' + [r.x, r.y, r.width, r.height].map(v => Math.round(v)).join(',');
+});
+</script>
+</body>
+
+</html>
