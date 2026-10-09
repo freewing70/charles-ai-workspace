@@ -1,5 +1,39 @@
 [
   {
+    "id": "2026-10-08",
+    "title": "Chow 的 AI 模型日報｜第 011 號 (2026.10.08)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "外洩招股書揭露 Anthropic 最快 11 月以 2 兆美元估值啟動史上最大 IPO，未來算力承諾達 5,180 億美元；美國反資料中心浪潮升溫，德州擴大暫停令且路州審查 Meta 供電案；法國 Mistral 推出 1 兆參數多模態開源模型 ML4「Le Chonk」；OpenAI 因安全未達標宣布延期 GPT-6.1 Astra 並暫停頂級模型訓練；AWS Bedrock 正式上架中國智譜 GLM-5.3 並開啟分潤合作。",
+    "tags": [
+      "AI模型日報",
+      "Anthropic",
+      "IPO",
+      "Meta",
+      "資料中心",
+      "Mistral",
+      "Le Chonk",
+      "OpenAI",
+      "GPT-6.1 Astra",
+      "AWS",
+      "GLM-5.3",
+      "Z.ai"
+    ],
+    "tools": [
+      "Anthropic",
+      "Meta",
+      "Mistral AI",
+      "OpenAI",
+      "Amazon AWS",
+      "Z.ai"
+    ],
+    "created": "2026-10-08",
+    "updated": "2026-10-08",
+    "url": "/newspapers/2026-10-08",
+    "cover": "/assets/covers/newspaper-2026-10-08-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-07",
     "title": "Chow 的 AI 模型日報｜第 010 號 (2026.10.07)",
     "type": "newspaper",
@@ -26,7 +60,7 @@
     "updated": "2026-10-07",
     "url": "/newspapers/2026-10-07",
     "cover": "/assets/covers/newspaper-2026-10-07-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-06",

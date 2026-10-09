@@ -35,7 +35,7 @@ const featuredNewspaper = newspapers.find((n) => n.meta.featured) || newspapers[
             href={featuredNewspaper ? `/newspapers/${featuredNewspaper.meta.id}` : '#'} 
             class="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm transition-all shadow-lg hover:shadow-rose-600/30 flex items-center gap-2"
           >
-            <span>閱讀最新日報 (第 004 號)</span>
+            <span>閱讀最新日報 {featuredNewspaper ? `(${featuredNewspaper.meta.title.match(/第\s*\d+\s*號/)?.[0] || ''})` : ''}</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
