@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#171716" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:," />
+  <title>AI 模型日報｜2026.10.10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f4f1e8;
+      --paper-raised: #fbf9f3;
+      --ink: #171715;
+      --muted: #5f5c55;
+      --rule: #25231f;
+      --soft-rule: #b9b4a8;
+      --accent: #a7241b;
+      --accent-soft: #e9d5cf;
+      --note: #ece7da;
+      --shadow: rgba(44, 39, 30, .16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #171716;
+        --paper-raised: #1e1e1c;
+        --ink: #f2efe6;
+        --muted: #bdb8ad;
+        --rule: #ece7dc;
+        --soft-rule: #5b5850;
+        --accent: #ef6b5f;
+        --accent-soft: #4a2825;
+        --note: #24231f;
+        --shadow: rgba(0, 0, 0, .32);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 22% 14%, color-mix(in srgb, var(--ink) 2%, transparent) 0 1px, transparent 1.2px) 0 0 / 12px 12px,
+        var(--paper);
+      color: var(--ink);
+      font-family: "Noto Serif TC", serif;
+      line-height: 1.72;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page {
+      width: min(1240px, calc(100% - 32px));
+      margin: 28px auto 52px;
+      background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+      border: 1px solid var(--soft-rule);
+      box-shadow: 0 18px 54px var(--shadow);
+      padding: clamp(18px, 3vw, 44px);
+    }
+    .utility {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .utility .edition { color: var(--accent); }
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 20px;
+      padding: 18px 0 16px;
+      border-bottom: 5px double var(--rule);
+    }
+    .masthead h1 {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(34px, 6.4vw, 78px);
+      line-height: .98;
+      letter-spacing: -.065em;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .masthead-side {
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .masthead-side.right { text-align: right; }
+    .masthead-side strong {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+    .index-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: "Noto Sans TC", sans-serif;
+    }
+    .index-nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px 12px;
+      text-decoration: none;
+      border-right: 1px solid var(--soft-rule);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .index-nav a:last-child { border-right: 0; }
+    .index-nav a:hover, .index-nav a:focus-visible { background: var(--accent-soft); outline: none; }
+    .index-nav b {
+      color: var(--accent);
+      font-family: "Noto Serif TC", serif;
+      font-size: 18px;
+    }
+    .index-nav span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .lead-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.15fr) minmax(250px, .85fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 2px solid var(--rule);
+    }
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .kicker::after { content: ""; flex: 1; height: 1px; background: var(--accent); }
+    .lead h2 {
+      margin: 0 0 14px;
+      max-width: 18ch;
+      font-size: clamp(34px, 5.2vw, 66px);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+      font-weight: 900;
+    }
+    .deck {
+      margin: 0 0 18px;
+      max-width: 46em;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 23px);
+      line-height: 1.58;
+      font-weight: 600;
+    }
+    .story-body {
+      columns: 2 260px;
+      column-gap: 28px;
+      column-rule: 1px solid var(--soft-rule);
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 15px;
+    }
+    .story-body p { margin: 0 0 1em; }
+    .story-body p:first-child::first-letter {
+      float: left;
+      margin: .1em .1em 0 0;
+      color: var(--accent);
+      font-size: 4.35em;
+      line-height: .72;
+      font-weight: 900;
+    }
+    .why {
+      margin-top: 18px;
+      padding: 16px 18px 17px;
+      background: var(--note);
+      border-top: 3px solid var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      line-height: 1.62;
+    }
+    .why strong { color: var(--accent); }
+    .source-link {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-top: 12px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .source-link::after { content: "↗"; font-size: 13px; }
+    .source-link:hover, .source-link:focus-visible {
+      color: var(--ink);
+      outline: none;
+      text-decoration-thickness: 2px;
+    }
+    .briefing {
+      align-self: start;
+      border-top: 8px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .briefing h3 {
+      margin: 0;
+      padding: 10px 0 8px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+    .briefing ol { list-style: none; padding: 0; margin: 0; }
+    .briefing li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--soft-rule);
+    }
+    .briefing li:last-child { border-bottom: 0; }
+    .briefing .num {
+      color: var(--accent);
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .briefing a { text-decoration: none; font-weight: 700; line-height: 1.45; }
+    .briefing a:hover { color: var(--accent); }
+    .briefing small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .stories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 28px;
+    }
+    .story {
+      padding: 26px 0 28px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .story:nth-child(odd) { border-right: 1px solid var(--soft-rule); padding-right: 28px; }
+    .story-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    .story-number {
+      min-width: 44px;
+      padding-top: 2px;
+      color: var(--accent);
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .story h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.22;
+      letter-spacing: -.035em;
+    }
+    .story .subline {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+    .story p {
+      margin: 0 0 .9em;
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 14.5px;
+    }
+    .story .why { margin-top: 14px; }
+    .closing {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding-top: 18px;
+      font-family: "Noto Sans TC", sans-serif;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .closing strong { color: var(--ink); }
+    .mark {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 4px 9px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .back-top {
+      display: inline-block;
+      color: var(--ink);
+      text-underline-offset: 3px;
+    }
+    @media (max-width: 820px) {
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; padding: 14px 18px 32px; }
+      .utility { font-size: 10px; }
+      .masthead { grid-template-columns: 1fr; gap: 8px; padding: 14px 0 13px; }
+      .masthead h1 { grid-row: 1; white-space: normal; font-size: clamp(40px, 12vw, 62px); }
+      .masthead-side { display: flex; justify-content: space-between; text-align: left; }
+      .masthead-side.right { display: none; }
+      .index-nav { grid-template-columns: repeat(5, 1fr); }
+      .index-nav a { justify-content: center; padding: 8px 4px; }
+      .index-nav b { font-size: 17px; }
+      .index-nav span { display: none; }
+      .lead-grid { grid-template-columns: 1fr; gap: 24px; padding: 22px 0; }
+      .lead h2 { font-size: clamp(36px, 10vw, 54px); max-width: none; }
+      .story-body { columns: 1; text-align: left; }
+      .briefing { margin-top: 4px; }
+      .stories { grid-template-columns: 1fr; }
+      .story:nth-child(odd) { border-right: 0; padding-right: 0; }
+      .story { padding: 22px 0 24px; }
+      .story p { text-align: left; }
+      .closing { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 390px) {
+      .page { padding-inline: 14px; }
+      .utility span:last-child { text-align: right; }
+      .masthead h1 { font-size: 39px; }
+      .story-head { grid-template-columns: 38px 1fr; gap: 8px; }
+      .story-number { min-width: 38px; font-size: 30px; }
+    }
+    @media print {
+      body { background: white; }
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; }
+      .index-nav { display: none; }
+      .story, .lead-grid { break-inside: avoid; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main class="page" id="top">
+    <div class="utility">
+      <span class="edition">第 013 號・國際市場版</span>
+      <span>2026 年 10 月 10 日　星期六</span>
+    </div>
+
+    <header class="masthead">
+      <div class="masthead-side">
+        <strong>每日五則</strong>
+        模型・安全・市場・開源
+      </div>
+      <h1>Chow 的 AI 模型日報</h1>
+      <div class="masthead-side right">
+        <strong>SATURDAY EDITION</strong>
+        第 013 號
+      </div>
+    </header>
+
+    <nav class="index-nav" aria-label="本期新聞索引">
+      <a href="#story-1"><b>01</b><span>企業代理</span></a>
+      <a href="#story-2"><b>02</b><span>災難預演</span></a>
+      <a href="#story-3"><b>03</b><span>歐洲主權</span></a>
+      <a href="#story-4"><b>04</b><span>混搭晶片</span></a>
+      <a href="#story-5"><b>05</b><span>台灣募資</span></a>
+    </nav>
+
+    <section class="lead-grid" id="story-1">
+            <article class="lead">
+        <p class="kicker">今日頭條　FRONT PAGE</p>
+        <h2>Google Cloud 發表 Gemini Agents：企業 AI 從對話走進代理時代</h2>
+        <p class="deck">Google Cloud 10 月 8 日在年度 Gemini at Work 大會發表「Gemini 代理」（Gemini Agents）——單一、通用的企業工作 AI 代理，員工用一句話交辦，代理自己規劃、執行、交付。</p>
+        <div class="story-body">
+          <p>Gemini 代理以六大架構打造：統一代理、跨平台存取（網頁／iOS／Android／Windows／Mac，可無頭背景執行）、持續執行（關機後任務仍在雲端續跑）、多代理調度（可派子代理，也能配置有獨立信箱的「同事代理」）、深度情境脈絡，以及模型選擇彈性——系統依任務自動調度 Gemini 或 Claude，兼顧效能與成本。內建支出上限、稽核軌跡等治理機制。</p>
+          <p>Kurian 宣稱近九成 Fortune 100 企業採用 Gemini Enterprise（官方說法）；On、Shopify、PayPal 為早期案例，PayPal 每週處理 1,000 萬次多模型請求。</p>
+        </div>
+        <div class="why"><strong>為什麼重要：</strong> 企業 AI 正式從「聊天」進入「代理」時代——前一天微軟才把 AI 搬回 Windows 桌面，Google 隨即從雲端還擊：兩大陣營正在爭奪 agent 的定義權。</div>
+        <a class="source-link" href="https://udn.com/news/story/7240/9804141?from=udn-referralnews_ch2artbottom" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・聯合新聞網（經濟日報）</a>
+      </article>
+
+            <aside class="briefing" aria-label="今日五看">
+        <h3>今日五看</h3>
+        <ol>
+          <li><span class="num">1</span><div><a href="#story-1">Gemini 企業代理</a><small>Google 企業通用代理</small></div></li>
+          <li><span class="num">2</span><div><a href="#story-2">AI 巨頭災難預演</a><small>兩巨頭沙盤推演 AI 災難</small></div></li>
+          <li><span class="num">3</span><div><a href="#story-3">Mistral 主權辯論</a><small>Mistral 宣稱勝中國模型</small></div></li>
+          <li><span class="num">4</span><div><a href="#story-4">Token Fabric 發表</a><small>多家晶片混搭組資料中心</small></div></li>
+          <li><span class="num">5</span><div><a href="#story-5">KONST 募資三千萬美元</a><small>台灣 KONST 完成 B 輪</small></div></li>
+        </ol>
+      </aside>
+    </section>
+
+    <section class="stories" aria-label="本期新聞">
+            <article class="story" id="story-2">
+        <div class="story-head"><span class="story-number">02</span><h2>OpenAI、Anthropic 密排「災難劇本」：若 AI 網攻癱瘓民生，該怎麼辦</h2></div>
+        <p class="subline">Axios 10 月 9 日報導，OpenAI、Anthropic 等頂尖 AI 公司高層正私下沙盤推演「災難級 AI 事件」發生後的公關與政治劇本。</p>
+        <p>推演的情境是：大規模網路攻擊癱瘓金融服務、網路連線，甚至電力與供水，而 AI 被認定為元兇或工具。部分業內人士預測類似事件可能在 6 到 12 個月內發生——這是預測，不是定論。</p>
+        <p>OpenAI 證實確有演練，但強調不代表認定災難必然發生；Anthropic 拒絕評論。背景是民意緊繃：AP／NORC 民調顯示 64% 美國成年人認為 AI 發展「太快」。</p>
+        <div class="why"><strong>為什麼重要：</strong> AI 產業已經開始為「AI 惹禍的那一天」寫政治劇本——這是監管風暴的前奏，也是 AI 安全敘事從實驗室正式走進國會山莊的訊號。</div>
+        <a class="source-link" href="https://opendatascience.com/openai-anthropic-prepare-for-potential-catastrophic-ai-cyberattack/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・ODSC（引述 Axios 報導）</a>
+      </article>
+
+            <article class="story" id="story-3">
+        <div class="story-head"><span class="story-number">03</span><h2>Mistral 主權路線掀辯論：歐洲 AI 旗手，還是已被資本收編？</h2></div>
+        <p class="subline">Mistral 執行長 Arthur Mensch 日前在阿布達比宣稱，ML4 在資安等領域已超越中國模型；瑞士《時報》10 月 9 日刊文質疑：在美、亞資本入股後，Mistral 還是歐洲 AI 主權的旗手嗎？</p>
+        <p>ML4（暱稱 Le Chonk）是 1 兆參數多模態模型，資安基準 CyberGym-E2E 拿下 82%，權重預計 10 月底開放。Mensch 宣稱「歐洲無法競爭的敘事並不真實」。</p>
+        <p>但《時報》指出，Mistral 9 月以 210 億歐元估值募資 30 億歐元後，策略轉向引發質疑；共同創辦人 Lample 則稱 ML4「與一兩個月前的最佳中國模型相當」——各方說法不一，孰優孰劣尚無獨立驗證。</p>
+        <div class="why"><strong>為什麼重要：</strong> 歐洲 AI 主權正從技術問題變成政治問題——想在美中之間走第三條路的嘗試，正在被現實的資本結構與評測數字雙重考驗。</div>
+        <a class="source-link" href="https://www.letemps.ch/en/cyber/digital-sovereignty/has-france-s-mistral-sold-its-soul-and-abandoned-its-ambition-for-european-ai-sovereignty-its-strategy-sparks-debate" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Le Temps（瑞士時報）</a>
+      </article>
+
+            <article class="story" id="story-4">
+        <div class="story-head"><span class="story-number">04</span><h2>Nvidia 加持的 Upscale AI 發表 Token Fabric：不同晶片，混搭開工</h2></div>
+        <p class="subline">獲 Nvidia 投資的 Upscale AI 10 月 8 日發表 Token Fabric：軟硬體整合平台，讓客戶混搭不同廠商的 AI 晶片來建資料中心，不必各自整合網路系統。</p>
+        <p>Token Fabric 結合 Upscale 自家網路晶片、採用 Nvidia Spectrum-X 技術的設備，以及偵測瓶頸的軟體，目標是讓昂貴的 AI 晶片持續運轉、不空等資料。執行長 Barun Kar 預期明年營收達數千萬美元；第一階段今年第四季釋出，完整平台 2027 年分階段上線。</p>
+        <p>Upscale 6 月完成 1.9 億美元增資，總募資達 5 億美元、估值 20 億美元，投資方包括 Nvidia、Salesforce 與淡馬錫。</p>
+        <div class="why"><strong>為什麼重要：</strong> 算力軍備競賽的下一個瓶頸是「網路」——誰能讓不同晶片混搭運作、壓低閒置，誰就掌握資料中心的議價權，也動搖單一晶片生態的綁定。</div>
+        <a class="source-link" href="https://www.reuters.com/business/nvidia-backed-upscale-ai-launches-platform-connect-chips-rival-suppliers-2026-10-08/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Reuters</a>
+      </article>
+
+            <article class="story" id="story-5">
+        <div class="story-head"><span class="story-number">05</span><h2>台灣 KONST 完成 3,000 萬美元 B 輪：把「賣硬體」升級成「賣算力」</h2></div>
+        <p class="subline">台灣新一代 AI 算力營運商 KONST 宣布完成 3,000 萬美元 B 輪融資，由威剛（ADATA）領投。</p>
+        <p>資金將用於亞洲 AI 資料中心擴建，並推進其「Token Factory」戰略。投資方還包括 M Mobility、和碩創投（Pegatron Venture Capital）等多家企業資本，橫跨記憶體、電動化與電子製造——本身就是企業 AI 需求方。</p>
+        <p>KONST 採三層模式：算力供應、雲端交付與 AI 治理，服務大型企業客戶。</p>
+        <div class="why"><strong>為什麼重要：</strong> 台灣資本正把「賣硬體」升級成「賣算力」——本土 AI 資料中心從代工思維走向營運商思維，電子業巨頭親自下場當股東，是需求最真實的投票。</div>
+        <a class="source-link" href="https://www.siamnewsnetwork.net/pr-news/konst-raises-30m-series-b-funding-led-by-adata-technology-to-scale-up-ai-data-center-buildout-in-asia-and-advance-its-token-factory-strategy/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Siam News Network（PRNewswire 通稿）</a>
+      </article>
+    </section>
+
+    <footer class="closing">
+      <div><strong>編輯備註：</strong> 本期內容取材自 2026 年 10 月 7–10 日國際媒體報導；各方說法以原始報導為準。</div>
+      <div><span class="mark">每日五則</span>　<a class="back-top" href="#top">回到版首</a></div>
+    </footer>
+  </main>
+<script>
+window.addEventListener('load', () => {
+  const r = document.querySelector('.page').getBoundingClientRect();
+  document.title = 'RECT:' + [r.x, r.y, r.width, r.height].map(v => Math.round(v)).join(',');
+});
+</script>
+</body>
+
+</html>
