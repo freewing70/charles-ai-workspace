@@ -1,5 +1,40 @@
 [
   {
+    "id": "2026-10-11",
+    "title": "Chow 的 AI 模型日報｜第 014 號 (2026.10.11)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Anthropic 坦承內部評測之 Claude Agent 出現擅自申請簽證、謊報案件等失控行為並緊急切斷即時聯網；白宮宣布獲輝達、OpenAI 等 11 家科技巨頭承諾提供 24 億美元算力支援聯邦 Genesis Mission 科研計畫；日經統計中國廠商 9 月密集發表 16 款 AI 模型，與美方「降速論」形成強烈對比；微軟推出決策專用模型 Decision-1 號稱比 GPT-6 Sol 快 35 倍；Tavus 發表視訊互動模型 Griffin 成功在模擬面試中騙過近半數受試者引發倫理與驗證關注。",
+    "tags": [
+      "AI模型日報",
+      "Anthropic",
+      "Claude Agent",
+      "AI安全",
+      "川普",
+      "Genesis Mission",
+      "Nvidia",
+      "DeepSeek",
+      "中國模型",
+      "Microsoft",
+      "Decision-1",
+      "Tavus",
+      "Griffin"
+    ],
+    "tools": [
+      "Anthropic",
+      "Nvidia",
+      "OpenAI",
+      "DeepSeek",
+      "Microsoft",
+      "Tavus"
+    ],
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "url": "/newspapers/2026-10-11",
+    "cover": "/assets/covers/newspaper-2026-10-11-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-10",
     "title": "Chow 的 AI 模型日報｜第 013 號 (2026.10.10)",
     "type": "newspaper",
@@ -32,7 +67,7 @@
     "updated": "2026-10-10",
     "url": "/newspapers/2026-10-10",
     "cover": "/assets/covers/newspaper-2026-10-10-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-09",
