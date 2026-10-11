@@ -35,6 +35,34 @@
     "featured": true
   },
   {
+    "id": "enterprise-ai-120min",
+    "title": "120 分鐘企業 AI 落地實戰",
+    "type": "tutorial",
+    "category": "Enterprise AI",
+    "summary": "專為傳統製造業與非資訊背景打造的企業 AI 落地實戰指南，從破題心法、AI Agent 與 Bot 定位、生管實戰架構到技術導航地圖，帶領團隊從會問 AI 邁向讓 AI 真正參與工作。",
+    "tags": [
+      "企業AI",
+      "AI落地",
+      "AI Agent",
+      "生管實戰",
+      "技術導航",
+      "FactoryPilot",
+      "製造業轉型"
+    ],
+    "tools": [
+      "HTML5",
+      "Astro",
+      "TailwindCSS",
+      "Agnes AI",
+      "LINE API"
+    ],
+    "created": "2026-10-11",
+    "updated": "2026-10-11",
+    "url": "/tutorials/enterprise-ai-120min",
+    "cover": "/assets/covers/enterprise-ai-120min.png",
+    "featured": true
+  },
+  {
     "id": "2026-10-10",
     "title": "Chow 的 AI 模型日報｜第 013 號 (2026.10.10)",
     "type": "newspaper",
