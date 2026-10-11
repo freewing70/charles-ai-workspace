@@ -10,6 +10,7 @@ const notes = getItemsByType('note', false);
 <MainLayout 
   title="Notes 研究筆記 | FreewingBiz" 
   description="FreewingBiz Notes 研究筆記 — 記錄 AI 模型實測評鑑、Prompt 實驗與前沿技術觀察筆記。"
+  noindex={true}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <SectionHeader
@@ -26,8 +27,20 @@ const notes = getItemsByType('note', false);
         ))}
       </div>
     ) : (
-      <div class="text-center py-20 bg-slate-50 rounded-2xl border border-slate-200">
-        <p class="text-slate-500">目前尚無公開筆記。</p>
+      <div class="text-center py-16 px-6 bg-slate-50 rounded-3xl border border-slate-200 max-w-2xl mx-auto space-y-4">
+        <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-[#0369A1] mx-auto flex items-center justify-center font-bold">
+          📝
+        </div>
+        <h3 class="text-lg font-bold text-[#07172D]">實驗筆記撰寫審閱中</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          最新一期的 Prompt 結構測試、本地推理速度基準與模型長文本表現評測筆記正在校稿中。
+          完成後將與 AI Skills 技能庫連動發布。
+        </p>
+        <div class="pt-2">
+          <a href="/skills" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#155EEF] text-white text-xs font-semibold hover:bg-blue-700 transition-colors">
+            先探索 AI Skills 技能庫 &rarr;
+          </a>
+        </div>
       </div>
     )}
   </div>

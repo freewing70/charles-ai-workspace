@@ -142,9 +142,8 @@ const navItems = [
   { label: "Skills", href: "/skills", eyebrow: "LEARN" },
   { label: "Tutorials", href: "/tutorials", eyebrow: "EXPLORE" },
   { label: "Presentations", href: "/presentations", eyebrow: "SHARE" },
-  { label: "Projects", href: "/projects", eyebrow: "CREATE" },
-  { label: "Notes", href: "/notes", eyebrow: "THINK" },
   { label: "Timeline", href: "/timeline", eyebrow: "JOURNEY" },
+  { label: "About", href: "/about", eyebrow: "INFO" },
 ];
 ---
 
@@ -181,33 +180,8 @@ const navItems = [
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     {itemSchema && <script type="application/ld+json" set:html={JSON.stringify(itemSchema)} />}
 
-    <!-- Google AdSense (Deferred to protect LCP & main thread) -->
-    <script is:inline>
-      function loadAdSense() {
-        if (window.__adsenseLoaded) return;
-        window.__adsenseLoaded = true;
-        const script = document.createElement('script');
-        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8717561016919983";
-        script.async = true;
-        script.crossOrigin = "anonymous";
-        document.head.appendChild(script);
-      }
-      if (document.readyState === 'complete') {
-        if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(loadAdSense);
-        } else {
-          setTimeout(loadAdSense, 1000);
-        }
-      } else {
-        window.addEventListener('load', () => {
-          if ('requestIdleCallback' in window) {
-            window.requestIdleCallback(loadAdSense);
-          } else {
-            setTimeout(loadAdSense, 1000);
-          }
-        });
-      }
-    </script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8717561016919983" crossorigin="anonymous"></script>
 
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FPF8XB00W3"></script>
@@ -347,8 +321,8 @@ const navItems = [
               <li><a href="/skills" class="hover:text-white transition-colors">AI Skills 技能庫</a></li>
               <li><a href="/tutorials" class="hover:text-white transition-colors">Tutorials 實戰教學</a></li>
               <li><a href="/presentations" class="hover:text-white transition-colors">Presentations 線上簡報</a></li>
-              <li><a href="/projects" class="hover:text-white transition-colors">Projects 成果專案</a></li>
-              <li><a href="/notes" class="hover:text-white transition-colors">Notes 研究筆記</a></li>
+              <li><a href="/timeline" class="hover:text-white transition-colors">活動時間軸 (Timeline)</a></li>
+              <li><a href="/about" class="hover:text-white transition-colors">關於與聯絡 (About Us)</a></li>
             </ul>
           </div>
 

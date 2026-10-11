@@ -10,6 +10,7 @@ const projects = getItemsByType('project', false);
 <MainLayout 
   title="Projects 專案成果 | FreewingBiz" 
   description="FreewingBiz Projects 成果專案 — AI 輔助開發專案展示、工具鏈架構與實際產出成果。"
+  noindex={true}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <SectionHeader
@@ -26,8 +27,20 @@ const projects = getItemsByType('project', false);
         ))}
       </div>
     ) : (
-      <div class="text-center py-20 bg-slate-50 rounded-2xl border border-slate-200">
-        <p class="text-slate-500">目前尚無公開專案。</p>
+      <div class="text-center py-16 px-6 bg-slate-50 rounded-3xl border border-slate-200 max-w-2xl mx-auto space-y-4">
+        <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-[#4338CA] mx-auto flex items-center justify-center font-bold">
+          🚀
+        </div>
+        <h3 class="text-lg font-bold text-[#07172D]">實戰專案整理與開源中</h3>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          我們目前正密集封裝「企業 AI 生管助手」、「多模態視覺檢測工作流」與「自動化 Agent 工具鏈」實務專案。
+          專案代碼與架構解析即將陸續公開上線！
+        </p>
+        <div class="pt-2">
+          <a href="/tutorials" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#155EEF] text-white text-xs font-semibold hover:bg-blue-700 transition-colors">
+            先探索 Tutorials 實戰教學 &rarr;
+          </a>
+        </div>
       </div>
     )}
   </div>

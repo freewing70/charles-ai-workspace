@@ -1,7 +1,8 @@
 ---
+import path from 'node:path';
 import MainLayout from '../../layouts/MainLayout.astro';
-import AdBanner from '../../components/AdBanner.astro';
 import { getAllItems, getItemById } from '../../lib/content';
+import { parseNewspaperHtml } from '../../lib/newspaperParser';
 
 export function getStaticPaths() {
   const items = getAllItems(true);
@@ -18,7 +19,7 @@ if (!item) {
   throw new Error(`Newspaper not found: ${id}`);
 }
 
-const { meta, content } = item;
+const { meta } = item;
 
 // Helper to extract YouTube Video ID
 function getYouTubeEmbedUrl(url?: string): string | null {
@@ -29,6 +30,10 @@ function getYouTubeEmbedUrl(url?: string): string | null {
 
 const embedUrl = getYouTubeEmbedUrl(meta.youtubeUrl);
 const htmlUrl = meta.htmlPath || `/newspapers/${meta.id}.html`;
+
+// Parse full in-depth stories from public newspaper HTML for SEO and direct crawlability
+const publicHtmlPath = path.join(process.cwd(), 'public', 'newspapers', `${meta.id}.html`);
+const stories = parseNewspaperHtml(publicHtmlPath);
 ---
 
 <MainLayout 
@@ -40,7 +45,7 @@ const htmlUrl = meta.htmlPath || `/newspapers/${meta.id}.html`;
   publishedDate={meta.created}
   modifiedDate={meta.updated}
 >
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
     
     <!-- Top Action Breadcrumb & Back -->
     <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-200">
@@ -130,19 +135,102 @@ const htmlUrl = meta.htmlPath || `/newspapers/${meta.id}.html`;
       </div>
     )}
 
-    <!-- Interactive Interactive Newspaper Display Section -->
-    <div class="space-y-4">
+    <!-- Full In-Depth Stories Section (Crawlable & Readable) -->
+    {stories.length > 0 && (
+      <section class="space-y-6">
+        <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 class="text-2xl font-extrabold text-[#07172D] flex items-center gap-2.5">
+              <span class="w-2.5 h-6 rounded-full bg-rose-600 inline-block"></span>
+              本期新聞完整深入報導
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">
+              全文深度分析、產業影響剖析與原始國際資訊來源
+            </p>
+          </div>
+          <span class="text-xs font-mono px-3 py-1 bg-slate-100 text-slate-600 rounded-full font-bold self-start sm:self-auto">
+            共 {stories.length} 則完整專題
+          </span>
+        </div>
+
+        <div class="space-y-6">
+          {stories.map((story) => (
+            <article class={`p-6 sm:p-8 rounded-2xl border transition-all ${
+              story.isLead 
+                ? "bg-gradient-to-br from-rose-50/40 via-white to-amber-50/30 border-rose-200/80 shadow-md" 
+                : "bg-white border-slate-200 shadow-2xs hover:border-slate-300"
+            }`}>
+              <div class="flex items-center gap-3 mb-3">
+                <span class={`font-mono text-xs font-black px-2.5 py-0.5 rounded-md ${
+                  story.isLead ? "bg-rose-600 text-white" : "bg-slate-800 text-white"
+                }`}>
+                  {story.isLead ? "今日頭條 01" : `報導 ${story.number}`}
+                </span>
+                {story.isLead && (
+                  <span class="text-xs font-mono font-bold text-rose-600 uppercase tracking-widest">
+                    FRONT PAGE LEAD STORY
+                  </span>
+                )}
+              </div>
+
+              <h3 class="text-xl sm:text-2xl font-bold text-[#07172D] leading-snug mb-3">
+                {story.title}
+              </h3>
+
+              {story.subline && (
+                <p class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed mb-4 pl-3.5 border-l-3 border-rose-400/60 bg-slate-50/50 py-1.5 rounded-r-lg">
+                  {story.subline}
+                </p>
+              )}
+
+              <div class="space-y-3 text-slate-700 text-sm sm:text-base leading-relaxed">
+                {story.paragraphs.map((p) => (
+                  <p>{p}</p>
+                ))}
+              </div>
+
+              {story.whyMatters && (
+                <div class="mt-5 p-4 rounded-xl bg-amber-50/80 border border-amber-200/70 text-xs sm:text-sm text-slate-800 leading-relaxed">
+                  <strong class="text-amber-900 font-bold block mb-1">💡 為什麼重要：</strong>
+                  <span>{story.whyMatters}</span>
+                </div>
+              )}
+
+              {story.sourceUrl && (
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                  <span class="font-mono">原始資訊來源：</span>
+                  <a
+                    href={story.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-rose-600 hover:text-rose-800 underline font-medium flex items-center gap-1 transition-colors"
+                  >
+                    <span>{story.sourceText || "閱讀原始新聞報導"}</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Interactive Retro Newspaper Display Section -->
+    <div class="space-y-4 pt-4 border-t border-slate-200">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
           </svg>
-          <h2 class="text-xl font-bold text-[#07172D]">復古雙欄報紙閱讀器</h2>
+          <h2 class="text-xl font-bold text-[#07172D]">復古雙欄排版報紙預覽</h2>
         </div>
 
         <button 
           id="fullscreen-btn"
-          class="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-700 text-xs font-semibold transition-all border border-slate-200/80 flex items-center gap-1.5"
+          class="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-700 text-xs font-semibold transition-all border border-slate-200/80 flex items-center gap-1.5 cursor-pointer"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-2V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
@@ -165,9 +253,6 @@ const htmlUrl = meta.htmlPath || `/newspapers/${meta.id}.html`;
         ></iframe>
       </div>
     </div>
-
-    <!-- AdSense Banner Container -->
-    <AdBanner label="廣告內容" slotId="1234567890" />
   </div>
 
   <!-- Interactive Script for Fullscreen Toggle -->

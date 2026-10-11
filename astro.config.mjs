@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://freewingbiz.com',
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/search')
+      filter: (page) => !page.includes('/search') && !page.includes('/projects') && !page.includes('/notes')
     })
   ],
   vite: {
