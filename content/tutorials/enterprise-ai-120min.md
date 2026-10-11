@@ -6,7 +6,7 @@ category: "Enterprise AI"
 summary: "專為傳統製造業與非資訊背景打造的企業 AI 落地實戰指南，從破題心法、AI Agent 與 Bot 定位、生管實戰架構到技術導航地圖，帶領團隊從會問 AI 邁向讓 AI 真正參與工作。"
 created: "2026-10-11"
 updated: "2026-10-11"
-version: "5.3"
+version: "5.8"
 status: "active"
 visibility: "public"
 tags: ["企業AI", "AI落地", "AI Agent", "生管實戰", "技術導航", "FactoryPilot", "製造業轉型"]
