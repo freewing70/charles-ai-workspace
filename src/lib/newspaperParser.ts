@@ -18,7 +18,7 @@ export function parseNewspaperHtml(filePath: string): NewspaperStory[] {
   const stories: NewspaperStory[] = [];
 
   // Parse lead story (story-1)
-  const leadMatch = html.match(/<article class="lead">([\s\S]*?)<\/article>/i);
+  const leadMatch = html.match(/<article[^>]*class=["'][^"']*lead[^"']*["'][^>]*>([\s\S]*?)<\/article>/i);
   if (leadMatch) {
     const content = leadMatch[1];
     const title = (content.match(/<h2>([\s\S]*?)<\/h2>/i) || [])[1]?.replace(/<[^>]+>/g, '').trim() || '';
@@ -31,12 +31,19 @@ export function parseNewspaperHtml(filePath: string): NewspaperStory[] {
       for (const p of pMatches) {
         paragraphs.push(p[1].replace(/<[^>]+>/g, '').trim());
       }
+    } else {
+      const pMatches = [...content.matchAll(/<p(?:\s+[^>]*)?>([\s\S]*?)<\/p>/gi)];
+      for (const p of pMatches) {
+        if (p[0].includes('class="deck"') || p[0].includes('class="kicker"') || p[0].includes('class="subline"')) continue;
+        const text = p[1].replace(/<[^>]+>/g, '').trim();
+        if (text) paragraphs.push(text);
+      }
     }
 
     const whyMatch = content.match(/<div class="why">([\s\S]*?)<\/div>/i);
     let whyMatters: string | undefined;
     if (whyMatch) {
-      whyMatters = whyMatch[1].replace(/<[^>]+>/g, '').replace(/^為什麼重要[：:]\s*/, '').trim();
+      whyMatters = whyMatch[1].replace(/<[^>]+>/g, '').replace(/^為什麼重要[｜|：:]*(?:編輯分析[：:])?\s*/, '').trim();
     }
 
     const sourceMatch = content.match(/<a class="source-link" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/i);
@@ -55,31 +62,35 @@ export function parseNewspaperHtml(filePath: string): NewspaperStory[] {
   }
 
   // Parse stories 2 to 5
-  const otherMatches = [...html.matchAll(/<article class="story" id="story-(\d+)">([\s\S]*?)<\/article>/gi)];
-  for (const match of otherMatches) {
-    const num = match[1];
-    const content = match[2];
+  const otherMatches = [...html.matchAll(/<article[^>]*class=["'][^"']*story[^"']*["'][^>]*>([\s\S]*?)<\/article>/gi)];
+  for (let idx = 0; idx < otherMatches.length; idx++) {
+    const match = otherMatches[idx];
+    const content = match[1];
+    const numMatch = content.match(/<span class="story-number">(\d+)<\/span>/i) || content.match(/id="N?0?(\d+)"/i);
+    const num = numMatch ? String(numMatch[1]).padStart(2, '0') : String(idx + 2).padStart(2, '0');
     const title = (content.match(/<h2>([\s\S]*?)<\/h2>/i) || [])[1]?.replace(/<[^>]+>/g, '').trim() || '';
     const subline = (content.match(/<p class="subline">([\s\S]*?)<\/p>/i) || [])[1]?.replace(/<[^>]+>/g, '').trim();
 
     const pMatches = [...content.matchAll(/<p(?:\s+[^>]*)?>([\s\S]*?)<\/p>/gi)];
     const paragraphs: string[] = [];
     for (const p of pMatches) {
-      if (p[0].includes('class="subline"') || p[0].includes('class="kicker"')) continue;
-      paragraphs.push(p[1].replace(/<[^>]+>/g, '').trim());
+      if (p[0].includes('class="subline"') || p[0].includes('class="kicker"') || p[0].includes('class="deck"')) continue;
+      if (p[0].includes('source-link')) continue;
+      const text = p[1].replace(/<[^>]+>/g, '').trim();
+      if (text) paragraphs.push(text);
     }
 
     const whyMatch = content.match(/<div class="why">([\s\S]*?)<\/div>/i);
     let whyMatters: string | undefined;
     if (whyMatch) {
-      whyMatters = whyMatch[1].replace(/<[^>]+>/g, '').replace(/^為什麼重要[：:]\s*/, '').trim();
+      whyMatters = whyMatch[1].replace(/<[^>]+>/g, '').replace(/^為什麼重要[｜|：:]*(?:編輯分析[：:])?\s*/, '').trim();
     }
 
     const sourceMatch = content.match(/<a class="source-link" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/i);
 
     stories.push({
-      id: `story-${num}`,
-      number: String(num).padStart(2, '0'),
+      id: `story-${parseInt(num, 10) || (idx + 2)}`,
+      number: num,
       isLead: false,
       title,
       subline,

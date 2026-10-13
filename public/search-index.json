@@ -1,5 +1,37 @@
 [
   {
+    "id": "2026-10-12",
+    "title": "Chow 的 AI 模型日報｜第 015 號 (2026.10.12)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "微軟執行長 Nadella 呼籲企業設 AI 緊急煞車並將關鍵控制留在人類手中；輝達傳洽談向 Reflection AI 增資或深化算力合作；OpenClaw 發布十月正式版補強多代理成果交付與恢復；OpenCode 1.19.0 停止自動更新讓開發者掌控升級時機；Yandex 位於 Vladimir 的第三座資料中心遇襲停運凸顯算力地緣風險。",
+    "tags": [
+      "AI模型日報",
+      "Microsoft",
+      "Satya Nadella",
+      "AI安全",
+      "Nvidia",
+      "Reflection AI",
+      "OpenClaw",
+      "OpenCode",
+      "Yandex",
+      "資料中心"
+    ],
+    "tools": [
+      "Microsoft",
+      "Nvidia",
+      "Reflection AI",
+      "OpenClaw",
+      "OpenCode",
+      "Yandex"
+    ],
+    "created": "2026-10-12",
+    "updated": "2026-10-12",
+    "url": "/newspapers/2026-10-12",
+    "cover": "/assets/covers/newspaper-2026-10-12-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-11",
     "title": "Chow 的 AI 模型日報｜第 014 號 (2026.10.11)",
     "type": "newspaper",
@@ -32,7 +64,7 @@
     "updated": "2026-10-11",
     "url": "/newspapers/2026-10-11",
     "cover": "/assets/covers/newspaper-2026-10-11-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "enterprise-ai-120min",
