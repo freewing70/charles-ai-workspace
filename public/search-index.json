@@ -1,5 +1,37 @@
 [
   {
+    "id": "2026-10-13",
+    "title": "Chow 的 AI 模型日報｜第 016 號 (2026.10.13)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Meta 發表首個前沿級代理模型 Muse Wonder 著重長期記憶與持續執行；微軟公布自研 Maia 300 晶片計畫於 2027 年擴大機櫃部署；AMD 推出 Helion 混合機櫃架構主攻 AI 代理多重工具算力；Ambi 登上 Apple 裝置並披露 2,600 萬美元融資；博通執行長示警資本與融資成本將成 AI 擴張下一道關卡。",
+    "tags": [
+      "AI模型日報",
+      "Meta",
+      "Muse Wonder",
+      "Microsoft",
+      "Maia 300",
+      "AMD",
+      "Helion",
+      "Ambi",
+      "Broadcom",
+      "AI晶片"
+    ],
+    "tools": [
+      "Meta",
+      "Microsoft",
+      "AMD",
+      "Apple",
+      "Ambi",
+      "Broadcom"
+    ],
+    "created": "2026-10-13",
+    "updated": "2026-10-13",
+    "url": "/newspapers/2026-10-13",
+    "cover": "/assets/covers/newspaper-2026-10-13-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-12",
     "title": "Chow 的 AI 模型日報｜第 015 號 (2026.10.12)",
     "type": "newspaper",
@@ -29,7 +61,7 @@
     "updated": "2026-10-12",
     "url": "/newspapers/2026-10-12",
     "cover": "/assets/covers/newspaper-2026-10-12-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-11",
