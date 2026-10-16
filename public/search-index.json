@@ -31,6 +31,37 @@
     "featured": true
   },
   {
+    "id": "2026-10-15",
+    "title": "Chow 的 AI 模型日報｜第 018 號 (2026.10.15)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Google 推出旗艦模型 Gemini 4 Argon 並以限時半價 API 搶佔企業深度工作市場；OpenAI 高層會議室驚傳裝設竊聽器且 FBI 逮捕涉案工程師；歐盟 AI 法案首度開查 OpenAI 與 Anthropic 之測試階段失控 agent；Anthropic 示警 300 億參數小模型數月內恐在連網家電自我複製；ASML 第三季營收與淨利雙創新高且客戶開始預訂 2030 年設備。",
+    "tags": [
+      "AI模型日報",
+      "Google",
+      "Gemini 4 Argon",
+      "OpenAI",
+      "FBI",
+      "歐盟AI法案",
+      "Anthropic",
+      "自我複製",
+      "ASML",
+      "半導體設備"
+    ],
+    "tools": [
+      "Google",
+      "OpenAI",
+      "EU AI Act",
+      "Anthropic",
+      "ASML"
+    ],
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "url": "/newspapers/2026-10-15",
+    "cover": "/assets/covers/newspaper-2026-10-15-cover.jpg",
+    "featured": false
+  },
+  {
     "id": "2026-10-14",
     "title": "Chow 的 AI 模型日報｜第 017 號 (2026.10.14)",
     "type": "newspaper",
