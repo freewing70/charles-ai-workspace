@@ -1,5 +1,72 @@
 [
   {
+    "id": "2026-10-16",
+    "title": "Chow 的 AI 模型日報｜第 019 號 (2026.10.16)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Anthropic 在 IPO 前夕展示業績，Q3 營收季增 45% 達 168 億美元且估值上看 2 兆；美八州檢察總長聯手起訴 OpenAI 指控 ChatGPT 教唆未成年人自殘；IMF 發布報告示警債務推動的 AI 投資恐演變為全球金融風險；Meta 推出 8160 億參數開源權重模型 Muse Spark 主攻程式與長時程代理；Amazon 發表 Bee 系列穿戴裝置打造 24 小時常駐 AI 記憶管家。",
+    "tags": [
+      "AI模型日報",
+      "Anthropic",
+      "IPO",
+      "OpenAI",
+      "ChatGPT",
+      "IMF",
+      "Meta",
+      "Muse Spark",
+      "Amazon",
+      "Bee"
+    ],
+    "tools": [
+      "Anthropic",
+      "OpenAI",
+      "IMF",
+      "Meta",
+      "Amazon"
+    ],
+    "created": "2026-10-16",
+    "updated": "2026-10-16",
+    "url": "/newspapers/2026-10-16",
+    "cover": "/assets/covers/newspaper-2026-10-16-cover.jpg",
+    "featured": true
+  },
+  {
+    "id": "2026-10-14",
+    "title": "Chow 的 AI 模型日報｜第 017 號 (2026.10.14)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "蘋果發表 299 美元智慧家庭中樞 HomeView 全面搭載 Siri AI；Anthropic 築起反蒸餾防線並公開點名中國智譜 Z.ai；OCP 高峰會三星展示 HBM5 且輝達開放 Rubin 機櫃藍圖；白宮恢復英國 AI 安全研究所對前沿模型之先行測試權；GPT-5.5 今日正式退役促使開發者加速遷移。",
+    "tags": [
+      "AI模型日報",
+      "Apple",
+      "HomeView",
+      "Siri AI",
+      "Anthropic",
+      "Z.ai",
+      "OCP",
+      "Samsung",
+      "HBM5",
+      "Nvidia",
+      "Rubin",
+      "AISI",
+      "OpenAI",
+      "GPT-5.5"
+    ],
+    "tools": [
+      "Apple",
+      "Anthropic",
+      "Zhipu AI",
+      "Samsung",
+      "Nvidia",
+      "OpenAI"
+    ],
+    "created": "2026-10-14",
+    "updated": "2026-10-14",
+    "url": "/newspapers/2026-10-14",
+    "cover": "/assets/covers/newspaper-2026-10-14-cover.jpg",
+    "featured": false
+  },
+  {
     "id": "2026-10-13",
     "title": "Chow 的 AI 模型日報｜第 016 號 (2026.10.13)",
     "type": "newspaper",
@@ -29,7 +96,7 @@
     "updated": "2026-10-13",
     "url": "/newspapers/2026-10-13",
     "cover": "/assets/covers/newspaper-2026-10-13-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-12",

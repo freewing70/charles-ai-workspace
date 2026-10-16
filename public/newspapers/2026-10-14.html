@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#171716" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:," />
+  <title>AI 模型日報｜2026.10.14</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f4f1e8;
+      --paper-raised: #fbf9f3;
+      --ink: #171715;
+      --muted: #5f5c55;
+      --rule: #25231f;
+      --soft-rule: #b9b4a8;
+      --accent: #a7241b;
+      --accent-soft: #e9d5cf;
+      --note: #ece7da;
+      --shadow: rgba(44, 39, 30, .16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #171716;
+        --paper-raised: #1e1e1c;
+        --ink: #f2efe6;
+        --muted: #bdb8ad;
+        --rule: #ece7dc;
+        --soft-rule: #5b5850;
+        --accent: #ef6b5f;
+        --accent-soft: #4a2825;
+        --note: #24231f;
+        --shadow: rgba(0, 0, 0, .32);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 22% 14%, color-mix(in srgb, var(--ink) 2%, transparent) 0 1px, transparent 1.2px) 0 0 / 12px 12px,
+        var(--paper);
+      color: var(--ink);
+      font-family: "Noto Serif TC", serif;
+      line-height: 1.72;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page {
+      width: min(1240px, calc(100% - 32px));
+      margin: 28px auto 52px;
+      background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+      border: 1px solid var(--soft-rule);
+      box-shadow: 0 18px 54px var(--shadow);
+      padding: clamp(18px, 3vw, 44px);
+    }
+    .utility {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .utility .edition { color: var(--accent); }
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 20px;
+      padding: 18px 0 16px;
+      border-bottom: 5px double var(--rule);
+    }
+    .masthead h1 {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(34px, 6.4vw, 78px);
+      line-height: .98;
+      letter-spacing: -.065em;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .masthead-side {
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .masthead-side.right { text-align: right; }
+    .masthead-side strong {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+    .index-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: "Noto Sans TC", sans-serif;
+    }
+    .index-nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px 12px;
+      text-decoration: none;
+      border-right: 1px solid var(--soft-rule);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .index-nav a:last-child { border-right: 0; }
+    .index-nav a:hover, .index-nav a:focus-visible { background: var(--accent-soft); outline: none; }
+    .index-nav b {
+      color: var(--accent);
+      font-family: "Noto Serif TC", serif;
+      font-size: 18px;
+    }
+    .index-nav span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .lead-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.15fr) minmax(250px, .85fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 2px solid var(--rule);
+    }
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .kicker::after { content: ""; flex: 1; height: 1px; background: var(--accent); }
+    .lead h2 {
+      margin: 0 0 14px;
+      max-width: 18ch;
+      font-size: clamp(34px, 5.2vw, 66px);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+      font-weight: 900;
+    }
+    .deck {
+      margin: 0 0 18px;
+      max-width: 46em;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 23px);
+      line-height: 1.58;
+      font-weight: 600;
+    }
+    .story-body {
+      columns: 2 260px;
+      column-gap: 28px;
+      column-rule: 1px solid var(--soft-rule);
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 15px;
+    }
+    .story-body p { margin: 0 0 1em; }
+    .story-body p:first-child::first-letter {
+      float: left;
+      margin: .1em .1em 0 0;
+      color: var(--accent);
+      font-size: 4.35em;
+      line-height: .72;
+      font-weight: 900;
+    }
+    .why {
+      margin-top: 18px;
+      padding: 16px 18px 17px;
+      background: var(--note);
+      border-top: 3px solid var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      line-height: 1.62;
+    }
+    .why strong { color: var(--accent); }
+    .source-link {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-top: 12px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .source-link::after { content: "↗"; font-size: 13px; }
+    .source-link:hover, .source-link:focus-visible {
+      color: var(--ink);
+      outline: none;
+      text-decoration-thickness: 2px;
+    }
+    .briefing {
+      align-self: start;
+      border-top: 8px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .briefing h3 {
+      margin: 0;
+      padding: 10px 0 8px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+    .briefing ol { list-style: none; padding: 0; margin: 0; }
+    .briefing li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--soft-rule);
+    }
+    .briefing li:last-child { border-bottom: 0; }
+    .briefing .num {
+      color: var(--accent);
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .briefing a { text-decoration: none; font-weight: 700; line-height: 1.45; }
+    .briefing a:hover { color: var(--accent); }
+    .briefing small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .stories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 28px;
+    }
+    .story {
+      padding: 26px 0 28px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .story:nth-child(odd) { border-right: 1px solid var(--soft-rule); padding-right: 28px; }
+    .story-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    .story-number {
+      min-width: 44px;
+      padding-top: 2px;
+      color: var(--accent);
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .story h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.22;
+      letter-spacing: -.035em;
+    }
+    .story .subline {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+    .story p {
+      margin: 0 0 .9em;
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 14.5px;
+    }
+    .story .why { margin-top: 14px; }
+    .closing {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding-top: 18px;
+      font-family: "Noto Sans TC", sans-serif;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .closing strong { color: var(--ink); }
+    .mark {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 4px 9px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .back-top {
+      display: inline-block;
+      color: var(--ink);
+      text-underline-offset: 3px;
+    }
+    @media (max-width: 820px) {
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; padding: 14px 18px 32px; }
+      .utility { font-size: 10px; }
+      .masthead { grid-template-columns: 1fr; gap: 8px; padding: 14px 0 13px; }
+      .masthead h1 { grid-row: 1; white-space: normal; font-size: clamp(40px, 12vw, 62px); }
+      .masthead-side { display: flex; justify-content: space-between; text-align: left; }
+      .masthead-side.right { display: none; }
+      .index-nav { grid-template-columns: repeat(5, 1fr); }
+      .index-nav a { justify-content: center; padding: 8px 4px; }
+      .index-nav b { font-size: 17px; }
+      .index-nav span { display: none; }
+      .lead-grid { grid-template-columns: 1fr; gap: 24px; padding: 22px 0; }
+      .lead h2 { font-size: clamp(36px, 10vw, 54px); max-width: none; }
+      .story-body { columns: 1; text-align: left; }
+      .briefing { margin-top: 4px; }
+      .stories { grid-template-columns: 1fr; }
+      .story:nth-child(odd) { border-right: 0; padding-right: 0; }
+      .story { padding: 22px 0 24px; }
+      .story p { text-align: left; }
+      .closing { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 390px) {
+      .page { padding-inline: 14px; }
+      .utility span:last-child { text-align: right; }
+      .masthead h1 { font-size: 39px; }
+      .story-head { grid-template-columns: 38px 1fr; gap: 8px; }
+      .story-number { min-width: 38px; font-size: 30px; }
+    }
+    @media print {
+      body { background: white; }
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; }
+      .index-nav { display: none; }
+      .story, .lead-grid { break-inside: avoid; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main class="page" id="top">
+    <div class="utility">
+      <span class="edition">第 017 號・國際市場版</span>
+      <span>2026 年 10 月 14 日　星期三</span>
+    </div>
+
+    <header class="masthead">
+      <div class="masthead-side">
+        <strong>每日五則</strong>
+        模型・安全・市場・開源
+      </div>
+      <h1>Chow 的 AI 模型日報</h1>
+      <div class="masthead-side right">
+        <strong>WEDNESDAY EDITION</strong>
+        第 017 號
+      </div>
+    </header>
+
+    <nav class="index-nav" aria-label="本期新聞索引">
+      <a href="#story-1"><b>01</b><span>智慧家庭</span></a>
+      <a href="#story-2"><b>02</b><span>反蒸餾</span></a>
+      <a href="#story-3"><b>03</b><span>OCP</span></a>
+      <a href="#story-4"><b>04</b><span>AI監管</span></a>
+      <a href="#story-5"><b>05</b><span>模型退場</span></a>
+    </nav>
+
+    <section class="lead-grid" id="story-1">
+            <article class="lead">
+        <p class="kicker">今日頭條　FRONT PAGE</p>
+        <h2>蘋果發表智慧家庭中樞 HomeView：299 美元，全搭載 Siri AI</h2>
+        <p class="deck">蘋果 10 月 13 日以「Welcome Home」新聞稿加各產品短片的形式發表智慧家庭新品，主角是 7 吋觸控螢幕的智慧家庭中樞 HomeView，售價 299 美元、11 月 13 日開賣，由全新版 Siri AI 驅動。</p>
+        <div class="story-body">
+          <p>桌面喇叭底座版與壁掛版同價 299 美元，桌面版四色（銀、星光、玫瑰粉、太空灰）、壁掛版銀與太空灰；今起在美國、英國等市場開放預購，11 月 13 日開賣。HomeView 支援 Matter、Thread 與 HomeKit，是智慧配件的指揮中心；人臉辨識可辨認最多六位家庭成員，結合 iPhone 上的行事曆與訊息提供個人化回應，蘋果強調相機與麥克風資料獨立於系統處理。無 App Store，僅有精選 Apple 與部分第三方媒體 app。</p>
+          <p>同場加碼 HomePod mini 2（S10 晶片）、Apple TV 4K（A19 晶片、299 美元、11/13 同步開賣）、以及與 LG、Schneider Electric 合作的門鈴、門鎖、恆溫器等配件。發表當天蘋果市值一度站上 5 兆美元；歐盟首發缺席，因 Siri AI 在歐盟 iOS 尚未上線。</p>
+        </div>
+        <div class="why"><strong>為什麼重要：</strong> 蘋果的 AI 落地策略第一次完整成形：不比參數、比「出現在你家」——Siri AI 成了智慧家庭作業系統，5 兆市值背書下，亞馬遜 Echo 與 Google Nest 的客廳主導權要被重新定義。</div>
+        <a class="source-link" href="https://www.cnn.com/2026/10/13/tech/apple-homeview-siri-ai?cid=external-feeds_iluminar_meta" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・CNN／Gizmodo</a>
+      </article>
+
+            <aside class="briefing" aria-label="今日五看">
+        <h3>今日五看</h3>
+        <ol>
+          <li><span class="num">1</span><div><a href="#story-1">蘋果HomeView中樞</a><small>蘋果299美元智慧家庭中樞</small></div></li>
+          <li><span class="num">2</span><div><a href="#story-2">反蒸餾防線點名智譜</a><small>反蒸餾點名中國智譜</small></div></li>
+          <li><span class="num">3</span><div><a href="#story-3">三星HBM5亮相OCP</a><small>三星HBM5、輝達機櫃開源</small></div></li>
+          <li><span class="num">4</span><div><a href="#story-4">英國重獲先行測試權</a><small>白宮恢復英國先測權</small></div></li>
+          <li><span class="num">5</span><div><a href="#story-5">GPT-5.5今日退場</a><small>GPT-5.5今晨正式退役</small></div></li>
+        </ol>
+      </aside>
+    </section>
+
+    <section class="stories" aria-label="本期新聞">
+            <article class="story" id="story-2">
+        <div class="story-head"><span class="story-number">02</span><h2>Anthropic 築起反蒸餾防線，公開點名中國智譜 Z.ai</h2></div>
+        <p class="subline">路透社 10 月 13 日獨家報導，Anthropic 宣布新防護措施，讓蒸餾者從 Claude 抽走的推理 token 降到之前的 1/10 至 1/100，並封鎖數萬個相關帳號、公開點名中國 Z.ai（智譜，2513.HK）。</p>
+        <p>防線核心是保護 Claude 的推理過程：8 月 31 日後的新帳號不得修改 Claude 先前的思緒（稱為 preserved thinking），加上兩階段分類器攔截抽取嘗試，Anthropic 稱誤報率低於 0.1%。Anthropic 指控 Z.ai 在開發 GLM-5.3 時試圖從 Claude 蒸餾能力，稱這類行為構成安全與國安風險；智譜未回應。</p>
+        <p>在美中科技競爭下，蒸餾已成為 OpenAI、Google 同樣關切的議題。注意：90–99% 的降幅是 Anthropic 自己的說法、無法獨立驗證；智譜指控也是 Anthropic 單方面說法。</p>
+        <div class="why"><strong>為什麼重要：</strong> 美中 AI 高牆從晶片延伸到模型能力本身：蒸餾曾是彎道超車的捷徑，Anthropic 用「國安」定性加上公開點名，等於把這條路正式變成地雷區——下一場攻防在推理 token 上。</div>
+        <a class="source-link" href="https://www.reuters.com/world/china/anthropic-says-new-safeguards-sharply-reduce-ai-distillation-attacks-2026-10-13/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Reuters</a>
+      </article>
+
+            <article class="story" id="story-3">
+        <div class="story-head"><span class="story-number">03</span><h2>OCP 高峰會：三星秀 HBM5，輝達開放 Rubin 機櫃藍圖</h2></div>
+        <p class="subline">在聖荷西舉行的 OCP 高峰會 10 月 12 日開幕（12–15 日），三星以鑽石贊助商之姿展示第八代 HBM5、並與 AMD 聯合展示 CXL 記憶體擴充；輝達則把 Vera Rubin 機架與運算托盤設計貢獻給 OCP，作為 MGX 1.2 藍圖。</p>
+        <p>三星提出三大技術方向：速度（HBM5、客製化 HBM、記憶體內運算 PIM）、記憶體擴充（與 AMD 聯合展示基於 CXL 的 CMM-D 記憶體池化，讓多系統共享記憶體）、資料持久性（次世代企業級 SSD）。輝達的 MGX 1.2 規格包括盲插液冷、5000A 液冷匯流排、單櫃最高 250kW。</p>
+        <p>同場還有 Cisco 與輝達公布 USFP 400Gb/s 光模組標準、Meta 採用輝達 Spectrum-6 交換機（102.4Tb/s）、Google 承諾 Falcon Transport 支援；輝達另開源四個 DSX AI Factory 軟體元件，並聯合 AMD、Google、Meta 發表 Open Data Center Spec v0.7。</p>
+        <div class="why"><strong>為什麼重要：</strong> 算力軍備賽從「比晶片」下沉到「比機櫃與標準」：輝達把自家 Rubin 設計變成開放藍圖，是把整個產業綁進自家架構的陽謀；三星押注記憶體擴充，說明下一輪瓶頸不在算力本身，在記憶體頻寬。</div>
+        <a class="source-link" href="https://www.koreatimes.co.kr/business/companies/20261013/samsung-showcases-next-generation-ai-memory-at-ocp-highlights-amd-partnership" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Korea Times／Economic Times</a>
+      </article>
+
+            <article class="story" id="story-4">
+        <div class="story-head"><span class="story-number">04</span><h2>白宮恢復英國 AI 安全研究所的模型先行測試權</h2></div>
+        <p class="subline">《每日電訊報》10 月 11 日報導，白宮逆轉 9 月 24 日的指令：恢復英國 AI 安全研究所（AISI）對 OpenAI、Anthropic、Google DeepMind 未發布前沿模型的先行測試權，17 天的凍結告終。</p>
+        <p>9 月白宮國家網路總監辦公室曾要求美國 AI 企業暫緩把新模型交給英國測試，直至美方完成國安審查；凍結期間 Anthropic 把英國官員排除在 Claude Mythos 5.1 之外。在英國 AI 部長 Kanishka Narayan 等官員遊說後，白宮收回成命，AISI 再度可取得未發布模型做安全評估。</p>
+        <p>同時川普新成立的 AI 工作小組要求開發者立即通報與修補 AI 相關事件。本報昨日第⑤則已報導英方部長宣布獲准測試 Gemini 4 Argon，這是同一條監管線的新進展。</p>
+        <div class="why"><strong>為什麼重要：</strong> 盟友間的 AI 評測權原來是白宮一份備忘錄就能開關的：17 天凍結證明美國能中斷盟友測試、也證明施壓有效——這是「安全合作」的軟肋，下次凍結可能連公開辯論都不需要。</div>
+        <a class="source-link" href="https://www.techrepublic.com/article/news-uk-ai-model-access-white-house-reversal-emea/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・TechRepublic（引述《每日電訊報》）</a>
+      </article>
+
+            <article class="story" id="story-5">
+        <div class="story-head"><span class="story-number">05</span><h2>GPT-5.5 今日正式退役：OpenAI 模型換代又快了一檔</h2></div>
+        <p class="subline">OpenAI 依 9 月 15 日公告的時程，GPT-5.5 今日（10 月 14 日）起從 ChatGPT、ChatGPT Work 與 Codex 全方案下架，開發者須遷移至 GPT-5.6 Sol 或 GPT-6 Astra。</p>
+        <p>一般 ChatGPT 用戶無感——對話會自動轉到 OpenAI 設定的預設模型。用 ChatGPT 帳號登入 Codex 的用戶須手動更新：工作區預設、已存模型設定、自訂 agent、排程任務，以及所有指定 gpt-5.5 的腳本。</p>
+        <p>OpenAI API 不受影響，API 金鑰呼叫照常。GPT-5.5 僅在 4 月 23 日推出，壽命不到半年；今年 8 月底 GPT-5.4 系列已先從 Codex 退役，這是 Codex 今年第三波模型下架。</p>
+        <div class="why"><strong>為什麼重要：</strong> 前沿模型正在變成「快時尚」：4 月上架、10 月退役的半年壽命，意味把模型名寫死在程式碼裡的團隊會越來越痛——遷移成本正式成為 AI 採用的一個隱性稅。</div>
+        <a class="source-link" href="https://www.businesstoday.in/technology/artificial-intelligence/story/openai-to-retire-gpt-5-5-from-chatgpt-work-and-codex-on-october-14-what-changes-to-expect-555782-2026-09-16" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Business Today</a>
+      </article>
+    </section>
+
+    <footer class="closing">
+      <div><strong>編輯備註：</strong> 本期內容取材自 2026 年 10 月 11–14 日國際媒體報導；各方說法以原始報導為準。</div>
+      <div><span class="mark">每日五則</span>　<a class="back-top" href="#top">回到版首</a></div>
+    </footer>
+  </main>
+<script>
+window.addEventListener('load', () => {
+  const r = document.querySelector('.page').getBoundingClientRect();
+  document.title = 'RECT:' + [r.x, r.y, r.width, r.height].map(v => Math.round(v)).join(',');
+});
+</script>
+</body>
+
+</html>
