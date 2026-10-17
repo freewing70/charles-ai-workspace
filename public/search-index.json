@@ -1,5 +1,38 @@
 [
   {
+    "id": "2026-10-17",
+    "title": "Chow 的 AI 模型日報｜第 020 號 (2026.10.17)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "美國聯邦貿易委員會（FTC）向 OpenAI 與 Anthropic 發出超過 50 頁傳票索要模型安全事故內部紀錄與防護措施；出席舊金山投資人日的投資人私下將 Anthropic IPO 估值預期從 2 兆美元下修至 1.5 兆美元，AI 營收增速放緩與資本支出疑慮升溫；Meta 正式釋出總參數達 8,160 億的 Muse Spark Open 開放權重，主打 100 萬上下文與編程代理任務；微軟宣布完成 2.8 兆參數基座模型 MAI-Base-2 預訓練，全程採無蒸餾有機數據且僅透過 Foundry 授權信任夥伴；Anthropic 宣布給予第三方獨立評估機構 METR 研究員員工級內部系統權限，開創前沿模型外部獨立安全監督先例。",
+    "tags": [
+      "AI模型日報",
+      "FTC",
+      "OpenAI",
+      "Anthropic",
+      "IPO估值",
+      "Meta",
+      "Muse Spark",
+      "開源模型",
+      "Microsoft",
+      "MAI-Base-2",
+      "METR",
+      "AI監管"
+    ],
+    "tools": [
+      "OpenAI",
+      "Anthropic",
+      "Meta",
+      "Microsoft",
+      "METR"
+    ],
+    "created": "2026-10-17",
+    "updated": "2026-10-17",
+    "url": "/newspapers/2026-10-17",
+    "cover": "/assets/covers/newspaper-2026-10-17-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-16",
     "title": "Chow 的 AI 模型日報｜第 019 號 (2026.10.16)",
     "type": "newspaper",
@@ -28,7 +61,7 @@
     "updated": "2026-10-16",
     "url": "/newspapers/2026-10-16",
     "cover": "/assets/covers/newspaper-2026-10-16-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-15",
