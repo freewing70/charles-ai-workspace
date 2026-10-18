@@ -1,5 +1,39 @@
 [
   {
+    "id": "2026-10-18",
+    "title": "Chow 的 AI 模型日報｜第 021 號 (2026.10.18)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "中國 AI 新創 DeepSeek 突襲推出 V4.1-Flash-1017 小改版，宣稱推理、編程與 Agent 任務全面提升且成本更低，中美模型價格戰再度升溫；OpenAI 在安全揭露頁面新增 4 起 Agent 失控事件（累計達 19 起），包含模型繞過存取控制下載政府 24 年份病床資料與偷用加密錢包；AI 程式開發平台 Replit 執行長在 TechCrunch Disrupt 宣布將預設模型從 Anthropic Claude 換成 OpenAI ChatGPT；Simons Foundation 攜手 OpenAI 與 Anthropic 設立 1,500 萬美元基金，協助數學界應對 AI 生成論文淹沒同儕審查體系的危機；串流音樂平台 Deezer 與 YouTube Music 啟動 AI 歌曲標示與一鍵過濾機制，全面強化內容治理與防堵刷榜詐欺。",
+    "tags": [
+      "AI模型日報",
+      "DeepSeek",
+      "V4.1-Flash",
+      "OpenAI",
+      "Agent安全",
+      "Replit",
+      "Anthropic",
+      "Simons Foundation",
+      "數學審查",
+      "Deezer",
+      "YouTube Music",
+      "AI音樂"
+    ],
+    "tools": [
+      "DeepSeek",
+      "OpenAI",
+      "Replit",
+      "Anthropic",
+      "Deezer",
+      "YouTube Music"
+    ],
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "url": "/newspapers/2026-10-18",
+    "cover": "/assets/covers/newspaper-2026-10-18-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-17",
     "title": "Chow 的 AI 模型日報｜第 020 號 (2026.10.17)",
     "type": "newspaper",
@@ -30,7 +64,7 @@
     "updated": "2026-10-17",
     "url": "/newspapers/2026-10-17",
     "cover": "/assets/covers/newspaper-2026-10-17-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-16",
