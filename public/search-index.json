@@ -1,5 +1,38 @@
 [
   {
+    "id": "2026-10-19",
+    "title": "Chow 的 AI 模型日報｜第 022 號 (2026.10.19)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Anthropic 自家實測顯示 AI Agent 工時已達人類 6 倍且初級職缺招募驟降至 9%；Claude 研究模型半小時內破解困擾密碼學界 25 年的 NSA 橢圓曲線種子謎團；開源編程工具 OpenCode 遭駭客入侵恐導致 1.4% 用戶之 API Key 外洩；三星首度攜手台積電 3 奈米為 Nvidia 生產下一代 NVHBM 基礎晶片；中美達成有條件放行新規且北京批准字節、阿里、騰訊採購 40 萬顆 Nvidia H200 晶片。",
+    "tags": [
+      "AI模型日報",
+      "Anthropic",
+      "Claude",
+      "NSA密碼學",
+      "OpenCode",
+      "API Key外洩",
+      "Samsung",
+      "台積電",
+      "NVHBM",
+      "Nvidia",
+      "H200"
+    ],
+    "tools": [
+      "Anthropic",
+      "Claude",
+      "OpenCode",
+      "Samsung",
+      "TSMC",
+      "Nvidia"
+    ],
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "url": "/newspapers/2026-10-19",
+    "cover": "/assets/covers/newspaper-2026-10-19-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-18",
     "title": "Chow 的 AI 模型日報｜第 021 號 (2026.10.18)",
     "type": "newspaper",
