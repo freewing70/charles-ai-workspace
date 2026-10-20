@@ -1,5 +1,37 @@
 [
   {
+    "id": "2026-10-20",
+    "title": "Chow 的 AI 模型日報｜第 023 號 (2026.10.20)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Anthropic 承諾於 IPO 前夕提撥 5% 股權成立公益基金回饋受 AI 衝擊族群；美光工會等近兩千名勞工走上凱道要求調薪與勞退提撥提高至 9%；Nvidia 與德國政府簽署意向書佈局工業 AI 且黃仁勳將登 GTC 柏林演講；傳 Anthropic 正在開發能主動推測使用者真正意圖的新型 Agent 模型；顧問巨頭 Accenture 啟動成本紀律限制每位員工每月 Claude 補助僅 29 美元。",
+    "tags": [
+      "AI模型日報",
+      "Anthropic",
+      "公益基金",
+      "美光工會",
+      "勞退爭議",
+      "Nvidia",
+      "GTC柏林",
+      "黃仁勳",
+      "意圖推測",
+      "Accenture",
+      "Claude補助"
+    ],
+    "tools": [
+      "Anthropic",
+      "Micron",
+      "Nvidia",
+      "Accenture",
+      "Claude"
+    ],
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "url": "/newspapers/2026-10-20",
+    "cover": "/assets/covers/newspaper-2026-10-20-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-19",
     "title": "Chow 的 AI 模型日報｜第 022 號 (2026.10.19)",
     "type": "newspaper",
@@ -30,7 +62,7 @@
     "updated": "2026-10-19",
     "url": "/newspapers/2026-10-19",
     "cover": "/assets/covers/newspaper-2026-10-19-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-18",
