@@ -18,7 +18,7 @@ if (!item) {
 }
 
 const htmlContent = renderMarkdown(item.content);
-const playUrl = item.meta.playUrl || (item.meta.type === 'tutorial' ? `/presentations/${item.meta.id}/slides.html` : null);
+const playUrl = item.meta.playUrl || null;
 ---
 
 <MainLayout 

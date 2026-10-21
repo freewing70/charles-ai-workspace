@@ -1,5 +1,212 @@
 [
   {
+    "id": "ai-compute-demand-evidence-2026",
+    "title": "AI 算力需求持續上升：數據佐證與客戶提案簡報",
+    "type": "presentation",
+    "category": "Market Insights",
+    "summary": "以客觀數據與巨頭資本支出為基礎的高說服力簡報，從推理算力轉移、能源消耗與摩爾定律極限剖析 AI 算力長期增長的必然趨勢。",
+    "tags": [
+      "AI算力",
+      "客戶提案",
+      "能源用量",
+      "商業洞察",
+      "資本支出",
+      "數據中心",
+      "推論成本"
+    ],
+    "tools": [
+      "HTML5",
+      "DataViz",
+      "Chart.js",
+      "Reveal.js"
+    ],
+    "created": "2026-09-24",
+    "updated": "2026-10-21",
+    "url": "/presentations/ai-compute-demand-evidence-2026",
+    "cover": "/assets/covers/ai-compute-demand-evidence-2026.png",
+    "featured": true
+  },
+  {
+    "id": "ai-film-director",
+    "title": "AI Film Director｜Higgsfield Studio《HELL GRIND》研究與 AI 電影製作系統",
+    "type": "skill",
+    "category": "AI 電影製作",
+    "summary": "從 Higgsfield《HELL GRIND》115,581 筆生成紀錄研究出發的開源 AI 電影製作系統，整合角色一致性、Asset Library、World State、GEO、Acting、Camera、Prompt Compiler、生成 QC 與連戲管理。",
+    "tags": [
+      "AI Film Director",
+      "Higgsfield Studio",
+      "Higgsfield",
+      "HELL GRIND",
+      "AI電影",
+      "World State",
+      "角色一致性",
+      "Prompt Compiler"
+    ],
+    "tools": [
+      "Codex",
+      "Claude",
+      "Gemini",
+      "Seedance",
+      "Veo",
+      "Kling",
+      "WAN",
+      "LTX"
+    ],
+    "created": "2026-10-04",
+    "updated": "2026-10-21",
+    "url": "/skills/ai-film-director",
+    "cover": "/assets/covers/ai-film-director.png",
+    "featured": true
+  },
+  {
+    "id": "ink-wuxia-fantasy",
+    "title": "水墨武俠風 Skill｜東方國風寫意與墨氣劍意視覺提示詞架構規範",
+    "type": "skill",
+    "category": "Prompt Engineering",
+    "summary": "專為遊戲概念美術師、數位插畫家與 AI 影視創作者打造的東方水墨 Prompt 模組。系統化規範俠客劍意、巨龍破雲、潑墨飛白與生宣留白意境，徹底解決 AI 生成國風時常見的西式奇幻霓虹感，穩定輸出極具張力與文化底蘊的東方武俠視覺資產。",
+    "tags": [
+      "ink-wash",
+      "wuxia",
+      "dragon",
+      "PromptEngineering",
+      "water-ink",
+      "ChineseArt",
+      "Midjourney",
+      "Flux"
+    ],
+    "tools": [
+      "Midjourney v6",
+      "Flux.1",
+      "Stable Diffusion XL",
+      "DALL-E 3"
+    ],
+    "created": "2026-09-30",
+    "updated": "2026-10-21",
+    "url": "/skills/ink-wuxia-fantasy",
+    "cover": "/assets/covers/ink-wuxia-fantasy.jpg",
+    "featured": true
+  },
+  {
+    "id": "living-watercolor-rpg",
+    "title": "Living Watercolor RPG｜JRPG 動態水彩視覺風格系統與提示詞工程指南",
+    "type": "skill",
+    "category": "Image Generation",
+    "summary": "專為獨立遊戲開發者與數位概念美術師調校的 JRPG 動態水彩提示詞技能庫。透過嚴謹的顏料沉澱、水漬邊緣、手繪線稿與色彩疊層指令，消除數位 AI 生成圖的塑膠油膩感，穩定產出高一致性、具備手工呼吸感的日系奇幻美術資產。",
+    "tags": [
+      "watercolor",
+      "JRPG",
+      "character",
+      "environment",
+      "PromptEngineering",
+      "Midjourney",
+      "Flux",
+      "GameArt"
+    ],
+    "tools": [
+      "Midjourney v6",
+      "Flux.1",
+      "Stable Diffusion XL",
+      "DALL-E 3"
+    ],
+    "created": "2026-09-23",
+    "updated": "2026-10-21",
+    "url": "/skills/living-watercolor-rpg",
+    "cover": "/assets/covers/living-watercolor-rpg.jpg",
+    "featured": true
+  },
+  {
+    "id": "ai-agent-workflow-patterns-2026",
+    "title": "2026 AI Agent 工作流設計模式與 MCP 架構實戰：從 ReAct 到多智能體自主協作",
+    "type": "tutorial",
+    "category": "Agentic Systems",
+    "summary": "全面剖析 2026 年自主 AI Agent 的主流設計模式與企業級架構。深入剖析 ReAct 思考行動循環、Plan-and-Solve 任務拆解、Anthropic Model Context Protocol (MCP) 跨系統標準化協議、多智能體接力協作以及安全執行防護網。",
+    "tags": [
+      "AI Agent",
+      "智能體",
+      "MCP",
+      "ReAct",
+      "多智能體協作",
+      "工作流設計",
+      "Prompt工程",
+      "自動化"
+    ],
+    "tools": [
+      "Model Context Protocol",
+      "LangGraph",
+      "Claude 3.5 Sonnet",
+      "Gemini 1.5 Pro",
+      "Python",
+      "TypeScript"
+    ],
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "url": "/tutorials/ai-agent-workflow-patterns-2026",
+    "cover": "/assets/covers/ai-agent-workflow-patterns-2026.svg",
+    "featured": true
+  },
+  {
+    "id": "enterprise-rag-architecture-guide",
+    "title": "企業級 RAG 檢索增強生成架構實戰：從語義切分、混合檢索到重排序優化",
+    "type": "tutorial",
+    "category": "Enterprise AI",
+    "summary": "全面解析企業級 RAG 系統的工程落地方案。跳脫簡單的向量切塊檢索，深入剖析 Markdown AST 語義切分、密集向量（Dense）與 BM25 稀疏混合檢索、交叉編碼器（Cross-Encoder）重排序與 Ragas 幻覺評估體系。",
+    "tags": [
+      "企業RAG",
+      "檢索增強生成",
+      "混合檢索",
+      "BM25",
+      "向量資料庫",
+      "重排序",
+      "Reranker",
+      "Ragas"
+    ],
+    "tools": [
+      "Qdrant",
+      "Chroma",
+      "LangChain",
+      "LlamaIndex",
+      "BGE-Reranker",
+      "Python",
+      "FastAPI"
+    ],
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "url": "/tutorials/enterprise-rag-architecture-guide",
+    "cover": "/assets/covers/enterprise-rag-architecture-guide.svg",
+    "featured": true
+  },
+  {
+    "id": "local-llm-deployment-vllm-ollama",
+    "title": "2026 本地開源大模型部署與顯存優化實戰指南：從 Ollama 到 vLLM 高併發推理",
+    "type": "tutorial",
+    "category": "LLM Infrastructure",
+    "summary": "深入剖析本地開源大語言模型部署架構，詳細對比 Ollama 輕量級場景與 vLLM 高併發生產架構。涵蓋 PagedAttention 顯存管理、AWQ/GPTQ/GGUF 量化精度損耗評估、多 GPU 張量並行配置與端到端 API 整合。",
+    "tags": [
+      "本地大模型",
+      "vLLM",
+      "Ollama",
+      "PagedAttention",
+      "模型量化",
+      "顯存優化",
+      "高併發推理",
+      "張量並行"
+    ],
+    "tools": [
+      "vLLM",
+      "Ollama",
+      "Docker",
+      "FastAPI",
+      "HuggingFace",
+      "Python",
+      "CUDA"
+    ],
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "url": "/tutorials/local-llm-deployment-vllm-ollama",
+    "cover": "/assets/covers/local-llm-deployment-vllm-ollama.svg",
+    "featured": true
+  },
+  {
     "id": "2026-10-20",
     "title": "Chow 的 AI 模型日報｜第 023 號 (2026.10.20)",
     "type": "newspaper",
@@ -567,38 +774,6 @@
     "featured": true
   },
   {
-    "id": "ai-film-director",
-    "title": "AI Film Director｜Higgsfield Studio《HELL GRIND》研究與 AI 電影製作系統",
-    "type": "skill",
-    "category": "AI 電影製作",
-    "summary": "從 Higgsfield《HELL GRIND》製作研究出發的開源 AI 電影製作系統，整合角色一致性、Asset Library、World State、GEO、Acting、Camera、Prompt Compiler、生成 QC 與連戲管理。",
-    "tags": [
-      "AI Film Director",
-      "Higgsfield Studio",
-      "Higgsfield",
-      "HELL GRIND",
-      "AI電影",
-      "World State",
-      "角色一致性",
-      "Prompt Compiler"
-    ],
-    "tools": [
-      "Codex",
-      "Claude",
-      "Gemini",
-      "Seedance",
-      "Veo",
-      "Kling",
-      "WAN",
-      "LTX"
-    ],
-    "created": "2026-10-04",
-    "updated": "2026-10-04",
-    "url": "/skills/ai-film-director",
-    "cover": "/assets/covers/ai-film-director.png",
-    "featured": true
-  },
-  {
     "id": "2026-10-03",
     "title": "Chow 的 AI 模型日報｜第 006 號 (2026.10.03)",
     "type": "newspaper",
@@ -706,30 +881,6 @@
     "featured": false
   },
   {
-    "id": "ink-wuxia-fantasy",
-    "title": "水墨武俠風 Skill",
-    "type": "skill",
-    "category": "Prompt Engineering",
-    "summary": "專為遊戲概念美術師與 AI 創作者打造的東方水墨 Prompt 模組，系統化規範俠客劍意、巨龍雲霧與飛白留白意境，協助團隊穩定生成高辨識度、極具張力的傳統國風武俠視覺成果。",
-    "tags": [
-      "ink-wash",
-      "wuxia",
-      "dragon",
-      "PromptEngineering",
-      "water-ink"
-    ],
-    "tools": [
-      "Codex",
-      "GPT Image",
-      "Midjourney"
-    ],
-    "created": "2026-09-30",
-    "updated": "2026-09-30",
-    "url": "/skills/ink-wuxia-fantasy",
-    "cover": "/assets/covers/ink-wuxia-fantasy.jpg",
-    "featured": true
-  },
-  {
     "id": "2026-09-29",
     "title": "Chow 的 AI 模型日報｜第 002 號 (2026.09.29)",
     "type": "newspaper",
@@ -753,29 +904,6 @@
     "updated": "2026-09-29",
     "url": "/newspapers/2026-09-29",
     "cover": "/assets/covers/newspaper-2026-09-29-cover.png",
-    "featured": false
-  },
-  {
-    "id": "ai-compute-demand-evidence-2026",
-    "title": "AI 算力需求持續上升：數據佐證與客戶提案簡報",
-    "type": "presentation",
-    "category": "Market Insights",
-    "summary": "以客觀數據與巨頭資本支出為基礎的高說服力簡報，從推理算力轉移、能源消耗與摩爾定律極限剖析 AI 算力長期增長的必然趨勢。",
-    "tags": [
-      "AI算力",
-      "客戶提案",
-      "能源用量",
-      "商業洞察",
-      "資本支出"
-    ],
-    "tools": [
-      "HTML5",
-      "DataViz"
-    ],
-    "created": "2026-09-24",
-    "updated": "2026-09-24",
-    "url": "/presentations/ai-compute-demand-evidence-2026",
-    "cover": "/assets/covers/ai-compute-demand-evidence-2026.png",
     "featured": false
   },
   {
@@ -850,31 +978,6 @@
     "updated": "2026-09-24",
     "url": "/tutorials/youtube-team-launch-guide-2026",
     "cover": "/assets/covers/youtube-team-launch-guide-2026.png",
-    "featured": true
-  },
-  {
-    "id": "living-watercolor-rpg",
-    "title": "Living Watercolor RPG",
-    "type": "skill",
-    "category": "Image Generation",
-    "summary": "專為獨立遊戲開發者與數位插畫師調校的 JRPG 動態水彩提示詞技能庫，透過嚴謹色彩與墨線手感指令，確保角色與環境概念圖具備通透水漬層次與高度風格一致性的美術產出成果。",
-    "tags": [
-      "watercolor",
-      "JRPG",
-      "character",
-      "environment",
-      "Codex",
-      "PromptEngineering"
-    ],
-    "tools": [
-      "Codex",
-      "GPT Image",
-      "Midjourney"
-    ],
-    "created": "2026-09-23",
-    "updated": "2026-09-23",
-    "url": "/skills/living-watercolor-rpg",
-    "cover": "/assets/covers/living-watercolor-rpg.jpg",
     "featured": true
   }
 ]
