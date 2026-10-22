@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#171716" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="data:," />
+  <title>AI 模型日報｜2026.10.21</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f4f1e8;
+      --paper-raised: #fbf9f3;
+      --ink: #171715;
+      --muted: #5f5c55;
+      --rule: #25231f;
+      --soft-rule: #b9b4a8;
+      --accent: #a7241b;
+      --accent-soft: #e9d5cf;
+      --note: #ece7da;
+      --shadow: rgba(44, 39, 30, .16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #171716;
+        --paper-raised: #1e1e1c;
+        --ink: #f2efe6;
+        --muted: #bdb8ad;
+        --rule: #ece7dc;
+        --soft-rule: #5b5850;
+        --accent: #ef6b5f;
+        --accent-soft: #4a2825;
+        --note: #24231f;
+        --shadow: rgba(0, 0, 0, .32);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 22% 14%, color-mix(in srgb, var(--ink) 2%, transparent) 0 1px, transparent 1.2px) 0 0 / 12px 12px,
+        var(--paper);
+      color: var(--ink);
+      font-family: "Noto Serif TC", serif;
+      line-height: 1.72;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page {
+      width: min(1240px, calc(100% - 32px));
+      margin: 28px auto 52px;
+      background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+      border: 1px solid var(--soft-rule);
+      box-shadow: 0 18px 54px var(--shadow);
+      padding: clamp(18px, 3vw, 44px);
+    }
+    .utility {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .utility .edition { color: var(--accent); }
+    .masthead {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 20px;
+      padding: 18px 0 16px;
+      border-bottom: 5px double var(--rule);
+    }
+    .masthead h1 {
+      margin: 0;
+      text-align: center;
+      font-size: clamp(34px, 6.4vw, 78px);
+      line-height: .98;
+      letter-spacing: -.065em;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .masthead-side {
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .masthead-side.right { text-align: right; }
+    .masthead-side strong {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+    .index-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 0;
+      border-bottom: 1px solid var(--rule);
+      font-family: "Noto Sans TC", sans-serif;
+    }
+    .index-nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px 12px;
+      text-decoration: none;
+      border-right: 1px solid var(--soft-rule);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .index-nav a:last-child { border-right: 0; }
+    .index-nav a:hover, .index-nav a:focus-visible { background: var(--accent-soft); outline: none; }
+    .index-nav b {
+      color: var(--accent);
+      font-family: "Noto Serif TC", serif;
+      font-size: 18px;
+    }
+    .index-nav span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .lead-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.15fr) minmax(250px, .85fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 2px solid var(--rule);
+    }
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .kicker::after { content: ""; flex: 1; height: 1px; background: var(--accent); }
+    .lead h2 {
+      margin: 0 0 14px;
+      max-width: 18ch;
+      font-size: clamp(34px, 5.2vw, 66px);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+      font-weight: 900;
+    }
+    .deck {
+      margin: 0 0 18px;
+      max-width: 46em;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 23px);
+      line-height: 1.58;
+      font-weight: 600;
+    }
+    .story-body {
+      columns: 2 260px;
+      column-gap: 28px;
+      column-rule: 1px solid var(--soft-rule);
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 15px;
+    }
+    .story-body p { margin: 0 0 1em; }
+    .story-body p:first-child::first-letter {
+      float: left;
+      margin: .1em .1em 0 0;
+      color: var(--accent);
+      font-size: 4.35em;
+      line-height: .72;
+      font-weight: 900;
+    }
+    .why {
+      margin-top: 18px;
+      padding: 16px 18px 17px;
+      background: var(--note);
+      border-top: 3px solid var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      line-height: 1.62;
+    }
+    .why strong { color: var(--accent); }
+    .source-link {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      margin-top: 12px;
+      color: var(--accent);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .source-link::after { content: "↗"; font-size: 13px; }
+    .source-link:hover, .source-link:focus-visible {
+      color: var(--ink);
+      outline: none;
+      text-decoration-thickness: 2px;
+    }
+    .briefing {
+      align-self: start;
+      border-top: 8px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .briefing h3 {
+      margin: 0;
+      padding: 10px 0 8px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+    .briefing ol { list-style: none; padding: 0; margin: 0; }
+    .briefing li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--soft-rule);
+    }
+    .briefing li:last-child { border-bottom: 0; }
+    .briefing .num {
+      color: var(--accent);
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .briefing a { text-decoration: none; font-weight: 700; line-height: 1.45; }
+    .briefing a:hover { color: var(--accent); }
+    .briefing small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .stories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 28px;
+    }
+    .story {
+      padding: 26px 0 28px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .story:nth-child(odd) { border-right: 1px solid var(--soft-rule); padding-right: 28px; }
+    .story-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+    .story-number {
+      min-width: 44px;
+      padding-top: 2px;
+      color: var(--accent);
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .story h2 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.22;
+      letter-spacing: -.035em;
+    }
+    .story .subline {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-family: "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+    .story p {
+      margin: 0 0 .9em;
+      text-align: justify;
+      text-justify: inter-ideograph;
+      font-size: 14.5px;
+    }
+    .story .why { margin-top: 14px; }
+    .closing {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding-top: 18px;
+      font-family: "Noto Sans TC", sans-serif;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .closing strong { color: var(--ink); }
+    .mark {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 4px 9px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .back-top {
+      display: inline-block;
+      color: var(--ink);
+      text-underline-offset: 3px;
+    }
+    @media (max-width: 820px) {
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; padding: 14px 18px 32px; }
+      .utility { font-size: 10px; }
+      .masthead { grid-template-columns: 1fr; gap: 8px; padding: 14px 0 13px; }
+      .masthead h1 { grid-row: 1; white-space: normal; font-size: clamp(40px, 12vw, 62px); }
+      .masthead-side { display: flex; justify-content: space-between; text-align: left; }
+      .masthead-side.right { display: none; }
+      .index-nav { grid-template-columns: repeat(5, 1fr); }
+      .index-nav a { justify-content: center; padding: 8px 4px; }
+      .index-nav b { font-size: 17px; }
+      .index-nav span { display: none; }
+      .lead-grid { grid-template-columns: 1fr; gap: 24px; padding: 22px 0; }
+      .lead h2 { font-size: clamp(36px, 10vw, 54px); max-width: none; }
+      .story-body { columns: 1; text-align: left; }
+      .briefing { margin-top: 4px; }
+      .stories { grid-template-columns: 1fr; }
+      .story:nth-child(odd) { border-right: 0; padding-right: 0; }
+      .story { padding: 22px 0 24px; }
+      .story p { text-align: left; }
+      .closing { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 390px) {
+      .page { padding-inline: 14px; }
+      .utility span:last-child { text-align: right; }
+      .masthead h1 { font-size: 39px; }
+      .story-head { grid-template-columns: 38px 1fr; gap: 8px; }
+      .story-number { min-width: 38px; font-size: 30px; }
+    }
+    @media print {
+      body { background: white; }
+      .page { width: 100%; margin: 0; border: 0; box-shadow: none; }
+      .index-nav { display: none; }
+      .story, .lead-grid { break-inside: avoid; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <main class="page" id="top">
+    <div class="utility">
+      <span class="edition">第 024 號・國際市場版</span>
+      <span>2026 年 10 月 21 日　星期三</span>
+    </div>
+
+    <header class="masthead">
+      <div class="masthead-side">
+        <strong>每日五則</strong>
+        模型・安全・市場・開源
+      </div>
+      <h1>Chow 的 AI 模型日報</h1>
+      <div class="masthead-side right">
+        <strong>WEDNESDAY EDITION</strong>
+        第 024 號
+      </div>
+    </header>
+
+    <nav class="index-nav" aria-label="本期新聞索引">
+      <a href="#story-1"><b>01</b><span>募資搶跑</span></a>
+      <a href="#story-2"><b>02</b><span>算力軍備</span></a>
+      <a href="#story-3"><b>03</b><span>資安警報</span></a>
+      <a href="#story-4"><b>04</b><span>監管出手</span></a>
+      <a href="#story-5"><b>05</b><span>開源釋出</span></a>
+    </nav>
+
+    <section class="lead-grid" id="story-1">
+            <article class="lead">
+        <p class="kicker">今日頭條　FRONT PAGE</p>
+        <h2>OpenAI 搶在 Anthropic 上市前募資 300 億美元，估值上看 1.4 兆</h2>
+        <p class="deck">路透社 10 月 19 日引述兩名知情人士報導，OpenAI 正加速進行約 300 億美元的新一輪募資，目標估值超過 1.4 兆美元，並希望在競爭對手 Anthropic 11 月中旬 IPO 之前完成。</p>
+        <div class="story-body">
+          <p>SoftBank 與阿布達比主權基金 MGX 等既有投資人正在洽談參與；OpenAI 上週已與多家長期資金與主權基金會面，募資進度比一般同級交易快得多。OpenAI 向投資人表示，GPT-6 Astra 推出後年化營收已達 500 億美元、年底上看 700 億，調降平價模型價格後用量大增。</p>
+          <p>對比今年 3 月那輪 1,220 億美元募資（估值 8,520 億美元），1.4 兆美元估值意味著逾六成漲幅。知情人士也說，OpenAI 想在 Anthropic 公開財報、兩家被拿來直接比較之前先把價格談定；雙方還在營收口徑上交鋒——OpenAI 指責 Anthropic 把經第三方雲端銷售的合約總額計入營收，Anthropic 則稱遵循既有會計準則。</p>
+        </div>
+        <div class="why"><strong>為什麼重要：</strong> 兩家準 IPO 巨頭第一次把「估值定價權」擺上檯面較量——誰先談定價格，誰就掌握下一代 AI 實驗室的定價錨點。</div>
+        <a class="source-link" href="https://www.calcalistech.com/ctechnews/article/0ik7s4qx4" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・路透社（CTech 轉載）</a>
+      </article>
+
+            <aside class="briefing" aria-label="今日五看">
+        <h3>今日五看</h3>
+        <ol>
+          <li><span class="num">1</span><div><a href="#story-1">300 億美元募資衝刺</a><small>300 億募資，估值 1.4 兆</small></div></li>
+          <li><span class="num">2</span><div><a href="#story-2">450 億美元算力二單談判中</a><small>450 億美元算力再加碼</small></div></li>
+          <li><span class="num">3</span><div><a href="#story-3">AI 駭客大軍出動</a><small>數千美元駭進千個網站</small></div></li>
+          <li><span class="num">4</span><div><a href="#story-4">DeepSeek 聯邦禁令生效</a><small>聯邦禁令正式刊登公報</small></div></li>
+          <li><span class="num">5</span><div><a href="#story-5">DeepInfer 開源</a><small>DeepInfer 開源釋出</small></div></li>
+        </ol>
+      </aside>
+    </section>
+
+    <section class="stories" aria-label="本期新聞">
+            <article class="story" id="story-2">
+        <div class="story-head"><span class="story-number">02</span><h2>Anthropic 再談 450 億美元算力大單，租下 Nscale 西維吉尼亞二期園區</h2></div>
+        <p class="subline">Bloomberg 10 月 19 日引述知情人士首報，輝達投資的資料中心商 Nscale 正與 Anthropic 談判第二筆約 450 億美元的算力租用協議，路透社隨後跟進證實。</p>
+        <p>新協議對應 Nscale 西維吉尼亞 Monarch 園區第二棟大樓、約 460MW 容量，採用輝達 Vera Rubin 晶片；8 月雙方才簽過第一筆 450 億美元長約，Anthropic 對第三棟還有優先承租權。若新約簽成，兩家合計承諾逼近 900 億美元。</p>
+        <p>不過知情人士強調談判未定案、細節可能變動，Anthropic 也拒絕評論。值得注意的是市場正處於疑慮期：上週 CoreWeave 債務疑慮引發 AI 股拋售、微軟也退出 Nscale 倫敦資料中心計畫，部分投資人已呼籲 Anthropic 下修 IPO 估值目標——這筆「450 億二單」到底是需求強勁還是泡沫加碼，兩邊都在看。</p>
+        <div class="why"><strong>為什麼重要：</strong> AI 基建軍備賽的續篇：一邊是需求強勁的證據，另一邊是泡沫論者的新彈藥，結論要看誰來付這筆帳。</div>
+        <a class="source-link" href="https://www.channelnewsasia.com/business/nvidia-backed-nscale-anthropic-in-talks-new-45-billion-ai-cloud-deal-source-says-6473376" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・CNA（引述 Bloomberg、路透社）</a>
+      </article>
+
+            <article class="story" id="story-3">
+        <div class="story-head"><span class="story-number">03</span><h2>路透獨家：AI 駭客大軍出動，數千美元就駭進上千網站</h2></div>
+        <p class="subline">路透社 10 月 19 日原創獨家揭露，資安研究員觀察到一名「說中文」的駭客自 9 月 25 日起放出 AI agent 大軍，專攻美、加、澳、日的電商網站，截至上週末已嘗試攻破超過 1,200 個網站。</p>
+        <p>這次攻擊每次成功平均花 23 小時探測漏洞、燒掉約 5,000 美元 token（平均每次成功成本約 50 美元），用的是 DeepSeek 混 Anthropic Claude Code，透過 Cairn 多 agent 平台指揮。專家說這不是小屁孩等級的腳本——有一起案例是 agent 找不到公開應用程式的弱點，自己去翻數位紀錄找出關聯的基礎設施、發現控制面板的資料處理弱點，試誤數小時後誘使伺服器執行惡意指令。</p>
+        <p>路透社未證實是否有資料被抽走；「會說中文」不等於歸因，報導也未點名任何人。</p>
+        <div class="why"><strong>為什麼重要：</strong> 進攻方的成本結構崩壞了——幾千美元就能開工，而防守方的防線還是為「人類駭客」設計的。</div>
+        <a class="source-link" href="https://www.reuters.com/legal/government/how-one-hacker-used-ai-agents-few-thousand-dollars-break-into-scores-sites-2026-10-19/" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Reuters</a>
+      </article>
+
+            <article class="story" id="story-4">
+        <div class="story-head"><span class="story-number">04</span><h2>美國 DeepSeek 聯邦禁令正式刊登公報：連「用 DeepSeek 做出來的」第三方產品都要清查</h2></div>
+        <p class="subline">路透社 10 月 19 日揭露、美國國土安全部隔日正式在《聯邦公報》刊登 Exclusion and Removal Order #2026-01——這紙早在 7 月 24 日就簽署的命令，直到 10 月 20 日才讓公眾看見。</p>
+        <p>命令要求所有聯邦文職機關從 IT 系統中移除 DeepSeek 及其關聯公司產品，並禁止未來採購；最關鍵的是連帶條款——「使用 DeepSeek 實作開發出的」第三方產品與服務也在清除範圍內，等於禁令會跟著模型滲進任何用它蒸餾、微調、拿它生成訓練資料的產品。機關申請豁免的 60 天窗口，在公眾看到命令之前 28 天就已關閉。</p>
+        <p>命令不適用民營企業、個人、州政府與國安系統；中國外交部 10 月 20 日同日拒絕此舉。</p>
+        <div class="why"><strong>為什麼重要：</strong> 美國第一次用供應鏈安全法規對一家 AI 公司下「聯邦文職全域」排除令——開源權重的生態系，第一次被當成供應鏈風險處理。</div>
+        <a class="source-link" href="https://www.hindustantimes.com/world-news/us-bars-deepseek-from-federal-agencies-government-contracts-amid-national-security-concerns-101792475645064.html" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・路透社（Hindustan Times 轉載）</a>
+      </article>
+
+            <article class="story" id="story-5">
+        <div class="story-head"><span class="story-number">05</span><h2>DeepSeek 開源推理引擎 DeepInfer：自己怎麼省 token 成本，全攤在 GitHub</h2></div>
+        <p class="subline">DeepSeek 10 月 20 日在 GitHub 以 Apache 2.0 授權釋出 DeepInfer——它宣稱這就是自家生產服務背後支撐 V4.1-Flash 的推理引擎。</p>
+        <p>推理引擎決定模型產出每個字的成本：跨晶片拆分、請求打包、快取複用都靠它。首版只支援 V4.1-Flash 且限離線模式，同時支援輝達 SM100 顯卡與華為昇騰 950 兩種資料中心晶片；DeepSeek 公布的生產數據包括單叢集每天 1,550 億 token、96% 輸入快取命中率、首字延遲約 400 毫秒，皆未經獨立驗證。</p>
+        <p>README 也坦承首版缺了三塊：KV 快取系統、prefill／decode 分離部署、跨副本負載平衡——想把低價 API 完整複製走，還得自己補。DeepSeek 表示未來模型也會繼續開源配套程式碼。</p>
+        <div class="why"><strong>為什麼重要：</strong> 模型開源之後，DeepSeek 開始把「便宜」的秘密武器——服務層——也開源；這是第一次有前線實驗室把自己的生產級推理棧攤開。</div>
+        <a class="source-link" href="https://teslanewswire.com/articles/deepseek-deepinfer-open-source-inference-engine-v4-1-flash-nvidia-huawei-ascend-950-oct-20-2026" target="_blank" rel="noopener noreferrer" aria-label="閱讀原始報導（在新分頁開啟）">閱讀原始報導・Tesla News Wire</a>
+      </article>
+    </section>
+
+    <footer class="closing">
+      <div><strong>編輯備註：</strong> 本期內容取材自 2026 年 10 月 18–21 日國際媒體報導；各方說法以原始報導為準。</div>
+      <div><span class="mark">每日五則</span>　<a class="back-top" href="#top">回到版首</a></div>
+    </footer>
+  </main>
+<script>
+window.addEventListener('load', () => {
+  const r = document.querySelector('.page').getBoundingClientRect();
+  document.title = 'RECT:' + [r.x, r.y, r.width, r.height].map(v => Math.round(v)).join(',');
+});
+</script>
+</body>
+
+</html>

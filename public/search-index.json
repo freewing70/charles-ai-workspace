@@ -1,5 +1,73 @@
 [
   {
+    "id": "2026-10-22",
+    "title": "Chow 的 AI 模型日報｜第 025 號 (2026.10.22)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "字節、阿里、騰訊聯手下單逾 350 億美元搶購 300 萬張輝達 RTX PRO 5500 顯卡；OpenAI 前沿模型與 Codex 正式進駐 Google Cloud Model Garden；Google 開源 TorchTPU 直搗輝達 CUDA 護城河讓 PyTorch 一鍵跑 TPU；ChatGPT 廣告擴張至 89 國於 IPO 前夕衝刺營收；Mistral AI 發表 Voxtral 3 提供一條龍全端語音代理。",
+    "tags": [
+      "AI模型日報",
+      "Nvidia",
+      "RTX PRO 5500",
+      "字節跳動",
+      "阿里巴巴",
+      "騰訊",
+      "OpenAI",
+      "Google Cloud",
+      "TorchTPU",
+      "PyTorch",
+      "ChatGPT廣告",
+      "Mistral AI",
+      "Voxtral 3"
+    ],
+    "tools": [
+      "Nvidia",
+      "ByteDance",
+      "Alibaba",
+      "Tencent",
+      "OpenAI",
+      "Google",
+      "Mistral AI"
+    ],
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "url": "/newspapers/2026-10-22",
+    "cover": "/assets/covers/newspaper-2026-10-22-cover.jpg",
+    "featured": true
+  },
+  {
+    "id": "2026-10-21",
+    "title": "Chow 的 AI 模型日報｜第 024 號 (2026.10.21)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "OpenAI 搶在 Anthropic 上市前募資 300 億美元目標估值 1.4 兆；Anthropic 洽談第二筆 450 億美元算力大單租下 Nscale Monarch 二期；路透揭露黑客利用 AI Agent 大軍以數千美元成本攻擊逾 1200 家網站；美國國土安全部正式公告 DeepSeek 聯邦禁令並追查關聯第三方產品；DeepSeek 開源內部生產級推理引擎 DeepInfer 攤開省 token 成本秘密。",
+    "tags": [
+      "AI模型日報",
+      "OpenAI",
+      "Anthropic",
+      "300億募資",
+      "Nscale",
+      "450億算力",
+      "AI駭客",
+      "DeepSeek",
+      "聯邦禁令",
+      "DeepInfer",
+      "開源推理"
+    ],
+    "tools": [
+      "OpenAI",
+      "Anthropic",
+      "Nscale",
+      "DeepSeek",
+      "Reuters"
+    ],
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "url": "/newspapers/2026-10-21",
+    "cover": "/assets/covers/newspaper-2026-10-21-cover.jpg",
+    "featured": false
+  },
+  {
     "id": "ai-compute-demand-evidence-2026",
     "title": "AI 算力需求持續上升：數據佐證與客戶提案簡報",
     "type": "presentation",
@@ -236,7 +304,7 @@
     "updated": "2026-10-20",
     "url": "/newspapers/2026-10-20",
     "cover": "/assets/covers/newspaper-2026-10-20-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-19",
