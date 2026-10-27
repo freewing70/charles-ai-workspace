@@ -1546,6 +1546,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     let showGrid = true;
     let animFrameId = null;
     let animProgress = 0;
+    let currentFilterCat = 'all';
 
     // Timeline Mode State (方案 A)
     let isComboMode = false;
@@ -1618,7 +1619,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         `;
         btn.addEventListener('click', () => {
           if (isComboMode) {
-            switchToSingleMode();
+            switchToSingleMode(false);
           }
           selectMovement(item);
         });
@@ -1661,8 +1662,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     }
 
     function getCurrentFilterCat() {
-      const activeBtn = document.querySelector('.cat-btn.bg-\[\#155EEF\]');
-      return activeBtn ? activeBtn.dataset.cat : 'all';
+      return currentFilterCat;
     }
 
     // 3. Update Compiled Prompt Generator (Handles Single & Combo Storyboard)
@@ -1727,7 +1727,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     }
 
     // 4. Mode Switching Handlers (Single vs Combo)
-    function switchToSingleMode() {
+    function switchToSingleMode(autoSelectCurrent = true) {
       isComboMode = false;
       tabModeSingle.classList.add('bg-[#155EEF]', 'text-white', 'shadow-2xs');
       tabModeSingle.classList.remove('text-slate-600');
@@ -1739,7 +1739,9 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       categoryFilterButtons.classList.remove('hidden');
       sbTimelineBar.classList.add('hidden');
 
-      selectMovement(currentMovement);
+      if (autoSelectCurrent) {
+        selectMovement(currentMovement);
+      }
     }
 
     function switchToComboMode(comboKey = 'hero') {
@@ -1785,7 +1787,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       let p = 0;
 
       if (isPlaying) {
-        animProgress += 0.025 * animationSpeed;
+        animProgress += 0.018 * animationSpeed;
         if (isComboMode) {
           comboTime += 0.016 * animationSpeed;
         }
@@ -1850,54 +1852,54 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       let vectorDesc = '';
 
       switch (mId) {
-        // Physical (12)
+        // Physical (12) - Pure directional kinematics with zero oscillating shakes
         case 'pan-left':
           const panLP = isComboMode ? p : tNorm;
-          vfRotY = isComboMode ? (-32 * panLP) : (-28 * t);
-          rigRotZ = isComboMode ? (-42 * panLP) : (-35 * t);
-          rotY = rigRotZ;
-          horizonOffset = isComboMode ? (42 * panLP) : (38 * t);
+          rotY = -35 * panLP;
+          vfRotY = -30 * panLP;
+          rigRotZ = -38 * panLP;
+          horizonOffset = 38 * panLP;
           vectorDesc = `Yaw: ${rotY.toFixed(1)}° (Pan Left)`;
           break;
 
         case 'pan-right':
           const panRP = isComboMode ? p : tNorm;
-          vfRotY = isComboMode ? (32 * panRP) : (28 * t);
-          rigRotZ = isComboMode ? (42 * panRP) : (35 * t);
-          rotY = rigRotZ;
-          horizonOffset = isComboMode ? (-42 * panRP) : (-38 * t);
+          rotY = 35 * panRP;
+          vfRotY = 30 * panRP;
+          rigRotZ = 38 * panRP;
+          horizonOffset = -38 * panRP;
           vectorDesc = `Yaw: +${rotY.toFixed(1)}° (Pan Right)`;
           break;
 
         case 'tilt-up':
           const tiltUP = isComboMode ? p : tNorm;
-          vfRotX = isComboMode ? (-25 + 35 * tiltUP) : (22 * t);
-          rotP = isComboMode ? (-25 + 35 * tiltUP) : (25 * t);
-          vfTransY = isComboMode ? (20 - 32 * tiltUP) : (-18 * t);
-          rigTransY = isComboMode ? (95 - 25 * tiltUP) : (85 - 15 * t);
+          rotP = 28 * tiltUP;
+          vfRotX = 25 * tiltUP;
+          vfTransY = -20 * tiltUP;
+          rigTransY = 85 - 18 * tiltUP;
           vectorDesc = `Pitch: +${rotP.toFixed(1)}° (Tilt Up)`;
           break;
 
         case 'tilt-down':
           const tiltDP = isComboMode ? p : tNorm;
-          vfRotX = isComboMode ? (25 - 35 * tiltDP) : (-22 * t);
-          rotP = isComboMode ? (25 - 35 * tiltDP) : (-25 * t);
-          vfTransY = isComboMode ? (-20 + 32 * tiltDP) : (18 * t);
-          rigTransY = isComboMode ? (75 + 25 * tiltDP) : (85 + 15 * t);
+          rotP = -28 * tiltDP;
+          vfRotX = -25 * tiltDP;
+          vfTransY = 20 * tiltDP;
+          rigTransY = 85 + 18 * tiltDP;
           vectorDesc = `Pitch: ${rotP.toFixed(1)}° (Tilt Down)`;
           break;
 
         case 'roll-cw':
-          const rollP = isComboMode ? p : t;
+          const rollP = isComboMode ? p : tNorm;
+          rotR = 35 * rollP;
           vfRotZ = 35 * rollP;
-          rotR = vfRotZ;
           vectorDesc = `Roll: +${rotR.toFixed(1)}° CW`;
           break;
 
         case 'roll-ccw':
-          const rollCCWP = isComboMode ? p : t;
+          const rollCCWP = isComboMode ? p : tNorm;
+          rotR = -35 * rollCCWP;
           vfRotZ = -35 * rollCCWP;
-          rotR = vfRotZ;
           vectorDesc = `Roll: ${rotR.toFixed(1)}° CCW`;
           break;
 
@@ -1918,37 +1920,37 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           break;
 
         case 'truck-left':
-          const trkLP = isComboMode ? p : t;
+          const trkLP = isComboMode ? p : tNorm;
+          posX = 1.8 * trkLP;
           vfTransX = 45 * trkLP;
           rigTransX = 48 * trkLP;
-          posX = 1.8 * trkLP;
           horizonOffset = -18 * trkLP;
-          vectorDesc = `Truck X: -${(1.8 * trkLP).toFixed(2)}m (Left)`;
+          vectorDesc = `Truck X: -${posX.toFixed(2)}m (Left)`;
           break;
 
         case 'truck-right':
-          const trkRP = isComboMode ? p : t;
+          const trkRP = isComboMode ? p : tNorm;
+          posX = -1.8 * trkRP;
           vfTransX = -45 * trkRP;
           rigTransX = -48 * trkRP;
-          posX = -1.8 * trkRP;
           horizonOffset = 18 * trkRP;
-          vectorDesc = `Truck X: +${(1.8 * trkRP).toFixed(2)}m (Right)`;
+          vectorDesc = `Truck X: +${Math.abs(posX).toFixed(2)}m (Right)`;
           break;
 
         case 'pedestal-up':
-          const pedUP = isComboMode ? p : t;
-          vfTransY = 35 * pedUP;
+          const pedUP = isComboMode ? p : tNorm;
           posZ = 1.2 + 1.2 * pedUP;
+          vfTransY = 35 * pedUP;
           rigTransZ = -30 * pedUP;
-          vectorDesc = `Pedestal Z: +${posZ.toFixed(2)}m`;
+          vectorDesc = `Pedestal Z: +${posZ.toFixed(2)}m (Up)`;
           break;
 
         case 'pedestal-down':
-          const pedDP = isComboMode ? p : t;
-          vfTransY = -35 * pedDP;
+          const pedDP = isComboMode ? p : tNorm;
           posZ = 1.2 - 0.9 * pedDP;
+          vfTransY = -35 * pedDP;
           rigTransZ = 30 * pedDP;
-          vectorDesc = `Pedestal Z: ${(posZ).toFixed(2)}m`;
+          vectorDesc = `Pedestal Z: ${posZ.toFixed(2)}m (Down)`;
           break;
 
         // Optical (6)
@@ -2299,7 +2301,8 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         });
         btn.classList.add('bg-[#155EEF]', 'text-white', 'shadow-2xs');
         btn.classList.remove('bg-slate-100', 'text-slate-600');
-        renderChips(btn.dataset.cat, searchInput.value.trim());
+        currentFilterCat = btn.dataset.cat;
+        renderChips(currentFilterCat, searchInput.value.trim());
       });
     });
 
