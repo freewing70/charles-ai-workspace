@@ -1782,11 +1782,18 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       let mId = currentMovement.id;
       let t = 0;
       let tNorm = 0;
+      let p = 0;
 
-      if (isComboMode) {
-        if (isPlaying) {
+      if (isPlaying) {
+        animProgress += 0.025 * animationSpeed;
+        if (isComboMode) {
           comboTime += 0.016 * animationSpeed;
         }
+      }
+
+      const activeProgress = isComboMode ? (comboTime * 2.5) : animProgress;
+
+      if (isComboMode) {
         const combo = STORYBOARD_COMBOS[activeComboKey];
         const cycleTime = comboTime % 9; // 0 to 9 seconds cycle
         let shotIndex = 0;
@@ -1814,6 +1821,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
 
         const activeShot = combo.shots[shotIndex];
         mId = activeShot.id;
+        p = Math.max(0, Math.min(1, shotLocalTime)); // 0.0 to 1.0 linear progress
         t = Math.sin(shotLocalTime * Math.PI * 2);
         tNorm = (t + 1) / 2;
 
@@ -1826,11 +1834,9 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           lastRenderedMId = mId;
         }
       } else {
-        if (isPlaying) {
-          animProgress += 0.025 * animationSpeed;
-        }
         t = Math.sin(animProgress); // -1 to 1 oscillation
         tNorm = (t + 1) / 2; // 0 to 1 smooth oscillation
+        p = tNorm;
         lastRenderedMId = mId;
       }
 
@@ -1846,121 +1852,135 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       switch (mId) {
         // Physical (12)
         case 'pan-left':
-          vfRotY = -28 * t;
-          rigRotZ = -35 * t;
-          rotY = -35 * t;
-          horizonOffset = 38 * t;
+          const panLP = isComboMode ? p : tNorm;
+          vfRotY = isComboMode ? (-32 * panLP) : (-28 * t);
+          rigRotZ = isComboMode ? (-42 * panLP) : (-35 * t);
+          rotY = rigRotZ;
+          horizonOffset = isComboMode ? (42 * panLP) : (38 * t);
           vectorDesc = `Yaw: ${rotY.toFixed(1)}° (Pan Left)`;
           break;
 
         case 'pan-right':
-          vfRotY = 28 * t;
-          rigRotZ = 35 * t;
-          rotY = 35 * t;
-          horizonOffset = -38 * t;
+          const panRP = isComboMode ? p : tNorm;
+          vfRotY = isComboMode ? (32 * panRP) : (28 * t);
+          rigRotZ = isComboMode ? (42 * panRP) : (35 * t);
+          rotY = rigRotZ;
+          horizonOffset = isComboMode ? (-42 * panRP) : (-38 * t);
           vectorDesc = `Yaw: +${rotY.toFixed(1)}° (Pan Right)`;
           break;
 
         case 'tilt-up':
-          vfRotX = 22 * t;
-          rotP = 25 * t;
-          vfTransY = -18 * t;
-          rigTransY = 85 - 15 * t;
+          const tiltUP = isComboMode ? p : tNorm;
+          vfRotX = isComboMode ? (-25 + 35 * tiltUP) : (22 * t);
+          rotP = isComboMode ? (-25 + 35 * tiltUP) : (25 * t);
+          vfTransY = isComboMode ? (20 - 32 * tiltUP) : (-18 * t);
+          rigTransY = isComboMode ? (95 - 25 * tiltUP) : (85 - 15 * t);
           vectorDesc = `Pitch: +${rotP.toFixed(1)}° (Tilt Up)`;
           break;
 
         case 'tilt-down':
-          vfRotX = -22 * t;
-          rotP = -25 * t;
-          vfTransY = 18 * t;
-          rigTransY = 85 + 15 * t;
+          const tiltDP = isComboMode ? p : tNorm;
+          vfRotX = isComboMode ? (25 - 35 * tiltDP) : (-22 * t);
+          rotP = isComboMode ? (25 - 35 * tiltDP) : (-25 * t);
+          vfTransY = isComboMode ? (-20 + 32 * tiltDP) : (18 * t);
+          rigTransY = isComboMode ? (75 + 25 * tiltDP) : (85 + 15 * t);
           vectorDesc = `Pitch: ${rotP.toFixed(1)}° (Tilt Down)`;
           break;
 
         case 'roll-cw':
-          vfRotZ = 32 * t;
-          rotR = 35 * t;
+          const rollP = isComboMode ? p : t;
+          vfRotZ = 35 * rollP;
+          rotR = vfRotZ;
           vectorDesc = `Roll: +${rotR.toFixed(1)}° CW`;
           break;
 
         case 'roll-ccw':
-          vfRotZ = -32 * t;
-          rotR = -35 * t;
+          const rollCCWP = isComboMode ? p : t;
+          vfRotZ = -35 * rollCCWP;
+          rotR = vfRotZ;
           vectorDesc = `Roll: ${rotR.toFixed(1)}° CCW`;
           break;
 
         case 'dolly-in':
-          vfScale = 1 + 0.55 * tNorm;
-          rigTransY = 85 - 55 * tNorm;
-          posY = -2.4 + 1.6 * tNorm;
-          vectorDesc = `Dolly: +${(1.6 * tNorm).toFixed(2)}m (Forward)`;
+          const dinP = isComboMode ? p : tNorm;
+          vfScale = 1 + 0.6 * dinP;
+          rigTransY = 85 - 55 * dinP;
+          posY = -2.4 + 1.6 * dinP;
+          vectorDesc = `Dolly: +${(1.6 * dinP).toFixed(2)}m (Forward)`;
           break;
 
         case 'dolly-out':
-          vfScale = 1.35 - 0.5 * tNorm;
-          rigTransY = 35 + 65 * tNorm;
-          posY = -0.8 - 2.0 * tNorm;
-          vectorDesc = `Dolly: -${(2.0 * tNorm).toFixed(2)}m (Backward)`;
+          const doutP = isComboMode ? p : tNorm;
+          vfScale = 1.45 - 0.5 * doutP;
+          rigTransY = 35 + 65 * doutP;
+          posY = -0.8 - 2.0 * doutP;
+          vectorDesc = `Dolly: -${(2.0 * doutP).toFixed(2)}m (Backward)`;
           break;
 
         case 'truck-left':
-          vfTransX = 45 * t;
-          rigTransX = 48 * t;
-          posX = 1.8 * t;
-          horizonOffset = -18 * t;
-          vectorDesc = `Truck X: -${(1.8 * t).toFixed(2)}m (Left)`;
+          const trkLP = isComboMode ? p : t;
+          vfTransX = 45 * trkLP;
+          rigTransX = 48 * trkLP;
+          posX = 1.8 * trkLP;
+          horizonOffset = -18 * trkLP;
+          vectorDesc = `Truck X: -${(1.8 * trkLP).toFixed(2)}m (Left)`;
           break;
 
         case 'truck-right':
-          vfTransX = -45 * t;
-          rigTransX = -48 * t;
-          posX = -1.8 * t;
-          horizonOffset = 18 * t;
-          vectorDesc = `Truck X: +${(1.8 * t).toFixed(2)}m (Right)`;
+          const trkRP = isComboMode ? p : t;
+          vfTransX = -45 * trkRP;
+          rigTransX = -48 * trkRP;
+          posX = -1.8 * trkRP;
+          horizonOffset = 18 * trkRP;
+          vectorDesc = `Truck X: +${(1.8 * trkRP).toFixed(2)}m (Right)`;
           break;
 
         case 'pedestal-up':
-          vfTransY = 35 * t;
-          posZ = 1.2 + 1.2 * t;
-          rigTransZ = -30 * t;
+          const pedUP = isComboMode ? p : t;
+          vfTransY = 35 * pedUP;
+          posZ = 1.2 + 1.2 * pedUP;
+          rigTransZ = -30 * pedUP;
           vectorDesc = `Pedestal Z: +${posZ.toFixed(2)}m`;
           break;
 
         case 'pedestal-down':
-          vfTransY = -35 * t;
-          posZ = 1.2 - 0.9 * t;
-          rigTransZ = 30 * t;
+          const pedDP = isComboMode ? p : t;
+          vfTransY = -35 * pedDP;
+          posZ = 1.2 - 0.9 * pedDP;
+          rigTransZ = 30 * pedDP;
           vectorDesc = `Pedestal Z: ${(posZ).toFixed(2)}m`;
           break;
 
         // Optical (6)
         case 'zoom-in':
-          vfScale = 1 + 0.65 * tNorm;
-          vectorDesc = `Optical Zoom In: ${(35 + 50 * tNorm).toFixed(0)}mm`;
+          const zinP = isComboMode ? p : tNorm;
+          vfScale = 1 + 0.65 * zinP;
+          vectorDesc = `Optical Zoom In: ${(35 + 50 * zinP).toFixed(0)}mm`;
           break;
 
         case 'zoom-out':
-          vfScale = 1.45 - 0.6 * tNorm;
-          vectorDesc = `Optical Zoom Out: ${(85 - 55 * tNorm).toFixed(0)}mm`;
+          const zoutP = isComboMode ? p : tNorm;
+          vfScale = 1.45 - 0.6 * zoutP;
+          vectorDesc = `Optical Zoom Out: ${(85 - 55 * zoutP).toFixed(0)}mm`;
           break;
 
         case 'crash-zoom':
-          const crashFactor = Math.pow(tNorm, 3);
-          vfScale = 0.9 + 1.2 * crashFactor;
-          if (crashFactor > 0.6 && layerFxSpeed) {
-            layerFxSpeed.style.opacity = `${(crashFactor - 0.6) * 2}`;
+          const crashFactor = isComboMode ? Math.pow(p, 2.5) : Math.pow(tNorm, 3);
+          vfScale = 0.95 + 1.25 * crashFactor;
+          if (crashFactor > 0.35 && layerFxSpeed) {
+            layerFxSpeed.style.opacity = `${(crashFactor - 0.35) * 2.2}`;
           }
-          vectorDesc = `Crash Zoom: ${(35 + 85 * crashFactor).toFixed(0)}mm (Rapid)`;
+          vectorDesc = `Crash Zoom: ${(35 + 90 * crashFactor).toFixed(0)}mm (Rapid Snap)`;
           break;
 
         case 'rack-focus':
-          const focusDist = tNorm;
+          const focusDist = isComboMode ? p : tNorm;
           if (focusDist > 0.5) {
-            horizonLayer.style.filter = `blur(${(focusDist - 0.5) * 16}px)`;
+            horizonLayer.style.filter = `blur(${(focusDist - 0.5) * 18}px)`;
             subjectAnchor.style.filter = 'blur(0px)';
-            vectorDesc = `Rack Focus: Foreground Actor Sharp`;
+            vectorDesc = `Rack Focus: Foreground Target Sharp (${((focusDist - 0.5) * 200).toFixed(0)}%)`;
           } else {
-            subjectAnchor.style.filter = `blur(${(0.5 - focusDist) * 14}px)`;
+            subjectAnchor.style.filter = `blur(${(0.5 - focusDist) * 16}px)`;
             horizonLayer.style.filter = 'blur(0px)';
             vectorDesc = `Rack Focus: Background Environment Sharp`;
           }
@@ -1969,7 +1989,8 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         case 'deep-focus':
           subjectAnchor.style.filter = 'blur(0px)';
           horizonLayer.style.filter = 'blur(0px)';
-          vfScale = 1.05;
+          vfScale = 1.05 + 0.03 * Math.sin(activeProgress * 1.5);
+          vfTransX = Math.sin(activeProgress * 1.2) * 2;
           vectorDesc = `Deep Focus: F/11 (Inf. Hyperfocal)`;
           break;
 
@@ -1977,12 +1998,14 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           horizonLayer.style.filter = 'blur(10px)';
           subjectAnchor.style.filter = 'blur(0px)';
           subjectAnchor.style.boxShadow = '0 0 25px rgba(0, 242, 254, 0.4)';
+          vfScale = 1.02 + 0.04 * Math.sin(activeProgress * 1.5);
+          vfTransX = Math.cos(activeProgress * 1.2) * 2.5;
           vectorDesc = `Shallow DOF: F/1.4 Creamy Bokeh`;
           break;
 
         // Compound (14)
         case 'orbit-360':
-          const orbAngle = (animProgress * 1.5) % (Math.PI * 2);
+          const orbAngle = isComboMode ? (p * Math.PI * 2) : ((activeProgress * 1.5) % (Math.PI * 2));
           vfRotY = -Math.sin(orbAngle) * 35;
           horizonOffset = Math.sin(orbAngle) * 60;
           rigTransX = Math.cos(orbAngle) * 75;
@@ -1991,22 +2014,22 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           posX = 2.4 * Math.cos(orbAngle);
           posY = 2.4 * Math.sin(orbAngle);
           rotY = (orbAngle * 180 / Math.PI) % 360;
-          vectorDesc = `Orbit: ${rotY.toFixed(0)}° (Full 360°)`;
+          vectorDesc = `Orbit 360°: ${rotY.toFixed(0)}° (King Reveal)`;
           break;
 
         case 'arc-left':
-          const arcAngleL = (tNorm * Math.PI * 0.5) - Math.PI * 0.25;
+          const arcAngleL = isComboMode ? (p * Math.PI * 0.7 - Math.PI * 0.2) : ((tNorm * Math.PI * 0.5) - Math.PI * 0.25);
           vfRotY = -arcAngleL * (180 / Math.PI);
           rigTransX = Math.sin(arcAngleL) * 80;
           rigTransY = Math.cos(arcAngleL) * 80;
           rigRotZ = -arcAngleL * (180 / Math.PI);
           rotY = -arcAngleL * (180 / Math.PI);
           horizonOffset = arcAngleL * 40;
-          vectorDesc = `Arc Left 90°: ${rotY.toFixed(1)}°`;
+          vectorDesc = `Arc Left 90°: ${rotY.toFixed(1)}° (Reveal Crowd)`;
           break;
 
         case 'arc-right':
-          const arcAngleR = (tNorm * Math.PI * 0.5) - Math.PI * 0.25;
+          const arcAngleR = isComboMode ? (p * Math.PI * 0.7 - Math.PI * 0.2) : ((tNorm * Math.PI * 0.5) - Math.PI * 0.25);
           vfRotY = arcAngleR * (180 / Math.PI);
           rigTransX = -Math.sin(arcAngleR) * 80;
           rigTransY = Math.cos(arcAngleR) * 80;
@@ -2017,73 +2040,81 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           break;
 
         case 'lead-tracking':
-          vfScale = 1.05 + 0.15 * Math.sin(animProgress * 2);
-          vfTransY = Math.sin(animProgress * 4) * 3;
-          rigTransY = 70 + Math.sin(animProgress * 2) * 8;
-          posY = -2.2 + 0.3 * Math.sin(animProgress * 2);
-          vectorDesc = `Lead Track (Reversing in front)`;
+          const leadStep = activeProgress * 3;
+          const leadP = isComboMode ? p : tNorm;
+          vfScale = 1.05 + 0.12 * Math.sin(leadStep) + (isComboMode ? leadP * 0.1 : 0);
+          vfTransY = Math.sin(leadStep * 2) * 3.5;
+          vfTransX = Math.sin(leadStep) * 2;
+          rigTransY = 70 + (isComboMode ? leadP * 25 : Math.sin(leadStep) * 10);
+          posY = -2.2 + 0.3 * Math.sin(leadStep);
+          vectorDesc = `Lead Track: Reverse Glide (Step Cadence)`;
           break;
 
         case 'trail-tracking':
-          vfScale = 0.95 + 0.12 * Math.sin(animProgress * 2);
-          vfTransY = Math.sin(animProgress * 4) * 4;
-          rigTransY = 100 + Math.sin(animProgress * 2) * 8;
-          posY = -3.2 + 0.3 * Math.sin(animProgress * 2);
-          vectorDesc = `Trail Track (Chasing behind)`;
+          const trailStep = activeProgress * 3;
+          const trailP = isComboMode ? p : tNorm;
+          vfScale = 0.95 + 0.12 * Math.sin(trailStep) - (isComboMode ? trailP * 0.1 : 0);
+          vfTransY = Math.sin(trailStep * 2) * 4;
+          vfTransX = Math.cos(trailStep) * 2;
+          rigTransY = 100 - (isComboMode ? trailP * 25 : Math.sin(trailStep) * 10);
+          posY = -3.2 + 0.3 * Math.sin(trailStep);
+          vectorDesc = `Trail Track: Chasing Behind`;
           break;
 
         case 'side-tracking':
+          const sideStep = activeProgress * 3;
           vfTransX = 35 * t;
-          vfTransY = Math.sin(animProgress * 4) * 2;
+          vfTransY = Math.sin(sideStep * 2) * 2.5;
           horizonOffset = -60 * t;
           rigTransX = 50 * t;
-          vectorDesc = `Side Tracking (Profile match)`;
+          vectorDesc = `Side Tracking (Profile Match)`;
           break;
 
         case 'dolly-zoom':
-          const dz = tNorm;
-          vfScale = 1;
-          horizonLayer.style.transform = `scale(${1 + 0.8 * dz}) translateY(${dz * 25}px)`;
+          const dz = isComboMode ? p : tNorm;
+          vfScale = 1.0;
+          horizonLayer.style.transform = `scale(${1 + 0.85 * dz}) translateY(${dz * 26}px)`;
           rigTransY = 85 - 65 * dz;
           posY = -2.4 + 2.0 * dz;
-          vectorDesc = `Vertigo Dolly Zoom: Z=${posY.toFixed(2)}m (BG Warping)`;
+          vectorDesc = `Vertigo Dolly Zoom: Z=${posY.toFixed(2)}m (BG Distorting)`;
           break;
 
         case 'whip-pan':
-          const whipPhase = Math.abs(t);
-          if (whipPhase > 0.6) {
-            viewfinderStage.style.filter = `blur(${(whipPhase - 0.6) * 18}px)`;
-            if (layerFxSpeed) layerFxSpeed.style.opacity = `${(whipPhase - 0.6) * 2}`;
-            vfRotY = Math.sign(t) * 65;
-            vectorDesc = `Whip Pan: Fast Swish Wipe!`;
+          const whipT = isComboMode ? Math.sin(p * Math.PI) : t;
+          const whipPhase = Math.abs(whipT);
+          if (whipPhase > 0.45) {
+            viewfinderStage.style.filter = `blur(${(whipPhase - 0.45) * 20}px)`;
+            if (layerFxSpeed) layerFxSpeed.style.opacity = `${(whipPhase - 0.45) * 2.2}`;
+            vfRotY = Math.sign(whipT || 1) * 70 * whipPhase;
+            vectorDesc = `Whip Pan: Swish Flash Blur!`;
           } else {
             viewfinderStage.style.filter = 'none';
             if (layerFxSpeed) layerFxSpeed.style.opacity = '0';
-            vfRotY = t * 25;
-            vectorDesc = `Whip Pan Transition`;
+            vfRotY = whipT * 30;
+            vectorDesc = `Whip Pan Kinetic Sweep`;
           }
           break;
 
         case 'handheld-shaky':
-          vfTransX = Math.sin(animProgress * 2.1) * 9;
-          vfRotZ = Math.sin(animProgress * 2.1) * 2;
-          vfTransY = Math.cos(animProgress * 3.3) * 7;
-          vfRotX = Math.sin(animProgress * 1.7) * 2.5;
+          vfTransX = Math.sin(activeProgress * 2.1) * 9;
+          vfRotZ = Math.sin(activeProgress * 2.1) * 2.2;
+          vfTransY = Math.cos(activeProgress * 3.3) * 7;
+          vfRotX = Math.sin(activeProgress * 1.7) * 2.5;
           rotP = vfRotX;
           rotR = vfRotZ;
           vectorDesc = `Handheld Natural Breathing Shake`;
           break;
 
         case 'steadicam':
-          vfTransX = Math.sin(animProgress * 0.8) * 18;
-          vfTransY = Math.sin(animProgress * 1.6) * 4;
-          vfScale = 1.02 + 0.08 * Math.cos(animProgress * 0.8);
+          vfTransX = Math.sin(activeProgress * 0.8) * 18;
+          vfTransY = Math.sin(activeProgress * 1.6) * 4;
+          vfScale = 1.02 + 0.08 * Math.cos(activeProgress * 0.8);
           rigTransX = vfTransX * 0.8;
           vectorDesc = `Steadicam Ultra-Smooth Glide`;
           break;
 
         case 'crane-shot':
-          const craneP = tNorm;
+          const craneP = isComboMode ? p : tNorm;
           vfTransY = -70 + craneP * 70;
           vfRotX = 35 - craneP * 35;
           vfScale = 0.75 + craneP * 0.45;
@@ -2091,39 +2122,40 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           rigTransY = 120 - craneP * 45;
           posZ = 12.0 - craneP * 10.5;
           rotP = 35 - craneP * 35;
-          vectorDesc = `Crane Descending: Z=${posZ.toFixed(1)}m`;
+          vectorDesc = `Crane Swoop Down: Z=${posZ.toFixed(1)}m`;
           break;
 
         case 'spiral-corkscrew':
-          const scAngle = animProgress * 1.4;
+          const scAngle = activeProgress * 1.4;
+          const scP = isComboMode ? p : tNorm;
           vfRotY = -Math.sin(scAngle) * 30;
-          vfTransY = -40 * tNorm;
+          vfTransY = -40 * scP;
           rigTransX = Math.cos(scAngle) * 65;
           rigTransY = Math.sin(scAngle) * 65;
-          rigTransZ = -45 * tNorm;
-          posZ = 1.2 + 6.0 * tNorm;
+          rigTransZ = -45 * scP;
+          posZ = 1.2 + 6.0 * scP;
           rotY = (scAngle * 180 / Math.PI) % 360;
           vectorDesc = `Spiral Ascending: Z=${posZ.toFixed(1)}m`;
           break;
 
         case 'fpv-drone-dive':
-          const diveFactor = tNorm;
+          const diveFactor = isComboMode ? p : tNorm;
           vfTransY = -120 + diveFactor * 160;
           vfScale = 0.6 + diveFactor * 1.8;
           vfRotX = 75 - diveFactor * 75;
-          vfRotZ = Math.sin(animProgress * 3) * 32;
+          vfRotZ = Math.sin(activeProgress * 3.5) * 26 * (1 - diveFactor * 0.5);
           rotR = vfRotZ;
           rotP = vfRotX;
           posZ = 18.0 - diveFactor * 16.5;
           rigTransZ = 80 - diveFactor * 75;
-          if (diveFactor > 0.4 && layerFxSpeed) {
-            layerFxSpeed.style.opacity = `${(diveFactor - 0.4) * 1.5}`;
+          if (diveFactor > 0.25 && layerFxSpeed) {
+            layerFxSpeed.style.opacity = `${(diveFactor - 0.25) * 1.8}`;
           }
-          vectorDesc = `FPV Dive: Z=${posZ.toFixed(1)}m, Speed: 140km/h`;
+          vectorDesc = `FPV Dive: Z=${posZ.toFixed(1)}m, Dive Speed: ${(diveFactor * 160).toFixed(0)}km/h`;
           break;
 
         case 'fly-through':
-          const flyP = tNorm;
+          const flyP = isComboMode ? p : tNorm;
           vfScale = 0.7 + flyP * 1.8;
           vfTransZ = -50 + flyP * 150;
           if (layerForegroundLeft && layerForegroundRight) {
@@ -2135,21 +2167,27 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
 
         // Special (8)
         case 'birds-eye':
+          const beP = isComboMode ? p : tNorm;
+          const beRot = beP * 45;
           vfRotX = 82;
-          vfTransY = -40;
-          vfScale = 0.82;
+          vfRotZ = beRot;
+          vfTransY = -40 + beP * 15;
+          vfScale = 0.75 + beP * 0.3;
           rotP = -90;
-          posZ = 15.0;
+          rotR = beRot;
+          posZ = 18.0 - beP * 6.0;
           rigTransY = 0;
-          rigTransZ = 85;
-          rigRotZ = 0;
-          vectorDesc = `Birds-Eye: 90° Top-Down View`;
+          rigTransZ = 85 - beP * 25;
+          rigRotZ = beRot;
+          vectorDesc = `Birds-Eye: 90° Top-Down View (Z=${posZ.toFixed(1)}m, Rot: ${beRot.toFixed(0)}°)`;
           break;
 
         case 'worm-eye':
-          vfRotX = -45;
-          vfTransY = 55;
-          vfScale = 1.45;
+          const weBreath = Math.sin(activeProgress * 1.5);
+          const weP = isComboMode ? p : tNorm;
+          vfRotX = -45 + weBreath * 2;
+          vfTransY = 55 - weP * 15;
+          vfScale = 1.35 + 0.2 * weP + 0.05 * weBreath;
           rotP = 65;
           posZ = 0.15;
           rigTransY = 40;
@@ -2158,39 +2196,54 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           break;
 
         case 'dutch-angle':
-          vfRotZ = 25;
-          rotR = 25;
-          vfScale = 1.1;
-          vectorDesc = `Dutch Canted Angle: 25°`;
+          const dutchP = isComboMode ? p : tNorm;
+          const dutchFloat = Math.sin(activeProgress * 2) * 1.5;
+          vfRotZ = 16 + 14 * dutchP + dutchFloat;
+          rotR = vfRotZ;
+          vfRotX = Math.cos(activeProgress * 1.5) * 2;
+          vfScale = 1.05 + 0.08 * dutchP;
+          vectorDesc = `Dutch Canted Tilt: ${rotR.toFixed(1)}° (Psychological Strain)`;
           break;
 
         case 'pov-shot':
-          vfTransX = Math.sin(animProgress * 3) * 6;
-          vfTransY = Math.sin(animProgress * 5) * 4;
-          vfRotZ = Math.sin(animProgress * 3) * 2;
-          vectorDesc = `First-Person POV Camera`;
+          const povCadence = activeProgress * 4;
+          vfTransX = Math.sin(povCadence) * 8;
+          vfTransY = Math.abs(Math.sin(povCadence * 2)) * 6 - 3;
+          vfRotZ = Math.sin(povCadence) * 3.5;
+          vfRotX = Math.cos(povCadence) * 2;
+          vfScale = 1.02 + 0.05 * Math.sin(povCadence * 2);
+          vectorDesc = `First-Person POV Sprint (Footstep Cadence)`;
           break;
 
         case 'ots-shot':
-          vfRotY = -15;
-          vfTransX = 28;
-          rotY = -15;
           if (layerOtsShoulder) layerOtsShoulder.style.opacity = '1';
-          vectorDesc = `Over-The-Shoulder Dialogue`;
+          const otsBreath = Math.sin(activeProgress * 1.6);
+          const otsSway = Math.cos(activeProgress * 1.2);
+          const otsP = isComboMode ? p : tNorm;
+          vfRotY = -15 + otsSway * 1.5;
+          rotY = vfRotY;
+          vfTransX = 28 + otsSway * 2.5;
+          vfTransY = otsBreath * 2;
+          vfScale = 1.0 + 0.12 * otsP;
+          if (layerOtsShoulder) {
+            layerOtsShoulder.style.transform = `translateX(${-otsSway * 4}px) translateY(${otsBreath * 2}px)`;
+          }
+          vectorDesc = `Over-The-Shoulder Dialogue (Tension Push: +${(otsP * 100).toFixed(0)}%)`;
           break;
 
         case 'low-hero':
-          vfRotX = -25;
-          vfTransY = 25;
-          vfScale = 1.25;
+          const lhFloat = Math.sin(activeProgress * 1.8);
+          vfRotX = -25 + lhFloat * 2;
+          vfTransY = 25 - lhFloat * 3;
+          vfScale = 1.25 + 0.05 * Math.cos(activeProgress * 1.5);
           rotP = 30;
           posZ = 0.6;
           subjectAnchor.style.boxShadow = '0 0 35px rgba(234, 179, 8, 0.4)';
-          vectorDesc = `Low-Angle Hero Shot (King aura)`;
+          vectorDesc = `Low-Angle Hero Shot (King Aura)`;
           break;
 
         case 'bullet-time':
-          const btAngle = animProgress * 4;
+          const btAngle = activeProgress * 4;
           vfRotY = -Math.sin(btAngle) * 45;
           horizonOffset = Math.sin(btAngle) * 80;
           rigTransX = Math.cos(btAngle) * 85;
@@ -2207,7 +2260,11 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           }
           subjectAnchor.style.filter = 'blur(0px)';
           horizonLayer.style.filter = 'blur(0px)';
-          vectorDesc = `Split Diopter: Dual Sharp Planes`;
+          const diopterDrift = Math.sin(activeProgress * 1.5) * 5;
+          const diopterP = isComboMode ? p : tNorm;
+          vfTransX = -4 + diopterDrift;
+          vfScale = 1.02 + 0.06 * diopterP;
+          vectorDesc = `Split Diopter: Dual Sharp Planes (Optical Shift)`;
           break;
 
         default:
