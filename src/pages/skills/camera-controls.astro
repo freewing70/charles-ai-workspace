@@ -1,0 +1,1106 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getAssetUrl } from '../../lib/assets';
+
+const pageTitle = "AI 電影運鏡工程模擬器：40 款標準鏡頭語言 × 雙視角 3D 即時模擬 × 提示詞生成器";
+const pageDescription = "專為 AI 網劇與短影音創作者打造的 3D 電影運鏡工程模擬器。整合 40 款標準鏡頭語言、雙視角空間透視模擬台、5 大爆款短劇黃金分鏡模板，並支援可靈 Kling、Runway、Luma、Sora 與 Wan 2.1 提示詞一鍵轉譯輸出。";
+const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  image={coverUrl}
+  type="article"
+  contentType="skill"
+  publishedDate="2026-10-27"
+  modifiedDate="2026-10-27"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-500 font-mono">
+      <a href="/" class="hover:text-[#155EEF] transition-colors">首頁</a>
+      <span>/</span>
+      <a href="/skills" class="hover:text-[#155EEF] transition-colors">Skills</a>
+      <span>/</span>
+      <span class="text-[#07172D] font-bold">camera-controls</span>
+    </nav>
+
+    <!-- Header Hero Card -->
+    <header class="freewing-card p-6 sm:p-10 border border-slate-200 bg-gradient-to-br from-slate-900 via-[#07172D] to-slate-900 text-white shadow-xl relative overflow-hidden">
+      <!-- Background Ambient Glow -->
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-4xl">
+        <div class="flex flex-wrap items-center gap-2.5 mb-4">
+          <span class="text-xs font-mono font-bold uppercase px-3 py-1 rounded-full bg-blue-500/20 text-[#27A8FF] border border-blue-400/30">
+            AI CINEMATOGRAPHY
+          </span>
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            40 標準運鏡矩陣
+          </span>
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            雙視角 3D 即時模擬
+          </span>
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            短劇分鏡模板
+          </span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4 leading-tight">
+          AI 電影運鏡工程模擬器
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl mb-6">
+          不要盲目抽卡消耗算力。以精確的攝影物理坐標為基礎，透過雙視角 3D 空間透視即時預覽 40 款標準運鏡語言，並一鍵編譯輸出可靈 Kling、Runway Gen-3/4、Luma、Sora 與 Wan 2.1 影視級提示詞。
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 pt-4 border-t border-slate-800">
+          <div><span class="text-slate-500">適用平台:</span> <span class="text-slate-200 font-semibold">可靈 Kling · Runway · Luma · Sora · Wan 2.1 · ComfyUI</span></div>
+          <div><span class="text-slate-500">&bull;</span></div>
+          <div><span class="text-slate-500">核心優勢:</span> <span class="text-amber-300 font-semibold">零依賴純前端 3D 渲染 · 毫秒級即時互動</span></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: DUAL-VIEWPORT 3D SIMULATOR STAGE -->
+    <section class="space-y-4" aria-label="運鏡模擬核心視窗">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-[#07172D] flex items-center gap-2">
+            <span>雙視角空間透視模擬台</span>
+            <span class="text-xs font-mono font-medium px-2.5 py-0.5 rounded-full bg-blue-100 text-[#155EEF]">Dual 3D Viewport</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">左側顯示攝影機鏡頭觀景窗視角，右側顯示三維空間機位軌跡與視錐台運動。</p>
+        </div>
+
+        <!-- Global Playback Controls -->
+        <div class="flex items-center gap-2 bg-white p-1.5 rounded-xl border border-slate-200 shadow-2xs">
+          <button id="btn-toggle-play" class="px-3 py-1.5 rounded-lg bg-[#155EEF] hover:bg-[#0D47C2] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer">
+            <svg id="icon-pause" class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            <svg id="icon-play" class="w-3.5 h-3.5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <span id="label-play">暫停動畫</span>
+          </button>
+          <div class="h-4 w-px bg-slate-200"></div>
+          <button id="btn-speed-toggle" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-700 text-xs font-mono font-semibold transition-colors cursor-pointer" title="切換動畫速度">
+            速度: <span id="label-speed">1.0x</span>
+          </button>
+          <div class="h-4 w-px bg-slate-200"></div>
+          <button id="btn-toggle-grid" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-700 text-xs font-mono font-semibold transition-colors cursor-pointer" title="切換構圖線">
+            構圖九宮格: <span id="label-grid" class="text-emerald-700 font-bold">開</span>
+          </button>
+          <div class="h-4 w-px bg-slate-200"></div>
+          <button id="btn-reset-cam" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-600 text-xs font-mono transition-colors cursor-pointer" title="重設機位">
+            重設機位
+          </button>
+        </div>
+      </div>
+
+      <!-- Viewports Container Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Viewport A: Camera Viewfinder (觀景窗視角) -->
+        <div class="freewing-card border border-slate-300 bg-slate-950 rounded-2xl overflow-hidden shadow-xl flex flex-col">
+          <!-- Monitor Top HUD -->
+          <div class="bg-slate-900 border-b border-slate-800 px-4 py-2 flex items-center justify-between text-[11px] font-mono text-slate-400 select-none">
+            <div class="flex items-center gap-2.5">
+              <span class="flex items-center gap-1 text-rose-500 font-bold animate-pulse">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                <span>REC</span>
+              </span>
+              <span class="text-slate-500">|</span>
+              <span class="text-slate-300">4K DCI · 60 FPS</span>
+              <span class="text-slate-500">|</span>
+              <span class="text-amber-400 font-bold" id="hud-movement-name">PAN LEFT (左水平搖鏡)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-slate-300 font-mono" id="hud-lens-spec">35mm · F/1.8</span>
+              <span class="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] text-emerald-400 font-bold">LOG-C</span>
+            </div>
+          </div>
+
+          <!-- The 3D Viewfinder Stage -->
+          <div class="relative w-full aspect-video bg-gradient-to-b from-[#071325] via-[#0D1F3C] to-[#040915] overflow-hidden flex items-center justify-center select-none" style="perspective: 750px;">
+            
+            <!-- Grid Lines (Rule of Thirds Overlay) -->
+            <div id="rule-of-thirds-grid" class="absolute inset-0 pointer-events-none z-20 transition-opacity duration-300">
+              <div class="w-full h-full border border-white/10 relative">
+                <!-- Vertical lines -->
+                <div class="absolute left-1/3 top-0 bottom-0 w-px bg-cyan-400/25 border-dashed"></div>
+                <div class="absolute left-2/3 top-0 bottom-0 w-px bg-cyan-400/25 border-dashed"></div>
+                <!-- Horizontal lines -->
+                <div class="absolute top-1/3 left-0 right-0 h-px bg-cyan-400/25 border-dashed"></div>
+                <div class="absolute top-2/3 left-0 right-0 h-px bg-cyan-400/25 border-dashed"></div>
+                <!-- Center Target Crosshair -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 pointer-events-none opacity-40">
+                  <div class="w-full h-px bg-amber-400 absolute top-1/2"></div>
+                  <div class="h-full w-px bg-amber-400 absolute left-1/2"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Viewport 3D Dynamic Stage World -->
+            <div id="viewfinder-stage" class="w-full h-full relative transition-transform duration-100 ease-out flex items-center justify-center" style="transform-style: preserve-3d;">
+              
+              <!-- Layer 1: Background Distant Skyline / Horizon -->
+              <div id="layer-horizon" class="absolute inset-x-0 bottom-1/3 h-32 flex items-end justify-between px-8 opacity-30 pointer-events-none transition-transform duration-200">
+                <div class="w-16 h-28 bg-blue-400/30 rounded-t"></div>
+                <div class="w-24 h-40 bg-blue-300/20 rounded-t"></div>
+                <div class="w-12 h-20 bg-blue-400/25 rounded-t"></div>
+                <div class="w-32 h-48 bg-blue-200/20 rounded-t"></div>
+                <div class="w-20 h-32 bg-blue-400/30 rounded-t"></div>
+                <div class="w-28 h-44 bg-blue-300/20 rounded-t"></div>
+              </div>
+
+              <!-- Layer 2: 3D Ground Perspective Grid -->
+              <div class="absolute -bottom-20 w-[160%] h-64 opacity-35" style="transform: rotateX(75deg); background: radial-gradient(circle, rgba(0,242,254,0.3) 0%, transparent 70%), repeating-linear-gradient(0deg, #00F2FE 0px, #00F2FE 1px, transparent 1px, transparent 24px), repeating-linear-gradient(90deg, #00F2FE 0px, #00F2FE 1px, transparent 1px, transparent 24px);"></div>
+
+              <!-- Layer 3: Central Subject (3D Stylized Character / Mannequin) -->
+              <div id="subject-anchor" class="relative z-10 flex flex-col items-center transition-all duration-200" style="transform-style: preserve-3d;">
+                <!-- Character Head -->
+                <div class="w-12 h-14 rounded-full bg-gradient-to-b from-amber-200 to-amber-400 border border-amber-100 shadow-md flex items-center justify-center relative">
+                  <div class="w-7 h-2 rounded bg-amber-800/40 mt-1"></div>
+                </div>
+                <!-- Character Torso (Trench Coat) -->
+                <div class="w-20 h-28 bg-gradient-to-b from-blue-700 to-slate-900 rounded-t-xl rounded-b-lg border border-blue-400/30 shadow-lg mt-1 relative flex justify-center">
+                  <div class="w-1 h-full bg-amber-400/40"></div>
+                </div>
+                <!-- Character Legs -->
+                <div class="flex gap-2 -mt-1">
+                  <div class="w-6 h-20 bg-slate-900 border-x border-slate-700"></div>
+                  <div class="w-6 h-20 bg-slate-900 border-x border-slate-700"></div>
+                </div>
+                <!-- Ground Shadow -->
+                <div class="w-28 h-6 bg-black/60 rounded-full blur-xs -mt-2"></div>
+              </div>
+
+              <!-- Layer 4: Foreground Elements for Parallax (Pillars / Streetlights) -->
+              <div id="layer-foreground-left" class="absolute -left-12 top-4 w-10 h-72 bg-gradient-to-r from-slate-950 to-slate-800 border-r border-cyan-400/30 opacity-70 transition-transform duration-150"></div>
+              <div id="layer-foreground-right" class="absolute -right-12 top-4 w-10 h-72 bg-gradient-to-l from-slate-950 to-slate-800 border-l border-cyan-400/30 opacity-70 transition-transform duration-150"></div>
+            </div>
+
+            <!-- Viewfinder Safety Markers (Corner Brackets) -->
+            <div class="absolute inset-4 pointer-events-none border border-white/10 z-20">
+              <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-amber-400"></div>
+              <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-amber-400"></div>
+              <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-amber-400"></div>
+              <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-amber-400"></div>
+            </div>
+          </div>
+
+          <!-- Monitor Bottom Bar -->
+          <div class="bg-slate-900/90 border-t border-slate-800 px-4 py-2 flex items-center justify-between text-xs text-slate-400 font-mono">
+            <div class="flex items-center gap-2">
+              <span class="text-slate-500">主體距離:</span>
+              <span id="hud-subject-distance" class="text-cyan-400 font-bold">2.4 m</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-slate-500">鏡頭運動向量:</span>
+              <span id="hud-vector-text" class="text-amber-400 font-bold">Yaw: -18.0°</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Viewport B: God's Eye 3D Coordinate Stage (上帝機位俯瞰視角) -->
+        <div class="freewing-card border border-slate-300 bg-slate-950 rounded-2xl overflow-hidden shadow-xl flex flex-col">
+          <!-- Rig HUD Header -->
+          <div class="bg-slate-900 border-b border-slate-800 px-4 py-2 flex items-center justify-between text-[11px] font-mono text-slate-400 select-none">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+              <span class="text-slate-200 font-bold">3D RIG COORDINATES (機位空間圖)</span>
+            </div>
+            <span class="text-cyan-400 font-bold">ISOMETRIC 3D</span>
+          </div>
+
+          <!-- The Isometric 3D Stage -->
+          <div class="relative w-full aspect-video bg-[#050C17] overflow-hidden flex items-center justify-center select-none" style="perspective: 900px;">
+            
+            <!-- Isometric Rotation Wrapper -->
+            <div id="god-eye-stage" class="w-72 h-72 relative flex items-center justify-center transition-transform duration-200 ease-out" style="transform-style: preserve-3d; transform: rotateX(55deg) rotateZ(-35deg);">
+              
+              <!-- 3D Grid Floor -->
+              <div class="absolute inset-0 border border-cyan-500/30 rounded-xl" style="background: repeating-linear-gradient(0deg, rgba(0,242,254,0.15) 0px, rgba(0,242,254,0.15) 1px, transparent 1px, transparent 28px), repeating-linear-gradient(90deg, rgba(0,242,254,0.15) 0px, rgba(0,242,254,0.15) 1px, transparent 1px, transparent 28px);">
+                <!-- Coordinate Axis Indicators -->
+                <div class="absolute top-1/2 left-0 right-0 h-px bg-rose-500/50"></div>
+                <div class="absolute left-1/2 top-0 bottom-0 w-px bg-emerald-500/50"></div>
+              </div>
+
+              <!-- Center Target Subject (The Yellow Marker) -->
+              <div class="absolute w-8 h-8 rounded-full bg-amber-400 border-2 border-white shadow-[0_0_15px_rgba(251,191,36,0.8)] z-10 flex items-center justify-center text-[10px] font-bold text-slate-950 font-mono">
+                ACT
+              </div>
+
+              <!-- Orbit Path Guide Circle -->
+              <div class="absolute w-48 h-48 rounded-full border border-dashed border-cyan-400/30 pointer-events-none"></div>
+
+              <!-- Virtual Camera Body & Frustum (The Moving Rig) -->
+              <div id="camera-rig-marker" class="absolute z-20 flex flex-col items-center transition-all duration-100 ease-out" style="transform: translate3d(0px, 85px, 0px) rotateZ(0deg);">
+                <!-- Camera Frustum Cone (Light field) -->
+                <div class="w-24 h-32 -mb-2 bg-gradient-to-t from-cyan-400/25 to-transparent clip-frustum pointer-events-none"></div>
+                <!-- Camera Icon / Body -->
+                <div class="w-7 h-7 bg-rose-600 rounded-md border-2 border-white shadow-[0_0_12px_rgba(244,63,94,0.9)] flex items-center justify-center text-[9px] font-mono font-bold text-white">
+                  CAM
+                </div>
+                <!-- Orientation Pointer Arrow -->
+                <div class="w-0.5 h-6 bg-rose-400 mt-0.5"></div>
+              </div>
+            </div>
+
+            <!-- Coordinate Axes Label Overlay -->
+            <div class="absolute bottom-3 left-4 text-[10px] font-mono text-slate-500 space-y-0.5 pointer-events-none">
+              <div><span class="text-rose-400 font-bold">X軸 (紅)</span>: 水平推軌 (Truck)</div>
+              <div><span class="text-emerald-400 font-bold">Y軸 (綠)</span>: 前後推拉 (Dolly)</div>
+              <div><span class="text-cyan-400 font-bold">Z軸 (藍)</span>: 垂直升降 (Pedestal)</div>
+            </div>
+          </div>
+
+          <!-- Rig Bottom HUD Coordinates -->
+          <div class="bg-slate-900/90 border-t border-slate-800 px-4 py-2 flex items-center justify-between text-xs text-slate-400 font-mono">
+            <div class="flex items-center gap-2">
+              <span class="text-slate-500">實體機位座標:</span>
+              <span id="rig-coord-text" class="text-emerald-400 font-bold">X: 0.0m, Y: -2.4m, Z: 1.2m</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-slate-500">俯仰/旋轉:</span>
+              <span id="rig-rot-text" class="text-cyan-400 font-bold">P: 0°, Y: 0°, R: 0°</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: 40 CAMERA MOVEMENTS PALETTE & SELECTOR -->
+    <section class="freewing-card p-6 sm:p-8 border border-slate-200" aria-label="40款標準運鏡選擇器">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-[#07172D] flex items-center gap-2">
+            <span>40 款工業級標準運鏡語言矩陣</span>
+            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-amber-100 text-[#B45309]">點擊即時測試</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+            點擊任一運鏡晶片，上方 3D 模擬台將同步演算透視位移，下方將即時編譯各模型 Prompt。
+          </p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap items-center gap-1.5" id="category-filter-buttons">
+          <button data-cat="all" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#155EEF] text-white shadow-2xs transition-all cursor-pointer">全部 (40)</button>
+          <button data-cat="physical" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:text-slate-900 transition-all cursor-pointer">基礎物理位移 (12)</button>
+          <button data-cat="optical" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:text-slate-900 transition-all cursor-pointer">鏡頭焦段光學 (6)</button>
+          <button data-cat="compound" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:text-slate-900 transition-all cursor-pointer">複合軌跡載具 (14)</button>
+          <button data-cat="special" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:text-slate-900 transition-all cursor-pointer">電影特殊視角 (8)</button>
+        </div>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="mb-6 relative">
+        <input
+          type="text"
+          id="movement-search-input"
+          placeholder="搜尋運鏡關鍵字（如：dolly, 搖鏡, 變焦, 俯衝, 追逐, orbit）..."
+          class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#07172D] placeholder-slate-400 focus:outline-none focus:border-[#155EEF] focus:bg-white focus:ring-2 focus:ring-[#155EEF]/10 font-medium transition-all"
+        />
+        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+
+      <!-- Movement Chips Grid (Injected / Rendered via Script) -->
+      <div id="movement-chips-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 max-h-[460px] overflow-y-auto pr-1">
+        <!-- Rendered by Client Script -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: MULTI-MODEL PROMPT COMPILER & SYNTAX EXPORTER -->
+    <section class="freewing-card p-6 sm:p-10 border border-slate-200 bg-slate-900 text-white shadow-xl" aria-label="提示詞編譯產生器">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-800">
+        <div>
+          <span class="text-xs font-mono uppercase font-bold text-amber-400 tracking-wider block mb-1">PROMPT COMPILER</span>
+          <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+            AI 影視提示詞一鍵編譯器
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+            依據當前選定的運鏡語言與鏡頭焦段，自動轉換為主流 AI 視頻生成模型的專用提示詞格式。
+          </p>
+        </div>
+
+        <!-- Model Switcher Tabs -->
+        <div class="flex flex-wrap items-center gap-1.5 bg-slate-800 p-1.5 rounded-xl border border-slate-700" id="model-tabs">
+          <button data-model="kling" class="model-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#155EEF] text-white shadow-2xs transition-all cursor-pointer">可靈 Kling</button>
+          <button data-model="runway" class="model-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white transition-all cursor-pointer">Runway Gen-3</button>
+          <button data-model="luma" class="model-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white transition-all cursor-pointer">Luma Dream</button>
+          <button data-model="sora" class="model-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white transition-all cursor-pointer">OpenAI Sora</button>
+          <button data-model="wan" class="model-tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white transition-all cursor-pointer">Wan 2.1 / ComfyUI</button>
+        </div>
+      </div>
+
+      <!-- Customization Controls Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1.5">鏡頭焦段 (Focal Length)</label>
+          <select id="select-focal-length" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-slate-200 focus:outline-none focus:border-blue-400">
+            <option value="24mm">24mm 超廣角 (壯闊環境 / 張力透視)</option>
+            <option value="35mm" selected>35mm 電影標準人文鏡頭 (近景＋環境平衡)</option>
+            <option value="50mm">50mm 人眼真實視角 (寫實生活感)</option>
+            <option value="85mm">85mm 電影肖像鏡頭 (唯美淺景深 / 情感特寫)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1.5">運鏡速度 (Motion Speed)</label>
+          <select id="select-motion-speed" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-slate-200 focus:outline-none focus:border-blue-400">
+            <option value="slow">Slow (緩慢平穩 · 鋪墊情緒)</option>
+            <option value="normal" selected>Normal (標準速度 · 商業節奏)</option>
+            <option value="fast">Fast / Dynamic (疾速凌厲 · 動作張力)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1.5">自訂被攝主體 (Subject Prompt)</label>
+          <input
+            type="text"
+            id="input-custom-subject"
+            value="一位身穿深色風衣的男子站在霓虹閃爍的雨夜街道上"
+            class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-blue-400 font-medium"
+          />
+        </div>
+      </div>
+
+      <!-- The Compiled Output Box -->
+      <div class="relative bg-slate-950 border border-slate-800 rounded-2xl p-5 mb-4 group">
+        <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-2">
+          <span>COMPILED OUTPUT:</span>
+          <span id="prompt-model-badge" class="text-blue-400 font-bold uppercase">可靈 KLING AI 語法</span>
+        </div>
+        <pre id="compiled-prompt-output" class="text-sm font-mono text-emerald-400 whitespace-pre-wrap leading-relaxed select-all">
+載入提示詞中...
+        </pre>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="text-xs text-slate-400">
+          💡 提示：點擊右側按鈕可直接將提示詞複製到剪貼簿，直接在該 AI 視頻生成軟體中使用。
+        </div>
+        <button
+          id="btn-copy-prompt"
+          class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white text-sm font-bold transition-all shadow-md shadow-blue-500/20 flex items-center gap-2 cursor-pointer active:scale-98"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+          </svg>
+          <span id="copy-btn-label">一鍵複製提示詞 (Copy)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 4: SHORT DRAMA GOLDEN COMBO PRESETS -->
+    <section class="freewing-card p-6 sm:p-10 border border-slate-200" aria-label="短劇分鏡黃金組合">
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-mono uppercase font-bold text-[#155EEF] tracking-wider block mb-1">STORYBOARD PRESETS</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#07172D]">
+          爆款短劇 5 大黃金分鏡組合包
+        </h2>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+          短劇在 TikTok / Reels 要求前 3 秒留人、第 15 秒反轉、第 45 秒高潮。單一鏡頭無法創造戲劇張力，以下為百萬播放短劇最常使用的 5 套經典鏡頭組合：
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="preset-cards-grid">
+        <!-- Preset 1 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-blue-100 text-[#155EEF]">模板 01 · 爽劇逆襲</span>
+              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
+            </div>
+            <h3 class="text-base font-bold text-[#07172D] group-hover:text-[#155EEF] transition-colors">主角霸氣登場打臉組</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              由低角度仰拍建立崇高氣場，接續側向大步跟隨，最後以 180° 環繞揭露身後全場震驚的眾人。
+            </p>
+            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>鏡 A: Tilt Up (低角度垂直仰拍)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>鏡 B: Lead Tracking (前方領路跟拍)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>鏡 C: Arc 180 (半環繞帶出全場反應)</div>
+            </div>
+          </div>
+          <button data-combo="hero" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-blue-50 text-[#155EEF] border border-blue-200 text-xs font-bold transition-all cursor-pointer">
+            載入此組合分鏡
+          </button>
+        </div>
+
+        <!-- Preset 2 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-amber-100 text-amber-800">模板 02 · 懸疑反轉</span>
+              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
+            </div>
+            <h3 class="text-base font-bold text-[#07172D] group-hover:text-amber-700 transition-colors">真相大崩潰震撼組</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              由平靜對話突然衝擊變焦至關鍵證據，緊接著以眩暈推拉（Dolly Zoom）創造世界瓦解的窒息感。
+            </p>
+            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>鏡 A: Over-the-Shoulder (過肩對話)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>鏡 B: Crash Zoom (極速衝擊變焦證據)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>鏡 C: Dolly Zoom (背景扭曲精神崩潰)</div>
+            </div>
+          </div>
+          <button data-combo="vertigo" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-amber-50 text-amber-800 border border-amber-300 text-xs font-bold transition-all cursor-pointer">
+            載入此組合分鏡
+          </button>
+        </div>
+
+        <!-- Preset 3 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-rose-400 hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-rose-100 text-rose-800">模板 03 · 動作逃生</span>
+              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
+            </div>
+            <h3 class="text-base font-bold text-[#07172D] group-hover:text-rose-700 transition-colors">生死極限追逐戰鬥組</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              以高空 FPV 俯衝進入巷戰，無縫切入第一人稱奔跑視角，最後以極速甩鏡轉場完成攻防反殺。
+            </p>
+            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>鏡 A: FPV Drone Dive (穿越機極速俯衝)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>鏡 B: POV First-Person (第一人稱晃動逃脫)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>鏡 C: Whip Pan (高速甩鏡突遇伏擊)</div>
+            </div>
+          </div>
+          <button data-combo="chase" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-rose-50 text-rose-800 border border-rose-300 text-xs font-bold transition-all cursor-pointer">
+            載入此組合分鏡
+          </button>
+        </div>
+
+        <!-- Preset 4 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-purple-400 hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-purple-100 text-purple-800">模板 04 · 情感博弈</span>
+              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
+            </div>
+            <h3 class="text-base font-bold text-[#07172D] group-hover:text-purple-700 transition-colors">雙人心理對峙暗湧組</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              由前景毒酒盃移焦至後景角色，隨後以緩慢推軌逼近微顫眼眸，最終後拉抽離留下決裂背影。
+            </p>
+            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>鏡 A: Rack Focus (前後景平滑焦點切換)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>鏡 B: Dolly In (淺景深推近微表情)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>鏡 C: Dolly Out (後退抽離隱入陰影)</div>
+            </div>
+          </div>
+          <button data-combo="drama" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-purple-50 text-purple-800 border border-purple-300 text-xs font-bold transition-all cursor-pointer">
+            載入此組合分鏡
+          </button>
+        </div>
+
+        <!-- Preset 5 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800">模板 05 · 世界觀建立</span>
+              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
+            </div>
+            <h3 class="text-base font-bold text-[#07172D] group-hover:text-emerald-700 transition-colors">史詩宏大開場航拍組</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              90度神之俯瞰展現賽博巨型都市，接續搖臂俯衝穿透摩天大樓，最後平穩環繞樓頂主角。
+            </p>
+            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>鏡 A: Birds-Eye View (90度神之俯瞰)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>鏡 B: Fly-Through (穿越大樓招牌穿梭)</div>
+              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>鏡 C: Orbit 360 (樓頂主角全景環繞)</div>
+            </div>
+          </div>
+          <button data-combo="epic" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold transition-all cursor-pointer">
+            載入此組合分鏡
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: COMPREHENSIVE CINEMATOGRAPHY ENCYCLOPEDIA (SEO / CRAWLER RICH TEXT) -->
+    <section class="freewing-card p-6 sm:p-12 border border-slate-200 space-y-10 prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-[#07172D] prose-a:text-[#155EEF]" aria-label="鏡頭語言百科辭典">
+      <div>
+        <h2 class="text-3xl font-extrabold text-[#07172D] mb-4">
+          AI 電影鏡頭語言完全辭典（40 款物理運鏡解析）
+        </h2>
+        <p class="text-slate-600 text-base leading-relaxed">
+          深入解析每個攝影機物理位移、光學焦段變更與動態載具的專業電影美學定義。本辭典提供短劇創作者在撰寫分鏡劇本與訓練 LoRA 時的標準化術語參考。
+        </p>
+      </div>
+
+      <!-- Category 1 Encyclopedia Block -->
+      <div class="space-y-6 pt-6 border-t border-slate-200">
+        <h3 class="text-2xl font-bold text-[#155EEF]">一、基礎三軸物理位移運鏡（12 款）</h3>
+        <p class="text-sm text-slate-600">
+          以攝影機自身的物理坐標（三腳架、滑軌）為參考基準，不涉及焦距改變的真實空間移動。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-base text-[#07172D]">1. Pan Left / Pan Right（水平搖鏡）</h4>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              <strong>物理機制：</strong> 攝影機固定於原地不動，鏡頭水平向左或向右旋轉（Yaw 軸偏航）。<br/>
+              <strong>短劇心理：</strong> 用於帶出宏大場景環境、跟隨移動人物，或在對話中平滑過渡至另一位演員。<br/>
+              <strong>提示詞寫法：</strong> <code>pan left, smooth panning shot across the neon street</code>
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-base text-[#07172D]">2. Tilt Up / Tilt Down（垂直仰俯鏡）</h4>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              <strong>物理機制：</strong> 攝影機機身高度不變，鏡頭向上仰起或向下俯低（Pitch 軸俯仰）。<br/>
+              <strong>短劇心理：</strong> 仰鏡表現威嚴、權力、崇敬；俯鏡表現孤獨、渺小、陷入絕境。<br/>
+              <strong>提示詞寫法：</strong> <code>tilt up from character's boots to eyes, dramatic lighting</code>
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-base text-[#07172D]">3. Dolly In / Dolly Out（前後推拉軌道）</h4>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              <strong>物理機制：</strong> 攝影機整機架在滑軌上向主體推進或遠離，產生強烈的背景透視壓縮變化。<br/>
+              <strong>短劇心理：</strong> Dolly In 強烈聚集於角色驚愕反應；Dolly Out 則表現主角與世界的脫節孤寂。<br/>
+              <strong>提示詞寫法：</strong> <code>dolly in towards face, 35mm lens, smooth track</code>
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-base text-[#07172D]">4. Truck Left / Truck Right（橫向平行推軌）</h4>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              <strong>物理機制：</strong> 攝影機沿垂直於光軸的左右軌道平移，前景與後景產生明顯的視差（Parallax）。<br/>
+              <strong>短劇心理：</strong> 伴隨角色走廊穿梭，極具電影動態感。<br/>
+              <strong>提示詞寫法：</strong> <code>truck right, lateral moving shot, parallax foreground pillars</code>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 2 Encyclopedia Block -->
+      <div class="space-y-6 pt-6 border-t border-slate-200">
+        <h3 class="text-2xl font-bold text-[#155EEF]">二、鏡頭光學焦段與景深變化（6 款）</h3>
+        <p class="text-sm text-slate-600">
+          攝影機機位不發生物理移動，透過調整鏡頭焦距（Focal Length）或光圈（Aperture）實現情緒導引。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-base text-[#07172D]">5. Crash Zoom（極速衝擊變焦）</h4>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              <strong>物理機制：</strong> 瞬間猛烈縮短焦距拉近主體，具有強烈昆汀塔倫提諾（Quentin Tarantino）B級片風格。<br/>
+              <strong>短劇心理：</strong> 突發發現真相、喜劇反轉或極度驚訝的瞬間，短影音抓眼球必備。<br/>
+              <strong>提示詞寫法：</strong> <code>crash zoom, fast dynamic snap zoom on eyes, cinematic</code>
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-base text-[#07172D]">6. Rack Focus（焦點平滑轉移）</h4>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+              <strong>物理機制：</strong> 前景模糊後景清晰，隨後焦點平滑過渡使前景清晰後景模糊。<br/>
+              <strong>短劇心理：</strong> 暗示因果關係（例如前景手中的假合約，轉移至後景陰險冷笑的管家）。<br/>
+              <strong>提示詞寫法：</strong> <code>rack focus from foreground bottle to background character</code>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 3 & 4 Summary Table -->
+      <div class="space-y-6 pt-6 border-t border-slate-200">
+        <h3 class="text-2xl font-bold text-[#155EEF]">三、特殊視角與複合運鏡快速索引表</h3>
+        <div class="overflow-x-auto not-prose">
+          <table class="w-full text-left text-xs border border-slate-200 rounded-xl overflow-hidden">
+            <thead class="bg-slate-100 text-[#07172D] font-bold">
+              <tr>
+                <th class="p-3">運鏡名稱</th>
+                <th class="p-3">英文提示詞</th>
+                <th class="p-3">視覺特徵</th>
+                <th class="p-3">短劇經典應用</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-600">
+              <tr>
+                <td class="p-3 font-semibold text-[#07172D]">Orbit 360 (360° 全環繞)</td>
+                <td class="p-3 font-mono">orbit 360 around character</td>
+                <td class="p-3">以主角為圓心環繞旋轉</td>
+                <td class="p-3">主角覺醒、王者回歸、光芒萬丈時刻</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-[#07172D]">Dolly Zoom (眩暈推拉)</td>
+                <td class="p-3 font-mono">vertigo effect, dolly zoom</td>
+                <td class="p-3">推軌同時反向變焦，背景扭曲主體大小不變</td>
+                <td class="p-3">發現驚天秘密、精神陷入崩潰震撼</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-[#07172D]">FPV Drone Dive (穿越機俯衝)</td>
+                <td class="p-3 font-mono">FPV drone diving down skyscraper</td>
+                <td class="p-3">沿懸崖或大樓極速 90° 垂直俯衝</td>
+                <td class="p-3">前 3 秒吸引注意力的短劇高潮開場</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-[#07172D]">Over-the-Shoulder (過肩鏡頭)</td>
+                <td class="p-3 font-mono">over-the-shoulder conversation shot</td>
+                <td class="p-3">越過前景肩膀看對面說話者</td>
+                <td class="p-3">雙人談判、心理交鋒標準對話鏡頭</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Client Script for 3D Movement Engine & Prompt Compiler -->
+  <script is:inline>
+    // 40 CAMERA MOVEMENTS DATA REGISTRY
+    const MOVEMENTS_DATA = [
+      // Physical (12)
+      { id: 'pan-left', cat: 'physical', zh: '左水平搖鏡', en: 'Pan Left', icon: '⟵', desc: '攝影機機身向左水平旋轉，畫面視野向左展開。', promptKling: '水平運鏡: [左 5], 視角: 中景', promptRunway: 'Camera: Pan Left, speed 3, smooth tracking', promptLuma: 'Cinematic pan left shot, 35mm lens, steady camera movement', promptSora: 'A smooth camera pan to the left revealing the wider street scene...', promptWan: '(cinematic pan left:1.2), smooth camera movement, 8k' },
+      { id: 'pan-right', cat: 'physical', zh: '右水平搖鏡', en: 'Pan Right', icon: '⟶', desc: '攝影機機身向右水平旋轉，引導觀眾注意右側物體。', promptKling: '水平運鏡: [右 5], 視角: 中景', promptRunway: 'Camera: Pan Right, speed 3, smooth tracking', promptLuma: 'Cinematic pan right shot, 35mm lens', promptSora: 'Camera smoothly panning to the right...', promptWan: '(cinematic pan right:1.2), smooth camera movement' },
+      { id: 'tilt-up', cat: 'physical', zh: '垂直仰拍', en: 'Tilt Up', icon: '↑', desc: '機身固定仰起鏡頭，自下而上展現主角威嚴或摩天大樓。', promptKling: '垂直運鏡: [上 5], 角度: 低視角', promptRunway: 'Camera: Tilt Up, low-angle perspective', promptLuma: 'Dramatic tilt up from boots to face, majestic lighting', promptSora: 'Camera tilting up majestically towards the skyscrapers...', promptWan: '(cinematic tilt up:1.2), low angle upward motion' },
+      { id: 'tilt-down', cat: 'physical', zh: '垂直俯拍', en: 'Tilt Down', icon: '↓', desc: '鏡頭由高處下俯，表現角色失落或引導至地面線索。', promptKling: '垂直運鏡: [下 5], 角度: 高視角', promptRunway: 'Camera: Tilt Down, high-angle perspective', promptLuma: 'Slow tilt down from overcast sky to character standing on wet street', promptSora: 'Camera tilting downwards to ground level...', promptWan: '(cinematic tilt down:1.2), downward perspective' },
+      { id: 'roll-cw', cat: 'physical', zh: '順時針滾轉', en: 'Roll CW', icon: '↻', desc: '相機繞光軸順時針傾斜旋轉，營造失重或精神錯亂感。', promptKling: '旋轉運鏡: [順時針 4], 傾斜視角', promptRunway: 'Camera: Roll Clockwise, Dutch angle rotation', promptLuma: 'Disorienting camera roll clockwise along lens axis', promptSora: 'Camera rotating clockwise along the lens axis creating vertigo...', promptWan: '(cinematic roll clockwise:1.3), Dutch roll angle' },
+      { id: 'roll-ccw', cat: 'physical', zh: '逆時針滾轉', en: 'Roll CCW', icon: '↺', desc: '相機繞光軸逆時針旋轉，表現危機或世界秩序顛倒。', promptKling: '旋轉運鏡: [逆時針 4], 傾斜視角', promptRunway: 'Camera: Roll Counter-Clockwise', promptLuma: 'Dramatic camera roll counter-clockwise, Dutch tilt', promptSora: 'Camera rotating counter-clockwise...', promptWan: '(cinematic roll counter-clockwise:1.3)' },
+      { id: 'dolly-in', cat: 'physical', zh: '前後推軌 (靠近)', en: 'Dolly In', icon: '⤓', desc: '滑軌物理前推靠近主角，情緒強度急劇升溫。', promptKling: '變焦推拉: [推近 5], 焦距: 35mm', promptRunway: 'Camera: Dolly In, slow push forward', promptLuma: 'Cinematic dramatic Dolly In towards character face, intense gaze', promptSora: 'Smooth dolly in shot moving physically closer to the subject...', promptWan: '(cinematic dolly in:1.2), push in, shallow depth of field' },
+      { id: 'dolly-out', cat: 'physical', zh: '前後推軌 (拉遠)', en: 'Dolly Out', icon: '⤒', desc: '滑軌物理後退遠離主角，表現孤立或劇終收尾。', promptKling: '變焦推拉: [拉遠 5], 廣角視角', promptRunway: 'Camera: Dolly Out, pulling backward', promptLuma: 'Slow dolly out revealing the character alone in the massive hall', promptSora: 'Camera smoothly dollies out retreating into the distance...', promptWan: '(cinematic dolly out:1.2), pulling away, lonely mood' },
+      { id: 'truck-left', cat: 'physical', zh: '左側橫移推軌', en: 'Truck Left', icon: '⇦', desc: '相機沿左側軌道橫向平移，前後景產生立體視差。', promptKling: '水平平移: [左 5], 視差推軌', promptRunway: 'Camera: Truck Left, lateral tracking with foreground parallax', promptLuma: 'Lateral tracking truck left shot with pillars passing in foreground', promptSora: 'Camera trucking laterally to the left parallel to the street...', promptWan: '(cinematic truck left:1.2), lateral tracking, parallax depth' },
+      { id: 'truck-right', cat: 'physical', zh: '右側橫移推軌', en: 'Truck Right', icon: '⇨', desc: '相機沿右側軌道橫向平移，連續橫向追蹤主角步伐。', promptKling: '水平平移: [右 5], 視差推軌', promptRunway: 'Camera: Truck Right, lateral tracking', promptLuma: 'Smooth truck right tracking the subject walking', promptSora: 'Camera trucking laterally to the right...', promptWan: '(cinematic truck right:1.2), lateral motion' },
+      { id: 'pedestal-up', cat: 'physical', zh: '垂直垂直升降 (升)', en: 'Pedestal Up', icon: '⇪', desc: '相機垂直抬高高度，視野瞬間豁然開朗。', promptKling: '垂直升降: [上升 5]', promptRunway: 'Camera: Pedestal Up, boom up', promptLuma: 'Camera rises vertically like a boom crane revealing the rooftop', promptSora: 'Camera elevates vertically straight up...', promptWan: '(cinematic pedestal up:1.2), vertical boom up' },
+      { id: 'pedestal-down', cat: 'physical', zh: '垂直垂直升降 (降)', en: 'Pedestal Down', icon: '⇩', desc: '相機垂直下壓高度，從宏大視野降至主角雙眼平視。', promptKling: '垂直升降: [下降 5]', promptRunway: 'Camera: Pedestal Down, boom down', promptLuma: 'Camera drops vertically to eye level', promptSora: 'Camera drops vertically from high overhead down to eye level...', promptWan: '(cinematic pedestal down:1.2), vertical drop' },
+
+      // Optical (6)
+      { id: 'zoom-in', cat: 'optical', zh: '光學拉近', en: 'Zoom In', icon: '🔍+', desc: '機位不動，鏡頭光學變焦放大，鎖定關鍵微細道具。', promptKling: '鏡頭變焦: [拉近 5]', promptRunway: 'Camera: Zoom In, optical zoom', promptLuma: 'Optical zoom in, tightening frame on subject', promptSora: 'Optical lens zoom in towards the subject...', promptWan: '(optical zoom in:1.2), lens zoom in' },
+      { id: 'zoom-out', cat: 'optical', zh: '光學推遠', en: 'Zoom Out', icon: '🔍-', desc: '機位不動，鏡頭變焦廣角化，展現整體環境規模。', promptKling: '鏡頭變焦: [推遠 5]', promptRunway: 'Camera: Zoom Out, optical widening', promptLuma: 'Optical zoom out revealing wide environment', promptSora: 'Optical lens zooming out to a wide shot...', promptWan: '(optical zoom out:1.2), lens zoom out' },
+      { id: 'crash-zoom', cat: 'optical', zh: '衝擊變焦 (快推)', en: 'Crash Zoom', icon: '⚡', desc: '極速猛烈衝擊變焦，B級片/動漫反轉驚訝瞬間必備。', promptKling: '鏡頭變焦: [極速拉近 9]', promptRunway: 'Camera: Crash Zoom, fast snap zoom on eyes', promptLuma: 'Dramatic fast crash zoom on protagonist shocked face', promptSora: 'Sudden rapid crash zoom into the character eyes...', promptWan: '(crash zoom:1.4), rapid snap zoom, dramatic' },
+      { id: 'rack-focus', cat: 'optical', zh: '前後景焦點切換', en: 'Rack Focus', icon: '🎯', desc: '焦點從前景物體平滑轉移至後景角色，暗示因果。', promptKling: '焦點切換: 前景至後景, 景深微調', promptRunway: 'Rack focus from foreground glass to background figure', promptLuma: 'Rack focus shot, focus shifting smoothly from foreground to background', promptSora: 'Cinematic rack focus shifting focus between foreground and background...', promptWan: '(rack focus:1.3), depth of field focus shift' },
+      { id: 'deep-focus', cat: 'optical', zh: '極致全景深', en: 'Deep Focus', icon: '⬛', desc: '光圈收細（F/11），前、中、後景所有人事物皆清晰。', promptKling: '全景深, 光圈 F/11, 前中後景清晰', promptRunway: 'Deep focus cinematography, entire scene in focus', promptLuma: 'Deep focus, crisp detail from foreground to deep background', promptSora: 'Deep focus photography with sharp foreground and background...', promptWan: '(deep focus:1.2), sharp detail throughout, F11' },
+      { id: 'shallow-dof', cat: 'optical', zh: '淺景深極致虛化', en: 'Shallow DOF', icon: '✨', desc: '大光圈（F/1.4），背景化為柔美散景，唯美特寫。', promptKling: '淺景深, 柔美散景, 85mm 電影鏡頭', promptRunway: 'Ultra shallow depth of field, creamy bokeh, 85mm portrait', promptLuma: 'Shallow depth of field, creamy blurred background bokeh', promptSora: 'Shallow depth of field with cinematic circular bokeh...', promptWan: '(shallow depth of field:1.3), creamy bokeh, 85mm lens' },
+
+      // Compound (14)
+      { id: 'orbit-360', cat: 'compound', zh: '360° 全景環繞', en: 'Orbit 360', icon: '🔄', desc: '以主角為圓心，攝影機在空間繞行一整圈，全場聚焦。', promptKling: '環繞運鏡: [360度], 旋轉追蹤', promptRunway: 'Camera: 360 degree orbit around character', promptLuma: 'Smooth 360 degree orbit shot encircling the subject', promptSora: 'Full 360 degree circular camera orbit around the protagonist...', promptWan: '(orbit 360:1.3), circular camera rotation around subject' },
+      { id: 'arc-left', cat: 'compound', zh: '左側弧形軌道', en: 'Arc Left', icon: '↩', desc: '沿 90° 圓弧向左滑行，動態改變背景光源方向。', promptKling: '弧形運鏡: [左弧度 5]', promptRunway: 'Camera: Arc Left around subject', promptLuma: 'Smooth 90 degree arc shot to the left', promptSora: 'Camera executing an arc shot moving left around the subject...', promptWan: '(arc left:1.2), curved orbital tracking' },
+      { id: 'arc-right', cat: 'compound', zh: '右側弧形軌道', en: 'Arc Right', icon: '↪', desc: '沿 90° 圓弧向右滑行，兩軍交鋒前夕環視將領。', promptKling: '弧形運鏡: [右弧度 5]', promptRunway: 'Camera: Arc Right around subject', promptLuma: 'Smooth 90 degree arc shot to the right', promptSora: 'Camera executing an arc shot moving right...', promptWan: '(arc right:1.2), curved orbital tracking' },
+      { id: 'lead-tracking', cat: 'compound', zh: '前方領路跟拍', en: 'Lead Tracking', icon: '⏮', desc: '攝影機在主角前方等速後退，正面捕捉昂首步伐。', promptKling: '跟隨運鏡: [前方後退跟隨]', promptRunway: 'Camera: Lead Tracking, camera moving backward in front of subject', promptLuma: 'Lead tracking shot, smooth backward glide tracking protagonist forward walk', promptSora: 'Lead tracking camera retreating backwards facing the walking character...', promptWan: '(lead tracking:1.2), backward tracking shot' },
+      { id: 'trail-tracking', cat: 'compound', zh: '後方追逐跟拍', en: 'Trail Tracking', icon: '⏭', desc: '緊貼主角身後奔跑跟隨，臨場感強烈的逃脫視角。', promptKling: '跟隨運鏡: [後方追隨]', promptRunway: 'Camera: Chase Tracking, following behind', promptLuma: 'Trail tracking shot following directly behind character walking into darkness', promptSora: 'Camera following directly behind character in a pursuit shot...', promptWan: '(trail tracking:1.2), following behind' },
+      { id: 'side-tracking', cat: 'compound', zh: '側面同速推軌', en: 'Side Tracking', icon: '⇄', desc: '與奔跑的主角同速度向側面平行疾馳，速度感拉滿。', promptKling: '跟隨運鏡: [側面平行跟隨]', promptRunway: 'Camera: Side Tracking, lateral follow', promptLuma: 'Side profile tracking shot matching character running speed', promptSora: 'Side tracking profile shot moving alongside the sprinting character...', promptWan: '(side tracking:1.2), lateral tracking profile' },
+      { id: 'dolly-zoom', cat: 'compound', zh: '眩暈推拉 (希區柯克)', en: 'Dolly Zoom / Vertigo', icon: '🌀', desc: '推軌靠近同時反向變焦，背景扭曲世界崩塌感。', promptKling: '希區柯克變焦, 眩暈推拉, 背景扭曲', promptRunway: 'Vertigo effect, dolly zoom, background warping while subject size remains constant', promptLuma: 'Hitchcock vertigo dolly zoom, dramatic psychological shock', promptSora: 'Classic Vertigo dolly zoom with perspective warp while subject stays in place...', promptWan: '(dolly zoom:1.4), vertigo effect, perspective distortion' },
+      { id: 'whip-pan', cat: 'compound', zh: '極速甩鏡轉場', en: 'Whip Pan', icon: '💨', desc: '超高速橫向甩動相機產生強烈動態模糊，瞬間轉場。', promptKling: '極速甩鏡, 動態模糊轉場', promptRunway: 'Camera: Whip Pan transition with heavy motion blur', promptLuma: 'Fast whip pan camera wipe creating kinetic motion blur', promptSora: 'Fast whip pan across the frame into next scene...', promptWan: '(whip pan:1.3), fast swish pan, motion blur' },
+      { id: 'handheld-shaky', cat: 'compound', zh: '手持真實微晃', en: 'Handheld Shaky', icon: '📳', desc: '模擬人手持攝影機的自然呼吸與腳步震顫，沉浸寫實。', promptKling: '手持微晃, 紀錄片質感', promptRunway: 'Handheld camera, subtle natural shake, documentary style', promptLuma: 'Gritty handheld camera motion with subtle organic camera shake', promptSora: 'Documentary style handheld camera with natural human breathing motion...', promptWan: '(handheld camera:1.2), realistic camera shake, raw' },
+      { id: 'steadicam', cat: 'compound', zh: '斯坦尼康平穩穿梭', en: 'Steadicam', icon: '🌊', desc: '消除所有高頻晃動，如行雲流水般穿過長廊門窗。', promptKling: '斯坦尼康運鏡, 一鏡到底平穩穿梭', promptRunway: 'Steadicam tracking shot, smooth cinematic glide', promptLuma: 'Ultra smooth Steadicam shot weaving through the complex hallway', promptSora: 'Steadicam one-take shot gliding smoothly through the space...', promptWan: '(steadicam:1.2), ultra smooth cinematic glide' },
+      { id: 'crane-shot', cat: 'compound', zh: '大型搖臂俯衝橫掃', en: 'Crane / Jib Shot', icon: '🏗️', desc: '從離地高空呼嘯俯衝至主角眼前，史詩級震撼。', promptKling: '大型搖臂運鏡, 高空俯衝至特寫', promptRunway: 'Crane shot sweeping down from high altitude to close-up', promptLuma: 'Grand crane shot swooping down gracefully to character level', promptSora: 'Grand sweeping crane shot descending from high overhead...', promptWan: '(crane shot:1.3), sweeping jib descent' },
+      { id: 'spiral-corkscrew', cat: 'compound', zh: '螺旋旋轉升降', en: 'Spiral Corkscrew', icon: '🌪️', desc: '沿圓周旋轉的同時垂直拔高，靈魂出竅昇華感。', promptKling: '螺旋升降運鏡, 旋轉上升', promptRunway: 'Camera: Corkscrew spiral ascending shot', promptLuma: 'Spiral corkscrew motion rotating around character while rising vertically', promptSora: 'Corkscrew camera motion spiraling upwards around the subject...', promptWan: '(spiral corkscrew:1.3), rotating ascent' },
+      { id: 'fpv-drone-dive', cat: 'compound', zh: '第一人稱穿越機俯衝', en: 'FPV Drone Dive', icon: '🚀', desc: '穿越機沿大樓外牆 90 度垂直極速俯衝，前3秒留人。', promptKling: '穿越機俯衝, FPV極速下墜', promptRunway: 'FPV drone dive shot plunging down building facade at high speed', promptLuma: 'Kinetic FPV drone dive plummeting straight down towards the streets', promptSora: 'FPV drone diving vertically down between skyscraper glass walls...', promptWan: '(FPV drone dive:1.4), high speed vertical dive' },
+      { id: 'fly-through', cat: 'compound', zh: '穿梭貫穿鏡頭', en: 'Fly-Through', icon: '🕳️', desc: '穿過門鎖孔、碎裂車窗直逼目標，超現實奇觀。', promptKling: '穿透鏡頭, 穿過窗戶縫隙', promptRunway: 'Camera fly-through entering through shattered glass window', promptLuma: 'Surreal fly-through camera penetrating through obstacle directly into room', promptSora: 'Smooth fly-through shot passing through a narrow doorway into the space...', promptWan: '(fly-through:1.3), camera penetration shot' },
+
+      // Special (8)
+      { id: 'birds-eye', cat: 'special', zh: '上帝俯瞰視角', en: 'Birds-Eye / Top-Down', icon: '🦅', desc: '正上方 90° 垂直向下拍攝，地面如幾何命運棋盤。', promptKling: '俯瞰視角: [正上方90度垂直俯瞰]', promptRunway: 'Camera: Birds-Eye View, straight 90 degree top-down shot', promptLuma: 'Top-down birds-eye perspective looking directly down at character', promptSora: 'Straight down 90-degree bird-eye view of the city intersection...', promptWan: '(birds-eye view:1.3), 90 degree top-down angle' },
+      { id: 'worm-eye', cat: 'special', zh: '蟲眼極低仰拍', en: 'Worm-Eye View', icon: '🐛', desc: '鏡頭貼緊地面極端向上仰望，展現巨大壓迫威嚇感。', promptKling: '蟲眼視角, 極低貼地仰拍', promptRunway: 'Camera: Worm-Eye View, ground level upward shot', promptLuma: 'Extreme low-angle worm-eye view from wet ground looking up', promptSora: 'Ground-level worm-eye view gazing up with immense scale...', promptWan: '(worm-eye view:1.3), ground level extreme upward angle' },
+      { id: 'dutch-angle', cat: 'special', zh: '荷蘭傾斜角', en: 'Dutch / Canted Angle', icon: '📐', desc: '地平線傾斜 15°-30°，角色精神分裂、邪惡勢力登場。', promptKling: '荷蘭傾斜角, 畫面傾斜25度', promptRunway: 'Camera: Dutch Angle, tilted composition at 25 degrees', promptLuma: 'Dramatic Dutch canted angle creating psychological unease', promptSora: 'Canted Dutch angle with a heavily tilted horizon line...', promptWan: '(Dutch angle:1.3), canted frame, psychological tension' },
+      { id: 'pov-shot', cat: 'special', zh: '第一人稱主觀視角', en: 'POV (Point of View)', icon: '👁️', desc: '模擬主角雙眼，可見雙手伸入畫面，臨場感拉滿。', promptKling: '第一人稱主觀視角, POV視角', promptRunway: 'Camera: First-person POV, hands visible in frame', promptLuma: 'First person POV perspective breathing and looking forward', promptSora: 'First person POV perspective exploring the darkened chamber...', promptWan: '(first-person POV:1.3), point of view perspective' },
+      { id: 'ots-shot', cat: 'special', zh: '經典過肩鏡頭', en: 'Over-the-Shoulder (OTS)', icon: '👥', desc: '越過前景角色肩膀拍攝對話者，短劇對話標配。', promptKling: '過肩鏡頭, 對峙對話視角', promptRunway: 'Over-the-shoulder shot, foreground character shoulder in soft focus', promptLuma: 'Over-the-shoulder dialogue angle looking past shoulder to actor', promptSora: 'Over-the-shoulder conversation angle with shallow depth of field...', promptWan: '(over-the-shoulder:1.2), OTS conversation framing' },
+      { id: 'low-hero', cat: 'special', zh: '低角度英雄鏡頭', en: 'Low-Angle Hero Shot', icon: '👑', desc: '仰角搭配主體昂首挺胸，爽文短劇戰勝反派定格。', promptKling: '低視角英雄鏡頭, 仰角王者霸氣', promptRunway: 'Low-angle hero shot, majestic confident pose', promptLuma: 'Heroic low-angle framing with warm cinematic rim light', promptSora: 'Low-angle hero shot of the protagonist standing tall with authority...', promptWan: '(low-angle hero shot:1.3), triumphant posture' },
+      { id: 'bullet-time', cat: 'special', zh: '子彈時間凝結', en: 'Bullet Time', icon: '⏳', desc: '時間放慢至幾乎靜止，相機繞行軌道飛馳，視覺奇觀。', promptKling: '子彈時間, 時間靜止環繞', promptRunway: 'Bullet time effect, frozen time with camera orbiting around', promptLuma: 'Bullet time camera freezing the raindrop in mid-air and orbiting', promptSora: 'Frozen time bullet time camera spinning around the suspended action...', promptWan: '(bullet time:1.4), frozen time camera pan' },
+      { id: 'split-diopter', cat: 'special', zh: '雙焦透鏡分屏', en: 'Split Diopter', icon: '🌗', desc: '前景極近與後景極遠同時刀鋒般銳利，強烈戲劇衝突。', promptKling: '雙焦透鏡分屏, 前後景同時銳利清晰', promptRunway: 'Split diopter cinematography, extreme foreground and deep background both sharp', promptLuma: 'Split diopter lens with razor sharp foreground face and background door', promptSora: 'Split diopter composition with dual plane sharpness...', promptWan: '(split diopter:1.3), dual focus planes sharp' }
+    ];
+
+    // State Variables
+    let currentMovement = MOVEMENTS_DATA[0]; // default 'pan-left'
+    let currentModel = 'kling';
+    let isPlaying = true;
+    let animationSpeed = 1.0;
+    let showGrid = true;
+    let animFrameId = null;
+    let animProgress = 0;
+
+    // DOM Elements
+    const viewfinderStage = document.getElementById('viewfinder-stage');
+    const horizonLayer = document.getElementById('layer-horizon');
+    const subjectAnchor = document.getElementById('subject-anchor');
+    const cameraRigMarker = document.getElementById('camera-rig-marker');
+    const hudMovementName = document.getElementById('hud-movement-name');
+    const hudVectorText = document.getElementById('hud-vector-text');
+    const hudLensSpec = document.getElementById('hud-lens-spec');
+    const hudSubjectDist = document.getElementById('hud-subject-distance');
+    const rigCoordText = document.getElementById('rig-coord-text');
+    const rigRotText = document.getElementById('rig-rot-text');
+    const compiledOutput = document.getElementById('compiled-prompt-output');
+    const modelBadge = document.getElementById('prompt-model-badge');
+    const chipsContainer = document.getElementById('movement-chips-container');
+    const searchInput = document.getElementById('movement-search-input');
+    const catButtons = document.querySelectorAll('.cat-btn');
+    const modelTabButtons = document.querySelectorAll('.model-tab-btn');
+    const focalSelect = document.getElementById('select-focal-length');
+    const speedSelect = document.getElementById('select-motion-speed');
+    const customSubjectInput = document.getElementById('input-custom-subject');
+    const copyBtn = document.getElementById('btn-copy-prompt');
+    const copyLabel = document.getElementById('copy-btn-label');
+
+    // 1. Initialize Movement Chips
+    function renderChips(filterCat = 'all', searchQuery = '') {
+      chipsContainer.innerHTML = '';
+      const filtered = MOVEMENTS_DATA.filter(item => {
+        const matchesCat = filterCat === 'all' || item.cat === filterCat;
+        const matchesSearch = !searchQuery || item.zh.includes(searchQuery) || item.en.toLowerCase().includes(searchQuery.toLowerCase()) || item.desc.includes(searchQuery);
+        return matchesCat && matchesSearch;
+      });
+
+      filtered.forEach(item => {
+        const isSelected = item.id === currentMovement.id;
+        const btn = document.createElement('button');
+        btn.className = `p-2.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+          isSelected 
+            ? 'bg-blue-50 border-blue-500 text-[#155EEF] ring-2 ring-blue-500/20 shadow-xs' 
+            : 'bg-white hover:bg-slate-50 border-slate-200 text-[#07172D]'
+        }`;
+        btn.innerHTML = `
+          <div class="flex items-center justify-between gap-1 w-full">
+            <span class="text-xs font-bold truncate">${item.zh}</span>
+            <span class="text-xs font-mono opacity-60">${item.icon}</span>
+          </div>
+          <span class="text-[10px] font-mono text-slate-400 truncate mt-1">${item.en}</span>
+        `;
+        btn.addEventListener('click', () => {
+          selectMovement(item);
+        });
+        chipsContainer.appendChild(btn);
+      });
+    }
+
+    // 2. Select Movement Handler
+    function selectMovement(movement) {
+      currentMovement = movement;
+      animProgress = 0;
+      hudMovementName.textContent = `${movement.en.toUpperCase()} (${movement.zh})`;
+      renderChips(getCurrentFilterCat(), searchInput.value.trim());
+      updateCompiledPrompt();
+    }
+
+    function getCurrentFilterCat() {
+      const activeBtn = document.querySelector('.cat-btn.bg-\\[\\#155EEF\\]');
+      return activeBtn ? activeBtn.dataset.cat : 'all';
+    }
+
+    // 3. Update Compiled Prompt Generator
+    function updateCompiledPrompt() {
+      const focal = focalSelect.value;
+      const speed = speedSelect.value;
+      const subject = customSubjectInput.value.trim() || '一位主角站在場景中央';
+      hudLensSpec.textContent = `${focal} · F/1.8`;
+
+      let output = '';
+      if (currentModel === 'kling') {
+        modelBadge.textContent = '可靈 KLING AI 官方格式';
+        output = `${currentMovement.promptKling}, 焦距: ${focal}, 主體: ${subject}, 電影感光影, 4k 畫質`;
+      } else if (currentModel === 'runway') {
+        modelBadge.textContent = 'RUNWAY GEN-3 / GEN-4 提示詞';
+        output = `${currentMovement.promptRunway}, speed: ${speed}, ${focal} cinematic lens, ${subject}, ultra-realistic 8k`;
+      } else if (currentModel === 'luma') {
+        modelBadge.textContent = 'LUMA DREAM MACHINE 格式';
+        output = `${currentMovement.promptLuma}, ${focal} lens, ${subject}, high aesthetic cinematography, smooth motion`;
+      } else if (currentModel === 'sora') {
+        modelBadge.textContent = 'OPENAI SORA 自然語言格式';
+        output = `${currentMovement.promptSora} Featuring ${subject}. Filmed with a ${focal} cinema camera, smooth photorealistic lighting.`;
+      } else if (currentModel === 'wan') {
+        modelBadge.textContent = 'WAN 2.1 / COMFYUI 權重節點格式';
+        output = `${currentMovement.promptWan}, (${focal} focal length:1.1), ${subject}, masterpiece, highly detailed, photorealistic`;
+      }
+
+      compiledOutput.textContent = output;
+    }
+
+    // 4. Animation Loop for 3D Viewport Physics
+    function animateLoop() {
+      if (isPlaying) {
+        animProgress += 0.025 * animationSpeed;
+      }
+      
+      const t = Math.sin(animProgress); // -1 to 1 oscillation
+      const tNorm = (t + 1) / 2; // 0 to 1
+      const mId = currentMovement.id;
+
+      let vfRotX = 0, vfRotY = 0, vfRotZ = 0, vfTransX = 0, vfTransY = 0, vfTransZ = 0, vfScale = 1;
+      let rigTransX = 0, rigTransY = 85, rigTransZ = 0, rigRotZ = 0;
+      let horizonOffset = 0;
+
+      // Coordinate HUD outputs
+      let posX = 0, posY = -2.4, posZ = 1.2;
+      let rotP = 0, rotY = 0, rotR = 0;
+      let vectorDesc = '';
+
+      switch (mId) {
+        case 'pan-left':
+          vfRotY = -22 * t;
+          vfTransX = 75 * t;
+          horizonOffset = -60 * t;
+          rigRotZ = -30 * t;
+          rotY = -22 * t;
+          vectorDesc = `Yaw: ${rotY.toFixed(1)}°`;
+          break;
+        case 'pan-right':
+          vfRotY = 22 * t;
+          vfTransX = -75 * t;
+          horizonOffset = 60 * t;
+          rigRotZ = 30 * t;
+          rotY = 22 * t;
+          vectorDesc = `Yaw: +${rotY.toFixed(1)}°`;
+          break;
+        case 'tilt-up':
+          vfRotX = 22 * t;
+          vfTransY = 55 * t;
+          rotP = 22 * t;
+          vectorDesc = `Pitch: +${rotP.toFixed(1)}°`;
+          break;
+        case 'tilt-down':
+          vfRotX = -22 * t;
+          vfTransY = -55 * t;
+          rotP = -22 * t;
+          vectorDesc = `Pitch: ${rotP.toFixed(1)}°`;
+          break;
+        case 'roll-cw':
+          vfRotZ = 20 * t;
+          rotR = 20 * t;
+          vectorDesc = `Roll: +${rotR.toFixed(1)}°`;
+          break;
+        case 'roll-ccw':
+          vfRotZ = -20 * t;
+          rotR = -20 * t;
+          vectorDesc = `Roll: ${rotR.toFixed(1)}°`;
+          break;
+        case 'dolly-in':
+          vfScale = 1 + 0.35 * tNorm;
+          vfTransZ = 90 * tNorm;
+          rigTransY = 85 - 45 * tNorm;
+          posY = -2.4 + 1.2 * tNorm;
+          vectorDesc = `Dolly: +${(1.2 * tNorm).toFixed(2)}m`;
+          break;
+        case 'dolly-out':
+          vfScale = 1.35 - 0.35 * tNorm;
+          vfTransZ = 90 * (1 - tNorm);
+          rigTransY = 40 + 45 * tNorm;
+          posY = -1.2 - 1.2 * tNorm;
+          vectorDesc = `Dolly: -${(1.2 * tNorm).toFixed(2)}m`;
+          break;
+        case 'truck-left':
+          vfTransX = 85 * t;
+          rigTransX = -45 * t;
+          posX = -1.5 * t;
+          vectorDesc = `Truck: ${(posX).toFixed(2)}m`;
+          break;
+        case 'truck-right':
+          vfTransX = -85 * t;
+          rigTransX = 45 * t;
+          posX = 1.5 * t;
+          vectorDesc = `Truck: +${(posX).toFixed(2)}m`;
+          break;
+        case 'pedestal-up':
+          vfTransY = 60 * tNorm;
+          rigTransZ = 40 * tNorm;
+          posZ = 1.2 + 1.5 * tNorm;
+          vectorDesc = `Pedestal: +${(1.5 * tNorm).toFixed(2)}m`;
+          break;
+        case 'pedestal-down':
+          vfTransY = -60 * tNorm;
+          rigTransZ = -30 * tNorm;
+          posZ = 1.2 - 1.0 * tNorm;
+          vectorDesc = `Pedestal: -${(1.0 * tNorm).toFixed(2)}m`;
+          break;
+        case 'zoom-in':
+          vfScale = 1 + 0.5 * tNorm;
+          vectorDesc = `Zoom: ${(35 + 50 * tNorm).toFixed(0)}mm`;
+          break;
+        case 'zoom-out':
+          vfScale = 1.5 - 0.5 * tNorm;
+          vectorDesc = `Zoom: ${(85 - 50 * tNorm).toFixed(0)}mm`;
+          break;
+        case 'crash-zoom':
+          const crashFactor = Math.pow(tNorm, 3);
+          vfScale = 1 + 0.8 * crashFactor;
+          vectorDesc = `Snap Zoom: ${(35 + 85 * crashFactor).toFixed(0)}mm`;
+          break;
+        case 'orbit-360':
+          const angleRad = animProgress;
+          const radius = 85;
+          rigTransX = Math.sin(angleRad) * radius;
+          rigTransY = Math.cos(angleRad) * radius;
+          rigRotZ = -angleRad * (180 / Math.PI);
+          vfRotY = -angleRad * 30;
+          rotY = (angleRad * (180 / Math.PI)) % 360;
+          vectorDesc = `Orbit: ${rotY.toFixed(0)}°`;
+          break;
+        case 'dolly-zoom':
+          // Subject stays fixed while background FOV expands/contracts dramatically
+          vfScale = 1;
+          const vertigoDistort = 1.6 * tNorm;
+          horizonLayer.style.transform = `scale(${1 + vertigoDistort}) translateY(${-20 * vertigoDistort}px)`;
+          vectorDesc = `Vertigo Warp: ${(vertigoDistort * 100).toFixed(0)}%`;
+          break;
+        case 'handheld-shaky':
+          vfRotX = (Math.sin(animProgress * 3.5) * 2);
+          vfRotY = (Math.cos(animProgress * 4.2) * 2.5);
+          vfRotZ = (Math.sin(animProgress * 2.8) * 1.5);
+          vfTransX = (Math.cos(animProgress * 5) * 6);
+          vfTransY = (Math.sin(animProgress * 4.7) * 5);
+          vectorDesc = `Organic Shaky Cam`;
+          break;
+        default:
+          // Subtle default motion
+          vfTransX = 20 * t;
+          vectorDesc = `Active Tracking`;
+      }
+
+      // Apply transformations
+      viewfinderStage.style.transform = `rotateX(${vfRotX}deg) rotateY(${vfRotY}deg) rotateZ(${vfRotZ}deg) translate3d(${vfTransX}px, ${vfTransY}px, ${vfTransZ}px) scale(${vfScale})`;
+      if (mId !== 'dolly-zoom') {
+        horizonLayer.style.transform = `translateX(${horizonOffset}px)`;
+      }
+
+      cameraRigMarker.style.transform = `translate3d(${rigTransX}px, ${rigTransY}px, ${rigTransZ}px) rotateZ(${rigRotZ}deg)`;
+
+      // Update HUD labels
+      hudVectorText.textContent = vectorDesc;
+      hudSubjectDist.textContent = `${(2.4 / (vfScale || 1)).toFixed(2)} m`;
+      rigCoordText.textContent = `X: ${posX.toFixed(1)}m, Y: ${posY.toFixed(1)}m, Z: ${posZ.toFixed(1)}m`;
+      rigRotText.textContent = `P: ${rotP.toFixed(0)}°, Y: ${rotY.toFixed(0)}°, R: ${rotR.toFixed(0)}°`;
+
+      animFrameId = requestAnimationFrame(animateLoop);
+    }
+
+    // Event Listeners for Filters, Search & Tabs
+    catButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catButtons.forEach(b => {
+          b.classList.remove('bg-[#155EEF]', 'text-white', 'shadow-2xs');
+          b.classList.add('bg-slate-100', 'text-slate-600');
+        });
+        btn.classList.add('bg-[#155EEF]', 'text-white', 'shadow-2xs');
+        btn.classList.remove('bg-slate-100', 'text-slate-600');
+        renderChips(btn.dataset.cat, searchInput.value.trim());
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      renderChips(getCurrentFilterCat(), e.target.value.trim());
+    });
+
+    modelTabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modelTabButtons.forEach(b => {
+          b.classList.remove('bg-[#155EEF]', 'text-white', 'shadow-2xs');
+          b.classList.add('text-slate-300');
+        });
+        btn.classList.add('bg-[#155EEF]', 'text-white', 'shadow-2xs');
+        btn.classList.remove('text-slate-300');
+        currentModel = btn.dataset.model;
+        updateCompiledPrompt();
+      });
+    });
+
+    focalSelect.addEventListener('change', updateCompiledPrompt);
+    speedSelect.addEventListener('change', updateCompiledPrompt);
+    customSubjectInput.addEventListener('input', updateCompiledPrompt);
+
+    // Playback Controls
+    const btnPlay = document.getElementById('btn-toggle-play');
+    const labelPlay = document.getElementById('label-play');
+    const iconPause = document.getElementById('icon-pause');
+    const iconPlay = document.getElementById('icon-play');
+
+    btnPlay.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        labelPlay.textContent = '暫停動畫';
+        iconPause.classList.remove('hidden');
+        iconPlay.classList.add('hidden');
+      } else {
+        labelPlay.textContent = '播放動畫';
+        iconPause.classList.add('hidden');
+        iconPlay.classList.remove('hidden');
+      }
+    });
+
+    const btnSpeed = document.getElementById('btn-speed-toggle');
+    const labelSpeed = document.getElementById('label-speed');
+    btnSpeed.addEventListener('click', () => {
+      if (animationSpeed === 1.0) {
+        animationSpeed = 2.0;
+        labelSpeed.textContent = '2.0x (快)';
+      } else if (animationSpeed === 2.0) {
+        animationSpeed = 0.5;
+        labelSpeed.textContent = '0.5x (慢)';
+      } else {
+        animationSpeed = 1.0;
+        labelSpeed.textContent = '1.0x (標準)';
+      }
+    });
+
+    const btnGrid = document.getElementById('btn-toggle-grid');
+    const labelGrid = document.getElementById('label-grid');
+    const gridOverlay = document.getElementById('rule-of-thirds-grid');
+    btnGrid.addEventListener('click', () => {
+      showGrid = !showGrid;
+      if (showGrid) {
+        labelGrid.textContent = '開';
+        labelGrid.className = 'text-emerald-700 font-bold';
+        gridOverlay.style.opacity = '1';
+      } else {
+        labelGrid.textContent = '關';
+        labelGrid.className = 'text-slate-400 font-bold';
+        gridOverlay.style.opacity = '0';
+      }
+    });
+
+    const btnResetCam = document.getElementById('btn-reset-cam');
+    btnResetCam.addEventListener('click', () => {
+      animProgress = 0;
+      selectMovement(MOVEMENTS_DATA[0]);
+    });
+
+    // Copy Prompt Button
+    copyBtn.addEventListener('click', async () => {
+      const textToCopy = compiledOutput.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        copyLabel.textContent = '✔ 已複製提示詞！';
+        copyBtn.classList.add('from-emerald-600', 'to-teal-500');
+        setTimeout(() => {
+          copyLabel.textContent = '一鍵複製提示詞 (Copy)';
+          copyBtn.classList.remove('from-emerald-600', 'to-teal-500');
+        }, 2000);
+      } catch (err) {
+        console.error('Copy failed:', err);
+      }
+    });
+
+    // Preset Combo Buttons
+    const comboMap = {
+      hero: 'tilt-up',
+      vertigo: 'dolly-zoom',
+      chase: 'fpv-drone-dive',
+      drama: 'rack-focus',
+      epic: 'birds-eye'
+    };
+
+    document.querySelectorAll('.btn-apply-combo').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const comboKey = btn.dataset.combo;
+        const targetMovementId = comboMap[comboKey];
+        const match = MOVEMENTS_DATA.find(m => m.id === targetMovementId);
+        if (match) {
+          selectMovement(match);
+          window.scrollTo({ top: 380, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Initial setup on load
+    renderChips();
+    updateCompiledPrompt();
+    requestAnimationFrame(animateLoop);
+  </script>
+
+  <style>
+    .clip-frustum {
+      clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+    }
+  </style>
+</MainLayout>

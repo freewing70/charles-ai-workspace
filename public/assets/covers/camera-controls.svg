@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050B14"/>
+      <stop offset="40%" stop-color="#0B1528"/>
+      <stop offset="100%" stop-color="#152E58"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF5B4A"/>
+      <stop offset="50%" stop-color="#FFB347"/>
+      <stop offset="100%" stop-color="#00F2FE"/>
+    </linearGradient>
+    <linearGradient id="grid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(0,242,254,0.15)"/>
+      <stop offset="100%" stop-color="rgba(0,242,254,0.01)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Perspective 3D Grid Floor in background -->
+  <g opacity="0.35">
+    <line x1="100" y1="580" x2="1100" y2="580" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="200" y1="520" x2="1000" y2="520" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="300" y1="470" x2="900" y2="470" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="380" y1="430" x2="820" y2="430" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="440" y1="400" x2="760" y2="400" stroke="#00F2FE" stroke-width="1"/>
+
+    <!-- Perspective Rays converging to vanishing point (600, 360) -->
+    <line x1="600" y1="360" x2="50" y2="630" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="600" y1="360" x2="250" y2="630" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="600" y1="360" x2="450" y2="630" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="600" y1="360" x2="600" y2="630" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="600" y1="360" x2="750" y2="630" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="600" y1="360" x2="950" y2="630" stroke="#00F2FE" stroke-width="1"/>
+    <line x1="600" y1="360" x2="1150" y2="630" stroke="#00F2FE" stroke-width="1"/>
+  </g>
+
+  <!-- Ambient Light Orbs -->
+  <circle cx="1020" cy="160" r="280" fill="#155EEF" opacity="0.25" filter="blur(80px)"/>
+  <circle cx="180" cy="460" r="220" fill="#FF5B4A" opacity="0.2" filter="blur(90px)"/>
+  <circle cx="600" cy="200" r="160" fill="#00F2FE" opacity="0.15" filter="blur(70px)"/>
+
+  <!-- Camera Viewfinder Overlay Graphics (Right Side) -->
+  <g transform="translate(740, 100)" opacity="0.85">
+    <rect x="0" y="0" width="380" height="230" rx="12" fill="rgba(7,23,45,0.7)" stroke="#00F2FE" stroke-width="1.5" stroke-dasharray="8 4"/>
+    <!-- Viewfinder Corners -->
+    <path d="M 20 40 L 20 20 L 40 20" stroke="#00F2FE" stroke-width="3" fill="none"/>
+    <path d="M 360 40 L 360 20 L 340 20" stroke="#00F2FE" stroke-width="3" fill="none"/>
+    <path d="M 20 190 L 20 210 L 40 210" stroke="#00F2FE" stroke-width="3" fill="none"/>
+    <path d="M 360 190 L 360 210 L 340 210" stroke="#00F2FE" stroke-width="3" fill="none"/>
+    <!-- Center Target Crosshair -->
+    <circle cx="190" cy="115" r="30" stroke="rgba(255,255,255,0.4)" stroke-width="1" fill="none"/>
+    <line x1="175" y1="115" x2="205" y2="115" stroke="#FF5B4A" stroke-width="2"/>
+    <line x1="190" y1="100" x2="190" y2="130" stroke="#FF5B4A" stroke-width="2"/>
+    <!-- HUD text -->
+    <circle cx="35" cy="45" r="5" fill="#FF3333"/>
+    <text x="48" y="49" fill="#FF3333" font-family="monospace" font-size="11" font-weight="700">REC 4K 60FPS</text>
+    <text x="345" y="49" fill="#00F2FE" font-family="monospace" font-size="11" font-weight="700" text-anchor="end">F/1.8 · 35MM</text>
+    <text x="190" y="200" fill="#A5C4F5" font-family="monospace" font-size="11" text-anchor="middle">PAN · TILT · DOLLY · ORBIT</text>
+  </g>
+
+  <!-- Typography Content (Left Side) -->
+  <g transform="translate(100, 110)">
+    <!-- Category Pill -->
+    <rect x="0" y="0" width="230" height="36" rx="18" fill="rgba(21,94,239,0.2)" stroke="#27A8FF" stroke-width="1.2"/>
+    <text x="115" y="23" fill="#27A8FF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1.5">AI CINEMATOGRAPHY</text>
+
+    <!-- Main Title -->
+    <text x="0" y="105" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="900" letter-spacing="-0.5">AI 電影運鏡工程模擬器</text>
+    <text x="0" y="165" fill="url(#accent)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="800">40 款標準鏡頭語言 × 雙視角 3D 即時模擬</text>
+
+    <!-- Subtitle / Highlights -->
+    <text x="0" y="235" fill="#E2E8F0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="500">
+      <tspan x="0" dy="0">✔ 觀景窗 ＋ 空間機位雙視角 3D 透視模擬</tspan>
+      <tspan x="0" dy="32">✔ 支援 可靈 Kling · Runway Gen-3 · Luma · Sora · Wan 2.1 提示詞一鍵輸出</tspan>
+      <tspan x="0" dy="32">✔ 內建短劇爆款 5 大黃金分鏡組合模板（逆襲、揭秘、對峙、追逐、宏大開場）</tspan>
+    </text>
+  </g>
+
+  <!-- Footer Branding Bar -->
+  <g transform="translate(100, 520)">
+    <rect x="0" y="0" width="1000" height="1" fill="rgba(255,255,255,0.15)"/>
+    <text x="0" y="42" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="800">FREEWINGBIZ</text>
+    <text x="145" y="42" fill="#7193C9" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15">｜ AI 影視短劇創作旗艦工具箱</text>
+    <text x="1000" y="42" fill="#00F2FE" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="700" text-anchor="end">freewingbiz.com/skills/camera-controls</text>
+  </g>
+</svg>

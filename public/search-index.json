@@ -38,6 +38,39 @@
     "featured": true
   },
   {
+    "id": "camera-controls",
+    "title": "AI 電影運鏡工程模擬器：40 款標準鏡頭語言 × 雙視角 3D 即時模擬 × 提示詞生成器",
+    "type": "skill",
+    "category": "AI 電影製作",
+    "summary": "專為 AI 網劇與短影音創作者打造的 3D 電影運鏡工程模擬器。整合 40 款標準鏡頭語言、雙視角空間透視模擬台、5 大爆款短劇黃金分鏡模板，並支援可靈 Kling、Runway、Luma、Sora 與 Wan 2.1 提示詞一鍵轉譯輸出。",
+    "tags": [
+      "AI運鏡",
+      "鏡頭語言",
+      "AI短劇",
+      "Prompt生成器",
+      "可靈Kling",
+      "Runway",
+      "Sora",
+      "Luma",
+      "Wan2.1",
+      "分鏡腳本"
+    ],
+    "tools": [
+      "Kling AI",
+      "Runway Gen-3",
+      "Luma Dream Machine",
+      "OpenAI Sora",
+      "Wan 2.1",
+      "CSS 3D",
+      "Vanilla JS"
+    ],
+    "created": "2026-10-27",
+    "updated": "2026-10-27",
+    "url": "/skills/camera-controls",
+    "cover": "/assets/covers/camera-controls.svg",
+    "featured": true
+  },
+  {
     "id": "2026-10-22",
     "title": "Chow 的 AI 模型日報｜第 025 號 (2026.10.22)",
     "type": "newspaper",
