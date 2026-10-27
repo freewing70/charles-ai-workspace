@@ -305,14 +305,14 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         <!-- SECTION 2: STUDIO ALL-IN-ONE CONSOLE (COMPACT DUAL-MODE CONTROLLER) -->
     <section class="freewing-card p-4 sm:p-6 border border-slate-200 shadow-md bg-white rounded-2xl" aria-label="運鏡控制台">
       
-      <!-- Top Bar: Mode Switcher Tabs + Category Filter Buttons -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-200">
+      <!-- Top Bar: Mode Switcher Tabs + Status Indicator -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
         
         <!-- Left: Studio Mode Switcher (Single Shot vs Storyboard Presets) -->
         <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl shrink-0" id="console-mode-tabs">
           <button id="tab-mode-single" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer bg-[#155EEF] text-white shadow-2xs flex items-center gap-1.5">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-            <span>40 款標準單鏡 (點擊即測)</span>
+            <span>40 款標準單鏡 (下拉選鏡)</span>
           </button>
           <button id="tab-mode-combo" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
             <span class="text-amber-500">⚡</span>
@@ -320,32 +320,137 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           </button>
         </div>
 
-        <!-- Right: Compact Category Filter Buttons (Visible in Single Mode) -->
-        <div id="category-filter-buttons" class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
-          <button data-cat="all" class="cat-btn px-2.5 py-1 rounded-lg font-semibold bg-[#155EEF] text-white shadow-2xs cursor-pointer">全部 (40)</button>
-          <button data-cat="physical" class="cat-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">物理 (12)</button>
-          <button data-cat="optical" class="cat-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">光學 (6)</button>
-          <button data-cat="compound" class="cat-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">複合 (14)</button>
-          <button data-cat="special" class="cat-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">視角 (8)</button>
+        <!-- Right: Studio Live Status Indicator -->
+        <div class="flex items-center gap-2 text-xs text-slate-500">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="font-medium text-[11px] text-slate-600">即時 3D 視口連動 · 40 款影視級運鏡庫</span>
         </div>
       </div>
 
-      <!-- VIEW 1: Single Shot Compact Chips Grid (Visible when Single Mode is Active) -->
+      <!-- VIEW 1: Single Shot Studio Combobox (Visible when Single Mode is Active) -->
       <div id="panel-single-shot" class="pt-3 space-y-2.5">
-        <!-- Compact Search Input -->
-        <div class="relative">
-          <input
-            type="text"
-            id="movement-search-input"
-            placeholder="🔍 快速搜尋運鏡（如：dolly, 仰拍, 變焦, 俯衝, 甩鏡, orbit, 荷蘭角）..."
-            class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-3 pr-8 py-1.5 text-xs text-[#07172D] placeholder-slate-400 focus:outline-none focus:border-[#155EEF] focus:bg-white font-medium transition-all"
-          />
+        
+        <!-- Row 1: The Studio Combobox + Stepper Navigation -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          
+          <!-- Custom Studio Combobox Container -->
+          <div class="relative flex-1" id="combobox-wrapper">
+            <!-- Combobox Input Trigger -->
+            <div class="relative">
+              <input
+                type="text"
+                id="combobox-search-input"
+                placeholder="搜尋或選擇 40 款運鏡（輸入如：dolly, 仰拍, 變焦, orbit）..."
+                class="w-full bg-slate-50 hover:bg-white border border-slate-300 focus:border-[#155EEF] rounded-xl pl-9 pr-24 py-2.5 text-xs text-[#07172D] font-bold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#155EEF]/20 transition-all cursor-pointer shadow-2xs"
+                autocomplete="off"
+              />
+              <!-- Leading Icon -->
+              <div class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm select-none" id="combobox-leading-icon">
+                🎥
+              </div>
+              <!-- Trailing Controls: Category Badge & Chevron -->
+              <div class="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5 text-slate-400">
+                <span id="combobox-active-badge" class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-bold hidden sm:inline-block">物理運鏡</span>
+                <button type="button" id="combobox-toggle-btn" class="p-1 hover:text-slate-700 transition-colors cursor-pointer" aria-label="展開選單">
+                  <svg class="w-4 h-4 transition-transform duration-200" id="combobox-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Combobox Floating Dropdown Menu -->
+            <div
+              id="combobox-dropdown"
+              class="hidden absolute z-50 left-0 right-0 top-full mt-1.5 max-h-[340px] overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl p-1.5 text-xs transition-all space-y-2"
+            >
+              <!-- Category Filter Chips inside dropdown header -->
+              <div class="sticky top-0 bg-white/95 backdrop-blur-xs py-1 px-1 border-b border-slate-100 flex items-center gap-1 z-10 overflow-x-auto text-[10px]">
+                <button type="button" data-combocat="all" class="combocat-btn px-2 py-0.5 rounded font-bold bg-[#155EEF] text-white cursor-pointer">全部 (40)</button>
+                <button type="button" data-combocat="physical" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">物理 (12)</button>
+                <button type="button" data-combocat="optical" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">光學 (6)</button>
+                <button type="button" data-combocat="compound" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">複合 (14)</button>
+                <button type="button" data-combocat="special" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">視角 (8)</button>
+              </div>
+
+              <!-- List of items rendered dynamically grouped by category -->
+              <div id="combobox-options-list" class="space-y-1">
+                <!-- Grouped Items -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Stepper Navigation & Utility Buttons (Right Side) -->
+          <div class="flex items-center gap-1 shrink-0 self-end sm:self-auto">
+            <!-- Prev Button -->
+            <button
+              type="button"
+              id="btn-prev-movement"
+              title="切換至上一個運鏡"
+              class="px-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 active:bg-slate-100 text-[#07172D] text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-2xs"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+              <span class="hidden md:inline">上一鏡</span>
+            </button>
+
+            <!-- Counter Badge -->
+            <div id="movement-counter-badge" class="px-2 py-2 rounded-xl bg-slate-100 text-slate-600 font-mono text-xs font-bold min-w-[54px] text-center select-none border border-slate-200/60">
+              1 / 40
+            </div>
+
+            <!-- Next Button -->
+            <button
+              type="button"
+              id="btn-next-movement"
+              title="切換至下一個運鏡"
+              class="px-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 active:bg-slate-100 text-[#07172D] text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-2xs"
+            >
+              <span class="hidden md:inline">下一鏡</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <!-- Random Shuffle Inspiration Button -->
+            <button
+              type="button"
+              id="btn-random-movement"
+              title="隨機挑選運鏡靈感"
+              class="px-2.5 py-2 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100/80 active:bg-amber-200/80 text-amber-900 text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-2xs"
+            >
+              <span>🎲</span>
+              <span class="hidden lg:inline">隨機</span>
+            </button>
+          </div>
+
         </div>
 
-        <!-- Ultra-compact chips container: 5 columns on desktop, max-h 160px with slim scrollbar -->
-        <div id="movement-chips-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1.5 max-h-[170px] overflow-y-auto pr-1 text-xs">
-          <!-- Rendered by Client Script as compact micro-chips -->
+        <!-- Row 2: Popular Hot Quick-Picks (爆款熱門一鍵直達) -->
+        <div class="flex items-center gap-1.5 overflow-x-auto py-0.5 text-xs">
+          <span class="text-[11px] font-bold text-slate-600 shrink-0 flex items-center gap-1">
+            <span>🔥 熱門直達:</span>
+          </span>
+          <div class="flex items-center gap-1 overflow-x-auto text-[11px]" id="hot-quick-picks">
+            <button type="button" data-pick="fpv-drone-dive" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
+              🚀 FPV俯衝
+            </button>
+            <button type="button" data-pick="dolly-zoom" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
+              🌀 眩暈推拉
+            </button>
+            <button type="button" data-pick="orbit-360" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
+              🔄 360°環繞
+            </button>
+            <button type="button" data-pick="crash-zoom" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
+              ⚡ 衝擊變焦
+            </button>
+            <button type="button" data-pick="bullet-time" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
+              ⏳ 子彈時間
+            </button>
+            <button type="button" data-pick="dutch-angle" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
+              📐 荷蘭傾角
+            </button>
+            <button type="button" data-pick="ots-shot" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
+              👥 經典過肩
+            </button>
+          </div>
         </div>
+
       </div>
 
       <!-- VIEW 2: Storyboard Combo Presets (Visible when Combo Mode is Active) -->
@@ -1571,9 +1676,21 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     const rigRotText = document.getElementById('rig-rot-text');
     const compiledOutput = document.getElementById('compiled-prompt-output');
     const modelBadge = document.getElementById('prompt-model-badge');
-    const chipsContainer = document.getElementById('movement-chips-container');
-    const searchInput = document.getElementById('movement-search-input');
-    const catButtons = document.querySelectorAll('.cat-btn');
+    // Studio Combobox DOM Elements
+    const comboboxWrapper = document.getElementById('combobox-wrapper');
+    const comboboxSearchInput = document.getElementById('combobox-search-input');
+    const comboboxLeadingIcon = document.getElementById('combobox-leading-icon');
+    const comboboxActiveBadge = document.getElementById('combobox-active-badge');
+    const comboboxToggleBtn = document.getElementById('combobox-toggle-btn');
+    const comboboxChevron = document.getElementById('combobox-chevron');
+    const comboboxDropdown = document.getElementById('combobox-dropdown');
+    const comboboxOptionsList = document.getElementById('combobox-options-list');
+    const btnPrevMovement = document.getElementById('btn-prev-movement');
+    const btnNextMovement = document.getElementById('btn-next-movement');
+    const btnRandomMovement = document.getElementById('btn-random-movement');
+    const movementCounterBadge = document.getElementById('movement-counter-badge');
+    const hotPickButtons = document.querySelectorAll('.hot-pick-btn');
+    const combocatButtons = document.querySelectorAll('.combocat-btn');
     const modelTabButtons = document.querySelectorAll('.model-tab-btn');
     const focalSelect = document.getElementById('select-focal-length');
     const speedSelect = document.getElementById('select-motion-speed');
@@ -1593,38 +1710,102 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     const tabModeCombo = document.getElementById('tab-mode-combo');
     const panelSingleShot = document.getElementById('panel-single-shot');
     const panelStoryboardCombo = document.getElementById('panel-storyboard-combo');
-    const categoryFilterButtons = document.getElementById('category-filter-buttons');
     const comboCards = document.querySelectorAll('.btn-combo-card');
 
-    // 1. Initialize Compact Micro-Chips
-    function renderChips(filterCat = 'all', searchQuery = '') {
-      chipsContainer.innerHTML = '';
+    const CATEGORY_MAP = {
+      physical: { name: '物理機位運動', badge: '物理 (12)', icon: '🎥' },
+      optical: { name: '光學焦段變奏', badge: '光學 (6)', icon: '🔍' },
+      compound: { name: '複合機械調度', badge: '複合 (14)', icon: '🌪️' },
+      special: { name: '特殊構圖視角', badge: '視角 (8)', icon: '📐' }
+    };
+
+    // 1. Initialize Studio Combobox Dropdown Options
+    function renderComboboxOptions(filterCat = 'all', searchQuery = '') {
+      comboboxOptionsList.innerHTML = '';
+      const query = searchQuery.toLowerCase().trim();
+
       const filtered = MOVEMENTS_DATA.filter(item => {
         const matchesCat = filterCat === 'all' || item.cat === filterCat;
-        const matchesSearch = !searchQuery || item.zh.includes(searchQuery) || item.en.toLowerCase().includes(searchQuery.toLowerCase()) || item.desc.includes(searchQuery);
+        const matchesSearch = !query || item.zh.includes(query) || item.en.toLowerCase().includes(query) || item.desc.includes(query);
         return matchesCat && matchesSearch;
       });
 
-      filtered.forEach(item => {
-        const isSelected = !isComboMode && item.id === currentMovement.id;
-        const btn = document.createElement('button');
-        btn.className = `px-2.5 py-1.5 rounded-lg border text-left transition-all cursor-pointer flex items-center justify-between gap-1 select-none text-xs ${
-          isSelected 
-            ? 'bg-blue-600 text-white border-blue-600 font-bold shadow-2xs ring-2 ring-blue-400/30' 
-            : 'bg-slate-50 hover:bg-white hover:border-slate-300 border-slate-200 text-[#07172D]'
-        }`;
-        btn.innerHTML = `
-          <span class="truncate text-[11px] font-medium ${isSelected ? 'text-white' : 'text-[#07172D]'}">${item.zh}</span>
-          <span class="text-[11px] font-mono opacity-70 ml-1 shrink-0">${item.icon}</span>
+      if (filtered.length === 0) {
+        comboboxOptionsList.innerHTML = `
+          <div class="py-6 text-center text-slate-400 text-xs">
+            未找到符合「<span class="text-blue-600 font-bold">${searchQuery}</span>」的運鏡<br/>
+            <span class="text-[11px] text-slate-500 mt-1 block">請嘗試輸入關鍵字（如：dolly, 仰拍, orbit）</span>
+          </div>
         `;
-        btn.addEventListener('click', () => {
-          if (isComboMode) {
-            switchToSingleMode(false);
-          }
-          selectMovement(item);
+        return;
+      }
+
+      const categories = filterCat === 'all' ? ['physical', 'optical', 'compound', 'special'] : [filterCat];
+
+      categories.forEach(catKey => {
+        const itemsInCat = filtered.filter(item => item.cat === catKey);
+        if (itemsInCat.length === 0) return;
+
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'space-y-0.5';
+
+        const catInfo = CATEGORY_MAP[catKey];
+        const header = document.createElement('div');
+        header.className = 'text-[10px] font-bold text-slate-400 px-2 py-1 tracking-wider uppercase flex items-center justify-between border-b border-slate-100 mb-1';
+        header.innerHTML = `<span>${catInfo.icon} ${catInfo.name}</span> <span class="font-mono text-slate-400">${itemsInCat.length}款</span>`;
+        groupDiv.appendChild(header);
+
+        itemsInCat.forEach(item => {
+          const isSelected = !isComboMode && item.id === currentMovement.id;
+          const optBtn = document.createElement('button');
+          optBtn.type = 'button';
+          optBtn.dataset.id = item.id;
+          optBtn.className = `w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between gap-2 transition-all cursor-pointer ${
+            isSelected 
+              ? 'bg-blue-50 border border-blue-200 text-blue-700 font-bold shadow-2xs' 
+              : 'hover:bg-slate-50 text-slate-700 hover:text-slate-900 border border-transparent'
+          }`;
+          optBtn.innerHTML = `
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-sm shrink-0">${item.icon}</span>
+              <div class="truncate">
+                <div class="flex items-center gap-1.5 leading-tight">
+                  <span class="text-xs font-bold ${isSelected ? 'text-blue-700' : 'text-[#07172D]'}">${item.zh}</span>
+                  <span class="text-[10px] font-mono ${isSelected ? 'text-blue-500' : 'text-slate-400'} font-normal">(${item.en})</span>
+                </div>
+                <div class="text-[10px] text-slate-500 truncate leading-tight mt-0.5">${item.desc}</div>
+              </div>
+            </div>
+            ${isSelected ? '<span class="text-blue-600 text-xs shrink-0 font-bold">✓</span>' : ''}
+          `;
+
+          optBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isComboMode) {
+              switchToSingleMode(false);
+            }
+            selectMovement(item);
+            closeDropdown();
+          });
+
+          groupDiv.appendChild(optBtn);
         });
-        chipsContainer.appendChild(btn);
+
+        comboboxOptionsList.appendChild(groupDiv);
       });
+    }
+
+    function openDropdown() {
+      comboboxDropdown.classList.remove('hidden');
+      comboboxChevron.classList.add('rotate-180');
+      renderComboboxOptions(currentFilterCat, '');
+      comboboxSearchInput.select();
+    }
+
+    function closeDropdown() {
+      comboboxDropdown.classList.add('hidden');
+      comboboxChevron.classList.remove('rotate-180');
+      comboboxSearchInput.value = `${currentMovement.icon} ${currentMovement.zh} (${currentMovement.en}) · ${currentMovement.desc}`;
     }
 
     // 2. Select Movement Handler with clean resets
@@ -1636,7 +1817,28 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       // Clean reset of all visual modifiers
       resetVisualModifiers();
 
-      renderChips(getCurrentFilterCat(), searchInput.value.trim());
+      // Update Combobox Display Input
+      comboboxSearchInput.value = `${movement.icon} ${movement.zh} (${movement.en}) · ${movement.desc}`;
+      comboboxLeadingIcon.textContent = movement.icon;
+      const catInfo = CATEGORY_MAP[movement.cat];
+      if (catInfo) {
+        comboboxActiveBadge.textContent = catInfo.name;
+      }
+      const curIdx = MOVEMENTS_DATA.findIndex(m => m.id === movement.id);
+      movementCounterBadge.textContent = `${curIdx + 1} / ${MOVEMENTS_DATA.length}`;
+
+      // Update Hot Quick-Picks Highlight
+      hotPickButtons.forEach(btn => {
+        if (btn.dataset.pick === movement.id) {
+          btn.classList.add('bg-blue-50', 'border-blue-500', 'text-blue-700', 'font-bold');
+          btn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+        } else {
+          btn.classList.remove('bg-blue-50', 'border-blue-500', 'text-blue-700', 'font-bold');
+          btn.classList.add('bg-slate-50', 'border-slate-200', 'text-slate-700');
+        }
+      });
+
+      renderComboboxOptions(currentFilterCat, '');
       updateCompiledPrompt();
     }
 
@@ -1736,7 +1938,6 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
 
       panelSingleShot.classList.remove('hidden');
       panelStoryboardCombo.classList.add('hidden');
-      categoryFilterButtons.classList.remove('hidden');
       sbTimelineBar.classList.add('hidden');
 
       if (autoSelectCurrent) {
@@ -1756,7 +1957,6 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
 
       panelSingleShot.classList.add('hidden');
       panelStoryboardCombo.classList.remove('hidden');
-      categoryFilterButtons.classList.add('hidden');
       sbTimelineBar.classList.remove('hidden');
 
       const combo = STORYBOARD_COMBOS[comboKey];
@@ -1773,7 +1973,6 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         }
       });
 
-      renderChips(getCurrentFilterCat(), searchInput.value.trim());
       updateCompiledPrompt();
     }
 
@@ -2292,22 +2491,99 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       animFrameId = requestAnimationFrame(animateLoop);
     }
 
-    // 6. Event Listeners for Filters, Search & Tabs
-    catButtons.forEach(btn => {
+    // 6. Event Listeners for Combobox, Stepper, Hot Picks & Tabs
+    comboboxSearchInput.addEventListener('focus', () => {
+      openDropdown();
+    });
+
+    comboboxToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (comboboxDropdown.classList.contains('hidden')) {
+        openDropdown();
+      } else {
+        closeDropdown();
+      }
+    });
+
+    comboboxSearchInput.addEventListener('input', (e) => {
+      const q = e.target.value.trim();
+      renderComboboxOptions(currentFilterCat, q);
+      if (comboboxDropdown.classList.contains('hidden')) {
+        comboboxDropdown.classList.remove('hidden');
+        comboboxChevron.classList.add('rotate-180');
+      }
+    });
+
+    comboboxSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDropdown();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        btnNextMovement.click();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        btnPrevMovement.click();
+      }
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener('click', (e) => {
+      if (comboboxWrapper && !comboboxWrapper.contains(e.target)) {
+        if (!comboboxDropdown.classList.contains('hidden')) {
+          closeDropdown();
+        }
+      }
+    });
+
+    // Stepper Navigation Buttons
+    btnPrevMovement.addEventListener('click', () => {
+      if (isComboMode) switchToSingleMode(false);
+      const idx = MOVEMENTS_DATA.findIndex(m => m.id === currentMovement.id);
+      const prevIdx = (idx - 1 + MOVEMENTS_DATA.length) % MOVEMENTS_DATA.length;
+      selectMovement(MOVEMENTS_DATA[prevIdx]);
+    });
+
+    btnNextMovement.addEventListener('click', () => {
+      if (isComboMode) switchToSingleMode(false);
+      const idx = MOVEMENTS_DATA.findIndex(m => m.id === currentMovement.id);
+      const nextIdx = (idx + 1) % MOVEMENTS_DATA.length;
+      selectMovement(MOVEMENTS_DATA[nextIdx]);
+    });
+
+    btnRandomMovement.addEventListener('click', () => {
+      if (isComboMode) switchToSingleMode(false);
+      let randIdx;
+      do {
+        randIdx = Math.floor(Math.random() * MOVEMENTS_DATA.length);
+      } while (MOVEMENTS_DATA[randIdx].id === currentMovement.id);
+      selectMovement(MOVEMENTS_DATA[randIdx]);
+    });
+
+    // Hot Quick-Picks Buttons
+    hotPickButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        catButtons.forEach(b => {
-          b.classList.remove('bg-[#155EEF]', 'text-white', 'shadow-2xs');
-          b.classList.add('bg-slate-100', 'text-slate-600');
-        });
-        btn.classList.add('bg-[#155EEF]', 'text-white', 'shadow-2xs');
-        btn.classList.remove('bg-slate-100', 'text-slate-600');
-        currentFilterCat = btn.dataset.cat;
-        renderChips(currentFilterCat, searchInput.value.trim());
+        if (isComboMode) switchToSingleMode(false);
+        const targetId = btn.dataset.pick;
+        const targetMove = MOVEMENTS_DATA.find(m => m.id === targetId);
+        if (targetMove) {
+          selectMovement(targetMove);
+        }
       });
     });
 
-    searchInput.addEventListener('input', (e) => {
-      renderChips(getCurrentFilterCat(), e.target.value.trim());
+    // Dropdown Category Filter Chips
+    combocatButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        combocatButtons.forEach(b => {
+          b.classList.remove('bg-[#155EEF]', 'text-white', 'font-bold');
+          b.classList.add('bg-slate-100', 'text-slate-600');
+        });
+        btn.classList.add('bg-[#155EEF]', 'text-white', 'font-bold');
+        btn.classList.remove('bg-slate-100', 'text-slate-600');
+        currentFilterCat = btn.dataset.combocat;
+        renderComboboxOptions(currentFilterCat, comboboxSearchInput.value.trim());
+      });
     });
 
     // Console Mode Switcher (Single vs Storyboard Combo)
