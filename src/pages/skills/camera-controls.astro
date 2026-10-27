@@ -180,6 +180,17 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
               <div id="layer-foreground-right" class="absolute -right-12 top-4 w-10 h-72 bg-gradient-to-l from-slate-950 to-slate-800 border-l border-cyan-400/30 opacity-70 transition-transform duration-150"></div>
             </div>
 
+            <!-- Layer 5: Over-the-Shoulder Foreground Silhouette (for OTS shot) -->
+            <div id="layer-ots-shoulder" class="absolute -bottom-8 -left-6 w-44 h-56 bg-slate-950/95 rounded-t-full border-t-2 border-r-2 border-slate-700/60 z-25 pointer-events-none opacity-0 transition-opacity duration-300">
+              <div class="absolute top-4 right-6 w-16 h-16 rounded-full bg-slate-900 border border-slate-700"></div>
+            </div>
+
+            <!-- Layer 6: Dynamic Speed Lines & Motion Blur FX Overlay (for FPV dive, Crash zoom, Whip pan) -->
+            <div id="layer-fx-speed" class="absolute inset-0 z-25 pointer-events-none opacity-0 transition-opacity duration-150" style="background: radial-gradient(circle, transparent 40%, rgba(0,242,254,0.25) 100%), repeating-radial-gradient(circle, transparent 0, transparent 20px, rgba(255,255,255,0.12) 21px, transparent 24px);"></div>
+
+            <!-- Layer 7: Split Diopter Optical Divider Line (for Split Diopter) -->
+            <div id="layer-split-line" class="absolute inset-y-0 left-1/2 w-0.5 bg-cyan-400 shadow-[0_0_12px_#00F2FE] z-25 pointer-events-none opacity-0 transition-opacity duration-300"></div>
+
             <!-- Viewfinder Safety Markers (Corner Brackets) -->
             <div class="absolute inset-4 pointer-events-none border border-white/10 z-20">
               <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-amber-400"></div>
@@ -717,6 +728,11 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     const horizonLayer = document.getElementById('layer-horizon');
     const subjectAnchor = document.getElementById('subject-anchor');
     const cameraRigMarker = document.getElementById('camera-rig-marker');
+    const layerOtsShoulder = document.getElementById('layer-ots-shoulder');
+    const layerFxSpeed = document.getElementById('layer-fx-speed');
+    const layerSplitLine = document.getElementById('layer-split-line');
+    const layerForegroundLeft = document.getElementById('layer-foreground-left');
+    const layerForegroundRight = document.getElementById('layer-foreground-right');
     const hudMovementName = document.getElementById('hud-movement-name');
     const hudVectorText = document.getElementById('hud-vector-text');
     const hudLensSpec = document.getElementById('hud-lens-spec');
@@ -766,11 +782,32 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       });
     }
 
-    // 2. Select Movement Handler
+    // 2. Select Movement Handler with clean resets
     function selectMovement(movement) {
       currentMovement = movement;
       animProgress = 0;
       hudMovementName.textContent = `${movement.en.toUpperCase()} (${movement.zh})`;
+
+      // Clean reset of all visual modifiers
+      if (layerOtsShoulder) layerOtsShoulder.style.opacity = '0';
+      if (layerFxSpeed) layerFxSpeed.style.opacity = '0';
+      if (layerSplitLine) layerSplitLine.style.opacity = '0';
+      if (layerForegroundLeft) layerForegroundLeft.style.transform = 'none';
+      if (layerForegroundRight) layerForegroundRight.style.transform = 'none';
+      if (subjectAnchor) {
+        subjectAnchor.style.filter = 'none';
+        subjectAnchor.style.boxShadow = 'none';
+        subjectAnchor.style.opacity = '1';
+        subjectAnchor.style.transform = 'none';
+      }
+      if (horizonLayer) {
+        horizonLayer.style.filter = 'none';
+        horizonLayer.style.transform = 'none';
+      }
+      if (viewfinderStage) {
+        viewfinderStage.style.filter = 'none';
+      }
+
       renderChips(getCurrentFilterCat(), searchInput.value.trim());
       updateCompiledPrompt();
     }
@@ -808,14 +845,14 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       compiledOutput.textContent = output;
     }
 
-    // 4. Animation Loop for 3D Viewport Physics
+    // 4. Animation Loop for 3D Viewport Physics (ALL 40 MOVEMENTS FULLY IMPLEMENTED)
     function animateLoop() {
       if (isPlaying) {
         animProgress += 0.025 * animationSpeed;
       }
       
       const t = Math.sin(animProgress); // -1 to 1 oscillation
-      const tNorm = (t + 1) / 2; // 0 to 1
+      const tNorm = (t + 1) / 2; // 0 to 1 smooth oscillation
       const mId = currentMovement.id;
 
       let vfRotX = 0, vfRotY = 0, vfRotZ = 0, vfTransX = 0, vfTransY = 0, vfTransZ = 0, vfScale = 1;
@@ -828,135 +865,374 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       let vectorDesc = '';
 
       switch (mId) {
+        // === CATEGORY 1: PHYSICAL TRANSLATIONS & ROTATIONS (12) ===
         case 'pan-left':
-          vfRotY = -22 * t;
-          vfTransX = 75 * t;
-          horizonOffset = -60 * t;
-          rigRotZ = -30 * t;
-          rotY = -22 * t;
-          vectorDesc = `Yaw: ${rotY.toFixed(1)}°`;
+          vfRotY = -25 * t;
+          vfTransX = 80 * t;
+          horizonOffset = -70 * t;
+          rigRotZ = -35 * t;
+          rotY = -25 * t;
+          vectorDesc = `Yaw: ${rotY.toFixed(1)}° (Pan L)`;
           break;
         case 'pan-right':
-          vfRotY = 22 * t;
-          vfTransX = -75 * t;
-          horizonOffset = 60 * t;
-          rigRotZ = 30 * t;
-          rotY = 22 * t;
-          vectorDesc = `Yaw: +${rotY.toFixed(1)}°`;
+          vfRotY = 25 * t;
+          vfTransX = -80 * t;
+          horizonOffset = 70 * t;
+          rigRotZ = 35 * t;
+          rotY = 25 * t;
+          vectorDesc = `Yaw: +${rotY.toFixed(1)}° (Pan R)`;
           break;
         case 'tilt-up':
-          vfRotX = 22 * t;
-          vfTransY = 55 * t;
-          rotP = 22 * t;
-          vectorDesc = `Pitch: +${rotP.toFixed(1)}°`;
+          vfRotX = 26 * t;
+          vfTransY = 65 * t;
+          rotP = 26 * t;
+          vectorDesc = `Pitch: +${rotP.toFixed(1)}° (Tilt Up)`;
           break;
         case 'tilt-down':
-          vfRotX = -22 * t;
-          vfTransY = -55 * t;
-          rotP = -22 * t;
-          vectorDesc = `Pitch: ${rotP.toFixed(1)}°`;
+          vfRotX = -26 * t;
+          vfTransY = -65 * t;
+          rotP = -26 * t;
+          vectorDesc = `Pitch: ${rotP.toFixed(1)}° (Tilt Down)`;
           break;
         case 'roll-cw':
-          vfRotZ = 20 * t;
-          rotR = 20 * t;
-          vectorDesc = `Roll: +${rotR.toFixed(1)}°`;
+          vfRotZ = 22 * t;
+          rotR = 22 * t;
+          vectorDesc = `Roll: +${rotR.toFixed(1)}° (CW)`;
           break;
         case 'roll-ccw':
-          vfRotZ = -20 * t;
-          rotR = -20 * t;
-          vectorDesc = `Roll: ${rotR.toFixed(1)}°`;
+          vfRotZ = -22 * t;
+          rotR = -22 * t;
+          vectorDesc = `Roll: ${rotR.toFixed(1)}° (CCW)`;
           break;
         case 'dolly-in':
-          vfScale = 1 + 0.35 * tNorm;
-          vfTransZ = 90 * tNorm;
-          rigTransY = 85 - 45 * tNorm;
+          vfScale = 1 + 0.45 * tNorm;
+          vfTransZ = 110 * tNorm;
+          rigTransY = 85 - 50 * tNorm;
           posY = -2.4 + 1.2 * tNorm;
-          vectorDesc = `Dolly: +${(1.2 * tNorm).toFixed(2)}m`;
+          vectorDesc = `Dolly In: +${(1.2 * tNorm).toFixed(2)}m`;
           break;
         case 'dolly-out':
-          vfScale = 1.35 - 0.35 * tNorm;
-          vfTransZ = 90 * (1 - tNorm);
-          rigTransY = 40 + 45 * tNorm;
+          vfScale = 1.4 - 0.45 * tNorm;
+          vfTransZ = 110 * (1 - tNorm);
+          rigTransY = 35 + 50 * tNorm;
           posY = -1.2 - 1.2 * tNorm;
-          vectorDesc = `Dolly: -${(1.2 * tNorm).toFixed(2)}m`;
+          vectorDesc = `Dolly Out: -${(1.2 * tNorm).toFixed(2)}m`;
           break;
         case 'truck-left':
-          vfTransX = 85 * t;
-          rigTransX = -45 * t;
+          vfTransX = 90 * t;
+          rigTransX = -50 * t;
+          horizonOffset = 35 * t;
           posX = -1.5 * t;
-          vectorDesc = `Truck: ${(posX).toFixed(2)}m`;
+          vectorDesc = `Truck L: ${(posX).toFixed(2)}m`;
           break;
         case 'truck-right':
-          vfTransX = -85 * t;
-          rigTransX = 45 * t;
+          vfTransX = -90 * t;
+          rigTransX = 50 * t;
+          horizonOffset = -35 * t;
           posX = 1.5 * t;
-          vectorDesc = `Truck: +${(posX).toFixed(2)}m`;
+          vectorDesc = `Truck R: +${(posX).toFixed(2)}m`;
           break;
         case 'pedestal-up':
-          vfTransY = 60 * tNorm;
-          rigTransZ = 40 * tNorm;
+          vfTransY = 70 * tNorm;
+          rigTransZ = 45 * tNorm;
           posZ = 1.2 + 1.5 * tNorm;
-          vectorDesc = `Pedestal: +${(1.5 * tNorm).toFixed(2)}m`;
+          vectorDesc = `Pedestal Up: +${(1.5 * tNorm).toFixed(2)}m`;
           break;
         case 'pedestal-down':
-          vfTransY = -60 * tNorm;
-          rigTransZ = -30 * tNorm;
+          vfTransY = -70 * tNorm;
+          rigTransZ = -35 * tNorm;
           posZ = 1.2 - 1.0 * tNorm;
-          vectorDesc = `Pedestal: -${(1.0 * tNorm).toFixed(2)}m`;
+          vectorDesc = `Pedestal Down: -${(1.0 * tNorm).toFixed(2)}m`;
           break;
+
+        // === CATEGORY 2: OPTICAL & DEPTH OF FIELD (6) ===
         case 'zoom-in':
-          vfScale = 1 + 0.5 * tNorm;
-          vectorDesc = `Zoom: ${(35 + 50 * tNorm).toFixed(0)}mm`;
+          vfScale = 1 + 0.65 * tNorm;
+          vectorDesc = `Optical Zoom: ${(35 + 55 * tNorm).toFixed(0)}mm`;
           break;
         case 'zoom-out':
-          vfScale = 1.5 - 0.5 * tNorm;
-          vectorDesc = `Zoom: ${(85 - 50 * tNorm).toFixed(0)}mm`;
+          vfScale = 1.65 - 0.65 * tNorm;
+          vectorDesc = `Optical Zoom: ${(90 - 55 * tNorm).toFixed(0)}mm`;
           break;
         case 'crash-zoom':
-          const crashFactor = Math.pow(tNorm, 3);
-          vfScale = 1 + 0.8 * crashFactor;
-          vectorDesc = `Snap Zoom: ${(35 + 85 * crashFactor).toFixed(0)}mm`;
+          const crashFactor = Math.pow(tNorm, 4);
+          vfScale = 1 + 1.1 * crashFactor;
+          if (crashFactor > 0.4 && layerFxSpeed) {
+            layerFxSpeed.style.opacity = '0.6';
+          }
+          vectorDesc = `Crash Zoom Snap: ${(35 + 85 * crashFactor).toFixed(0)}mm`;
           break;
+        case 'rack-focus':
+          // Smooth focus shifting between foreground and background
+          if (t > 0) {
+            horizonLayer.style.filter = `blur(${(t * 8).toFixed(1)}px)`;
+            subjectAnchor.style.filter = 'none';
+            vectorDesc = `Focus: Subject Sharp (Foreground)`;
+          } else {
+            horizonLayer.style.filter = 'none';
+            subjectAnchor.style.filter = `blur(${(-t * 6).toFixed(1)}px)`;
+            vectorDesc = `Focus: Background Sharp`;
+          }
+          break;
+        case 'deep-focus':
+          vfScale = 1;
+          horizonLayer.style.filter = 'none';
+          subjectAnchor.style.filter = 'none';
+          vectorDesc = `Deep Focus: F/11 Razor Sharp`;
+          break;
+        case 'shallow-dof':
+          vfScale = 1.05;
+          horizonLayer.style.filter = 'blur(10px)';
+          subjectAnchor.style.filter = 'none';
+          subjectAnchor.style.boxShadow = '0 0 20px rgba(0, 242, 254, 0.35)';
+          vectorDesc = `Shallow DOF: F/1.4 Creamy Bokeh`;
+          break;
+
+        // === CATEGORY 3: COMPOUND & KINETIC TRAJECTORIES (14) ===
         case 'orbit-360':
           const angleRad = animProgress;
           const radius = 85;
           rigTransX = Math.sin(angleRad) * radius;
           rigTransY = Math.cos(angleRad) * radius;
-          rigRotZ = -angleRad * (180 / Math.PI);
-          vfRotY = -angleRad * 30;
-          rotY = (angleRad * (180 / Math.PI)) % 360;
-          vectorDesc = `Orbit: ${rotY.toFixed(0)}°`;
+          rigRotZ = -angleRad * 57.3;
+          vfRotY = -angleRad * 35;
+          horizonOffset = (-angleRad * 45) % 240;
+          rotY = (angleRad * 57.3) % 360;
+          vectorDesc = `Orbit 360°: ${rotY.toFixed(0)}°`;
+          break;
+        case 'arc-left':
+          const arcL = tNorm * 1.57; // 0 to 90 deg
+          rigTransX = -Math.sin(arcL) * 85;
+          rigTransY = Math.cos(arcL) * 85;
+          rigRotZ = -arcL * 57.3;
+          vfRotY = -arcL * 35;
+          vfTransX = arcL * 45;
+          rotY = -arcL * 57.3;
+          vectorDesc = `Arc Left: ${(arcL * 57.3).toFixed(0)}° (90° Arc)`;
+          break;
+        case 'arc-right':
+          const arcR = tNorm * 1.57;
+          rigTransX = Math.sin(arcR) * 85;
+          rigTransY = Math.cos(arcR) * 85;
+          rigRotZ = arcR * 57.3;
+          vfRotY = arcR * 35;
+          vfTransX = -arcR * 45;
+          rotY = arcR * 57.3;
+          vectorDesc = `Arc Right: +${(arcR * 57.3).toFixed(0)}° (90° Arc)`;
+          break;
+        case 'lead-tracking':
+          // Camera moving backward leading the walking actor
+          const walkBob = Math.abs(Math.sin(animProgress * 3.5)) * 8 - 4;
+          vfTransY = walkBob;
+          vfScale = 1.15 - 0.25 * tNorm;
+          rigTransY = 55 + 35 * tNorm;
+          posY = -1.8 - 0.8 * tNorm;
+          vectorDesc = `Lead Tracking: ${(posY).toFixed(1)}m (Walk Cadence)`;
+          break;
+        case 'trail-tracking':
+          // Camera following behind
+          const runBob = Math.abs(Math.sin(animProgress * 4.5)) * 10 - 5;
+          vfTransY = runBob;
+          vfScale = 0.95 + 0.3 * tNorm;
+          rigTransY = 95 - 35 * tNorm;
+          posY = -2.8 + 0.8 * tNorm;
+          vectorDesc = `Trail Pursuit: ${(posY).toFixed(1)}m (Chase)`;
+          break;
+        case 'side-tracking':
+          // Lateral track alongside
+          vfTransX = Math.sin(animProgress * 1.5) * 65;
+          horizonOffset = Math.cos(animProgress * 1.5) * 85;
+          rigTransX = -Math.sin(animProgress * 1.5) * 55;
+          vectorDesc = `Side Track Velocity: 4.5 m/s`;
           break;
         case 'dolly-zoom':
-          // Subject stays fixed while background FOV expands/contracts dramatically
+          // Vertigo effect: subject stays constant, horizon warps
           vfScale = 1;
-          const vertigoDistort = 1.6 * tNorm;
-          horizonLayer.style.transform = `scale(${1 + vertigoDistort}) translateY(${-20 * vertigoDistort}px)`;
-          vectorDesc = `Vertigo Warp: ${(vertigoDistort * 100).toFixed(0)}%`;
+          const vertigoDistort = 1.8 * tNorm;
+          horizonLayer.style.transform = `scale(${1 + vertigoDistort}) translateY(${-25 * vertigoDistort}px)`;
+          rigTransY = 85 - 55 * tNorm;
+          vectorDesc = `Vertigo Warp: ${(vertigoDistort * 100).toFixed(0)}% (Hitchcock)`;
+          break;
+        case 'whip-pan':
+          // Ultra fast lateral wipe with blur
+          const snapPan = Math.sin(animProgress * 3.2);
+          vfRotY = snapPan * 65;
+          horizonOffset = -snapPan * 95;
+          if (Math.abs(snapPan) > 0.4) {
+            viewfinderStage.style.filter = 'blur(10px)';
+            if (layerFxSpeed) layerFxSpeed.style.opacity = '0.7';
+          } else {
+            viewfinderStage.style.filter = 'none';
+            if (layerFxSpeed) layerFxSpeed.style.opacity = '0';
+          }
+          vectorDesc = `Whip Pan Kinetic: ${(Math.abs(snapPan) * 450).toFixed(0)}°/s`;
           break;
         case 'handheld-shaky':
-          vfRotX = (Math.sin(animProgress * 3.5) * 2);
-          vfRotY = (Math.cos(animProgress * 4.2) * 2.5);
-          vfRotZ = (Math.sin(animProgress * 2.8) * 1.5);
-          vfTransX = (Math.cos(animProgress * 5) * 6);
-          vfTransY = (Math.sin(animProgress * 4.7) * 5);
-          vectorDesc = `Organic Shaky Cam`;
+          vfRotX = (Math.sin(animProgress * 2.8) * 3 + Math.cos(animProgress * 4.1) * 2);
+          vfRotY = (Math.cos(animProgress * 2.3) * 3.5 + Math.sin(animProgress * 5.2) * 1.5);
+          vfRotZ = (Math.sin(animProgress * 1.9) * 2.2);
+          vfTransX = (Math.cos(animProgress * 3.1) * 8);
+          vfTransY = (Math.sin(animProgress * 3.7) * 7);
+          vectorDesc = `Organic Handheld Shaky Cam`;
           break;
+        case 'steadicam':
+          // Smooth 3-axis floating motion
+          vfTransX = Math.sin(animProgress * 0.9) * 25;
+          vfTransY = Math.cos(animProgress * 1.3) * 15;
+          vfRotZ = Math.sin(animProgress * 0.7) * 3;
+          vfScale = 1.05 + Math.sin(animProgress * 0.8) * 0.1;
+          rigTransX = Math.sin(animProgress * 0.9) * 20;
+          rigTransY = 85 + Math.cos(animProgress * 1.3) * 15;
+          vectorDesc = `Steadicam 3-Axis Gyro Glide`;
+          break;
+        case 'crane-shot':
+          // Sweeping descent from 5m down to eye-level close-up
+          vfRotX = -32 * (1 - tNorm);
+          vfTransY = -75 * (1 - tNorm);
+          vfScale = 0.75 + 0.65 * tNorm;
+          rigTransZ = 65 * (1 - tNorm);
+          rigTransY = 115 - 55 * tNorm;
+          posZ = 1.2 + 3.8 * (1 - tNorm);
+          rotP = -32 * (1 - tNorm);
+          vectorDesc = `Crane Swoop: Alt ${(posZ).toFixed(1)}m ↓`;
+          break;
+        case 'spiral-corkscrew':
+          // Spin 360 AND ascend vertically
+          const corkSpin = animProgress * 1.2;
+          const corkZ = (animProgress * 18) % 65;
+          rigTransX = Math.sin(corkSpin) * 75;
+          rigTransY = Math.cos(corkSpin) * 75;
+          rigTransZ = corkZ;
+          rigRotZ = -corkSpin * 57.3;
+          vfRotY = -corkSpin * 32;
+          vfTransY = 40 - ((animProgress * 25) % 80);
+          posZ = 1.2 + corkZ * 0.05;
+          vectorDesc = `Spiral Ascent: Alt ${(posZ).toFixed(1)}m ↻`;
+          break;
+        case 'fpv-drone-dive':
+          // REAL FPV VERTICAL DIVE SIMULATION
+          const diveCycle = (animProgress * 0.9) % (Math.PI * 2);
+          const divePower = (Math.sin(diveCycle) + 1) / 2; // 0 to 1
+          // Camera banks and plunges straight down
+          vfRotX = -55 * (1 - divePower) + 15 * divePower; // steep downward tilt then pull-up
+          vfRotZ = Math.sin(diveCycle * 1.5) * 32; // rolling aerobatic bank
+          vfTransY = -120 * (1 - divePower) + 40 * divePower; // plunging down
+          vfScale = 0.6 + 1.8 * Math.pow(divePower, 2); // zooming in at extreme speed
+          // Speed lines activate during dive
+          if (layerFxSpeed) {
+            layerFxSpeed.style.opacity = divePower > 0.35 ? '0.85' : '0';
+          }
+          // Rig drops from top of coordinates
+          rigTransZ = 80 * (1 - divePower) + 5 * divePower;
+          rigTransY = 120 - 75 * divePower;
+          rigRotZ = vfRotZ;
+          posZ = 18.0 - 16.5 * divePower;
+          vectorDesc = `FPV Dive: ${(posZ).toFixed(1)}m | ${(55 + 65 * divePower).toFixed(0)} km/h ↓`;
+          break;
+        case 'fly-through':
+          // Accelerate through obstacles and past subject
+          const flyCycle = (animProgress * 0.8) % (Math.PI * 2);
+          const flyT = (Math.sin(flyCycle) + 1) / 2;
+          vfScale = 0.6 + 2.4 * Math.pow(flyT, 1.8);
+          // Foreground pillars push out wide as we pass through
+          if (layerForegroundLeft) layerForegroundLeft.style.transform = `scale(${1 + 2.5 * flyT}) translateX(${-140 * flyT}px)`;
+          if (layerForegroundRight) layerForegroundRight.style.transform = `scale(${1 + 2.5 * flyT}) translateX(${140 * flyT}px)`;
+          if (subjectAnchor) {
+            subjectAnchor.style.opacity = flyT > 0.85 ? '0.1' : '1';
+          }
+          rigTransY = 110 - 95 * flyT;
+          posY = -3.2 + 2.8 * flyT;
+          vectorDesc = `Fly-Through Depth: ${(posY).toFixed(1)}m`;
+          break;
+
+        // === CATEGORY 4: SPECIAL ANGLES & POVS (8) ===
+        case 'birds-eye':
+          // 90° straight Top-Down
+          vfRotX = 82; // Look down at top of head
+          vfScale = 1.1;
+          rigTransX = 0;
+          rigTransY = 0;
+          rigTransZ = 85;
+          rotP = -90;
+          vectorDesc = `90° Birds-Eye Top-Down Nadir`;
+          break;
+        case 'worm-eye':
+          // Ground level upward looking up
+          vfRotX = -45;
+          vfTransY = -45;
+          vfScale = 1.45;
+          rigTransY = 45;
+          rigTransZ = -20;
+          rotP = 65;
+          posZ = 0.1;
+          vectorDesc = `Worm-Eye Ground Level (+65°)`;
+          break;
+        case 'dutch-angle':
+          // Permanent canted angle with slight tense breathe
+          vfRotZ = 24 + Math.sin(animProgress * 1.5) * 4;
+          rotR = vfRotZ;
+          vectorDesc = `Dutch Canted Angle: ${rotR.toFixed(1)}°`;
+          break;
+        case 'pov-shot':
+          // First person footsteps and gaze
+          const stepBounce = Math.abs(Math.sin(animProgress * 4.2)) * 12 - 6;
+          vfTransY = stepBounce;
+          vfTransX = Math.sin(animProgress * 2.1) * 9;
+          vfRotZ = Math.sin(animProgress * 2.1) * 2;
+          vfRotY = Math.sin(animProgress * 0.9) * 12;
+          vectorDesc = `POV First-Person Human Stride`;
+          break;
+        case 'ots-shot':
+          // Over-the-shoulder framing
+          if (layerOtsShoulder) layerOtsShoulder.style.opacity = '0.95';
+          vfTransX = 45;
+          vfRotY = -14;
+          vfScale = 1.15;
+          rotY = -14;
+          vectorDesc = `Over-the-Shoulder Dialogue OTS`;
+          break;
+        case 'low-hero':
+          // Triumphant heroic low angle
+          vfRotX = -26;
+          vfScale = 1.35;
+          vfTransY = -30;
+          vfTransX = Math.sin(animProgress * 0.7) * 20;
+          rotP = 26;
+          vectorDesc = `Low-Angle Heroic Triumph (+26°)`;
+          break;
+        case 'bullet-time':
+          // Action freezes, camera circles at extreme speed
+          const btAngle = animProgress * 3.0;
+          rigTransX = Math.sin(btAngle) * 85;
+          rigTransY = Math.cos(btAngle) * 85;
+          rigRotZ = -btAngle * 57.3;
+          vfRotY = -btAngle * 35;
+          horizonOffset = (-btAngle * 45) % 240;
+          if (layerFxSpeed) layerFxSpeed.style.opacity = '0.4';
+          vectorDesc = `Bullet Time Orbit: ${(btAngle * 57.3 % 360).toFixed(0)}° (Frozen)`;
+          break;
+        case 'split-diopter':
+          // Split optical line active
+          if (layerSplitLine) layerSplitLine.style.opacity = '0.9';
+          vfScale = 1.05;
+          vectorDesc = `Split Diopter Dual Focus Planes`;
+          break;
+
         default:
-          // Subtle default motion
           vfTransX = 20 * t;
           vectorDesc = `Active Tracking`;
       }
 
-      // Apply transformations
+      // Apply transformations to 3D Viewport
       viewfinderStage.style.transform = `rotateX(${vfRotX}deg) rotateY(${vfRotY}deg) rotateZ(${vfRotZ}deg) translate3d(${vfTransX}px, ${vfTransY}px, ${vfTransZ}px) scale(${vfScale})`;
       if (mId !== 'dolly-zoom') {
         horizonLayer.style.transform = `translateX(${horizonOffset}px)`;
       }
 
+      // Apply transformations to God's Eye 3D Rig
       cameraRigMarker.style.transform = `translate3d(${rigTransX}px, ${rigTransY}px, ${rigTransZ}px) rotateZ(${rigRotZ}deg)`;
 
-      // Update HUD labels
+      // Update HUD Labels
       hudVectorText.textContent = vectorDesc;
       hudSubjectDist.textContent = `${(2.4 / (vfScale || 1)).toFixed(2)} m`;
       rigCoordText.textContent = `X: ${posX.toFixed(1)}m, Y: ${posY.toFixed(1)}m, Z: ${posZ.toFixed(1)}m`;
@@ -964,6 +1240,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
 
       animFrameId = requestAnimationFrame(animateLoop);
     }
+
 
     // Event Listeners for Filters, Search & Tabs
     catButtons.forEach(btn => {
