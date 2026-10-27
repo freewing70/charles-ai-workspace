@@ -142,18 +142,18 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
                 </div>
                 <!-- Status Badge below input -->
                 <div class="flex items-center justify-between text-[11px] px-1 pt-1 text-slate-500 font-mono">
-                  <span id="combobox-active-badge" class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-bold text-[10px]">物理機位運動</span>
-                  <span class="text-slate-400 text-[10px]">40款運鏡實時連動</span>
+                  <span id="combobox-active-badge" class="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 font-bold text-[10px]">類別：物理機位運動</span>
+                  <span class="text-slate-400 text-[10px]">40款運鏡全庫可選</span>
                 </div>
 
-                <!-- Floating Dropdown Menu (Strictly bounded max-h-56) -->
+                <!-- Floating Dropdown Menu (Strictly bounded max-h-72) -->
                 <div
                   id="combobox-dropdown"
-                  class="hidden absolute z-50 left-0 right-0 top-full mt-1 max-h-56 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-2xl p-1.5 text-xs transition-all space-y-1.5"
+                  class="hidden absolute z-50 left-0 right-0 top-full mt-1 max-h-72 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-2xl p-1.5 text-xs transition-all space-y-1.5"
                 >
                   <!-- Category Filter Chips -->
                   <div class="sticky top-0 bg-white/95 backdrop-blur-xs py-1 px-1 border-b border-slate-100 flex items-center gap-1 z-10 overflow-x-auto text-[10px]">
-                    <button type="button" data-combocat="all" class="combocat-btn px-2 py-0.5 rounded font-bold bg-[#155EEF] text-white cursor-pointer">全部</button>
+                    <button type="button" data-combocat="all" class="combocat-btn px-2 py-0.5 rounded font-bold bg-[#155EEF] text-white cursor-pointer">全部(40)</button>
                     <button type="button" data-combocat="physical" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">物理(12)</button>
                     <button type="button" data-combocat="optical" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">光學(6)</button>
                     <button type="button" data-combocat="compound" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">複合(14)</button>
@@ -1601,6 +1601,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     let animFrameId = null;
     let animProgress = 0;
     let currentFilterCat = 'all';
+    let userSearchQuery = '';
 
     // Timeline Mode State (方案 A)
     let isComboMode = false;
@@ -1747,14 +1748,22 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     function openDropdown() {
       comboboxDropdown.classList.remove('hidden');
       comboboxChevron.classList.add('rotate-180');
+      userSearchQuery = '';
       renderComboboxOptions(currentFilterCat, '');
       comboboxSearchInput.select();
+      requestAnimationFrame(() => {
+        const activeOpt = comboboxOptionsList.querySelector(`[data-id="${currentMovement.id}"]`);
+        if (activeOpt) {
+          activeOpt.scrollIntoView({ block: 'nearest' });
+        }
+      });
     }
 
     function closeDropdown() {
       comboboxDropdown.classList.add('hidden');
       comboboxChevron.classList.remove('rotate-180');
-      comboboxSearchInput.value = `${currentMovement.icon} ${currentMovement.zh} (${currentMovement.en}) · ${currentMovement.desc}`;
+      userSearchQuery = '';
+      comboboxSearchInput.value = `${currentMovement.zh} (${currentMovement.en})`;
     }
 
     // 2. Select Movement Handler with clean resets
@@ -1766,12 +1775,13 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       // Clean reset of all visual modifiers
       resetVisualModifiers();
 
-      // Update Combobox Display Input
-      comboboxSearchInput.value = `${movement.icon} ${movement.zh} (${movement.en}) · ${movement.desc}`;
+      // Update Combobox Display Input (Clean, without duplicate leading icon)
+      comboboxSearchInput.value = `${movement.zh} (${movement.en})`;
       comboboxLeadingIcon.textContent = movement.icon;
+      userSearchQuery = '';
       const catInfo = CATEGORY_MAP[movement.cat];
       if (catInfo && comboboxActiveBadge) {
-        comboboxActiveBadge.textContent = catInfo.name;
+        comboboxActiveBadge.textContent = `類別：${catInfo.name}`;
       }
       const curIdx = MOVEMENTS_DATA.findIndex(m => m.id === movement.id);
       movementCounterBadge.textContent = `${curIdx + 1} / ${MOVEMENTS_DATA.length}`;
@@ -2455,8 +2465,8 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     });
 
     comboboxSearchInput.addEventListener('input', (e) => {
-      const q = e.target.value.trim();
-      renderComboboxOptions(currentFilterCat, q);
+      userSearchQuery = e.target.value.trim();
+      renderComboboxOptions(currentFilterCat, userSearchQuery);
       if (comboboxDropdown.classList.contains('hidden')) {
         comboboxDropdown.classList.remove('hidden');
         comboboxChevron.classList.add('rotate-180');
@@ -2531,7 +2541,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         btn.classList.add('bg-[#155EEF]', 'text-white', 'font-bold');
         btn.classList.remove('bg-slate-100', 'text-slate-600');
         currentFilterCat = btn.dataset.combocat;
-        renderComboboxOptions(currentFilterCat, comboboxSearchInput.value.trim());
+        renderComboboxOptions(currentFilterCat, userSearchQuery);
       });
     });
 
