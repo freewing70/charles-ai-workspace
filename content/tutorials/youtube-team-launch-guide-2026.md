@@ -13,7 +13,7 @@ tags: ["YouTube", "團隊經營", "Shorts", "營利策略", "版權檢核"]
 tools: ["HTML5", "Analytics", "CreatorStudio"]
 cover: "/assets/covers/youtube-team-launch-guide-2026.png"
 playUrl: "/presentations/youtube-team-launch-guide-2026/slides.html"
-featured: true
+featured: false
 ---
 
 ## YouTube 頻道團隊入門指南｜演算法、營利與合規實戰

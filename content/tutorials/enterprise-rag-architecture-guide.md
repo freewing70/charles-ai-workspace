@@ -12,7 +12,7 @@ visibility: "public"
 tags: ["企業RAG", "檢索增強生成", "混合檢索", "BM25", "向量資料庫", "重排序", "Reranker", "Ragas"]
 tools: ["Qdrant", "Chroma", "LangChain", "LlamaIndex", "BGE-Reranker", "Python", "FastAPI"]
 cover: "/assets/covers/enterprise-rag-architecture-guide.svg"
-featured: true
+featured: false
 ---
 
 ## 為什麼簡單的 Naive RAG 無法滿足企業生產需求？

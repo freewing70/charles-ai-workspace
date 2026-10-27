@@ -12,7 +12,7 @@ visibility: "public"
 tags: ["AI Agent", "智能體", "MCP", "ReAct", "多智能體協作", "工作流設計", "Prompt工程", "自動化"]
 tools: ["Model Context Protocol", "LangGraph", "Claude 3.5 Sonnet", "Gemini 1.5 Pro", "Python", "TypeScript"]
 cover: "/assets/covers/ai-agent-workflow-patterns-2026.svg"
-featured: true
+featured: false
 ---
 
 ## 為什麼 2026 年的 AI 典範是 Agent 而非單純 Chatbot？

@@ -12,7 +12,7 @@ visibility: "public"
 tags: ["本地大模型", "vLLM", "Ollama", "PagedAttention", "模型量化", "顯存優化", "高併發推理", "張量並行"]
 tools: ["vLLM", "Ollama", "Docker", "FastAPI", "HuggingFace", "Python", "CUDA"]
 cover: "/assets/covers/local-llm-deployment-vllm-ollama.svg"
-featured: true
+featured: false
 ---
 
 ## 為什麼需要自建本地開源大模型基礎設施？

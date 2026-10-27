@@ -35,7 +35,7 @@
     "updated": "2026-10-27",
     "url": "/newspapers/2026-10-27",
     "cover": "/assets/covers/newspaper-2026-10-27-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "camera-controls",
@@ -281,7 +281,7 @@
     "updated": "2026-10-21",
     "url": "/tutorials/ai-agent-workflow-patterns-2026",
     "cover": "/assets/covers/ai-agent-workflow-patterns-2026.svg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "enterprise-rag-architecture-guide",
@@ -312,7 +312,7 @@
     "updated": "2026-10-21",
     "url": "/tutorials/enterprise-rag-architecture-guide",
     "cover": "/assets/covers/enterprise-rag-architecture-guide.svg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "local-llm-deployment-vllm-ollama",
@@ -343,7 +343,7 @@
     "updated": "2026-10-21",
     "url": "/tutorials/local-llm-deployment-vllm-ollama",
     "cover": "/assets/covers/local-llm-deployment-vllm-ollama.svg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-20",
@@ -910,7 +910,7 @@
     "updated": "2026-10-04",
     "url": "/newspapers/2026-10-04",
     "cover": "/assets/covers/newspaper-2026-10-04-cover.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-03",
@@ -937,7 +937,7 @@
     "updated": "2026-10-03",
     "url": "/newspapers/2026-10-03",
     "cover": "/assets/covers/newspaper-2026-10-03-cover.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-02",
@@ -1067,7 +1067,7 @@
     "updated": "2026-09-24",
     "url": "/tutorials/ai-learning-journey-l1-l6",
     "cover": "/assets/covers/ai-learning-journey-l1-l6.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "local-ai-terminology-encyclopedia",
@@ -1093,7 +1093,7 @@
     "updated": "2026-09-24",
     "url": "/tutorials/local-ai-terminology-encyclopedia",
     "cover": "/assets/covers/local-ai-terminology-encyclopedia.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "youtube-team-launch-guide-2026",
@@ -1117,6 +1117,6 @@
     "updated": "2026-09-24",
     "url": "/tutorials/youtube-team-launch-guide-2026",
     "cover": "/assets/covers/youtube-team-launch-guide-2026.png",
-    "featured": true
+    "featured": false
   }
 ]

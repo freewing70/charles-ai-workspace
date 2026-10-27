@@ -13,7 +13,7 @@ tags: ["本地AI", "開源模型", "GGUF", "量化技術", "MoE", "技術百科"
 tools: ["HTML5", "Ollama", "Llama.cpp", "Transformers"]
 cover: "/assets/covers/local-ai-terminology-encyclopedia.png"
 playUrl: "/presentations/local-ai-terminology-encyclopedia/slides.html"
-featured: true
+featured: false
 ---
 
 ## 本地 AI 模型名詞百科｜開源與邊緣運算核心概念速查
