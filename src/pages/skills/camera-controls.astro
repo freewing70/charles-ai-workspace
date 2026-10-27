@@ -64,19 +64,19 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       </div>
     </header>
 
-    <!-- SECTION 1: DUAL-VIEWPORT 3D SIMULATOR STAGE -->
+    <!-- SECTION 1: STUDIO 3D SIMULATOR & DIRECTOR CONSOLE -->
     <section class="space-y-4" aria-label="運鏡模擬核心視窗">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h2 class="text-xl sm:text-2xl font-bold text-[#07172D] flex items-center gap-2">
-            <span>雙視角空間透視模擬台</span>
-            <span class="text-xs font-mono font-medium px-2.5 py-0.5 rounded-full bg-blue-100 text-[#155EEF]">Dual 3D Viewport</span>
+            <span>AI 影視運鏡實時模擬工作站</span>
+            <span class="text-xs font-mono font-medium px-2.5 py-0.5 rounded-full bg-blue-100 text-[#155EEF]">Director Studio Pro</span>
           </h2>
-          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">左側顯示攝影機鏡頭觀景窗視角，右側顯示三維空間機位軌跡與視錐台運動。</p>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">左側即選即看導演控制台，右側 4K 鏡頭觀景窗與三維機位空間同步實時渲染。</p>
         </div>
 
         <!-- Global Playback Controls -->
-        <div class="flex items-center gap-2 bg-white p-1.5 rounded-xl border border-slate-200 shadow-2xs">
+        <div class="flex items-center gap-2 bg-white p-1.5 rounded-xl border border-slate-200 shadow-2xs self-start sm:self-auto">
           <button id="btn-toggle-play" class="px-3 py-1.5 rounded-lg bg-[#155EEF] hover:bg-[#0D47C2] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer">
             <svg id="icon-pause" class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
             <svg id="icon-play" class="w-3.5 h-3.5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -88,19 +88,227 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           </button>
           <div class="h-4 w-px bg-slate-200"></div>
           <button id="btn-toggle-grid" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-700 text-xs font-mono font-semibold transition-colors cursor-pointer" title="切換構圖線">
-            構圖九宮格: <span id="label-grid" class="text-emerald-700 font-bold">開</span>
+            九宮格: <span id="label-grid" class="text-emerald-700 font-bold">開</span>
           </button>
           <div class="h-4 w-px bg-slate-200"></div>
           <button id="btn-reset-cam" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-100 text-slate-600 text-xs font-mono transition-colors cursor-pointer" title="重設機位">
-            重設機位
+            重設
           </button>
         </div>
       </div>
 
-      <!-- Viewports Container Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Studio Layout: Left Controller Column + Right Dual Viewports Column -->
+      <div class="flex flex-col lg:flex-row items-stretch gap-4">
         
-        <!-- Viewport A: Camera Viewfinder (觀景窗視角) -->
+        <!-- LEFT COLUMN: STUDIO CONTROLLER (Max height bounded to demo area) -->
+        <div class="w-full lg:w-[320px] xl:w-[340px] shrink-0 freewing-card p-3.5 border border-slate-200 shadow-md bg-white rounded-2xl flex flex-col justify-between gap-3 lg:max-h-[460px] overflow-y-auto">
+          
+          <div class="space-y-2.5">
+            <!-- Mode Switcher Tabs -->
+            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl shrink-0" id="console-mode-tabs">
+              <button id="tab-mode-single" class="flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer bg-[#155EEF] text-white shadow-2xs flex items-center justify-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <span>40 款單鏡</span>
+              </button>
+              <button id="tab-mode-combo" class="flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1">
+                <span class="text-amber-500">⚡</span>
+                <span>5 大組合包</span>
+              </button>
+            </div>
+
+            <!-- PANEL 1: Single Shot Studio Combobox (Visible in Single Mode) -->
+            <div id="panel-single-shot" class="space-y-2.5">
+              
+              <!-- Combobox Input Trigger Wrapper -->
+              <div class="relative w-full" id="combobox-wrapper">
+                <div class="relative">
+                  <input
+                    type="text"
+                    id="combobox-search-input"
+                    placeholder="搜尋或選擇 40 款運鏡..."
+                    class="w-full bg-slate-50 hover:bg-white border border-slate-300 focus:border-[#155EEF] rounded-xl pl-8 pr-10 py-2 text-xs text-[#07172D] font-bold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#155EEF]/20 transition-all cursor-pointer shadow-2xs"
+                    autocomplete="off"
+                  />
+                  <!-- Leading Icon -->
+                  <div class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs select-none" id="combobox-leading-icon">
+                    🎥
+                  </div>
+                  <!-- Trailing Chevron -->
+                  <div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center text-slate-400">
+                    <button type="button" id="combobox-toggle-btn" class="p-1 hover:text-slate-700 transition-colors cursor-pointer" aria-label="展開選單">
+                      <svg class="w-4 h-4 transition-transform duration-200" id="combobox-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Floating Dropdown Menu (Strictly bounded max-h-56) -->
+                <div
+                  id="combobox-dropdown"
+                  class="hidden absolute z-50 left-0 right-0 top-full mt-1 max-h-56 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-2xl p-1.5 text-xs transition-all space-y-1.5"
+                >
+                  <!-- Category Filter Chips -->
+                  <div class="sticky top-0 bg-white/95 backdrop-blur-xs py-1 px-1 border-b border-slate-100 flex items-center gap-1 z-10 overflow-x-auto text-[10px]">
+                    <button type="button" data-combocat="all" class="combocat-btn px-2 py-0.5 rounded font-bold bg-[#155EEF] text-white cursor-pointer">全部</button>
+                    <button type="button" data-combocat="physical" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">物理(12)</button>
+                    <button type="button" data-combocat="optical" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">光學(6)</button>
+                    <button type="button" data-combocat="compound" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">複合(14)</button>
+                    <button type="button" data-combocat="special" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">視角(8)</button>
+                  </div>
+
+                  <!-- Options List -->
+                  <div id="combobox-options-list" class="space-y-1"></div>
+                </div>
+              </div>
+
+              <!-- Stepper Navigation -->
+              <div class="flex items-center gap-1">
+                <button
+                  type="button"
+                  id="btn-prev-movement"
+                  title="切換至上一個運鏡"
+                  class="flex-1 py-1.5 px-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 active:bg-slate-100 text-[#07172D] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 shadow-2xs"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                  <span>上一鏡</span>
+                </button>
+
+                <div id="movement-counter-badge" class="px-2 py-1.5 rounded-xl bg-slate-100 text-slate-600 font-mono text-[11px] font-bold min-w-[50px] text-center select-none border border-slate-200/60">
+                  1 / 40
+                </div>
+
+                <button
+                  type="button"
+                  id="btn-next-movement"
+                  title="切換至下一個運鏡"
+                  class="flex-1 py-1.5 px-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 active:bg-slate-100 text-[#07172D] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 shadow-2xs"
+                >
+                  <span>下一鏡</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+
+                <button
+                  type="button"
+                  id="btn-random-movement"
+                  title="隨機挑選運鏡靈感"
+                  class="py-1.5 px-2 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 active:bg-amber-200 text-amber-900 text-xs font-bold transition-all cursor-pointer shadow-2xs"
+                >
+                  🎲
+                </button>
+              </div>
+
+              <!-- Popular Hot Quick-Picks -->
+              <div class="space-y-1 pt-1.5 border-t border-slate-100">
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
+                  <span>🔥 熱門運鏡一鍵測</span>
+                  <span class="font-normal text-slate-400">8款常用</span>
+                </div>
+                <div class="grid grid-cols-2 gap-1 text-[11px]" id="hot-quick-picks">
+                  <button type="button" data-pick="fpv-drone-dive" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all text-left truncate cursor-pointer">
+                    🚀 FPV極速俯衝
+                  </button>
+                  <button type="button" data-pick="dolly-zoom" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all text-left truncate cursor-pointer">
+                    🌀 眩暈推拉變焦
+                  </button>
+                  <button type="button" data-pick="orbit-360" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all text-left truncate cursor-pointer">
+                    🔄 360°全景環繞
+                  </button>
+                  <button type="button" data-pick="crash-zoom" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all text-left truncate cursor-pointer">
+                    ⚡ 極速衝擊變焦
+                  </button>
+                  <button type="button" data-pick="bullet-time" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all text-left truncate cursor-pointer">
+                    ⏳ 子彈時間凝結
+                  </button>
+                  <button type="button" data-pick="dutch-angle" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all text-left truncate cursor-pointer">
+                    📐 荷蘭傾斜角
+                  </button>
+                  <button type="button" data-pick="ots-shot" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all text-left truncate cursor-pointer">
+                    👥 經典過肩對話
+                  </button>
+                  <button type="button" data-pick="crane-shot" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all text-left truncate cursor-pointer">
+                    🏗️ 大型搖臂俯衝
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- PANEL 2: Storyboard Combo Presets (Visible in Combo Mode) -->
+            <div id="panel-storyboard-combo" class="hidden space-y-1.5">
+              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                <span>🎬 5 大爆款分鏡組合包 (連貫接力)</span>
+              </div>
+              <div class="space-y-1.5" id="combo-preset-buttons">
+                <!-- 5 Vertical Combo Cards -->
+                <button data-combo="hero" class="btn-combo-card w-full p-2.5 rounded-xl border text-left transition-all cursor-pointer bg-blue-50/70 border-blue-500 ring-2 ring-blue-500/20 text-[#155EEF] flex items-center justify-between group">
+                  <div class="min-w-0 pr-2">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-[9px] font-mono font-bold px-1 py-0.5 rounded bg-blue-100 text-blue-700">01 爽劇</span>
+                      <h4 class="font-bold text-xs text-[#07172D] group-hover:text-blue-600 truncate">主角霸氣登場打臉組</h4>
+                    </div>
+                    <div class="text-[10px] font-mono text-slate-500 mt-0.5 truncate">仰拍 ➔ 領路 ➔ 半環繞</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold text-blue-600 bg-blue-100/70 px-1.5 py-0.5 rounded shrink-0">9s ▶</span>
+                </button>
+
+                <button data-combo="vertigo" class="btn-combo-card w-full p-2.5 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-amber-50/40 border-slate-200 text-[#07172D] flex items-center justify-between group">
+                  <div class="min-w-0 pr-2">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-[9px] font-mono font-bold px-1 py-0.5 rounded bg-amber-100 text-amber-800">02 懸疑</span>
+                      <h4 class="font-bold text-xs text-[#07172D] group-hover:text-amber-700 truncate">真相大崩潰震撼組</h4>
+                    </div>
+                    <div class="text-[10px] font-mono text-slate-500 mt-0.5 truncate">過肩 ➔ 衝擊 ➔ 眩暈推拉</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold text-slate-500 group-hover:text-amber-700 bg-slate-100 px-1.5 py-0.5 rounded shrink-0">9s ▶</span>
+                </button>
+
+                <button data-combo="chase" class="btn-combo-card w-full p-2.5 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-rose-50/40 border-slate-200 text-[#07172D] flex items-center justify-between group">
+                  <div class="min-w-0 pr-2">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-[9px] font-mono font-bold px-1 py-0.5 rounded bg-rose-100 text-rose-700">03 動作</span>
+                      <h4 class="font-bold text-xs text-[#07172D] group-hover:text-rose-600 truncate">生死極限追逐戰鬥組</h4>
+                    </div>
+                    <div class="text-[10px] font-mono text-slate-500 mt-0.5 truncate">FPV俯衝 ➔ POV ➔ 甩鏡</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold text-slate-500 group-hover:text-rose-700 bg-slate-100 px-1.5 py-0.5 rounded shrink-0">9s ▶</span>
+                </button>
+
+                <button data-combo="drama" class="btn-combo-card w-full p-2.5 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-purple-50/40 border-slate-200 text-[#07172D] flex items-center justify-between group">
+                  <div class="min-w-0 pr-2">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-[9px] font-mono font-bold px-1 py-0.5 rounded bg-purple-100 text-purple-700">04 爭鬥</span>
+                      <h4 class="font-bold text-xs text-[#07172D] group-hover:text-purple-600 truncate">情感對峙心理博弈組</h4>
+                    </div>
+                    <div class="text-[10px] font-mono text-slate-500 mt-0.5 truncate">雙焦透鏡 ➔ 焦點 ➔ 荷蘭角</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold text-slate-500 group-hover:text-purple-700 bg-slate-100 px-1.5 py-0.5 rounded shrink-0">9s ▶</span>
+                </button>
+
+                <button data-combo="epic" class="btn-combo-card w-full p-2.5 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-emerald-50/40 border-slate-200 text-[#07172D] flex items-center justify-between group">
+                  <div class="min-w-0 pr-2">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-[9px] font-mono font-bold px-1 py-0.5 rounded bg-emerald-100 text-emerald-800">05 王者</span>
+                      <h4 class="font-bold text-xs text-[#07172D] group-hover:text-emerald-700 truncate">史詩神蹟宏大亮相組</h4>
+                    </div>
+                    <div class="text-[10px] font-mono text-slate-500 mt-0.5 truncate">上帝俯瞰 ➔ 搖臂 ➔ 360環繞</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold text-slate-500 group-hover:text-emerald-700 bg-slate-100 px-1.5 py-0.5 rounded shrink-0">9s ▶</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Footer Note in Left Console -->
+          <div class="pt-2 border-t border-slate-100 text-[10px] font-mono text-slate-400 flex items-center justify-between">
+            <span>⚡ 毫秒級視口連動</span>
+            <span class="text-blue-600 font-bold">即選即播</span>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: 3D DUAL-VIEWPORTS (flex-1) -->
+        <div class="flex-1 min-w-0 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Viewport A: Camera Viewfinder (觀景窗視角) -->
         <div class="freewing-card border border-slate-300 bg-slate-950 rounded-2xl overflow-hidden shadow-xl flex flex-col">
           <!-- Monitor Top HUD -->
           <div class="bg-slate-900 border-b border-slate-800 px-4 py-2 flex items-center justify-between text-[11px] font-mono text-slate-400 select-none">
@@ -298,272 +506,8 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
             </div>
           </div>
         </div>
-
-      </div>
-    </section>
-
-        <!-- SECTION 2: STUDIO ALL-IN-ONE CONSOLE (COMPACT DUAL-MODE CONTROLLER) -->
-    <section class="freewing-card p-4 sm:p-6 border border-slate-200 shadow-md bg-white rounded-2xl" aria-label="運鏡控制台">
-      
-      <!-- Top Bar: Mode Switcher Tabs + Status Indicator -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
-        
-        <!-- Left: Studio Mode Switcher (Single Shot vs Storyboard Presets) -->
-        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl shrink-0" id="console-mode-tabs">
-          <button id="tab-mode-single" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer bg-[#155EEF] text-white shadow-2xs flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-            <span>40 款標準單鏡 (下拉選鏡)</span>
-          </button>
-          <button id="tab-mode-combo" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
-            <span class="text-amber-500">⚡</span>
-            <span>5 大爆款分鏡組合包 (連貫接力)</span>
-          </button>
         </div>
 
-        <!-- Right: Studio Live Status Indicator -->
-        <div class="flex items-center gap-2 text-xs text-slate-500">
-          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="font-medium text-[11px] text-slate-600">即時 3D 視口連動 · 40 款影視級運鏡庫</span>
-        </div>
-      </div>
-
-      <!-- VIEW 1: Single Shot Studio Combobox (Visible when Single Mode is Active) -->
-      <div id="panel-single-shot" class="pt-3 space-y-2.5">
-        
-        <!-- Row 1: The Studio Combobox + Stepper Navigation -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-          
-          <!-- Custom Studio Combobox Container -->
-          <div class="relative flex-1" id="combobox-wrapper">
-            <!-- Combobox Input Trigger -->
-            <div class="relative">
-              <input
-                type="text"
-                id="combobox-search-input"
-                placeholder="搜尋或選擇 40 款運鏡（輸入如：dolly, 仰拍, 變焦, orbit）..."
-                class="w-full bg-slate-50 hover:bg-white border border-slate-300 focus:border-[#155EEF] rounded-xl pl-9 pr-24 py-2.5 text-xs text-[#07172D] font-bold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#155EEF]/20 transition-all cursor-pointer shadow-2xs"
-                autocomplete="off"
-              />
-              <!-- Leading Icon -->
-              <div class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-sm select-none" id="combobox-leading-icon">
-                🎥
-              </div>
-              <!-- Trailing Controls: Category Badge & Chevron -->
-              <div class="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5 text-slate-400">
-                <span id="combobox-active-badge" class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-bold hidden sm:inline-block">物理運鏡</span>
-                <button type="button" id="combobox-toggle-btn" class="p-1 hover:text-slate-700 transition-colors cursor-pointer" aria-label="展開選單">
-                  <svg class="w-4 h-4 transition-transform duration-200" id="combobox-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Combobox Floating Dropdown Menu -->
-            <div
-              id="combobox-dropdown"
-              class="hidden absolute z-50 left-0 right-0 top-full mt-1.5 max-h-[340px] overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl p-1.5 text-xs transition-all space-y-2"
-            >
-              <!-- Category Filter Chips inside dropdown header -->
-              <div class="sticky top-0 bg-white/95 backdrop-blur-xs py-1 px-1 border-b border-slate-100 flex items-center gap-1 z-10 overflow-x-auto text-[10px]">
-                <button type="button" data-combocat="all" class="combocat-btn px-2 py-0.5 rounded font-bold bg-[#155EEF] text-white cursor-pointer">全部 (40)</button>
-                <button type="button" data-combocat="physical" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">物理 (12)</button>
-                <button type="button" data-combocat="optical" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">光學 (6)</button>
-                <button type="button" data-combocat="compound" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">複合 (14)</button>
-                <button type="button" data-combocat="special" class="combocat-btn px-2 py-0.5 rounded bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">視角 (8)</button>
-              </div>
-
-              <!-- List of items rendered dynamically grouped by category -->
-              <div id="combobox-options-list" class="space-y-1">
-                <!-- Grouped Items -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Stepper Navigation & Utility Buttons (Right Side) -->
-          <div class="flex items-center gap-1 shrink-0 self-end sm:self-auto">
-            <!-- Prev Button -->
-            <button
-              type="button"
-              id="btn-prev-movement"
-              title="切換至上一個運鏡"
-              class="px-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 active:bg-slate-100 text-[#07172D] text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-2xs"
-            >
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
-              <span class="hidden md:inline">上一鏡</span>
-            </button>
-
-            <!-- Counter Badge -->
-            <div id="movement-counter-badge" class="px-2 py-2 rounded-xl bg-slate-100 text-slate-600 font-mono text-xs font-bold min-w-[54px] text-center select-none border border-slate-200/60">
-              1 / 40
-            </div>
-
-            <!-- Next Button -->
-            <button
-              type="button"
-              id="btn-next-movement"
-              title="切換至下一個運鏡"
-              class="px-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300 active:bg-slate-100 text-[#07172D] text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-2xs"
-            >
-              <span class="hidden md:inline">下一鏡</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
-            </button>
-
-            <!-- Random Shuffle Inspiration Button -->
-            <button
-              type="button"
-              id="btn-random-movement"
-              title="隨機挑選運鏡靈感"
-              class="px-2.5 py-2 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100/80 active:bg-amber-200/80 text-amber-900 text-xs font-bold transition-all cursor-pointer flex items-center gap-1 shadow-2xs"
-            >
-              <span>🎲</span>
-              <span class="hidden lg:inline">隨機</span>
-            </button>
-          </div>
-
-        </div>
-
-        <!-- Row 2: Popular Hot Quick-Picks (爆款熱門一鍵直達) -->
-        <div class="flex items-center gap-1.5 overflow-x-auto py-0.5 text-xs">
-          <span class="text-[11px] font-bold text-slate-600 shrink-0 flex items-center gap-1">
-            <span>🔥 熱門直達:</span>
-          </span>
-          <div class="flex items-center gap-1 overflow-x-auto text-[11px]" id="hot-quick-picks">
-            <button type="button" data-pick="fpv-drone-dive" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
-              🚀 FPV俯衝
-            </button>
-            <button type="button" data-pick="dolly-zoom" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
-              🌀 眩暈推拉
-            </button>
-            <button type="button" data-pick="orbit-360" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
-              🔄 360°環繞
-            </button>
-            <button type="button" data-pick="crash-zoom" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
-              ⚡ 衝擊變焦
-            </button>
-            <button type="button" data-pick="bullet-time" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
-              ⏳ 子彈時間
-            </button>
-            <button type="button" data-pick="dutch-angle" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
-              📐 荷蘭傾角
-            </button>
-            <button type="button" data-pick="ots-shot" class="hot-pick-btn px-2 py-1 rounded-lg border border-slate-200 hover:border-blue-400 bg-slate-50 hover:bg-white text-slate-700 hover:text-blue-600 transition-all whitespace-nowrap cursor-pointer">
-              👥 經典過肩
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- VIEW 2: Storyboard Combo Presets (Visible when Combo Mode is Active) -->
-      <div id="panel-storyboard-combo" class="hidden pt-3 space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500">
-          <p>
-            🎬 <strong>方案 A 時序連貫接力播放</strong>：點選任一組合包，上方 3D 舞台自動播放 3 鏡頭接力動畫，下方即時編譯連貫分鏡提示詞。
-          </p>
-          <span class="text-[11px] font-mono text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded border border-blue-200/60 self-start sm:self-auto shrink-0">即點即播 · 零滾動</span>
-        </div>
-
-        <!-- 5 Storyboard Preset Cards in Compact Responsive Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5" id="combo-preset-buttons">
-          <!-- Card 1: 爽劇打臉 -->
-          <button data-combo="hero" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-blue-50/70 border-blue-500 ring-2 ring-blue-500/20 text-[#155EEF] flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between gap-1 mb-1.5">
-                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">01 爽劇逆襲</span>
-                <span class="text-xs">👑</span>
-              </div>
-              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-blue-600">主角霸氣登場打臉組</h4>
-              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
-                <div>① 仰拍 Tilt Up</div>
-                <div>② 領路 Lead Track</div>
-                <div>③ 半環繞 Arc 180</div>
-              </div>
-            </div>
-            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-blue-600 flex items-center justify-between">
-              <span>▶ 播放 3 鏡接力</span>
-              <span class="font-mono text-slate-400">9s</span>
-            </div>
-          </button>
-
-          <!-- Card 2: 懸疑反轉 -->
-          <button data-combo="vertigo" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-amber-50/40 border-slate-200 text-[#07172D] flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between gap-1 mb-1.5">
-                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">02 懸疑反轉</span>
-                <span class="text-xs">😱</span>
-              </div>
-              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-amber-700">真相大崩潰震撼組</h4>
-              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
-                <div>① 過肩 OTS</div>
-                <div>② 衝擊變焦 Crash</div>
-                <div>③ 眩暈推拉 DollyZoom</div>
-              </div>
-            </div>
-            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-amber-600 flex items-center justify-between">
-              <span>▶ 播放 3 鏡接力</span>
-              <span class="font-mono text-slate-400">9s</span>
-            </div>
-          </button>
-
-          <!-- Card 3: 動作逃生 -->
-          <button data-combo="chase" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-rose-50/40 border-slate-200 text-[#07172D] flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between gap-1 mb-1.5">
-                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">03 動作逃生</span>
-                <span class="text-xs">🏃</span>
-              </div>
-              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-rose-600">生死極限追逐戰鬥組</h4>
-              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
-                <div>① 穿越機俯衝 FPV</div>
-                <div>② 第一人稱 POV</div>
-                <div>③ 極速甩鏡 WhipPan</div>
-              </div>
-            </div>
-            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-rose-600 flex items-center justify-between">
-              <span>▶ 播放 3 鏡接力</span>
-              <span class="font-mono text-slate-400">9s</span>
-            </div>
-          </button>
-
-          <!-- Card 4: 豪門對峙 -->
-          <button data-combo="drama" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-purple-50/40 border-slate-200 text-[#07172D] flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between gap-1 mb-1.5">
-                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-100 text-purple-700">04 豪門爭鬥</span>
-                <span class="text-xs">💔</span>
-              </div>
-              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-purple-600">情感對峙心理博弈組</h4>
-              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
-                <div>① 雙焦透鏡 Split</div>
-                <div>② 焦點轉移 Rack</div>
-                <div>③ 荷蘭傾斜角 Dutch</div>
-              </div>
-            </div>
-            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-purple-600 flex items-center justify-between">
-              <span>▶ 播放 3 鏡接力</span>
-              <span class="font-mono text-slate-400">9s</span>
-            </div>
-          </button>
-
-          <!-- Card 5: 史詩降臨 -->
-          <button data-combo="epic" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-emerald-50/40 border-slate-200 text-[#07172D] flex flex-col justify-between group">
-            <div>
-              <div class="flex items-center justify-between gap-1 mb-1.5">
-                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">05 王者降臨</span>
-                <span class="text-xs">🦅</span>
-              </div>
-              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-emerald-700">史詩神蹟宏大亮相組</h4>
-              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
-                <div>① 上帝俯瞰 BirdsEye</div>
-                <div>② 搖臂俯衝 Crane</div>
-                <div>③ 360° 全環繞 Orbit</div>
-              </div>
-            </div>
-            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-emerald-600 flex items-center justify-between">
-              <span>▶ 播放 3 鏡接力</span>
-              <span class="font-mono text-slate-400">9s</span>
-            </div>
-          </button>
-        </div>
       </div>
     </section>
 
