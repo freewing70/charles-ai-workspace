@@ -140,6 +140,11 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
                     </button>
                   </div>
                 </div>
+                <!-- Status Badge below input -->
+                <div class="flex items-center justify-between text-[11px] px-1 pt-1 text-slate-500 font-mono">
+                  <span id="combobox-active-badge" class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-bold text-[10px]">物理機位運動</span>
+                  <span class="text-slate-400 text-[10px]">40款運鏡實時連動</span>
+                </div>
 
                 <!-- Floating Dropdown Menu (Strictly bounded max-h-56) -->
                 <div
@@ -1765,7 +1770,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       comboboxSearchInput.value = `${movement.icon} ${movement.zh} (${movement.en}) · ${movement.desc}`;
       comboboxLeadingIcon.textContent = movement.icon;
       const catInfo = CATEGORY_MAP[movement.cat];
-      if (catInfo) {
+      if (catInfo && comboboxActiveBadge) {
         comboboxActiveBadge.textContent = catInfo.name;
       }
       const curIdx = MOVEMENTS_DATA.findIndex(m => m.id === movement.id);
@@ -2635,8 +2640,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     });
 
     // Initial setup on load
-    renderChips();
-    updateCompiledPrompt();
+    selectMovement(currentMovement);
     requestAnimationFrame(animateLoop);
 
   </script>
