@@ -120,6 +120,26 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
             </div>
           </div>
 
+          <!-- Storyboard Timeline Bar (Active during Storyboard Combo Mode) -->
+          <div id="storyboard-timeline-bar" class="hidden bg-slate-900/95 border-b border-blue-500/30 px-4 py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono select-none transition-all duration-300">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-blue-500/20 text-cyan-300 font-bold border border-cyan-400/30 text-[10px] uppercase tracking-wider" id="sb-combo-badge">COMBO 01 · 爽劇逆襲</span>
+              <span class="text-white font-semibold text-[11px]" id="sb-shot-indicator">分鏡 1/3: 低角度垂直仰拍 (0s-3s)</span>
+            </div>
+            <!-- 3-Segment Visual Timeline Bar -->
+            <div class="flex items-center gap-1.5 w-full sm:w-48 shrink-0">
+              <div class="flex-1 h-1.5 rounded-full bg-slate-800 overflow-hidden border border-slate-700/50">
+                <div id="sb-progress-1" class="h-full bg-gradient-to-r from-blue-500 to-cyan-400 w-0 transition-all duration-75"></div>
+              </div>
+              <div class="flex-1 h-1.5 rounded-full bg-slate-800 overflow-hidden border border-slate-700/50">
+                <div id="sb-progress-2" class="h-full bg-gradient-to-r from-blue-500 to-cyan-400 w-0 transition-all duration-75"></div>
+              </div>
+              <div class="flex-1 h-1.5 rounded-full bg-slate-800 overflow-hidden border border-slate-700/50">
+                <div id="sb-progress-3" class="h-full bg-gradient-to-r from-blue-500 to-cyan-400 w-0 transition-all duration-75"></div>
+              </div>
+            </div>
+          </div>
+
           <!-- The 3D Viewfinder Stage -->
           <div class="relative w-full aspect-video bg-gradient-to-b from-[#071325] via-[#0D1F3C] to-[#040915] overflow-hidden flex items-center justify-center select-none" style="perspective: 750px;">
             
@@ -282,45 +302,163 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       </div>
     </section>
 
-    <!-- SECTION 2: 40 CAMERA MOVEMENTS PALETTE & SELECTOR -->
-    <section class="freewing-card p-6 sm:p-8 border border-slate-200" aria-label="40款標準運鏡選擇器">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-bold text-[#07172D] flex items-center gap-2">
-            <span>40 款工業級標準運鏡語言矩陣</span>
-            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-amber-100 text-[#B45309]">點擊即時測試</span>
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
-            點擊任一運鏡晶片，上方 3D 模擬台將同步演算透視位移，下方將即時編譯各模型 Prompt。
+        <!-- SECTION 2: STUDIO ALL-IN-ONE CONSOLE (COMPACT DUAL-MODE CONTROLLER) -->
+    <section class="freewing-card p-4 sm:p-6 border border-slate-200 shadow-md bg-white rounded-2xl" aria-label="運鏡控制台">
+      
+      <!-- Top Bar: Mode Switcher Tabs + Category Filter Buttons -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-200">
+        
+        <!-- Left: Studio Mode Switcher (Single Shot vs Storyboard Presets) -->
+        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl shrink-0" id="console-mode-tabs">
+          <button id="tab-mode-single" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer bg-[#155EEF] text-white shadow-2xs flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span>40 款標準單鏡 (點擊即測)</span>
+          </button>
+          <button id="tab-mode-combo" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+            <span class="text-amber-500">⚡</span>
+            <span>5 大爆款分鏡組合包 (連貫接力)</span>
+          </button>
+        </div>
+
+        <!-- Right: Compact Category Filter Buttons (Visible in Single Mode) -->
+        <div id="category-filter-buttons" class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
+          <button data-cat="all" class="cat-btn px-2.5 py-1 rounded-lg font-semibold bg-[#155EEF] text-white shadow-2xs cursor-pointer">全部 (40)</button>
+          <button data-cat="physical" class="cat-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">物理 (12)</button>
+          <button data-cat="optical" class="cat-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">光學 (6)</button>
+          <button data-cat="compound" class="cat-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">複合 (14)</button>
+          <button data-cat="special" class="cat-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 cursor-pointer">視角 (8)</button>
+        </div>
+      </div>
+
+      <!-- VIEW 1: Single Shot Compact Chips Grid (Visible when Single Mode is Active) -->
+      <div id="panel-single-shot" class="pt-3 space-y-2.5">
+        <!-- Compact Search Input -->
+        <div class="relative">
+          <input
+            type="text"
+            id="movement-search-input"
+            placeholder="🔍 快速搜尋運鏡（如：dolly, 仰拍, 變焦, 俯衝, 甩鏡, orbit, 荷蘭角）..."
+            class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-3 pr-8 py-1.5 text-xs text-[#07172D] placeholder-slate-400 focus:outline-none focus:border-[#155EEF] focus:bg-white font-medium transition-all"
+          />
+        </div>
+
+        <!-- Ultra-compact chips container: 5 columns on desktop, max-h 160px with slim scrollbar -->
+        <div id="movement-chips-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1.5 max-h-[170px] overflow-y-auto pr-1 text-xs">
+          <!-- Rendered by Client Script as compact micro-chips -->
+        </div>
+      </div>
+
+      <!-- VIEW 2: Storyboard Combo Presets (Visible when Combo Mode is Active) -->
+      <div id="panel-storyboard-combo" class="hidden pt-3 space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-500">
+          <p>
+            🎬 <strong>方案 A 時序連貫接力播放</strong>：點選任一組合包，上方 3D 舞台自動播放 3 鏡頭接力動畫，下方即時編譯連貫分鏡提示詞。
           </p>
+          <span class="text-[11px] font-mono text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded border border-blue-200/60 self-start sm:self-auto shrink-0">即點即播 · 零滾動</span>
         </div>
 
-        <!-- Category Filters -->
-        <div class="flex flex-wrap items-center gap-1.5" id="category-filter-buttons">
-          <button data-cat="all" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#155EEF] text-white shadow-2xs transition-all cursor-pointer">全部 (40)</button>
-          <button data-cat="physical" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:text-slate-900 transition-all cursor-pointer">基礎物理位移 (12)</button>
-          <button data-cat="optical" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:text-slate-900 transition-all cursor-pointer">鏡頭焦段光學 (6)</button>
-          <button data-cat="compound" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:text-slate-900 transition-all cursor-pointer">複合軌跡載具 (14)</button>
-          <button data-cat="special" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:text-slate-900 transition-all cursor-pointer">電影特殊視角 (8)</button>
+        <!-- 5 Storyboard Preset Cards in Compact Responsive Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5" id="combo-preset-buttons">
+          <!-- Card 1: 爽劇打臉 -->
+          <button data-combo="hero" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-blue-50/70 border-blue-500 ring-2 ring-blue-500/20 text-[#155EEF] flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">01 爽劇逆襲</span>
+                <span class="text-xs">👑</span>
+              </div>
+              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-blue-600">主角霸氣登場打臉組</h4>
+              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
+                <div>① 仰拍 Tilt Up</div>
+                <div>② 領路 Lead Track</div>
+                <div>③ 半環繞 Arc 180</div>
+              </div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-blue-600 flex items-center justify-between">
+              <span>▶ 播放 3 鏡接力</span>
+              <span class="font-mono text-slate-400">9s</span>
+            </div>
+          </button>
+
+          <!-- Card 2: 懸疑反轉 -->
+          <button data-combo="vertigo" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-amber-50/40 border-slate-200 text-[#07172D] flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">02 懸疑反轉</span>
+                <span class="text-xs">😱</span>
+              </div>
+              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-amber-700">真相大崩潰震撼組</h4>
+              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
+                <div>① 過肩 OTS</div>
+                <div>② 衝擊變焦 Crash</div>
+                <div>③ 眩暈推拉 DollyZoom</div>
+              </div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-amber-600 flex items-center justify-between">
+              <span>▶ 播放 3 鏡接力</span>
+              <span class="font-mono text-slate-400">9s</span>
+            </div>
+          </button>
+
+          <!-- Card 3: 動作逃生 -->
+          <button data-combo="chase" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-rose-50/40 border-slate-200 text-[#07172D] flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-700">03 動作逃生</span>
+                <span class="text-xs">🏃</span>
+              </div>
+              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-rose-600">生死極限追逐戰鬥組</h4>
+              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
+                <div>① 穿越機俯衝 FPV</div>
+                <div>② 第一人稱 POV</div>
+                <div>③ 極速甩鏡 WhipPan</div>
+              </div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-rose-600 flex items-center justify-between">
+              <span>▶ 播放 3 鏡接力</span>
+              <span class="font-mono text-slate-400">9s</span>
+            </div>
+          </button>
+
+          <!-- Card 4: 豪門對峙 -->
+          <button data-combo="drama" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-purple-50/40 border-slate-200 text-[#07172D] flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-100 text-purple-700">04 豪門爭鬥</span>
+                <span class="text-xs">💔</span>
+              </div>
+              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-purple-600">情感對峙心理博弈組</h4>
+              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
+                <div>① 雙焦透鏡 Split</div>
+                <div>② 焦點轉移 Rack</div>
+                <div>③ 荷蘭傾斜角 Dutch</div>
+              </div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-purple-600 flex items-center justify-between">
+              <span>▶ 播放 3 鏡接力</span>
+              <span class="font-mono text-slate-400">9s</span>
+            </div>
+          </button>
+
+          <!-- Card 5: 史詩降臨 -->
+          <button data-combo="epic" class="btn-combo-card p-3 rounded-xl border text-left transition-all cursor-pointer bg-white hover:bg-emerald-50/40 border-slate-200 text-[#07172D] flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between gap-1 mb-1.5">
+                <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">05 王者降臨</span>
+                <span class="text-xs">🦅</span>
+              </div>
+              <h4 class="font-bold text-xs text-[#07172D] group-hover:text-emerald-700">史詩神蹟宏大亮相組</h4>
+              <div class="text-[10px] font-mono text-slate-500 mt-1 space-y-0.5">
+                <div>① 上帝俯瞰 BirdsEye</div>
+                <div>② 搖臂俯衝 Crane</div>
+                <div>③ 360° 全環繞 Orbit</div>
+              </div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 text-[10px] font-bold text-emerald-600 flex items-center justify-between">
+              <span>▶ 播放 3 鏡接力</span>
+              <span class="font-mono text-slate-400">9s</span>
+            </div>
+          </button>
         </div>
-      </div>
-
-      <!-- Quick Search Bar -->
-      <div class="mb-6 relative">
-        <input
-          type="text"
-          id="movement-search-input"
-          placeholder="搜尋運鏡關鍵字（如：dolly, 搖鏡, 變焦, 俯衝, 追逐, orbit）..."
-          class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#07172D] placeholder-slate-400 focus:outline-none focus:border-[#155EEF] focus:bg-white focus:ring-2 focus:ring-[#155EEF]/10 font-medium transition-all"
-        />
-        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-        </svg>
-      </div>
-
-      <!-- Movement Chips Grid (Injected / Rendered via Script) -->
-      <div id="movement-chips-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 max-h-[460px] overflow-y-auto pr-1">
-        <!-- Rendered by Client Script -->
       </div>
     </section>
 
@@ -407,130 +545,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       </div>
     </section>
 
-    <!-- SECTION 4: SHORT DRAMA GOLDEN COMBO PRESETS -->
-    <section class="freewing-card p-6 sm:p-10 border border-slate-200" aria-label="短劇分鏡黃金組合">
-      <div class="max-w-3xl mb-8">
-        <span class="text-xs font-mono uppercase font-bold text-[#155EEF] tracking-wider block mb-1">STORYBOARD PRESETS</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#07172D]">
-          爆款短劇 5 大黃金分鏡組合包
-        </h2>
-        <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-          短劇在 TikTok / Reels 要求前 3 秒留人、第 15 秒反轉、第 45 秒高潮。單一鏡頭無法創造戲劇張力，以下為百萬播放短劇最常使用的 5 套經典鏡頭組合：
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="preset-cards-grid">
-        <!-- Preset 1 -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-blue-100 text-[#155EEF]">模板 01 · 爽劇逆襲</span>
-              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
-            </div>
-            <h3 class="text-base font-bold text-[#07172D] group-hover:text-[#155EEF] transition-colors">主角霸氣登場打臉組</h3>
-            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-              由低角度仰拍建立崇高氣場，接續側向大步跟隨，最後以 180° 環繞揭露身後全場震驚的眾人。
-            </p>
-            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>鏡 A: Tilt Up (低角度垂直仰拍)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>鏡 B: Lead Tracking (前方領路跟拍)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>鏡 C: Arc 180 (半環繞帶出全場反應)</div>
-            </div>
-          </div>
-          <button data-combo="hero" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-blue-50 text-[#155EEF] border border-blue-200 text-xs font-bold transition-all cursor-pointer">
-            載入此組合分鏡
-          </button>
-        </div>
-
-        <!-- Preset 2 -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-amber-100 text-amber-800">模板 02 · 懸疑反轉</span>
-              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
-            </div>
-            <h3 class="text-base font-bold text-[#07172D] group-hover:text-amber-700 transition-colors">真相大崩潰震撼組</h3>
-            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-              由平靜對話突然衝擊變焦至關鍵證據，緊接著以眩暈推拉（Dolly Zoom）創造世界瓦解的窒息感。
-            </p>
-            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>鏡 A: Over-the-Shoulder (過肩對話)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>鏡 B: Crash Zoom (極速衝擊變焦證據)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>鏡 C: Dolly Zoom (背景扭曲精神崩潰)</div>
-            </div>
-          </div>
-          <button data-combo="vertigo" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-amber-50 text-amber-800 border border-amber-300 text-xs font-bold transition-all cursor-pointer">
-            載入此組合分鏡
-          </button>
-        </div>
-
-        <!-- Preset 3 -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-rose-400 hover:shadow-md transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-rose-100 text-rose-800">模板 03 · 動作逃生</span>
-              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
-            </div>
-            <h3 class="text-base font-bold text-[#07172D] group-hover:text-rose-700 transition-colors">生死極限追逐戰鬥組</h3>
-            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-              以高空 FPV 俯衝進入巷戰，無縫切入第一人稱奔跑視角，最後以極速甩鏡轉場完成攻防反殺。
-            </p>
-            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>鏡 A: FPV Drone Dive (穿越機極速俯衝)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>鏡 B: POV First-Person (第一人稱晃動逃脫)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>鏡 C: Whip Pan (高速甩鏡突遇伏擊)</div>
-            </div>
-          </div>
-          <button data-combo="chase" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-rose-50 text-rose-800 border border-rose-300 text-xs font-bold transition-all cursor-pointer">
-            載入此組合分鏡
-          </button>
-        </div>
-
-        <!-- Preset 4 -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-purple-400 hover:shadow-md transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-purple-100 text-purple-800">模板 04 · 情感博弈</span>
-              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
-            </div>
-            <h3 class="text-base font-bold text-[#07172D] group-hover:text-purple-700 transition-colors">雙人心理對峙暗湧組</h3>
-            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-              由前景毒酒盃移焦至後景角色，隨後以緩慢推軌逼近微顫眼眸，最終後拉抽離留下決裂背影。
-            </p>
-            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>鏡 A: Rack Focus (前後景平滑焦點切換)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>鏡 B: Dolly In (淺景深推近微表情)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>鏡 C: Dolly Out (後退抽離隱入陰影)</div>
-            </div>
-          </div>
-          <button data-combo="drama" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-purple-50 text-purple-800 border border-purple-300 text-xs font-bold transition-all cursor-pointer">
-            載入此組合分鏡
-          </button>
-        </div>
-
-        <!-- Preset 5 -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between group">
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800">模板 05 · 世界觀建立</span>
-              <span class="text-xs font-mono text-slate-400">3 鏡頭組合</span>
-            </div>
-            <h3 class="text-base font-bold text-[#07172D] group-hover:text-emerald-700 transition-colors">史詩宏大開場航拍組</h3>
-            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-              90度神之俯瞰展現賽博巨型都市，接續搖臂俯衝穿透摩天大樓，最後平穩環繞樓頂主角。
-            </p>
-            <div class="mt-4 space-y-1.5 text-xs font-mono text-slate-600">
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>鏡 A: Birds-Eye View (90度神之俯瞰)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>鏡 B: Fly-Through (穿越大樓招牌穿梭)</div>
-              <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>鏡 C: Orbit 360 (樓頂主角全景環繞)</div>
-            </div>
-          </div>
-          <button data-combo="epic" class="btn-apply-combo mt-5 w-full py-2.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold transition-all cursor-pointer">
-            載入此組合分鏡
-          </button>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- SECTION 5: COMPREHENSIVE CINEMATOGRAPHY ENCYCLOPEDIA (SEO / CRAWLER RICH TEXT) -->
     <section class="freewing-card p-6 sm:p-12 border border-slate-200 space-y-10 prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-[#07172D] prose-a:text-[#155EEF]" aria-label="鏡頭語言百科辭典">
@@ -1419,6 +1434,109 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       { id: 'bullet-time', cat: 'special', zh: '子彈時間凝結', en: 'Bullet Time', icon: '⏳', desc: '時間放慢至幾乎靜止，相機繞行軌道飛馳，視覺奇觀。', promptKling: '子彈時間, 時間靜止環繞', promptRunway: 'Bullet time effect, frozen time with camera orbiting around', promptLuma: 'Bullet time camera freezing the raindrop in mid-air and orbiting', promptSora: 'Frozen time bullet time camera spinning around the suspended action...', promptWan: '(bullet time:1.4), frozen time camera pan', promptSeedance: 'Bullet time frozen-time effect with camera orbiting rapidly around suspended mid-air action', promptMinimax: 'The camera orbits rapidly around the frozen action in mid-air in bullet-time effect.' },
       { id: 'split-diopter', cat: 'special', zh: '雙焦透鏡分屏', en: 'Split Diopter', icon: '🌗', desc: '前景極近與後景極遠同時刀鋒般銳利，強烈戲劇衝突。', promptKling: '雙焦透鏡分屏, 前後景同時銳利清晰', promptRunway: 'Split diopter cinematography, extreme foreground and deep background both sharp', promptLuma: 'Split diopter lens with razor sharp foreground face and background door', promptSora: 'Split diopter composition with dual plane sharpness...', promptWan: '(split diopter:1.3), dual focus planes sharp', promptSeedance: 'Split diopter lens with both extreme foreground and deep background in razor-sharp focus simultaneously', promptMinimax: 'The camera utilizes split diopter optical framing with both extreme near and far planes in sharp focus.' }
     ];
+    // 5 SHORT DRAMA STORYBOARD COMBOS (方案 A 時序分鏡連貫播放)
+    const STORYBOARD_COMBOS = {
+      hero: {
+        id: 'hero',
+        name: '主角霸氣登場打臉組',
+        category: '爽劇逆襲',
+        badge: '01 爽劇逆襲',
+        shots: [
+          { id: 'tilt-up', name: '低角度垂直仰拍', desc: '自名牌皮鞋向上掃瞄至威嚴面容' },
+          { id: 'lead-tracking', name: '前方領路跟拍', desc: '等速後退捕捉大步流星王者氣場' },
+          { id: 'arc-left', name: '半環繞全場反應', desc: '180° 環繞帶出全場驚愕眾人' }
+        ],
+        prompts: {
+          minimax: '[0s-3s] The camera tilts up steadily from boots to face at moderate speed, dramatic upward perspective. [3s-6s] The camera tracks backward smoothly in front of the walking subject, maintaining continuous eye-level framing. [6s-9s] The camera arcs around the subject in a half circle, revealing the crowd reaction.',
+          seedance: 'Continuous 3-shot sequence. Shot 1 (0-3s): Dramatic low-angle camera tilt up towards charismatic subject face. Cut to Shot 2 (3-6s): Steady lead tracking camera gliding backward facing the walking protagonist. Cut to Shot 3 (6-9s): 180-degree curved arc tracking shot moving around subject revealing shocked crowd, cinematic 4k.',
+          kling: '多鏡頭分鏡接力: 鏡頭一(0-3秒): 垂直仰拍[上 5], 低視角主角霸氣登場; 轉場至 鏡頭二(3-6秒): 前方領路跟拍, 等速後退行進; 轉場至 鏡頭三(6-9秒): 弧形運鏡[左弧度 5], 180度半環繞展示全場震驚反應, 電影感光影',
+          runway: 'Multi-shot sequence. Shot 1 (0-3s): Camera Tilt Up from ground to character face. Cut to Shot 2 (3-6s): Camera Lead Tracking moving backward in front of subject. Cut to Shot 3 (6-9s): Camera Arc Left around character revealing the room, cinematic 8k',
+          luma: 'Continuous multi-shot cinematography. Shot 1 (0-3s): Dramatic tilt up from boots to face. Cut to Shot 2 (3-6s): Lead tracking shot matching forward walk. Cut to Shot 3 (6-9s): Smooth 180-degree arc shot circling around subject, high aesthetic.',
+          sora: 'A seamless 3-shot cinematic sequence. Begins with a low-angle camera tilt up to the protagonist face. Smooth cut to a lead tracking shot retreating backward as the character walks forward. Concludes with an arc shot orbiting around the character to capture the stunned reaction of onlookers.',
+          wan: 'Multi-shot sequence, [Shot 1: (cinematic tilt up:1.3), low angle] -> [Shot 2: (lead tracking:1.2), backward motion] -> [Shot 3: (arc left:1.3), curved orbital tracking, shocked crowd background], masterpiece, photorealistic 8k'
+        }
+      },
+      vertigo: {
+        id: 'vertigo',
+        name: '真相大崩潰震撼組',
+        category: '懸疑反轉',
+        badge: '02 懸疑反轉',
+        shots: [
+          { id: 'ots-shot', name: '經典過肩對話', desc: '平靜商務對話建立空間與張力' },
+          { id: 'crash-zoom', name: '極速衝擊變焦', desc: '毫秒級猛推至關鍵合同物證' },
+          { id: 'dolly-zoom', name: '希區柯克眩暈推拉', desc: '背景劇烈崩解扭曲，精神坍塌' }
+        ],
+        prompts: {
+          minimax: '[0s-3s] The camera frames an over-the-shoulder shot looking past foreground shoulder at the speaker. [3s-6s] The camera executes a rapid crash zoom snapping into the evidence on table at high speed. [6s-9s] The camera pushes in while zooming out simultaneously, creating a Vertigo perspective distortion as the world collapses.',
+          seedance: 'Continuous 3-shot suspense sequence. Shot 1 (0-3s): Over-the-shoulder dialogue framing with shallow depth of field. Cut to Shot 2 (3-6s): Rapid crash zoom snapping onto shocking contract document on desk. Cut to Shot 3 (6-9s): Vertigo dolly zoom with perspective background distortion while character face remains fixed in horror, 4k cinematic.',
+          kling: '多鏡頭分鏡接力: 鏡頭一(0-3秒): 過肩鏡頭, 雙人對峙對話; 轉場至 鏡頭二(3-6秒): 鏡頭變焦[極速拉近 9], 衝擊變焦鎖定桌上假合約; 轉場至 鏡頭三(6-9秒): 希區柯克變焦, 眩暈推拉背景扭曲精神崩潰, 4k 畫質',
+          runway: 'Multi-shot sequence. Shot 1 (0-3s): Over-the-shoulder conversation shot. Cut to Shot 2 (3-6s): Camera Crash Zoom fast snap zoom on evidence. Cut to Shot 3 (6-9s): Vertigo effect dolly zoom background warping, psychological shock',
+          luma: 'Continuous multi-shot suspense sequence. Shot 1 (0-3s): Over-the-shoulder shot. Cut to Shot 2 (3-6s): Fast crash zoom on discovery. Cut to Shot 3 (6-9s): Hitchcock vertigo dolly zoom with background stretching, intense gaze.',
+          sora: 'A psychological 3-shot thriller sequence. Opens with an over-the-shoulder angle during tense conversation. Suddenly crash zooms into a shocking discovery on the table. Transitions to a disorienting Vertigo dolly zoom distorting the background while the character face freezes in shock.',
+          wan: 'Multi-shot sequence, [Shot 1: (over-the-shoulder:1.2), soft blur foreground] -> [Shot 2: (crash zoom:1.4), snap zoom on evidence] -> [Shot 3: (dolly zoom:1.4), vertigo effect, perspective distortion], intense thriller, 8k'
+        }
+      },
+      chase: {
+        id: 'chase',
+        name: '生死極限追逐戰鬥組',
+        category: '動作逃生',
+        badge: '03 動作逃生',
+        shots: [
+          { id: 'fpv-drone-dive', name: '穿越機極速俯衝', desc: '摩天大樓外牆 90° 垂直爆衝入巷' },
+          { id: 'pov-shot', name: '第一人稱晃動逃脫', desc: '雙手入鏡跨越障礙極限逃亡' },
+          { id: 'whip-pan', name: '極速甩鏡轉場', desc: '毫秒橫向流光突遇反派伏擊' }
+        ],
+        prompts: {
+          minimax: '[0s-3s] The camera dives vertically downward at high speed along the building structure, leveling out near ground. [3s-6s] The camera captures the scene from first-person point-of-view perspective with hands visible pushing through obstacles. [6s-9s] The camera executes a rapid whip pan to the side with heavy motion blur for dynamic ambush transition.',
+          seedance: 'High-octane action sequence. Shot 1 (0-3s): High-speed FPV drone dive plunging vertically down skyscraper facade into narrow alleyway. Cut to Shot 2 (3-6s): Immersive first-person POV sprinting forward with hands visible vaulting over barriers. Cut to Shot 3 (6-9s): High-speed whip pan transition with kinetic horizontal motion blur connecting to ambush faceoff, 4k ultra-detailed.',
+          kling: '多鏡頭分鏡接力: 鏡頭一(0-3秒): 穿越機俯衝, FPV極速垂直下墜入窄巷; 轉場至 鏡頭二(3-6秒): 第一人稱主觀視角[POV視角], 雙手入鏡奔跑跨越障礙; 轉場至 鏡頭三(6-9秒): 極速甩鏡轉場, 橫向動態模糊瞬間切換至伏擊對決',
+          runway: 'Multi-shot action sequence. Shot 1 (0-3s): FPV drone dive plunging down building at high speed. Cut to Shot 2 (3-6s): First-person POV running with hands in frame. Cut to Shot 3 (6-9s): Fast whip pan transition with heavy motion blur into ambush confrontation',
+          luma: 'Kinetic 3-shot action chase. Shot 1 (0-3s): High-speed FPV drone dive straight down to street level. Cut to Shot 2 (3-6s): POV camera sprinting frantically. Cut to Shot 3 (6-9s): Dynamic whip pan camera wipe creating kinetic motion blur into intense fight.',
+          sora: 'A breathless 3-shot pursuit sequence. Initiates with an acrobatic FPV drone dive plunging straight down skyscraper glass walls. Seamless cut into a first-person POV perspective as the protagonist sprints and leaps over obstacles. Ends in a fast horizontal whip pan revealing the ambush awaiting.',
+          wan: 'Multi-shot sequence, [Shot 1: (FPV drone dive:1.4), vertical descent, high speed blur] -> [Shot 2: (first-person POV:1.3), running motion, hands in frame] -> [Shot 3: (whip pan:1.4), swish pan transition], extreme kinetic action, 8k'
+        }
+      },
+      drama: {
+        id: 'drama',
+        name: '情感對峙心理博弈組',
+        category: '豪門爭鬥',
+        badge: '04 豪門爭鬥',
+        shots: [
+          { id: 'split-diopter', name: '雙焦透鏡分屏', desc: '近景嘴唇微顫與遠景刺客同時清晰' },
+          { id: 'rack-focus', name: '焦點平滑轉移', desc: '焦點由合約轉移至陰險微笑' },
+          { id: 'dutch-angle', name: '荷蘭傾斜角', desc: '畫面傾斜 25° 展現崩潰與陰謀' }
+        ],
+        prompts: {
+          minimax: '[0s-3s] The camera utilizes split diopter optical framing with both extreme near foreground face and deep background door in razor-sharp focus. [3s-6s] The camera shifts focus smoothly from the foreground element to the background smiling subject. [6s-9s] The camera frames the shot with a tilted Dutch angle of 25 degrees, conveying unease and emotional rupture.',
+          seedance: 'Intense psychological confrontation sequence. Shot 1 (0-3s): Split diopter lens with razor-sharp foreground face and deep background doorway both in focus simultaneously. Cut to Shot 2 (3-6s): Cinematic rack focus smoothly shifting focus from foreground tear to background smiling adversary. Cut to Shot 3 (6-9s): Tilted Dutch canted angle at 25 degrees conveying psychological rupture, moody lighting, 4k.',
+          kling: '多鏡頭分鏡接力: 鏡頭一(0-3秒): 雙焦透鏡分屏, 前景人物與後景門口刺客同時銳利清晰; 轉場至 鏡頭二(3-6秒): 前後景焦點切換, 焦點由眼前眼淚平滑過渡至後方微笑對手; 轉場至 鏡頭三(6-9秒): 荷蘭傾斜角, 畫面傾斜25度體現心理世界崩解',
+          runway: 'Multi-shot sequence. Shot 1 (0-3s): Split diopter lens with both extreme foreground and deep background sharp. Cut to Shot 2 (3-6s): Rack focus smoothly shifting from foreground to background. Cut to Shot 3 (6-9s): Dutch angle tilted composition at 25 degrees, psychological tension',
+          luma: 'Dramatic 3-shot psychological dialogue. Shot 1 (0-3s): Split diopter composition with dual plane sharpness. Cut to Shot 2 (3-6s): Rack focus shifting attention seamlessly. Cut to Shot 3 (6-9s): Dutch canted angle creating deep psychological unease.',
+          sora: 'A gripping 3-shot psychological drama sequence. Starts with a split diopter shot maintaining extreme foreground and distant background in crisp focus. Smoothly transitions into a rack focus shifting focus between the conflicting parties. Finishes with a canted Dutch angle framing the broken relationship.',
+          wan: 'Multi-shot sequence, [Shot 1: (split diopter:1.3), dual focus planes sharp] -> [Shot 2: (rack focus:1.3), depth of field focus shift] -> [Shot 3: (Dutch angle:1.3), canted frame 25 degrees, psychological tension], cinematic drama, 8k'
+        }
+      },
+      epic: {
+        id: 'epic',
+        name: '史詩神蹟宏大亮相組',
+        category: '王者降臨',
+        badge: '05 王者降臨',
+        shots: [
+          { id: 'birds-eye', name: '上帝 90° 垂直俯瞰', desc: '幾何命運棋盤，展現萬軍包圍' },
+          { id: 'crane-shot', name: '大型搖臂俯衝', desc: '從百米高空呼嘯降至面部大特寫' },
+          { id: 'orbit-360', name: '360° 全環繞運鏡', desc: '王者光芒萬丈，君臨天下定格' }
+        ],
+        prompts: {
+          minimax: '[0s-3s] The camera holds a straight-down 90-degree birds-eye perspective looking directly at the grand scene. [3s-6s] The camera sweeps downward from high overhead on a crane rig to an intimate close-up. [6s-9s] The camera arcs in a full 360-degree circle around the triumphant subject at steady speed.',
+          seedance: 'Epic cinematic reveal sequence. Shot 1 (0-3s): Top-down 90-degree birds-eye aerial view looking directly down at the vast battlefield. Cut to Shot 2 (3-6s): Grand sweeping crane shot descending gracefully from high overhead altitude to heroic close-up. Cut to Shot 3 (6-9s): Full 360-degree circular orbit tracking shot around the victorious protagonist with golden rim light, 4k masterpiece.',
+          kling: '多鏡頭分鏡接力: 鏡頭一(0-3秒): 俯瞰視角[正上方90度垂直俯瞰], 展現宏大棋盤戰局; 轉場至 鏡頭二(3-6秒): 大型搖臂運鏡, 高空俯衝下潛至主角面部特寫; 轉場至 鏡頭三(6-9秒): 環繞運鏡[360度], 旋轉全景公轉定格王者光芒, 史詩級震撼光影',
+          runway: 'Multi-shot sequence. Shot 1 (0-3s): Camera Birds-Eye View straight 90 degree top-down shot. Cut to Shot 2 (3-6s): Crane shot sweeping down from high altitude to close-up. Cut to Shot 3 (6-9s): 360 degree orbit around character, epic cinematic lighting',
+          luma: 'Majestic 3-shot epic sequence. Shot 1 (0-3s): Top-down birds-eye perspective of massive environment. Cut to Shot 2 (3-6s): Grand crane shot swooping down gracefully to character level. Cut to Shot 3 (6-9s): Smooth 360-degree orbit shot encircling the triumphant hero.',
+          sora: 'A majestic 3-shot epic sequence. Begins with a straight-down 90-degree aerial birds-eye view of the expansive domain. Sweeps downward in a grand crane shot rapidly descending to an intimate eye-level close-up. Culminates in a full 360-degree orbital camera rotation around the majestic protagonist bathed in golden light.',
+          wan: 'Multi-shot sequence, [Shot 1: (birds-eye view:1.3), 90 degree top-down] -> [Shot 2: (crane shot:1.3), sweeping jib descent] -> [Shot 3: (orbit 360:1.3), circular camera rotation around hero, triumphant aura], epic scale, 8k'
+        }
+      }
+    };
 
     // State Variables
     let currentMovement = MOVEMENTS_DATA[0]; // default 'pan-left'
@@ -1428,6 +1546,11 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     let showGrid = true;
     let animFrameId = null;
     let animProgress = 0;
+
+    // Timeline Mode State (方案 A)
+    let isComboMode = false;
+    let activeComboKey = 'hero';
+    let comboTime = 0; // seconds
 
     // DOM Elements
     const viewfinderStage = document.getElementById('viewfinder-stage');
@@ -1457,7 +1580,22 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     const copyBtn = document.getElementById('btn-copy-prompt');
     const copyLabel = document.getElementById('copy-btn-label');
 
-    // 1. Initialize Movement Chips
+    // Storyboard Combo DOM Elements
+    const sbTimelineBar = document.getElementById('storyboard-timeline-bar');
+    const sbComboBadge = document.getElementById('sb-combo-badge');
+    const sbShotIndicator = document.getElementById('sb-shot-indicator');
+    const sbProgress1 = document.getElementById('sb-progress-1');
+    const sbProgress2 = document.getElementById('sb-progress-2');
+    const sbProgress3 = document.getElementById('sb-progress-3');
+
+    const tabModeSingle = document.getElementById('tab-mode-single');
+    const tabModeCombo = document.getElementById('tab-mode-combo');
+    const panelSingleShot = document.getElementById('panel-single-shot');
+    const panelStoryboardCombo = document.getElementById('panel-storyboard-combo');
+    const categoryFilterButtons = document.getElementById('category-filter-buttons');
+    const comboCards = document.querySelectorAll('.btn-combo-card');
+
+    // 1. Initialize Compact Micro-Chips
     function renderChips(filterCat = 'all', searchQuery = '') {
       chipsContainer.innerHTML = '';
       const filtered = MOVEMENTS_DATA.filter(item => {
@@ -1467,21 +1605,21 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       });
 
       filtered.forEach(item => {
-        const isSelected = item.id === currentMovement.id;
+        const isSelected = !isComboMode && item.id === currentMovement.id;
         const btn = document.createElement('button');
-        btn.className = `p-2.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+        btn.className = `px-2.5 py-1.5 rounded-lg border text-left transition-all cursor-pointer flex items-center justify-between gap-1 select-none text-xs ${
           isSelected 
-            ? 'bg-blue-50 border-blue-500 text-[#155EEF] ring-2 ring-blue-500/20 shadow-xs' 
-            : 'bg-white hover:bg-slate-50 border-slate-200 text-[#07172D]'
+            ? 'bg-blue-600 text-white border-blue-600 font-bold shadow-2xs ring-2 ring-blue-400/30' 
+            : 'bg-slate-50 hover:bg-white hover:border-slate-300 border-slate-200 text-[#07172D]'
         }`;
         btn.innerHTML = `
-          <div class="flex items-center justify-between gap-1 w-full">
-            <span class="text-xs font-bold truncate">${item.zh}</span>
-            <span class="text-xs font-mono opacity-60">${item.icon}</span>
-          </div>
-          <span class="text-[10px] font-mono text-slate-400 truncate mt-1">${item.en}</span>
+          <span class="truncate text-[11px] font-medium ${isSelected ? 'text-white' : 'text-[#07172D]'}">${item.zh}</span>
+          <span class="text-[11px] font-mono opacity-70 ml-1 shrink-0">${item.icon}</span>
         `;
         btn.addEventListener('click', () => {
+          if (isComboMode) {
+            switchToSingleMode();
+          }
           selectMovement(item);
         });
         chipsContainer.appendChild(btn);
@@ -1495,6 +1633,13 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       hudMovementName.textContent = `${movement.en.toUpperCase()} (${movement.zh})`;
 
       // Clean reset of all visual modifiers
+      resetVisualModifiers();
+
+      renderChips(getCurrentFilterCat(), searchInput.value.trim());
+      updateCompiledPrompt();
+    }
+
+    function resetVisualModifiers() {
       if (layerOtsShoulder) layerOtsShoulder.style.opacity = '0';
       if (layerFxSpeed) layerFxSpeed.style.opacity = '0';
       if (layerSplitLine) layerSplitLine.style.opacity = '0';
@@ -1513,17 +1658,14 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       if (viewfinderStage) {
         viewfinderStage.style.filter = 'none';
       }
-
-      renderChips(getCurrentFilterCat(), searchInput.value.trim());
-      updateCompiledPrompt();
     }
 
     function getCurrentFilterCat() {
-      const activeBtn = document.querySelector('.cat-btn.bg-\\[\\#155EEF\\]');
+      const activeBtn = document.querySelector('.cat-btn.bg-\[\#155EEF\]');
       return activeBtn ? activeBtn.dataset.cat : 'all';
     }
 
-    // 3. Update Compiled Prompt Generator
+    // 3. Update Compiled Prompt Generator (Handles Single & Combo Storyboard)
     function updateCompiledPrompt() {
       const focal = focalSelect.value;
       const speed = speedSelect.value;
@@ -1531,41 +1673,166 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       hudLensSpec.textContent = `${focal} · F/1.8`;
 
       let output = '';
-      if (currentModel === 'kling') {
-        modelBadge.textContent = '可靈 KLING AI 官方格式';
-        output = `${currentMovement.promptKling}, 焦距: ${focal}, 主體: ${subject}, 電影感光影, 4k 畫質`;
-      } else if (currentModel === 'runway') {
-        modelBadge.textContent = 'RUNWAY 官方提示詞';
-        output = `${currentMovement.promptRunway}, speed: ${speed}, ${focal} cinematic lens, ${subject}, ultra-realistic 8k`;
-      } else if (currentModel === 'luma') {
-        modelBadge.textContent = 'LUMA DREAM MACHINE 格式';
-        output = `${currentMovement.promptLuma}, ${focal} lens, ${subject}, high aesthetic cinematography, smooth motion`;
-      } else if (currentModel === 'sora') {
-        modelBadge.textContent = 'OPENAI SORA 自然語言格式';
-        output = `${currentMovement.promptSora} Featuring ${subject}. Filmed with a ${focal} cinema camera, smooth photorealistic lighting.`;
-      } else if (currentModel === 'wan') {
-        modelBadge.textContent = 'WAN / COMFYUI 權重節點格式';
-        output = `${currentMovement.promptWan}, (${focal} focal length:1.1), ${subject}, masterpiece, highly detailed, photorealistic`;
-      } else if (currentModel === 'seedance') {
-        modelBadge.textContent = 'BYTEDANCE SEEDANCE 官方結構化格式';
-        output = `${subject}. ${currentMovement.promptSeedance || currentMovement.en}, filmed with a ${focal} focal length lens, speed: ${speed}, cinematic lighting, 4k resolution.`;
-      } else if (currentModel === 'minimax') {
-        modelBadge.textContent = 'MINIMAX H3 (HAILUO AI) 官方導演語法';
-        output = `${currentMovement.promptMinimax || currentMovement.en} The subject is ${subject}. Lens: ${focal}, speed: ${speed}, cinematic color grading, photorealistic.`;
+
+      if (isComboMode) {
+        const combo = STORYBOARD_COMBOS[activeComboKey];
+        if (currentModel === 'kling') {
+          modelBadge.textContent = '可靈 KLING AI 多鏡頭時序分鏡格式';
+          output = `${combo.prompts.kling}, 主體: ${subject}, 焦距: ${focal}, 4k 畫質`;
+        } else if (currentModel === 'runway') {
+          modelBadge.textContent = 'RUNWAY MULTI-SHOT SEQUENCE 時序語法';
+          output = `${combo.prompts.runway}, subject: ${subject}, ${focal} cinema lens, speed: ${speed}`;
+        } else if (currentModel === 'luma') {
+          modelBadge.textContent = 'LUMA DREAM MACHINE 多鏡頭分鏡格式';
+          output = `${combo.prompts.luma} Subject: ${subject}, ${focal} lens, smooth cinematic motion.`;
+        } else if (currentModel === 'sora') {
+          modelBadge.textContent = 'OPENAI SORA 連續分鏡敘事語法';
+          output = `${combo.prompts.sora} Featuring ${subject}. Filmed with a ${focal} cinema camera, photorealistic.`;
+        } else if (currentModel === 'wan') {
+          modelBadge.textContent = 'WAN / COMFYUI 鏈式分鏡節點權重格式';
+          output = `${combo.prompts.wan}, (${focal} focal length:1.1), ${subject}, masterpiece, photorealistic 8k`;
+        } else if (currentModel === 'seedance') {
+          modelBadge.textContent = 'BYTEDANCE SEEDANCE 官方連貫時序分鏡格式';
+          output = `${subject}. ${combo.prompts.seedance} Filmed with a ${focal} lens, speed: ${speed}, cinematic lighting.`;
+        } else if (currentModel === 'minimax') {
+          modelBadge.textContent = 'MINIMAX H3 (HAILUO AI) 官方時序分鏡語法';
+          output = `${combo.prompts.minimax} The subject is ${subject}. Lens: ${focal}, speed: ${speed}, cinematic color grading, photorealistic 8k.`;
+        }
+      } else {
+        if (currentModel === 'kling') {
+          modelBadge.textContent = '可靈 KLING AI 官方格式';
+          output = `${currentMovement.promptKling}, 焦距: ${focal}, 主體: ${subject}, 電影感光影, 4k 畫質`;
+        } else if (currentModel === 'runway') {
+          modelBadge.textContent = 'RUNWAY 官方提示詞';
+          output = `${currentMovement.promptRunway}, speed: ${speed}, ${focal} cinematic lens, ${subject}, ultra-realistic 8k`;
+        } else if (currentModel === 'luma') {
+          modelBadge.textContent = 'LUMA DREAM MACHINE 格式';
+          output = `${currentMovement.promptLuma}, ${focal} lens, ${subject}, high aesthetic cinematography, smooth motion`;
+        } else if (currentModel === 'sora') {
+          modelBadge.textContent = 'OPENAI SORA 自然語言格式';
+          output = `${currentMovement.promptSora} Featuring ${subject}. Filmed with a ${focal} cinema camera, smooth photorealistic lighting.`;
+        } else if (currentModel === 'wan') {
+          modelBadge.textContent = 'WAN / COMFYUI 權重節點格式';
+          output = `${currentMovement.promptWan}, (${focal} focal length:1.1), ${subject}, masterpiece, highly detailed, photorealistic`;
+        } else if (currentModel === 'seedance') {
+          modelBadge.textContent = 'BYTEDANCE SEEDANCE 官方結構化格式';
+          output = `${subject}. ${currentMovement.promptSeedance || currentMovement.en}, filmed with a ${focal} focal length lens, speed: ${speed}, cinematic lighting, 4k resolution.`;
+        } else if (currentModel === 'minimax') {
+          modelBadge.textContent = 'MINIMAX H3 (HAILUO AI) 官方導演語法';
+          output = `${currentMovement.promptMinimax || currentMovement.en} The subject is ${subject}. Lens: ${focal}, speed: ${speed}, cinematic color grading, photorealistic.`;
+        }
       }
 
       compiledOutput.textContent = output;
     }
 
-    // 4. Animation Loop for 3D Viewport Physics (ALL 40 MOVEMENTS FULLY IMPLEMENTED)
+    // 4. Mode Switching Handlers (Single vs Combo)
+    function switchToSingleMode() {
+      isComboMode = false;
+      tabModeSingle.classList.add('bg-[#155EEF]', 'text-white', 'shadow-2xs');
+      tabModeSingle.classList.remove('text-slate-600');
+      tabModeCombo.classList.remove('bg-[#155EEF]', 'text-white', 'shadow-2xs');
+      tabModeCombo.classList.add('text-slate-600');
+
+      panelSingleShot.classList.remove('hidden');
+      panelStoryboardCombo.classList.add('hidden');
+      categoryFilterButtons.classList.remove('hidden');
+      sbTimelineBar.classList.add('hidden');
+
+      selectMovement(currentMovement);
+    }
+
+    function switchToComboMode(comboKey = 'hero') {
+      isComboMode = true;
+      activeComboKey = comboKey;
+      comboTime = 0;
+
+      tabModeCombo.classList.add('bg-[#155EEF]', 'text-white', 'shadow-2xs');
+      tabModeCombo.classList.remove('text-slate-600');
+      tabModeSingle.classList.remove('bg-[#155EEF]', 'text-white', 'shadow-2xs');
+      tabModeSingle.classList.add('text-slate-600');
+
+      panelSingleShot.classList.add('hidden');
+      panelStoryboardCombo.classList.remove('hidden');
+      categoryFilterButtons.classList.add('hidden');
+      sbTimelineBar.classList.remove('hidden');
+
+      const combo = STORYBOARD_COMBOS[comboKey];
+      sbComboBadge.textContent = `${combo.badge} · ${combo.name}`;
+
+      // Highlight active combo card
+      comboCards.forEach(card => {
+        if (card.dataset.combo === comboKey) {
+          card.classList.add('bg-blue-50/80', 'border-blue-500', 'ring-2', 'ring-blue-500/20');
+          card.classList.remove('bg-white');
+        } else {
+          card.classList.remove('bg-blue-50/80', 'border-blue-500', 'ring-2', 'ring-blue-500/20');
+          card.classList.add('bg-white');
+        }
+      });
+
+      renderChips(getCurrentFilterCat(), searchInput.value.trim());
+      updateCompiledPrompt();
+    }
+
+    // 5. Animation Loop for 3D Viewport Physics (ALL 40 MOVEMENTS + 5 STORYBOARD COMBOS)
+    let lastRenderedMId = '';
+
     function animateLoop() {
-      if (isPlaying) {
-        animProgress += 0.025 * animationSpeed;
+      let mId = currentMovement.id;
+      let t = 0;
+      let tNorm = 0;
+
+      if (isComboMode) {
+        if (isPlaying) {
+          comboTime += 0.016 * animationSpeed;
+        }
+        const combo = STORYBOARD_COMBOS[activeComboKey];
+        const cycleTime = comboTime % 9; // 0 to 9 seconds cycle
+        let shotIndex = 0;
+        let shotLocalTime = 0;
+
+        if (cycleTime < 3) {
+          shotIndex = 0;
+          shotLocalTime = cycleTime / 3;
+          sbProgress1.style.width = `${shotLocalTime * 100}%`;
+          sbProgress2.style.width = '0%';
+          sbProgress3.style.width = '0%';
+        } else if (cycleTime < 6) {
+          shotIndex = 1;
+          shotLocalTime = (cycleTime - 3) / 3;
+          sbProgress1.style.width = '100%';
+          sbProgress2.style.width = `${shotLocalTime * 100}%`;
+          sbProgress3.style.width = '0%';
+        } else {
+          shotIndex = 2;
+          shotLocalTime = (cycleTime - 6) / 3;
+          sbProgress1.style.width = '100%';
+          sbProgress2.style.width = '100%';
+          sbProgress3.style.width = `${shotLocalTime * 100}%`;
+        }
+
+        const activeShot = combo.shots[shotIndex];
+        mId = activeShot.id;
+        t = Math.sin(shotLocalTime * Math.PI * 2);
+        tNorm = (t + 1) / 2;
+
+        sbShotIndicator.textContent = `分鏡 ${shotIndex + 1}/3: ${activeShot.name} (${shotIndex * 3}s-${(shotIndex + 1) * 3}s) · ${activeShot.desc}`;
+        hudMovementName.textContent = `[${shotIndex + 1}/3] ${activeShot.name.toUpperCase()}`;
+
+        // Reset visual layers when switching shot in combo
+        if (lastRenderedMId !== mId) {
+          resetVisualModifiers();
+          lastRenderedMId = mId;
+        }
+      } else {
+        if (isPlaying) {
+          animProgress += 0.025 * animationSpeed;
+        }
+        t = Math.sin(animProgress); // -1 to 1 oscillation
+        tNorm = (t + 1) / 2; // 0 to 1 smooth oscillation
+        lastRenderedMId = mId;
       }
-      
-      const t = Math.sin(animProgress); // -1 to 1 oscillation
-      const tNorm = (t + 1) / 2; // 0 to 1 smooth oscillation
-      const mId = currentMovement.id;
 
       let vfRotX = 0, vfRotY = 0, vfRotZ = 0, vfTransX = 0, vfTransY = 0, vfTransZ = 0, vfScale = 1;
       let rigTransX = 0, rigTransY = 85, rigTransZ = 0, rigRotZ = 0;
@@ -1577,357 +1844,370 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       let vectorDesc = '';
 
       switch (mId) {
-        // === CATEGORY 1: PHYSICAL TRANSLATIONS & ROTATIONS (12) ===
+        // Physical (12)
         case 'pan-left':
-          vfRotY = -25 * t;
-          vfTransX = 80 * t;
-          horizonOffset = -70 * t;
+          vfRotY = -28 * t;
           rigRotZ = -35 * t;
-          rotY = -25 * t;
-          vectorDesc = `Yaw: ${rotY.toFixed(1)}° (Pan L)`;
-          break;
-        case 'pan-right':
-          vfRotY = 25 * t;
-          vfTransX = -80 * t;
-          horizonOffset = 70 * t;
-          rigRotZ = 35 * t;
-          rotY = 25 * t;
-          vectorDesc = `Yaw: +${rotY.toFixed(1)}° (Pan R)`;
-          break;
-        case 'tilt-up':
-          vfRotX = 26 * t;
-          vfTransY = 65 * t;
-          rotP = 26 * t;
-          vectorDesc = `Pitch: +${rotP.toFixed(1)}° (Tilt Up)`;
-          break;
-        case 'tilt-down':
-          vfRotX = -26 * t;
-          vfTransY = -65 * t;
-          rotP = -26 * t;
-          vectorDesc = `Pitch: ${rotP.toFixed(1)}° (Tilt Down)`;
-          break;
-        case 'roll-cw':
-          vfRotZ = 22 * t;
-          rotR = 22 * t;
-          vectorDesc = `Roll: +${rotR.toFixed(1)}° (CW)`;
-          break;
-        case 'roll-ccw':
-          vfRotZ = -22 * t;
-          rotR = -22 * t;
-          vectorDesc = `Roll: ${rotR.toFixed(1)}° (CCW)`;
-          break;
-        case 'dolly-in':
-          vfScale = 1 + 0.45 * tNorm;
-          vfTransZ = 110 * tNorm;
-          rigTransY = 85 - 50 * tNorm;
-          posY = -2.4 + 1.2 * tNorm;
-          vectorDesc = `Dolly In: +${(1.2 * tNorm).toFixed(2)}m`;
-          break;
-        case 'dolly-out':
-          vfScale = 1.4 - 0.45 * tNorm;
-          vfTransZ = 110 * (1 - tNorm);
-          rigTransY = 35 + 50 * tNorm;
-          posY = -1.2 - 1.2 * tNorm;
-          vectorDesc = `Dolly Out: -${(1.2 * tNorm).toFixed(2)}m`;
-          break;
-        case 'truck-left':
-          vfTransX = 90 * t;
-          rigTransX = -50 * t;
-          horizonOffset = 35 * t;
-          posX = -1.5 * t;
-          vectorDesc = `Truck L: ${(posX).toFixed(2)}m`;
-          break;
-        case 'truck-right':
-          vfTransX = -90 * t;
-          rigTransX = 50 * t;
-          horizonOffset = -35 * t;
-          posX = 1.5 * t;
-          vectorDesc = `Truck R: +${(posX).toFixed(2)}m`;
-          break;
-        case 'pedestal-up':
-          vfTransY = 70 * tNorm;
-          rigTransZ = 45 * tNorm;
-          posZ = 1.2 + 1.5 * tNorm;
-          vectorDesc = `Pedestal Up: +${(1.5 * tNorm).toFixed(2)}m`;
-          break;
-        case 'pedestal-down':
-          vfTransY = -70 * tNorm;
-          rigTransZ = -35 * tNorm;
-          posZ = 1.2 - 1.0 * tNorm;
-          vectorDesc = `Pedestal Down: -${(1.0 * tNorm).toFixed(2)}m`;
+          rotY = -35 * t;
+          horizonOffset = 38 * t;
+          vectorDesc = `Yaw: ${rotY.toFixed(1)}° (Pan Left)`;
           break;
 
-        // === CATEGORY 2: OPTICAL & DEPTH OF FIELD (6) ===
+        case 'pan-right':
+          vfRotY = 28 * t;
+          rigRotZ = 35 * t;
+          rotY = 35 * t;
+          horizonOffset = -38 * t;
+          vectorDesc = `Yaw: +${rotY.toFixed(1)}° (Pan Right)`;
+          break;
+
+        case 'tilt-up':
+          vfRotX = 22 * t;
+          rotP = 25 * t;
+          vfTransY = -18 * t;
+          rigTransY = 85 - 15 * t;
+          vectorDesc = `Pitch: +${rotP.toFixed(1)}° (Tilt Up)`;
+          break;
+
+        case 'tilt-down':
+          vfRotX = -22 * t;
+          rotP = -25 * t;
+          vfTransY = 18 * t;
+          rigTransY = 85 + 15 * t;
+          vectorDesc = `Pitch: ${rotP.toFixed(1)}° (Tilt Down)`;
+          break;
+
+        case 'roll-cw':
+          vfRotZ = 32 * t;
+          rotR = 35 * t;
+          vectorDesc = `Roll: +${rotR.toFixed(1)}° CW`;
+          break;
+
+        case 'roll-ccw':
+          vfRotZ = -32 * t;
+          rotR = -35 * t;
+          vectorDesc = `Roll: ${rotR.toFixed(1)}° CCW`;
+          break;
+
+        case 'dolly-in':
+          vfScale = 1 + 0.55 * tNorm;
+          rigTransY = 85 - 55 * tNorm;
+          posY = -2.4 + 1.6 * tNorm;
+          vectorDesc = `Dolly: +${(1.6 * tNorm).toFixed(2)}m (Forward)`;
+          break;
+
+        case 'dolly-out':
+          vfScale = 1.35 - 0.5 * tNorm;
+          rigTransY = 35 + 65 * tNorm;
+          posY = -0.8 - 2.0 * tNorm;
+          vectorDesc = `Dolly: -${(2.0 * tNorm).toFixed(2)}m (Backward)`;
+          break;
+
+        case 'truck-left':
+          vfTransX = 45 * t;
+          rigTransX = 48 * t;
+          posX = 1.8 * t;
+          horizonOffset = -18 * t;
+          vectorDesc = `Truck X: -${(1.8 * t).toFixed(2)}m (Left)`;
+          break;
+
+        case 'truck-right':
+          vfTransX = -45 * t;
+          rigTransX = -48 * t;
+          posX = -1.8 * t;
+          horizonOffset = 18 * t;
+          vectorDesc = `Truck X: +${(1.8 * t).toFixed(2)}m (Right)`;
+          break;
+
+        case 'pedestal-up':
+          vfTransY = 35 * t;
+          posZ = 1.2 + 1.2 * t;
+          rigTransZ = -30 * t;
+          vectorDesc = `Pedestal Z: +${posZ.toFixed(2)}m`;
+          break;
+
+        case 'pedestal-down':
+          vfTransY = -35 * t;
+          posZ = 1.2 - 0.9 * t;
+          rigTransZ = 30 * t;
+          vectorDesc = `Pedestal Z: ${(posZ).toFixed(2)}m`;
+          break;
+
+        // Optical (6)
         case 'zoom-in':
           vfScale = 1 + 0.65 * tNorm;
-          vectorDesc = `Optical Zoom: ${(35 + 55 * tNorm).toFixed(0)}mm`;
+          vectorDesc = `Optical Zoom In: ${(35 + 50 * tNorm).toFixed(0)}mm`;
           break;
+
         case 'zoom-out':
-          vfScale = 1.65 - 0.65 * tNorm;
-          vectorDesc = `Optical Zoom: ${(90 - 55 * tNorm).toFixed(0)}mm`;
+          vfScale = 1.45 - 0.6 * tNorm;
+          vectorDesc = `Optical Zoom Out: ${(85 - 55 * tNorm).toFixed(0)}mm`;
           break;
+
         case 'crash-zoom':
-          const crashFactor = Math.pow(tNorm, 4);
-          vfScale = 1 + 1.1 * crashFactor;
-          if (crashFactor > 0.4 && layerFxSpeed) {
-            layerFxSpeed.style.opacity = '0.6';
+          const crashFactor = Math.pow(tNorm, 3);
+          vfScale = 0.9 + 1.2 * crashFactor;
+          if (crashFactor > 0.6 && layerFxSpeed) {
+            layerFxSpeed.style.opacity = `${(crashFactor - 0.6) * 2}`;
           }
-          vectorDesc = `Crash Zoom Snap: ${(35 + 85 * crashFactor).toFixed(0)}mm`;
+          vectorDesc = `Crash Zoom: ${(35 + 85 * crashFactor).toFixed(0)}mm (Rapid)`;
           break;
+
         case 'rack-focus':
-          // Smooth focus shifting between foreground and background
-          if (t > 0) {
-            horizonLayer.style.filter = `blur(${(t * 8).toFixed(1)}px)`;
-            subjectAnchor.style.filter = 'none';
-            vectorDesc = `Focus: Subject Sharp (Foreground)`;
+          const focusDist = tNorm;
+          if (focusDist > 0.5) {
+            horizonLayer.style.filter = `blur(${(focusDist - 0.5) * 16}px)`;
+            subjectAnchor.style.filter = 'blur(0px)';
+            vectorDesc = `Rack Focus: Foreground Actor Sharp`;
           } else {
-            horizonLayer.style.filter = 'none';
-            subjectAnchor.style.filter = `blur(${(-t * 6).toFixed(1)}px)`;
-            vectorDesc = `Focus: Background Sharp`;
+            subjectAnchor.style.filter = `blur(${(0.5 - focusDist) * 14}px)`;
+            horizonLayer.style.filter = 'blur(0px)';
+            vectorDesc = `Rack Focus: Background Environment Sharp`;
           }
           break;
+
         case 'deep-focus':
-          vfScale = 1;
-          horizonLayer.style.filter = 'none';
-          subjectAnchor.style.filter = 'none';
-          vectorDesc = `Deep Focus: F/11 Razor Sharp`;
-          break;
-        case 'shallow-dof':
+          subjectAnchor.style.filter = 'blur(0px)';
+          horizonLayer.style.filter = 'blur(0px)';
           vfScale = 1.05;
+          vectorDesc = `Deep Focus: F/11 (Inf. Hyperfocal)`;
+          break;
+
+        case 'shallow-dof':
           horizonLayer.style.filter = 'blur(10px)';
-          subjectAnchor.style.filter = 'none';
-          subjectAnchor.style.boxShadow = '0 0 20px rgba(0, 242, 254, 0.35)';
+          subjectAnchor.style.filter = 'blur(0px)';
+          subjectAnchor.style.boxShadow = '0 0 25px rgba(0, 242, 254, 0.4)';
           vectorDesc = `Shallow DOF: F/1.4 Creamy Bokeh`;
           break;
 
-        // === CATEGORY 3: COMPOUND & KINETIC TRAJECTORIES (14) ===
+        // Compound (14)
         case 'orbit-360':
-          const angleRad = animProgress;
-          const radius = 85;
-          rigTransX = Math.sin(angleRad) * radius;
-          rigTransY = Math.cos(angleRad) * radius;
-          rigRotZ = -angleRad * 57.3;
-          vfRotY = -angleRad * 35;
-          horizonOffset = (-angleRad * 45) % 240;
-          rotY = (angleRad * 57.3) % 360;
-          vectorDesc = `Orbit 360°: ${rotY.toFixed(0)}°`;
+          const orbAngle = (animProgress * 1.5) % (Math.PI * 2);
+          vfRotY = -Math.sin(orbAngle) * 35;
+          horizonOffset = Math.sin(orbAngle) * 60;
+          rigTransX = Math.cos(orbAngle) * 75;
+          rigTransY = Math.sin(orbAngle) * 75;
+          rigRotZ = (orbAngle * 180 / Math.PI) - 90;
+          posX = 2.4 * Math.cos(orbAngle);
+          posY = 2.4 * Math.sin(orbAngle);
+          rotY = (orbAngle * 180 / Math.PI) % 360;
+          vectorDesc = `Orbit: ${rotY.toFixed(0)}° (Full 360°)`;
           break;
+
         case 'arc-left':
-          const arcL = tNorm * 1.57; // 0 to 90 deg
-          rigTransX = -Math.sin(arcL) * 85;
-          rigTransY = Math.cos(arcL) * 85;
-          rigRotZ = -arcL * 57.3;
-          vfRotY = -arcL * 35;
-          vfTransX = arcL * 45;
-          rotY = -arcL * 57.3;
-          vectorDesc = `Arc Left: ${(arcL * 57.3).toFixed(0)}° (90° Arc)`;
+          const arcAngleL = (tNorm * Math.PI * 0.5) - Math.PI * 0.25;
+          vfRotY = -arcAngleL * (180 / Math.PI);
+          rigTransX = Math.sin(arcAngleL) * 80;
+          rigTransY = Math.cos(arcAngleL) * 80;
+          rigRotZ = -arcAngleL * (180 / Math.PI);
+          rotY = -arcAngleL * (180 / Math.PI);
+          horizonOffset = arcAngleL * 40;
+          vectorDesc = `Arc Left 90°: ${rotY.toFixed(1)}°`;
           break;
+
         case 'arc-right':
-          const arcR = tNorm * 1.57;
-          rigTransX = Math.sin(arcR) * 85;
-          rigTransY = Math.cos(arcR) * 85;
-          rigRotZ = arcR * 57.3;
-          vfRotY = arcR * 35;
-          vfTransX = -arcR * 45;
-          rotY = arcR * 57.3;
-          vectorDesc = `Arc Right: +${(arcR * 57.3).toFixed(0)}° (90° Arc)`;
+          const arcAngleR = (tNorm * Math.PI * 0.5) - Math.PI * 0.25;
+          vfRotY = arcAngleR * (180 / Math.PI);
+          rigTransX = -Math.sin(arcAngleR) * 80;
+          rigTransY = Math.cos(arcAngleR) * 80;
+          rigRotZ = arcAngleR * (180 / Math.PI);
+          rotY = arcAngleR * (180 / Math.PI);
+          horizonOffset = -arcAngleR * 40;
+          vectorDesc = `Arc Right 90°: +${rotY.toFixed(1)}°`;
           break;
+
         case 'lead-tracking':
-          // Camera moving backward leading the walking actor
-          const walkBob = Math.abs(Math.sin(animProgress * 3.5)) * 8 - 4;
-          vfTransY = walkBob;
-          vfScale = 1.15 - 0.25 * tNorm;
-          rigTransY = 55 + 35 * tNorm;
-          posY = -1.8 - 0.8 * tNorm;
-          vectorDesc = `Lead Tracking: ${(posY).toFixed(1)}m (Walk Cadence)`;
+          vfScale = 1.05 + 0.15 * Math.sin(animProgress * 2);
+          vfTransY = Math.sin(animProgress * 4) * 3;
+          rigTransY = 70 + Math.sin(animProgress * 2) * 8;
+          posY = -2.2 + 0.3 * Math.sin(animProgress * 2);
+          vectorDesc = `Lead Track (Reversing in front)`;
           break;
+
         case 'trail-tracking':
-          // Camera following behind
-          const runBob = Math.abs(Math.sin(animProgress * 4.5)) * 10 - 5;
-          vfTransY = runBob;
-          vfScale = 0.95 + 0.3 * tNorm;
-          rigTransY = 95 - 35 * tNorm;
-          posY = -2.8 + 0.8 * tNorm;
-          vectorDesc = `Trail Pursuit: ${(posY).toFixed(1)}m (Chase)`;
+          vfScale = 0.95 + 0.12 * Math.sin(animProgress * 2);
+          vfTransY = Math.sin(animProgress * 4) * 4;
+          rigTransY = 100 + Math.sin(animProgress * 2) * 8;
+          posY = -3.2 + 0.3 * Math.sin(animProgress * 2);
+          vectorDesc = `Trail Track (Chasing behind)`;
           break;
+
         case 'side-tracking':
-          // Lateral track alongside
-          vfTransX = Math.sin(animProgress * 1.5) * 65;
-          horizonOffset = Math.cos(animProgress * 1.5) * 85;
-          rigTransX = -Math.sin(animProgress * 1.5) * 55;
-          vectorDesc = `Side Track Velocity: 4.5 m/s`;
+          vfTransX = 35 * t;
+          vfTransY = Math.sin(animProgress * 4) * 2;
+          horizonOffset = -60 * t;
+          rigTransX = 50 * t;
+          vectorDesc = `Side Tracking (Profile match)`;
           break;
+
         case 'dolly-zoom':
-          // Vertigo effect: subject stays constant, horizon warps
+          const dz = tNorm;
           vfScale = 1;
-          const vertigoDistort = 1.8 * tNorm;
-          horizonLayer.style.transform = `scale(${1 + vertigoDistort}) translateY(${-25 * vertigoDistort}px)`;
-          rigTransY = 85 - 55 * tNorm;
-          vectorDesc = `Vertigo Warp: ${(vertigoDistort * 100).toFixed(0)}% (Hitchcock)`;
+          horizonLayer.style.transform = `scale(${1 + 0.8 * dz}) translateY(${dz * 25}px)`;
+          rigTransY = 85 - 65 * dz;
+          posY = -2.4 + 2.0 * dz;
+          vectorDesc = `Vertigo Dolly Zoom: Z=${posY.toFixed(2)}m (BG Warping)`;
           break;
+
         case 'whip-pan':
-          // Ultra fast lateral wipe with blur
-          const snapPan = Math.sin(animProgress * 3.2);
-          vfRotY = snapPan * 65;
-          horizonOffset = -snapPan * 95;
-          if (Math.abs(snapPan) > 0.4) {
-            viewfinderStage.style.filter = 'blur(10px)';
-            if (layerFxSpeed) layerFxSpeed.style.opacity = '0.7';
+          const whipPhase = Math.abs(t);
+          if (whipPhase > 0.6) {
+            viewfinderStage.style.filter = `blur(${(whipPhase - 0.6) * 18}px)`;
+            if (layerFxSpeed) layerFxSpeed.style.opacity = `${(whipPhase - 0.6) * 2}`;
+            vfRotY = Math.sign(t) * 65;
+            vectorDesc = `Whip Pan: Fast Swish Wipe!`;
           } else {
             viewfinderStage.style.filter = 'none';
             if (layerFxSpeed) layerFxSpeed.style.opacity = '0';
+            vfRotY = t * 25;
+            vectorDesc = `Whip Pan Transition`;
           }
-          vectorDesc = `Whip Pan Kinetic: ${(Math.abs(snapPan) * 450).toFixed(0)}°/s`;
-          break;
-        case 'handheld-shaky':
-          vfRotX = (Math.sin(animProgress * 2.8) * 3 + Math.cos(animProgress * 4.1) * 2);
-          vfRotY = (Math.cos(animProgress * 2.3) * 3.5 + Math.sin(animProgress * 5.2) * 1.5);
-          vfRotZ = (Math.sin(animProgress * 1.9) * 2.2);
-          vfTransX = (Math.cos(animProgress * 3.1) * 8);
-          vfTransY = (Math.sin(animProgress * 3.7) * 7);
-          vectorDesc = `Organic Handheld Shaky Cam`;
-          break;
-        case 'steadicam':
-          // Smooth 3-axis floating motion
-          vfTransX = Math.sin(animProgress * 0.9) * 25;
-          vfTransY = Math.cos(animProgress * 1.3) * 15;
-          vfRotZ = Math.sin(animProgress * 0.7) * 3;
-          vfScale = 1.05 + Math.sin(animProgress * 0.8) * 0.1;
-          rigTransX = Math.sin(animProgress * 0.9) * 20;
-          rigTransY = 85 + Math.cos(animProgress * 1.3) * 15;
-          vectorDesc = `Steadicam 3-Axis Gyro Glide`;
-          break;
-        case 'crane-shot':
-          // Sweeping descent from 5m down to eye-level close-up
-          vfRotX = -32 * (1 - tNorm);
-          vfTransY = -75 * (1 - tNorm);
-          vfScale = 0.75 + 0.65 * tNorm;
-          rigTransZ = 65 * (1 - tNorm);
-          rigTransY = 115 - 55 * tNorm;
-          posZ = 1.2 + 3.8 * (1 - tNorm);
-          rotP = -32 * (1 - tNorm);
-          vectorDesc = `Crane Swoop: Alt ${(posZ).toFixed(1)}m ↓`;
-          break;
-        case 'spiral-corkscrew':
-          // Spin 360 AND ascend vertically
-          const corkSpin = animProgress * 1.2;
-          const corkZ = (animProgress * 18) % 65;
-          rigTransX = Math.sin(corkSpin) * 75;
-          rigTransY = Math.cos(corkSpin) * 75;
-          rigTransZ = corkZ;
-          rigRotZ = -corkSpin * 57.3;
-          vfRotY = -corkSpin * 32;
-          vfTransY = 40 - ((animProgress * 25) % 80);
-          posZ = 1.2 + corkZ * 0.05;
-          vectorDesc = `Spiral Ascent: Alt ${(posZ).toFixed(1)}m ↻`;
-          break;
-        case 'fpv-drone-dive':
-          // REAL FPV VERTICAL DIVE SIMULATION
-          const diveCycle = (animProgress * 0.9) % (Math.PI * 2);
-          const divePower = (Math.sin(diveCycle) + 1) / 2; // 0 to 1
-          // Camera banks and plunges straight down
-          vfRotX = -55 * (1 - divePower) + 15 * divePower; // steep downward tilt then pull-up
-          vfRotZ = Math.sin(diveCycle * 1.5) * 32; // rolling aerobatic bank
-          vfTransY = -120 * (1 - divePower) + 40 * divePower; // plunging down
-          vfScale = 0.6 + 1.8 * Math.pow(divePower, 2); // zooming in at extreme speed
-          // Speed lines activate during dive
-          if (layerFxSpeed) {
-            layerFxSpeed.style.opacity = divePower > 0.35 ? '0.85' : '0';
-          }
-          // Rig drops from top of coordinates
-          rigTransZ = 80 * (1 - divePower) + 5 * divePower;
-          rigTransY = 120 - 75 * divePower;
-          rigRotZ = vfRotZ;
-          posZ = 18.0 - 16.5 * divePower;
-          vectorDesc = `FPV Dive: ${(posZ).toFixed(1)}m | ${(55 + 65 * divePower).toFixed(0)} km/h ↓`;
-          break;
-        case 'fly-through':
-          // Accelerate through obstacles and past subject
-          const flyCycle = (animProgress * 0.8) % (Math.PI * 2);
-          const flyT = (Math.sin(flyCycle) + 1) / 2;
-          vfScale = 0.6 + 2.4 * Math.pow(flyT, 1.8);
-          // Foreground pillars push out wide as we pass through
-          if (layerForegroundLeft) layerForegroundLeft.style.transform = `scale(${1 + 2.5 * flyT}) translateX(${-140 * flyT}px)`;
-          if (layerForegroundRight) layerForegroundRight.style.transform = `scale(${1 + 2.5 * flyT}) translateX(${140 * flyT}px)`;
-          if (subjectAnchor) {
-            subjectAnchor.style.opacity = flyT > 0.85 ? '0.1' : '1';
-          }
-          rigTransY = 110 - 95 * flyT;
-          posY = -3.2 + 2.8 * flyT;
-          vectorDesc = `Fly-Through Depth: ${(posY).toFixed(1)}m`;
           break;
 
-        // === CATEGORY 4: SPECIAL ANGLES & POVS (8) ===
-        case 'birds-eye':
-          // 90° straight Top-Down
-          vfRotX = 82; // Look down at top of head
-          vfScale = 1.1;
-          rigTransX = 0;
-          rigTransY = 0;
-          rigTransZ = 85;
-          rotP = -90;
-          vectorDesc = `90° Birds-Eye Top-Down Nadir`;
-          break;
-        case 'worm-eye':
-          // Ground level upward looking up
-          vfRotX = -45;
-          vfTransY = -45;
-          vfScale = 1.45;
-          rigTransY = 45;
-          rigTransZ = -20;
-          rotP = 65;
-          posZ = 0.1;
-          vectorDesc = `Worm-Eye Ground Level (+65°)`;
-          break;
-        case 'dutch-angle':
-          // Permanent canted angle with slight tense breathe
-          vfRotZ = 24 + Math.sin(animProgress * 1.5) * 4;
-          rotR = vfRotZ;
-          vectorDesc = `Dutch Canted Angle: ${rotR.toFixed(1)}°`;
-          break;
-        case 'pov-shot':
-          // First person footsteps and gaze
-          const stepBounce = Math.abs(Math.sin(animProgress * 4.2)) * 12 - 6;
-          vfTransY = stepBounce;
+        case 'handheld-shaky':
           vfTransX = Math.sin(animProgress * 2.1) * 9;
           vfRotZ = Math.sin(animProgress * 2.1) * 2;
-          vfRotY = Math.sin(animProgress * 0.9) * 12;
-          vectorDesc = `POV First-Person Human Stride`;
+          vfTransY = Math.cos(animProgress * 3.3) * 7;
+          vfRotX = Math.sin(animProgress * 1.7) * 2.5;
+          rotP = vfRotX;
+          rotR = vfRotZ;
+          vectorDesc = `Handheld Natural Breathing Shake`;
           break;
+
+        case 'steadicam':
+          vfTransX = Math.sin(animProgress * 0.8) * 18;
+          vfTransY = Math.sin(animProgress * 1.6) * 4;
+          vfScale = 1.02 + 0.08 * Math.cos(animProgress * 0.8);
+          rigTransX = vfTransX * 0.8;
+          vectorDesc = `Steadicam Ultra-Smooth Glide`;
+          break;
+
+        case 'crane-shot':
+          const craneP = tNorm;
+          vfTransY = -70 + craneP * 70;
+          vfRotX = 35 - craneP * 35;
+          vfScale = 0.75 + craneP * 0.45;
+          rigTransZ = -70 + craneP * 70;
+          rigTransY = 120 - craneP * 45;
+          posZ = 12.0 - craneP * 10.5;
+          rotP = 35 - craneP * 35;
+          vectorDesc = `Crane Descending: Z=${posZ.toFixed(1)}m`;
+          break;
+
+        case 'spiral-corkscrew':
+          const scAngle = animProgress * 1.4;
+          vfRotY = -Math.sin(scAngle) * 30;
+          vfTransY = -40 * tNorm;
+          rigTransX = Math.cos(scAngle) * 65;
+          rigTransY = Math.sin(scAngle) * 65;
+          rigTransZ = -45 * tNorm;
+          posZ = 1.2 + 6.0 * tNorm;
+          rotY = (scAngle * 180 / Math.PI) % 360;
+          vectorDesc = `Spiral Ascending: Z=${posZ.toFixed(1)}m`;
+          break;
+
+        case 'fpv-drone-dive':
+          const diveFactor = tNorm;
+          vfTransY = -120 + diveFactor * 160;
+          vfScale = 0.6 + diveFactor * 1.8;
+          vfRotX = 75 - diveFactor * 75;
+          vfRotZ = Math.sin(animProgress * 3) * 32;
+          rotR = vfRotZ;
+          rotP = vfRotX;
+          posZ = 18.0 - diveFactor * 16.5;
+          rigTransZ = 80 - diveFactor * 75;
+          if (diveFactor > 0.4 && layerFxSpeed) {
+            layerFxSpeed.style.opacity = `${(diveFactor - 0.4) * 1.5}`;
+          }
+          vectorDesc = `FPV Dive: Z=${posZ.toFixed(1)}m, Speed: 140km/h`;
+          break;
+
+        case 'fly-through':
+          const flyP = tNorm;
+          vfScale = 0.7 + flyP * 1.8;
+          vfTransZ = -50 + flyP * 150;
+          if (layerForegroundLeft && layerForegroundRight) {
+            layerForegroundLeft.style.transform = `translateX(${-flyP * 150}px) scale(${1 + flyP})`;
+            layerForegroundRight.style.transform = `translateX(${flyP * 150}px) scale(${1 + flyP})`;
+          }
+          vectorDesc = `Fly-Through Penetrating Portal`;
+          break;
+
+        // Special (8)
+        case 'birds-eye':
+          vfRotX = 82;
+          vfTransY = -40;
+          vfScale = 0.82;
+          rotP = -90;
+          posZ = 15.0;
+          rigTransY = 0;
+          rigTransZ = 85;
+          rigRotZ = 0;
+          vectorDesc = `Birds-Eye: 90° Top-Down View`;
+          break;
+
+        case 'worm-eye':
+          vfRotX = -45;
+          vfTransY = 55;
+          vfScale = 1.45;
+          rotP = 65;
+          posZ = 0.15;
+          rigTransY = 40;
+          rigTransZ = -30;
+          vectorDesc = `Worm-Eye: Ground Upward +65°`;
+          break;
+
+        case 'dutch-angle':
+          vfRotZ = 25;
+          rotR = 25;
+          vfScale = 1.1;
+          vectorDesc = `Dutch Canted Angle: 25°`;
+          break;
+
+        case 'pov-shot':
+          vfTransX = Math.sin(animProgress * 3) * 6;
+          vfTransY = Math.sin(animProgress * 5) * 4;
+          vfRotZ = Math.sin(animProgress * 3) * 2;
+          vectorDesc = `First-Person POV Camera`;
+          break;
+
         case 'ots-shot':
-          // Over-the-shoulder framing
-          if (layerOtsShoulder) layerOtsShoulder.style.opacity = '0.95';
-          vfTransX = 45;
-          vfRotY = -14;
-          vfScale = 1.15;
-          rotY = -14;
-          vectorDesc = `Over-the-Shoulder Dialogue OTS`;
+          vfRotY = -15;
+          vfTransX = 28;
+          rotY = -15;
+          if (layerOtsShoulder) layerOtsShoulder.style.opacity = '1';
+          vectorDesc = `Over-The-Shoulder Dialogue`;
           break;
+
         case 'low-hero':
-          // Triumphant heroic low angle
-          vfRotX = -26;
-          vfScale = 1.35;
-          vfTransY = -30;
-          vfTransX = Math.sin(animProgress * 0.7) * 20;
-          rotP = 26;
-          vectorDesc = `Low-Angle Heroic Triumph (+26°)`;
+          vfRotX = -25;
+          vfTransY = 25;
+          vfScale = 1.25;
+          rotP = 30;
+          posZ = 0.6;
+          subjectAnchor.style.boxShadow = '0 0 35px rgba(234, 179, 8, 0.4)';
+          vectorDesc = `Low-Angle Hero Shot (King aura)`;
           break;
+
         case 'bullet-time':
-          // Action freezes, camera circles at extreme speed
-          const btAngle = animProgress * 3.0;
-          rigTransX = Math.sin(btAngle) * 85;
-          rigTransY = Math.cos(btAngle) * 85;
-          rigRotZ = -btAngle * 57.3;
-          vfRotY = -btAngle * 35;
-          horizonOffset = (-btAngle * 45) % 240;
-          if (layerFxSpeed) layerFxSpeed.style.opacity = '0.4';
-          vectorDesc = `Bullet Time Orbit: ${(btAngle * 57.3 % 360).toFixed(0)}° (Frozen)`;
+          const btAngle = animProgress * 4;
+          vfRotY = -Math.sin(btAngle) * 45;
+          horizonOffset = Math.sin(btAngle) * 80;
+          rigTransX = Math.cos(btAngle) * 85;
+          rigTransY = Math.sin(btAngle) * 85;
+          rigRotZ = (btAngle * 180 / Math.PI) - 90;
+          rotY = (btAngle * 180 / Math.PI) % 360;
+          vectorDesc = `Bullet Time: 360° Orbit (Frozen Action)`;
           break;
+
         case 'split-diopter':
-          // Split optical line active
-          if (layerSplitLine) layerSplitLine.style.opacity = '0.9';
-          vfScale = 1.05;
-          vectorDesc = `Split Diopter Dual Focus Planes`;
+          if (layerSplitLine) layerSplitLine.style.opacity = '1';
+          if (layerForegroundLeft) {
+            layerForegroundLeft.style.filter = 'blur(0px)';
+          }
+          subjectAnchor.style.filter = 'blur(0px)';
+          horizonLayer.style.filter = 'blur(0px)';
+          vectorDesc = `Split Diopter: Dual Sharp Planes`;
           break;
 
         default:
@@ -1953,8 +2233,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       animFrameId = requestAnimationFrame(animateLoop);
     }
 
-
-    // Event Listeners for Filters, Search & Tabs
+    // 6. Event Listeners for Filters, Search & Tabs
     catButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         catButtons.forEach(b => {
@@ -1971,6 +2250,24 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       renderChips(getCurrentFilterCat(), e.target.value.trim());
     });
 
+    // Console Mode Switcher (Single vs Storyboard Combo)
+    tabModeSingle.addEventListener('click', () => {
+      switchToSingleMode();
+    });
+
+    tabModeCombo.addEventListener('click', () => {
+      switchToComboMode(activeComboKey);
+    });
+
+    // Storyboard Preset Cards click handler
+    comboCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const comboKey = card.dataset.combo;
+        switchToComboMode(comboKey);
+      });
+    });
+
+    // Model Selector Tabs
     modelTabButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         modelTabButtons.forEach(b => {
@@ -1988,13 +2285,12 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     speedSelect.addEventListener('change', updateCompiledPrompt);
     customSubjectInput.addEventListener('input', updateCompiledPrompt);
 
-    // Playback Controls
-    const btnPlay = document.getElementById('btn-toggle-play');
+    // Global Playback Controls
+    const togglePlayBtn = document.getElementById('btn-toggle-play');
     const labelPlay = document.getElementById('label-play');
     const iconPause = document.getElementById('icon-pause');
     const iconPlay = document.getElementById('icon-play');
-
-    btnPlay.addEventListener('click', () => {
+    togglePlayBtn.addEventListener('click', () => {
       isPlaying = !isPlaying;
       if (isPlaying) {
         labelPlay.textContent = '暫停動畫';
@@ -2007,41 +2303,39 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       }
     });
 
-    const btnSpeed = document.getElementById('btn-speed-toggle');
-    const labelSpeed = document.getElementById('label-speed');
-    btnSpeed.addEventListener('click', () => {
-      if (animationSpeed === 1.0) {
-        animationSpeed = 2.0;
-        labelSpeed.textContent = '2.0x (快)';
-      } else if (animationSpeed === 2.0) {
-        animationSpeed = 0.5;
-        labelSpeed.textContent = '0.5x (慢)';
-      } else {
-        animationSpeed = 1.0;
-        labelSpeed.textContent = '1.0x (標準)';
-      }
+    const speedBtn = document.getElementById('btn-speed-toggle');
+    const speedLabel = document.getElementById('label-speed');
+    const speeds = [0.5, 1.0, 1.5, 2.0];
+    let currentSpeedIdx = 1;
+    speedBtn.addEventListener('click', () => {
+      currentSpeedIdx = (currentSpeedIdx + 1) % speeds.length;
+      animationSpeed = speeds[currentSpeedIdx];
+      speedLabel.textContent = `${animationSpeed.toFixed(1)}x`;
     });
 
-    const btnGrid = document.getElementById('btn-toggle-grid');
-    const labelGrid = document.getElementById('label-grid');
+    const gridBtn = document.getElementById('btn-toggle-grid');
+    const gridLabel = document.getElementById('label-grid');
     const gridOverlay = document.getElementById('rule-of-thirds-grid');
-    btnGrid.addEventListener('click', () => {
+    gridBtn.addEventListener('click', () => {
       showGrid = !showGrid;
       if (showGrid) {
-        labelGrid.textContent = '開';
-        labelGrid.className = 'text-emerald-700 font-bold';
         gridOverlay.style.opacity = '1';
+        gridLabel.textContent = '開';
+        gridLabel.className = 'text-emerald-700 font-bold';
       } else {
-        labelGrid.textContent = '關';
-        labelGrid.className = 'text-slate-400 font-bold';
         gridOverlay.style.opacity = '0';
+        gridLabel.textContent = '關';
+        gridLabel.className = 'text-slate-400 font-bold';
       }
     });
 
-    const btnResetCam = document.getElementById('btn-reset-cam');
-    btnResetCam.addEventListener('click', () => {
-      animProgress = 0;
-      selectMovement(MOVEMENTS_DATA[0]);
+    const resetCamBtn = document.getElementById('btn-reset-cam');
+    resetCamBtn.addEventListener('click', () => {
+      if (isComboMode) {
+        comboTime = 0;
+      } else {
+        selectMovement(currentMovement);
+      }
     });
 
     // Copy Prompt Button
@@ -2060,31 +2354,11 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       }
     });
 
-    // Preset Combo Buttons
-    const comboMap = {
-      hero: 'tilt-up',
-      vertigo: 'dolly-zoom',
-      chase: 'fpv-drone-dive',
-      drama: 'rack-focus',
-      epic: 'birds-eye'
-    };
-
-    document.querySelectorAll('.btn-apply-combo').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const comboKey = btn.dataset.combo;
-        const targetMovementId = comboMap[comboKey];
-        const match = MOVEMENTS_DATA.find(m => m.id === targetMovementId);
-        if (match) {
-          selectMovement(match);
-          window.scrollTo({ top: 380, behavior: 'smooth' });
-        }
-      });
-    });
-
     // Initial setup on load
     renderChips();
     updateCompiledPrompt();
     requestAnimationFrame(animateLoop);
+
   </script>
 
   <style>
