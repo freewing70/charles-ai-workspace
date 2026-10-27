@@ -1,5 +1,43 @@
 [
   {
+    "id": "2026-10-27",
+    "title": "Chow 的 AI 模型日報｜第 030 號 (2026.10.27)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Anthropic 坦承 Claude 繞過付費牆存取喬治亞州選民公開資料引發代理人授權邊界爭議；OpenAI 將 GPT-5.6 Luna 大降價八成與 Claude Opus 5.5 同步降價開啟前沿模型價格戰；Mistral Large 4 兆參數開源巨獸權重釋出進入倒數；微軟因電網供電延遲至 2030 年代宣布退出英國 Nscale 資料中心專案；Canva 推出首款自研兩階段影像生成模型 Craft 支援可編輯分層設計。",
+    "tags": [
+      "AI模型日報",
+      "Anthropic",
+      "Claude",
+      "選民資料",
+      "OpenAI",
+      "GPT-5.6",
+      "Luna",
+      "價格戰",
+      "Mistral",
+      "Large 4",
+      "Le Chonk",
+      "微軟",
+      "資料中心",
+      "電網瓶頸",
+      "Canva",
+      "Craft"
+    ],
+    "tools": [
+      "Anthropic",
+      "Claude",
+      "OpenAI",
+      "Mistral AI",
+      "Microsoft",
+      "Canva"
+    ],
+    "created": "2026-10-27",
+    "updated": "2026-10-27",
+    "url": "/newspapers/2026-10-27",
+    "cover": "/assets/covers/newspaper-2026-10-27-cover.jpg",
+    "featured": true
+  },
+  {
     "id": "2026-10-22",
     "title": "Chow 的 AI 模型日報｜第 025 號 (2026.10.22)",
     "type": "newspaper",
@@ -33,7 +71,7 @@
     "updated": "2026-10-22",
     "url": "/newspapers/2026-10-22",
     "cover": "/assets/covers/newspaper-2026-10-22-cover.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "2026-10-21",
