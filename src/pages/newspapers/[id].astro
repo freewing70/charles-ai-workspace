@@ -29,11 +29,9 @@ function getYouTubeEmbedUrl(url?: string): string | null {
 }
 
 const embedUrl = getYouTubeEmbedUrl(meta.youtubeUrl);
-const htmlUrl = meta.htmlPath || `/raw-newspapers/${meta.id}.html`;
-
-// Parse full in-depth stories from public newspaper HTML for SEO and direct crawlability
-const publicHtmlPath = path.join(process.cwd(), 'public', 'raw-newspapers', `${meta.id}.html`);
-const stories = parseNewspaperHtml(publicHtmlPath);
+// Parse full in-depth stories from private source data for 100% native Astro rendering
+const sourceHtmlPath = path.join(process.cwd(), 'src', 'data', 'newspapers-source', `${meta.id}.html`);
+const stories = parseNewspaperHtml(sourceHtmlPath);
 
 const leadStory = stories.find(s => s.isLead) || stories[0];
 const otherStories = stories.filter(s => s !== leadStory);
@@ -100,14 +98,10 @@ function getContextualLink(story: NewspaperStory) {
 
       <div class="flex items-center gap-2">
         <a 
-          href={htmlUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/newspapers"
           class="px-3 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors flex items-center gap-1.5"
-          title="開啟單頁原始報紙存檔"
         >
-          <span>📜 原始單頁存檔</span>
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          <span>&larr; 返回日報列表</span>
         </a>
       </div>
     </nav>
@@ -343,9 +337,12 @@ function getContextualLink(story: NewspaperStory) {
                 </div>
 
                 {story.whyMatters && (
-                  <div class="mt-4 p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs sm:text-sm text-stone-800 space-y-1">
-                    <strong class="text-amber-900 font-mono font-bold block">💡 為什麼重要：</strong>
-                    <p class="leading-relaxed">{story.whyMatters}</p>
+                  <div class="mt-4 p-4 rounded-xl bg-amber-50/80 border border-amber-200/90 text-xs sm:text-sm text-stone-800 space-y-1.5">
+                    <div class="flex items-center gap-1.5 text-amber-900 font-mono font-bold">
+                      <span>💡</span>
+                      <span>CHOW 觀點 ｜ 為什麼這則重要：</span>
+                    </div>
+                    <p class="leading-relaxed font-serif text-stone-800">{story.whyMatters}</p>
                   </div>
                 )}
 
@@ -385,8 +382,8 @@ function getContextualLink(story: NewspaperStory) {
         <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-stone-800">
           <a href="/newspapers" class="hover:text-rose-700 transition-colors">&larr; 返回歷期 AI 模型日報列表</a>
           <span>•</span>
-          <a href={htmlUrl} target="_blank" rel="noopener noreferrer" class="hover:text-rose-700 transition-colors flex items-center gap-1">
-            <span>檢視獨立原始雙欄報紙 HTML</span>
+          <a href="https://www.youtube.com/@Chow%E7%9A%84AI%E6%A8%A1%E5%9E%8B%E6%97%A5%E5%A0%B1/playlists" target="_blank" rel="noopener noreferrer" class="hover:text-rose-700 transition-colors flex items-center gap-1">
+            <span>前往 YouTube 收聽本報音訊</span>
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
           </a>
           <span>•</span>
