@@ -29,10 +29,10 @@ function getYouTubeEmbedUrl(url?: string): string | null {
 }
 
 const embedUrl = getYouTubeEmbedUrl(meta.youtubeUrl);
-const htmlUrl = meta.htmlPath || `/newspapers/${meta.id}.html`;
+const htmlUrl = meta.htmlPath || `/raw-newspapers/${meta.id}.html`;
 
 // Parse full in-depth stories from public newspaper HTML for SEO and direct crawlability
-const publicHtmlPath = path.join(process.cwd(), 'public', 'newspapers', `${meta.id}.html`);
+const publicHtmlPath = path.join(process.cwd(), 'public', 'raw-newspapers', `${meta.id}.html`);
 const stories = parseNewspaperHtml(publicHtmlPath);
 
 const leadStory = stories.find(s => s.isLead) || stories[0];
