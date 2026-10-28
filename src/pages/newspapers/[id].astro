@@ -2,7 +2,7 @@
 import path from 'node:path';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getAllItems, getItemById } from '../../lib/content';
-import { parseNewspaperHtml } from '../../lib/newspaperParser';
+import { parseNewspaperHtml, type NewspaperStory } from '../../lib/newspaperParser';
 
 export function getStaticPaths() {
   const items = getAllItems(true);
@@ -34,6 +34,47 @@ const htmlUrl = meta.htmlPath || `/newspapers/${meta.id}.html`;
 // Parse full in-depth stories from public newspaper HTML for SEO and direct crawlability
 const publicHtmlPath = path.join(process.cwd(), 'public', 'newspapers', `${meta.id}.html`);
 const stories = parseNewspaperHtml(publicHtmlPath);
+
+const leadStory = stories.find(s => s.isLead) || stories[0];
+const otherStories = stories.filter(s => s !== leadStory);
+
+// Helper for contextual internal links based on story content
+function getContextualLink(story: NewspaperStory) {
+  const text = (story.title + ' ' + (story.whyMatters || '') + ' ' + story.paragraphs.join(' ')).toLowerCase();
+  if (text.includes('agent') || text.includes('代理人') || text.includes('授權') || text.includes('邊界') || text.includes('claude')) {
+    return {
+      title: 'AI Agent 工作流架構模式 2026',
+      url: '/tutorials/ai-agent-workflow-patterns-2026/',
+      label: '延伸實戰：企業級 Agent 安全與連戲架構指南',
+      icon: '🤖'
+    };
+  }
+  if (text.includes('價格') || text.includes('luna') || text.includes('推論') || text.includes('算力') || text.includes('成本') || text.includes('晶片')) {
+    return {
+      title: '本地 LLM 推理與私有化部署實戰',
+      url: '/tutorials/local-llm-deployment-vllm-ollama/',
+      label: '延伸指南：如何用 vLLM 與 Ollama 大幅壓低大模型推論預算',
+      icon: '⚡'
+    };
+  }
+  if (text.includes('canva') || text.includes('影像') || text.includes('生成') || text.includes('運鏡') || text.includes('分層') || text.includes('craft')) {
+    return {
+      title: 'AI 運鏡控制台與 3D 模擬器',
+      url: '/skills/camera-controls/',
+      label: '延伸工具：40 款運鏡與 7 大生成模型 Prompt 即時編譯器',
+      icon: '🎥'
+    };
+  }
+  if (text.includes('mistral') || text.includes('開源') || text.includes('權重') || text.includes('資料中心') || text.includes('微軟')) {
+    return {
+      title: '企業級 RAG 檢索增強生成架構實務',
+      url: '/tutorials/enterprise-rag-architecture-guide/',
+      label: '延伸實戰：構建私有化知識庫與高安全性企業 AI 系統',
+      icon: '🏛️'
+    };
+  }
+  return null;
+}
 ---
 
 <MainLayout 
@@ -45,170 +86,292 @@ const stories = parseNewspaperHtml(publicHtmlPath);
   publishedDate={meta.created}
   modifiedDate={meta.updated}
 >
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
     
-    <!-- Top Action Breadcrumb & Back -->
-    <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-200">
-      <a 
-        href="/newspapers" 
-        class="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-600 hover:text-rose-600 transition-colors uppercase tracking-wider"
-      >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-        </svg>
-        <span>返回 AI 模型日報列表</span>
-      </a>
+    <!-- Top Action Breadcrumb -->
+    <nav aria-label="路徑導覽" class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-200 text-xs font-mono">
+      <div class="flex items-center gap-2 text-slate-500">
+        <a href="/" class="hover:text-rose-600 transition-colors">首頁</a>
+        <span>/</span>
+        <a href="/newspapers" class="hover:text-rose-600 transition-colors">AI 模型日報</a>
+        <span>/</span>
+        <span class="text-slate-800 font-bold">{meta.id} (第 {meta.id.replace('2026-', '')} 期)</span>
+      </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2">
         <a 
           href={htmlUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="px-3.5 py-1.5 rounded-lg border border-slate-200 hover:border-slate-300 bg-white text-slate-700 hover:text-slate-900 text-xs font-semibold shadow-2xs transition-all flex items-center gap-1.5"
-          title="在新頁面全螢幕開啟原始報紙"
+          class="px-3 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors flex items-center gap-1.5"
+          title="開啟單頁原始報紙存檔"
         >
-          <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-          </svg>
-          <span>獨立報紙分頁</span>
+          <span>📜 原始單頁存檔</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
         </a>
       </div>
-    </div>
+    </nav>
 
-    <!-- Header Lockup -->
-    <div class="space-y-4">
-      <div class="flex flex-wrap items-center gap-3">
-        <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200/80 text-xs font-mono font-bold tracking-wider uppercase">
-          NEWSPAPER • ISSUE {meta.id}
-        </span>
-        <span class="text-xs font-mono text-slate-400">發布日期：{meta.created}</span>
-      </div>
+    <!-- Native Newspaper Broadsheet Container -->
+    <article class="bg-[#fbf9f5] text-[#1c1917] rounded-3xl border border-stone-300/80 shadow-2xl p-6 sm:p-12 space-y-10 font-sans">
+      
+      <!-- 1. Classical Newspaper Masthead (古典大報雙邊線報頭) -->
+      <header class="text-center space-y-4">
+        <!-- Top Dateline Hairline Rule -->
+        <div class="border-y-2 border-stone-800 py-1.5 flex flex-wrap items-center justify-between text-[11px] sm:text-xs font-mono font-bold tracking-widest uppercase text-stone-700">
+          <span>DAILY AI DISPATCH · 每日全球 AI 科技晨報</span>
+          <span class="hidden sm:inline">FREEWINGBIZ TECH EDITORIAL</span>
+          <span>ISSUE NO. {meta.id} · 繁體中文版</span>
+        </div>
 
-      <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#07172D] leading-tight">
-        {meta.title}
-      </h1>
+        <!-- Main Masthead Brand Title -->
+        <div class="py-4 space-y-2">
+          <p class="text-xs sm:text-sm font-mono tracking-[0.3em] uppercase text-rose-800 font-bold">
+            CHOW'S ARTIFICIAL INTELLIGENCE GAZETTE
+          </p>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-black tracking-tight text-stone-900 leading-tight">
+            Chow 的 AI 模型日報
+          </h1>
+          <p class="text-xs sm:text-sm text-stone-600 font-serif italic max-w-2xl mx-auto pt-1">
+            「不只摘要新聞，更看透底層技術邊界與產業連鎖效應」
+          </p>
+        </div>
 
-      <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-4xl">
-        {meta.summary}
-      </p>
-    </div>
+        <!-- Bottom Issue Info Rule -->
+        <div class="border-b-4 border-double border-stone-800 pb-3 flex flex-wrap items-center justify-between text-xs font-mono text-stone-600 gap-2">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-stone-900">📅 出刊日期：</span>
+            <span>{meta.created}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-stone-900">✍️ 總編輯／導讀：</span>
+            <span>Chow & FreewingBiz AI Team</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-stone-900">📰 本期篇幅：</span>
+            <span>共 {stories.length} 則完整深度專題</span>
+          </div>
+        </div>
+      </header>
 
-    <!-- YouTube Video Feature Section (if present) -->
-    {embedUrl && (
-      <div class="rounded-3xl bg-gradient-to-br from-[#07172D] via-[#171716] to-[#4c0519] p-6 sm:p-8 text-white shadow-xl space-y-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-rose-600 flex items-center justify-center text-white shadow-md">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
+      <!-- 2. Executive Highlights Strip (今日五看重點索引) -->
+      <section aria-label="本期頭條快速導讀" class="bg-stone-100/80 border border-stone-300 rounded-2xl p-5 sm:p-6 space-y-3">
+        <div class="flex items-center gap-2 text-xs font-mono font-black text-rose-900 uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-rose-600 animate-pulse"></span>
+          <span>今日五大看點速覽 · EXECUTIVE DIGEST</span>
+        </div>
+        <p class="text-sm text-stone-700 leading-relaxed font-medium">
+          {meta.summary}
+        </p>
+        <div class="pt-2 flex flex-wrap gap-2 text-xs font-mono">
+          {stories.map((s, idx) => (
+            <a 
+              href={`#${s.id}`}
+              class="px-3 py-1 rounded-lg bg-white hover:bg-stone-200 border border-stone-200 text-stone-800 font-bold transition-colors inline-flex items-center gap-1.5 shadow-2xs"
+            >
+              <span class="text-rose-700">{idx === 0 ? '🔥 頭條' : `0${idx + 1}`}</span>
+              <span class="truncate max-w-[200px]">{s.title.split('：')[0]}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- 3. YouTube Audiovisual Broadcast Feature (影音節目導讀) -->
+      {embedUrl && (
+        <section aria-label="YouTube 影音專題" class="rounded-3xl bg-stone-900 text-white p-6 sm:p-8 shadow-xl space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center text-white shadow-md shrink-0">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-lg font-bold text-white leading-tight">YouTube 本期影音節目專題導讀</h2>
+                <p class="text-xs text-rose-300 font-mono mt-0.5">主講人 Chow 深度口播解析 · 掌握全球 AI 核心脈動</p>
+              </div>
             </div>
-            <div>
-              <h2 class="text-base font-bold text-white leading-none">YouTube 本期影音節目導讀</h2>
-              <span class="text-xs text-rose-300 font-mono mt-1 block">收聽 Chow 講解 5 大 AI 科技頭條與深度觀點</span>
-            </div>
+
+            <a 
+              href="https://www.youtube.com/@Chow%E7%9A%84AI%E6%A8%A1%E5%9E%8B%E6%97%A5%E5%A0%B1/playlists" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all inline-flex items-center gap-1.5"
+            >
+              <span>訪問 YouTube 專屬頻道</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
           </div>
 
-          <a 
-            href="https://www.youtube.com/@Chow%E7%9A%84AI%E6%A8%A1%E5%9E%8B%E6%97%A5%E5%A0%B1/playlists" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-rose-300 hover:text-white transition-colors"
-          >
-            <span>@Chow的AI模型日報 頻道</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-            </svg>
-          </a>
-        </div>
+          <div class="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black aspect-video shadow-2xl">
+            <iframe 
+              src={embedUrl} 
+              title={meta.title} 
+              class="absolute top-0 left-0 w-full h-full border-0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
+      )}
 
-        <!-- 16:9 Responsive Video Container -->
-        <div class="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black aspect-video shadow-2xl">
-          <iframe 
-            src={embedUrl} 
-            title={meta.title} 
-            class="absolute top-0 left-0 w-full h-full border-0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-    )}
+      <!-- 4. Front Page Lead Story (今日頭條深度專題) -->
+      {leadStory && (
+        <section id={leadStory.id} class="bg-white rounded-3xl border-2 border-stone-800 p-6 sm:p-10 shadow-md space-y-6 scroll-mt-20">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone-200 pb-4">
+            <div class="flex items-center gap-3">
+              <span class="px-3 py-1 rounded bg-rose-700 text-white font-mono text-xs font-black tracking-widest uppercase">
+                今日頭條 01
+              </span>
+              <span class="text-xs font-mono font-bold text-rose-800 uppercase tracking-widest">
+                FRONT PAGE LEAD STORY
+              </span>
+            </div>
+            <span class="text-xs font-mono text-stone-500">深度調查報導</span>
+          </div>
 
-    <!-- Full In-Depth Stories Section (Crawlable & Readable) -->
-    {stories.length > 0 && (
-      <section class="space-y-6">
-        <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div>
-            <h2 class="text-2xl font-extrabold text-[#07172D] flex items-center gap-2.5">
-              <span class="w-2.5 h-6 rounded-full bg-rose-600 inline-block"></span>
-              本期新聞完整深入報導
+          <div class="space-y-4">
+            <h2 class="text-2xl sm:text-4xl font-serif font-black text-stone-900 leading-tight">
+              {leadStory.title}
             </h2>
-            <p class="text-xs sm:text-sm text-slate-500 mt-1">
-              全文深度分析、產業影響剖析與原始國際資訊來源
-            </p>
+
+            {leadStory.subline && (
+              <p class="text-base sm:text-lg text-stone-600 font-serif italic border-l-4 border-rose-600 pl-4 py-1 bg-stone-50/60 rounded-r-lg">
+                {leadStory.subline}
+              </p>
+            )}
+
+            <div class="space-y-4 text-stone-800 text-base sm:text-lg leading-relaxed pt-2">
+              {leadStory.paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
           </div>
-          <span class="text-xs font-mono px-3 py-1 bg-slate-100 text-slate-600 rounded-full font-bold self-start sm:self-auto">
-            共 {stories.length} 則完整專題
-          </span>
+
+          <!-- Why it matters / Editorial Takeaway (原創高價值亮點) -->
+          {leadStory.whyMatters && (
+            <div class="mt-6 p-5 sm:p-6 rounded-2xl bg-amber-50/90 border border-amber-300 text-stone-800 space-y-2">
+              <div class="flex items-center gap-2 text-amber-900 font-bold text-sm font-mono tracking-wide">
+                <span>💡</span>
+                <span>CHOW 深度點評 ｜ 為什麼這則新聞至關重要？</span>
+              </div>
+              <p class="text-sm sm:text-base leading-relaxed text-stone-800 font-serif">
+                {leadStory.whyMatters}
+              </p>
+            </div>
+          )}
+
+          <!-- Contextual Internal Link -->
+          {(() => {
+            const rel = getContextualLink(leadStory);
+            return rel ? (
+              <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 text-xs sm:text-sm text-blue-950 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">{rel.icon}</span>
+                  <span class="font-bold">{rel.label}</span>
+                </div>
+                <a 
+                  href={rel.url}
+                  class="px-3 py-1.5 rounded-lg bg-[#155EEF] hover:bg-blue-700 text-white font-bold text-xs transition-colors shrink-0"
+                >
+                  前往閱讀 {rel.title} &rarr;
+                </a>
+              </div>
+            ) : null;
+          })()}
+
+          <!-- Provenance / Source link -->
+          {leadStory.sourceUrl && (
+            <div class="pt-4 border-t border-stone-200 flex flex-wrap items-center justify-between text-xs text-stone-500 font-mono">
+              <span>原始國際消息來源：</span>
+              <a 
+                href={leadStory.sourceUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="text-rose-700 hover:text-rose-900 underline font-semibold flex items-center gap-1"
+              >
+                <span>{leadStory.sourceText || "查閱原始新聞報導"}</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+              </a>
+            </div>
+          )}
+        </section>
+      )}
+
+      <!-- 5. Native In-Article Ad / Community Transition Slot (Google AdSense 友好槽位) -->
+      <div class="py-2 border-y border-stone-300 text-center text-xs font-mono text-stone-400 flex items-center justify-center gap-4">
+        <span class="w-12 h-px bg-stone-300"></span>
+        <span>FREEWINGBIZ TECH JOURNALISM · 全球 AI 大模型趨勢持續追蹤</span>
+        <span class="w-12 h-px bg-stone-300"></span>
+      </div>
+
+      <!-- 6. Multi-Column Editorial Grid for Stories 02 to 05 (雙欄古典報紙排版) -->
+      <section aria-label="重點新聞專題" class="space-y-6">
+        <div class="flex items-center justify-between border-b-2 border-stone-800 pb-2">
+          <h2 class="text-xl sm:text-2xl font-serif font-black text-stone-900 flex items-center gap-2">
+            <span class="w-2 h-6 bg-rose-700 inline-block rounded-xs"></span>
+            今日重點深入剖析
+          </h2>
+          <span class="text-xs font-mono text-stone-500">專題 02 至 05</span>
         </div>
 
-        <div class="space-y-6">
-          {stories.map((story) => (
-            <article class={`p-6 sm:p-8 rounded-2xl border transition-all ${
-              story.isLead 
-                ? "bg-gradient-to-br from-rose-50/40 via-white to-amber-50/30 border-rose-200/80 shadow-md" 
-                : "bg-white border-slate-200 shadow-2xs hover:border-slate-300"
-            }`}>
-              <div class="flex items-center gap-3 mb-3">
-                <span class={`font-mono text-xs font-black px-2.5 py-0.5 rounded-md ${
-                  story.isLead ? "bg-rose-600 text-white" : "bg-slate-800 text-white"
-                }`}>
-                  {story.isLead ? "今日頭條 01" : `報導 ${story.number}`}
-                </span>
-                {story.isLead && (
-                  <span class="text-xs font-mono font-bold text-rose-600 uppercase tracking-widest">
-                    FRONT PAGE LEAD STORY
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {otherStories.map((story) => (
+            <article id={story.id} class="bg-white rounded-2xl border border-stone-300 p-6 sm:p-8 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between space-y-5 scroll-mt-20">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-stone-100 pb-2">
+                  <span class="px-2.5 py-0.5 rounded bg-stone-800 text-white font-mono text-xs font-bold">
+                    報導 {story.number}
                   </span>
-                )}
-              </div>
-
-              <h3 class="text-xl sm:text-2xl font-bold text-[#07172D] leading-snug mb-3">
-                {story.title}
-              </h3>
-
-              {story.subline && (
-                <p class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed mb-4 pl-3.5 border-l-3 border-rose-400/60 bg-slate-50/50 py-1.5 rounded-r-lg">
-                  {story.subline}
-                </p>
-              )}
-
-              <div class="space-y-3 text-slate-700 text-sm sm:text-base leading-relaxed">
-                {story.paragraphs.map((p) => (
-                  <p>{p}</p>
-                ))}
-              </div>
-
-              {story.whyMatters && (
-                <div class="mt-5 p-4 rounded-xl bg-amber-50/80 border border-amber-200/70 text-xs sm:text-sm text-slate-800 leading-relaxed">
-                  <strong class="text-amber-900 font-bold block mb-1">💡 為什麼重要：</strong>
-                  <span>{story.whyMatters}</span>
+                  <span class="text-xs font-mono text-stone-400">NEWS REPORT</span>
                 </div>
-              )}
+
+                <h3 class="text-xl font-serif font-bold text-stone-900 leading-snug">
+                  {story.title}
+                </h3>
+
+                {story.subline && (
+                  <p class="text-xs sm:text-sm text-stone-600 font-serif italic border-l-2 border-stone-400 pl-3 py-1 bg-stone-50">
+                    {story.subline}
+                  </p>
+                )}
+
+                <div class="space-y-3 text-stone-700 text-sm sm:text-base leading-relaxed pt-1">
+                  {story.paragraphs.map((p) => (
+                    <p>{p}</p>
+                  ))}
+                </div>
+
+                {story.whyMatters && (
+                  <div class="mt-4 p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs sm:text-sm text-stone-800 space-y-1">
+                    <strong class="text-amber-900 font-mono font-bold block">💡 為什麼重要：</strong>
+                    <p class="leading-relaxed">{story.whyMatters}</p>
+                  </div>
+                )}
+
+                {/* Contextual Link for each story */}
+                {(() => {
+                  const rel = getContextualLink(story);
+                  return rel ? (
+                    <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-700 flex items-center justify-between gap-2 mt-2">
+                      <span class="truncate">{rel.icon} {rel.title}</span>
+                      <a href={rel.url} class="text-[#155EEF] hover:underline font-bold shrink-0">探索 &rarr;</a>
+                    </div>
+                  ) : null;
+                })()}
+              </div>
 
               {story.sourceUrl && (
-                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                  <span class="font-mono">原始資訊來源：</span>
-                  <a
-                    href={story.sourceUrl}
-                    target="_blank"
+                <div class="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500 font-mono">
+                  <span>資訊出處：</span>
+                  <a 
+                    href={story.sourceUrl} 
+                    target="_blank" 
                     rel="noopener noreferrer"
-                    class="text-rose-600 hover:text-rose-800 underline font-medium flex items-center gap-1 transition-colors"
+                    class="text-rose-700 hover:text-rose-900 underline font-medium flex items-center gap-1"
                   >
-                    <span>{story.sourceText || "閱讀原始新聞報導"}</span>
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
+                    <span>{story.sourceText || "查閱報導"}</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                   </a>
                 </div>
               )}
@@ -216,65 +379,25 @@ const stories = parseNewspaperHtml(publicHtmlPath);
           ))}
         </div>
       </section>
-    )}
 
-    <!-- Interactive Retro Newspaper Display Section -->
-    <div class="space-y-4 pt-4 border-t border-slate-200">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-          </svg>
-          <h2 class="text-xl font-bold text-[#07172D]">復古雙欄排版報紙預覽</h2>
+      <!-- 7. Historical Gazette Provenance & Navigation Footer (正式典藏結尾，徹底取代 900px iframe) -->
+      <footer class="pt-6 border-t-2 border-stone-800 text-center space-y-4 font-mono text-xs text-stone-600">
+        <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-stone-800">
+          <a href="/newspapers" class="hover:text-rose-700 transition-colors">&larr; 返回歷期 AI 模型日報列表</a>
+          <span>•</span>
+          <a href={htmlUrl} target="_blank" rel="noopener noreferrer" class="hover:text-rose-700 transition-colors flex items-center gap-1">
+            <span>檢視獨立原始雙欄報紙 HTML</span>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </a>
+          <span>•</span>
+          <a href="#top" class="hover:text-rose-700 transition-colors">回到報頭頂部 &uarr;</a>
         </div>
+        <p class="text-[11px] text-stone-500 max-w-xl mx-auto">
+          本期內容由 FreewingBiz 編輯室每日清晨自動彙整並經過專家審閱核實。所有商標與新聞權利屬其各自權利人所有。
+        </p>
+      </footer>
 
-        <button 
-          id="fullscreen-btn"
-          class="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-700 text-xs font-semibold transition-all border border-slate-200/80 flex items-center gap-1.5 cursor-pointer"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-2V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
-          </svg>
-          <span>全螢幕閱讀模式</span>
-        </button>
-      </div>
+    </article>
 
-      <!-- Iframe Newspaper Container -->
-      <div 
-        id="newspaper-container"
-        class="w-full bg-[#f4f1e8] rounded-3xl border border-slate-300/80 shadow-xl overflow-hidden transition-all duration-300"
-      >
-        <iframe 
-          id="newspaper-iframe"
-          src={htmlUrl} 
-          title={meta.title} 
-          class="w-full h-[900px] border-0 rounded-3xl"
-          loading="lazy"
-        ></iframe>
-      </div>
-    </div>
   </div>
-
-  <!-- Interactive Script for Fullscreen Toggle -->
-  <script is:inline>
-    const fsBtn = document.getElementById('fullscreen-btn');
-    const container = document.getElementById('newspaper-container');
-    const iframe = document.getElementById('newspaper-iframe');
-
-    if (fsBtn && container && iframe) {
-      fsBtn.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-          if (container.requestFullscreen) {
-            container.requestFullscreen();
-          } else if (container.webkitRequestFullscreen) {
-            container.webkitRequestFullscreen();
-          }
-        } else {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          }
-        }
-      });
-    }
-  </script>
 </MainLayout>
