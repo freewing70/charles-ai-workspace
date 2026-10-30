@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="sec-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="50%" stop-color="#1E1B4B"/>
+      <stop offset="100%" stop-color="#311042"/>
+    </linearGradient>
+    <linearGradient id="sec-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="50%" stop-color="#FB7185"/>
+      <stop offset="100%" stop-color="#FDA4AF"/>
+    </linearGradient>
+    <linearGradient id="sec-cyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#sec-bg)"/>
+  
+  <!-- Ambient Glow Orbs -->
+  <circle cx="1020" cy="180" r="280" fill="#F43F5E" opacity="0.16" filter="blur(75px)"/>
+  <circle cx="180" cy="480" r="220" fill="#38BDF8" opacity="0.14" filter="blur(70px)"/>
+  <circle cx="650" cy="300" r="180" fill="#818CF8" opacity="0.1" filter="blur(80px)"/>
+  
+  <!-- Grid Lines Decoration -->
+  <g stroke="rgba(255,255,255,0.04)" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="500" y1="0" x2="500" y2="630"/>
+    <line x1="700" y1="0" x2="700" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1100" y1="0" x2="1100" y2="630"/>
+    <line x1="0" y1="150" x2="1200" y2="150"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="480" x2="1200" y2="480"/>
+  </g>
+
+  <!-- Main Content Header -->
+  <g transform="translate(100, 95)">
+    <!-- Category Pill Badge -->
+    <rect x="0" y="0" width="220" height="34" rx="17" fill="rgba(244,63,94,0.15)" stroke="rgba(244,63,94,0.4)"/>
+    <text x="110" y="22" fill="#FB7185" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1.5">SECURITY &amp; ARCHITECTURE</text>
+    
+    <!-- Title Lines -->
+    <text x="0" y="95" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="44" font-weight="900" letter-spacing="-0.5">別讓 AI 代理人暴走！</text>
+    <text x="0" y="165" fill="url(#sec-accent)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="36" font-weight="800">企業級 Agent 沙盒隔離與網路管制實戰</text>
+    
+    <!-- Subtitle Details -->
+    <text x="0" y="235" fill="#E2E8F0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="20" font-weight="500">
+      從底層防堵非授權外傳 · gVisor 容器沙盒 · eBPF 網路出口管制 · 人機協同介入閘門
+    </text>
+  </g>
+
+  <!-- Middle Architecture Badges / Graphic -->
+  <g transform="translate(100, 365)">
+    <!-- Badge 1: Sandbox -->
+    <g transform="translate(0, 0)">
+      <rect width="230" height="70" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="35" cy="35" r="16" fill="rgba(56,189,248,0.2)"/>
+      <text x="35" y="40" fill="#38BDF8" font-size="14" font-weight="bold" text-anchor="middle">🛡️</text>
+      <text x="65" y="30" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="700">微虛擬機隔離</text>
+      <text x="65" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">gVisor / nsjail 系統調用</text>
+    </g>
+
+    <!-- Badge 2: Egress Control -->
+    <g transform="translate(255, 0)">
+      <rect width="230" height="70" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="35" cy="35" r="16" fill="rgba(244,63,94,0.2)"/>
+      <text x="35" y="40" fill="#F43F5E" font-size="14" font-weight="bold" text-anchor="middle">🌐</text>
+      <text x="65" y="30" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="700">網路出口管制</text>
+      <text x="65" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">DNS 白名單與 eBPF 攔截</text>
+    </g>
+
+    <!-- Badge 3: Human-in-the-Loop -->
+    <g transform="translate(510, 0)">
+      <rect width="230" height="70" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="35" cy="35" r="16" fill="rgba(251,191,36,0.2)"/>
+      <text x="35" y="40" fill="#FBBF24" font-size="14" font-weight="bold" text-anchor="middle">🛑</text>
+      <text x="65" y="30" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="700">人機協同閘門</text>
+      <text x="65" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">關鍵寫入強制審批狀態機</text>
+    </g>
+
+    <!-- Badge 4: Audit Trail -->
+    <g transform="translate(765, 0)">
+      <rect width="235" height="70" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="35" cy="35" r="16" fill="rgba(129,140,248,0.2)"/>
+      <text x="35" y="40" fill="#818CF8" font-size="14" font-weight="bold" text-anchor="middle">📜</text>
+      <text x="65" y="30" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="700">可審計日誌鏈</text>
+      <text x="65" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">SOC2 / ISO 不可竄改稽核</text>
+    </g>
+  </g>
+
+  <!-- Bottom Brand Footer -->
+  <g transform="translate(100, 490)">
+    <rect x="0" y="0" width="1000" height="1" fill="rgba(255,255,255,0.15)"/>
+    <text x="0" y="45" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="800">FREEWINGBIZ</text>
+    <text x="140" y="45" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16">｜ 企業級 AI 實務工程指南 2026</text>
+    <text x="1000" y="45" fill="#38BDF8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" text-anchor="end">freewingbiz.com/tutorials</text>
+  </g>
+</svg>

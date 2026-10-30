@@ -37,6 +37,39 @@
     "featured": false
   },
   {
+    "id": "ai-agent-sandbox-security-guide",
+    "title": "別讓 AI 代理人暴走！企業級 Agent 沙盒隔離、網路出口管制與權限攔截實戰",
+    "type": "tutorial",
+    "category": "Security & Architecture",
+    "summary": "深入剖析自主 AI Agent 在企業落地時面臨的安全邊界危機。從 Anthropic Claude 繞過付費牆事件到 Qwen 開源模型沙盒攔截案例，詳解為什麼 Prompt 防護欄注定失效。提供基於 gVisor 容器沙盒隔離、Linux eBPF 網路出口管制、Human-in-the-Loop 審批狀態機與不可竄改審計日誌的完整工程實戰體系。",
+    "tags": [
+      "AI Agent",
+      "Agent安全",
+      "沙盒隔離",
+      "gVisor",
+      "網路出口管制",
+      "eBPF",
+      "Human-in-the-loop",
+      "企業AI架構",
+      "資訊安全",
+      "Prompt Injection"
+    ],
+    "tools": [
+      "Docker",
+      "gVisor",
+      "eBPF",
+      "iptables",
+      "Python",
+      "LangGraph",
+      "FastAPI"
+    ],
+    "created": "2026-10-30",
+    "updated": "2026-10-30",
+    "url": "/tutorials/ai-agent-sandbox-security-guide",
+    "cover": "/assets/covers/ai-agent-sandbox-security-guide.svg",
+    "featured": true
+  },
+  {
     "id": "2026-10-29",
     "title": "Chow 的 AI 模型日報｜第 032 號 (2026.10.29)",
     "type": "newspaper",
