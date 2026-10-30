@@ -11,7 +11,7 @@ status: "active"
 visibility: "public"
 tags: ["Vibe Coding", "AI編程", "Cursor", "Claude", "技術債", "非工程師", "軟體工程心法", "架構設計", "Prompt技巧"]
 tools: ["Cursor", "Claude 3.5 Sonnet", "Windsurf", "ChatGPT", "v0", "Astro"]
-cover: "/assets/covers/vibe-coding-defense-guide-part-1.svg"
+cover: "/assets/covers/vibe-coding-defense-guide-part-1.png"
 featured: true
 ---
 
