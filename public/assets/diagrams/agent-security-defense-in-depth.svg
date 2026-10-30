@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 820" width="100%" height="auto">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <!-- Layer Gradients -->
+    <linearGradient id="card-1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="card-2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="card-3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="card-4" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#831843"/>
+      <stop offset="100%" stop-color="#E11D48"/>
+    </linearGradient>
+
+    <!-- Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94A3B8"/>
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10B981"/>
+    </marker>
+
+    <!-- Card Shadow Filter -->
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="960" height="820" rx="20" fill="url(#bg-grad)"/>
+  <rect width="958" height="818" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+
+  <!-- Title Section -->
+  <g transform="translate(480, 42)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" letter-spacing="2">ENTERPRISE DEFENSE-IN-DEPTH ARCHITECTURE</text>
+    <text text-anchor="middle" y="28" fill="#F8FAFC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="22" font-weight="800">AI Agent 四層縱深防禦體系架構流程</text>
+  </g>
+
+  <!-- 0. Trigger Node -->
+  <g transform="translate(480, 115)">
+    <rect x="-160" y="-20" width="320" height="40" rx="20" fill="rgba(255,255,255,0.08)" stroke="#64748B" stroke-width="1.5"/>
+    <text text-anchor="middle" y="5" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="14" font-weight="600">👤 用戶指令 / 外部系統 Webhook 觸發</text>
+  </g>
+
+  <!-- Connector 0 -> 1 -->
+  <line x1="480" y1="135" x2="480" y2="175" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="445" y="145" width="70" height="20" rx="10" fill="#0F172A" stroke="#475569" stroke-width="1"/>
+  <text x="480" y="159" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">任務解析</text>
+
+  <!-- 1. Layer 1: Semantic Policy -->
+  <g transform="translate(100, 180)" filter="url(#card-shadow)">
+    <rect width="760" height="96" rx="14" fill="#1E293B" stroke="#3B82F6" stroke-width="2"/>
+    <rect width="10" height="96" rx="5" fill="#3B82F6"/>
+    <!-- Header -->
+    <circle cx="36" cy="30" r="14" fill="rgba(59,130,246,0.2)"/>
+    <text x="36" y="35" text-anchor="middle" font-size="13">🔍</text>
+    <text x="60" y="35" fill="#93C5FD" font-family="-apple-system, sans-serif" font-size="16" font-weight="800">第一層：語意與工具調用靜態檢驗 (Semantic Policy Layer)</text>
+    <rect x="680" y="20" width="60" height="22" rx="11" fill="rgba(59,130,246,0.15)"/>
+    <text x="710" y="35" text-anchor="middle" fill="#60A5FA" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">靜態閘門</text>
+    <!-- Bullets -->
+    <text x="60" y="62" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="13.5">
+      • <tspan font-weight="700" fill="#FFFFFF">參數 Schema 嚴格型別校驗：</tspan> 攔截格式錯誤與溢位欄位
+    </text>
+    <text x="60" y="82" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">
+      • 敏感關鍵字與惡意指令過濾 · 腳本 AST 語法樹靜態解析
+    </text>
+  </g>
+
+  <!-- Connector 1 -> 2 -->
+  <line x1="480" y1="276" x2="480" y2="318" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="445" y="287" width="70" height="20" rx="10" fill="#0F172A" stroke="#475569" stroke-width="1"/>
+  <text x="480" y="301" text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">靜態通過</text>
+
+  <!-- 2. Layer 2: Human-in-the-Loop Gateway -->
+  <g transform="translate(100, 323)" filter="url(#card-shadow)">
+    <rect width="760" height="96" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+    <rect width="10" height="96" rx="5" fill="#F59E0B"/>
+    <!-- Header -->
+    <circle cx="36" cy="30" r="14" fill="rgba(245,158,11,0.2)"/>
+    <text x="36" y="35" text-anchor="middle" font-size="13">🛑</text>
+    <text x="60" y="35" fill="#FCD34D" font-family="-apple-system, sans-serif" font-size="16" font-weight="800">第二層：人機協同審批閘門 (Human-in-the-Loop Gateway)</text>
+    <rect x="680" y="20" width="60" height="22" rx="11" fill="rgba(245,158,11,0.15)"/>
+    <text x="710" y="35" text-anchor="middle" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">風險中斷</text>
+    <!-- Bullets -->
+    <text x="60" y="62" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="13.5">
+      • <tspan font-weight="700" fill="#FFFFFF">Tier 0 唯讀操作：</tspan> 檢索查詢、檔案讀取、單元計算直接自動放行
+    </text>
+    <text x="60" y="82" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">
+      • <tspan font-weight="700" fill="#FCD34D">Tier 2 破壞性/金融操作：</tspan> 資料庫寫入、對外發信、刪檔強制掛起等待人工核准
+    </text>
+  </g>
+
+  <!-- Connector 2 -> 3 -->
+  <line x1="480" y1="419" x2="480" y2="461" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="445" y="430" width="70" height="20" rx="10" fill="#0F172A" stroke="#475569" stroke-width="1"/>
+  <text x="480" y="444" text-anchor="middle" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">核准放行</text>
+
+  <!-- 3. Layer 3: Container Sandbox -->
+  <g transform="translate(100, 466)" filter="url(#card-shadow)">
+    <rect width="760" height="96" rx="14" fill="#1E293B" stroke="#8B5CF6" stroke-width="2"/>
+    <rect width="10" height="96" rx="5" fill="#8B5CF6"/>
+    <!-- Header -->
+    <circle cx="36" cy="30" r="14" fill="rgba(139,92,246,0.2)"/>
+    <text x="36" y="35" text-anchor="middle" font-size="13">🛡️</text>
+    <text x="60" y="35" fill="#C4B5FD" font-family="-apple-system, sans-serif" font-size="16" font-weight="800">第三層：極限容器沙盒隔離 (MicroVM / gVisor Sandbox)</text>
+    <rect x="680" y="20" width="60" height="22" rx="11" fill="rgba(139,92,246,0.15)"/>
+    <text x="710" y="35" text-anchor="middle" fill="#A78BFA" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">核心隔離</text>
+    <!-- Bullets -->
+    <text x="60" y="62" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="13.5">
+      • <tspan font-weight="700" fill="#FFFFFF">唯讀 Rootfs 核心虛擬化：</tspan> gVisor runsc 使用者空間核心隔絕系統呼叫
+    </text>
+    <text x="60" y="82" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">
+      • 停用所有特權 (cap-drop=ALL) · tmpfs 限制 64M + noexec · PID 限制防 Fork Bomb
+    </text>
+  </g>
+
+  <!-- Connector 3 -> 4 -->
+  <line x1="480" y1="562" x2="480" y2="604" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="445" y="573" width="70" height="20" rx="10" fill="#0F172A" stroke="#475569" stroke-width="1"/>
+  <text x="480" y="587" text-anchor="middle" fill="#A78BFA" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">沙盒執行</text>
+
+  <!-- 4. Layer 4: Network Egress Control -->
+  <g transform="translate(100, 609)" filter="url(#card-shadow)">
+    <rect width="760" height="96" rx="14" fill="#1E293B" stroke="#F43F5E" stroke-width="2"/>
+    <rect width="10" height="96" rx="5" fill="#F43F5E"/>
+    <!-- Header -->
+    <circle cx="36" cy="30" r="14" fill="rgba(244,63,94,0.2)"/>
+    <text x="36" y="35" text-anchor="middle" font-size="13">🌐</text>
+    <text x="60" y="35" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="16" font-weight="800">第四層：底層網路出口管制 (Network Egress &amp; eBPF Trap)</text>
+    <rect x="680" y="20" width="60" height="22" rx="11" fill="rgba(244,63,94,0.15)"/>
+    <text x="710" y="35" text-anchor="middle" fill="#FB7185" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">出站鎖定</text>
+    <!-- Bullets -->
+    <text x="60" y="62" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="13.5">
+      • <tspan font-weight="700" fill="#FFFFFF">預設全阻斷 (Default DROP)：</tspan> 僅允許已登錄之專屬內部 LLM 閘道 IP
+    </text>
+    <text x="60" y="82" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">
+      • 受控 DNS 白名單防堵 DNS Tunneling 滲漏 · eBPF 攔截非授權 TCP SYN 封包
+    </text>
+  </g>
+
+  <!-- Connector 4 -> Output -->
+  <line x1="480" y1="705" x2="480" y2="745" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+  <!-- Output Node -->
+  <g transform="translate(480, 765)">
+    <rect x="-170" y="-18" width="340" height="36" rx="18" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1.5"/>
+    <text text-anchor="middle" y="5" fill="#34D399" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700">✅ 任務安全交付 · 不可竄改審計日誌歸檔入庫</text>
+  </g>
+</svg>
