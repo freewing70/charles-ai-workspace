@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="vibe-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="45%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+
+    <!-- Accent Gradient -->
+    <linearGradient id="gold-amber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#FDE68A"/>
+    </linearGradient>
+
+    <linearGradient id="cyan-blue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#vibe-bg)"/>
+
+  <!-- Blueprint Architectural Grid Lines -->
+  <g stroke="rgba(56, 189, 248, 0.05)" stroke-width="1">
+    <line x1="0" y1="90" x2="1200" y2="90"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="450" x2="1200" y2="450"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="150" y1="0" x2="150" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="450" y1="0" x2="450" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="750" y1="0" x2="750" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1050" y1="0" x2="1050" y2="630"/>
+  </g>
+
+  <!-- Ambient Glow Orbs -->
+  <circle cx="1050" cy="160" r="260" fill="#F59E0B" opacity="0.12" filter="blur(70px)"/>
+  <circle cx="160" cy="480" r="240" fill="#38BDF8" opacity="0.14" filter="blur(75px)"/>
+  <circle cx="700" cy="320" r="200" fill="#818CF8" opacity="0.08" filter="blur(80px)"/>
+
+  <!-- Architectural Tower Diagram Graphic on Right -->
+  <g transform="translate(850, 150)">
+    <!-- Tower Stack: Bottom Solid Base -->
+    <rect x="-80" y="240" width="160" height="40" rx="8" fill="rgba(16, 185, 129, 0.2)" stroke="#10B981" stroke-width="2"/>
+    <text x="0" y="265" fill="#34D399" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">SOLID BASE 穩健地基</text>
+
+    <!-- Floor 1 -->
+    <rect x="-70" y="180" width="140" height="40" rx="8" fill="rgba(56, 189, 248, 0.15)" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="0" y="205" fill="#7DD3FC" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">架構模組化</text>
+
+    <!-- Floor 2 -->
+    <rect x="-60" y="120" width="120" height="40" rx="8" fill="rgba(129, 140, 248, 0.15)" stroke="#818CF8" stroke-width="1.5"/>
+    <text x="0" y="145" fill="#A5B4FC" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">單一真相來源</text>
+
+    <!-- Top: Patchwork Danger Alert -->
+    <rect x="-55" y="50" width="110" height="46" rx="8" fill="rgba(244, 63, 94, 0.25)" stroke="#F43F5E" stroke-width="2" stroke-dasharray="4 2"/>
+    <text x="0" y="72" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">⚠️ 補丁硬塞危樓</text>
+    <text x="0" y="88" fill="#F43F5E" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" text-anchor="middle">PATCH HELL</text>
+  </g>
+
+  <!-- Main Content Header -->
+  <g transform="translate(100, 95)">
+    <!-- Pill Badge -->
+    <rect x="0" y="0" width="260" height="34" rx="17" fill="rgba(245, 158, 11, 0.15)" stroke="rgba(245, 158, 11, 0.4)"/>
+    <text x="130" y="22" fill="#FBBF24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1.5">VIBE CODING SERIES · PART 1</text>
+    
+    <!-- Title Lines -->
+    <text x="0" y="95" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="44" font-weight="900" letter-spacing="-0.5">Vibe Coding 不翻車指南（上）</text>
+    <text x="0" y="165" fill="url(#gold-amber)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="36" font-weight="800">別讓 AI 害你寫出一座「違章危樓」</text>
+    
+    <!-- Subtitle Details -->
+    <text x="0" y="235" fill="#E2E8F0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="20" font-weight="500">
+      非工程師必學的架構心法 · 破解打補丁慣性 · 單一真相來源 · 防禦性 Prompt 錦囊
+    </text>
+  </g>
+
+  <!-- Feature Cards Row -->
+  <g transform="translate(100, 365)">
+    <!-- Feature 1 -->
+    <g transform="translate(0, 0)">
+      <rect width="210" height="72" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="32" cy="36" r="15" fill="rgba(245,158,11,0.2)"/>
+      <text x="32" y="41" fill="#F59E0B" font-size="13" font-weight="bold" text-anchor="middle">🏗️</text>
+      <text x="58" y="31" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700">破解補丁慣性</text>
+      <text x="58" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11.5">先動手術，拒絕硬塞</text>
+    </g>
+
+    <!-- Feature 2 -->
+    <g transform="translate(230, 0)">
+      <rect width="210" height="72" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="32" cy="36" r="15" fill="rgba(56,189,248,0.2)"/>
+      <text x="32" y="41" fill="#38BDF8" font-size="13" font-weight="bold" text-anchor="middle">🎯</text>
+      <text x="58" y="31" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700">單一真相來源</text>
+      <text x="58" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11.5">徹底解決跨頁衝突</text>
+    </g>
+
+    <!-- Feature 3 -->
+    <g transform="translate(460, 0)">
+      <rect width="210" height="72" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="32" cy="36" r="15" fill="rgba(16,185,129,0.2)"/>
+      <text x="32" y="41" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">💬</text>
+      <text x="58" y="31" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700">防禦性指令錦囊</text>
+      <text x="58" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11.5">4 套複製即用 Prompt</text>
+    </g>
+
+    <!-- Feature 4 -->
+    <g transform="translate(690, 0)">
+      <rect width="210" height="72" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="32" cy="36" r="15" fill="rgba(129,140,248,0.2)"/>
+      <text x="32" y="41" fill="#818CF8" font-size="13" font-weight="bold" text-anchor="middle">🛡️</text>
+      <text x="58" y="31" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700">長青軟體底層</text>
+      <text x="58" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11.5">讓產物禁得起時間考驗</text>
+    </g>
+  </g>
+
+  <!-- Bottom Footer -->
+  <g transform="translate(100, 490)">
+    <rect x="0" y="0" width="1000" height="1" fill="rgba(255,255,255,0.15)"/>
+    <text x="0" y="45" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="800">FREEWINGBIZ</text>
+    <text x="140" y="45" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16">｜ 智能時代架構指南 2026</text>
+    <text x="1000" y="45" fill="#FBBF24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" text-anchor="end">freewingbiz.com/tutorials</text>
+  </g>
+</svg>

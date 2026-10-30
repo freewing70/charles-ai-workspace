@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="auto">
+  <defs>
+    <linearGradient id="ssot-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#F43F5E"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10B981"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="480" rx="20" fill="url(#ssot-bg)"/>
+  <rect width="958" height="478" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">DATA ARCHITECTURE PRINCIPLE</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">單一真實來源：別讓資料在不同頁面各說各話</text>
+  </g>
+
+  <!-- Left Side: Chaos (❌ 多頭馬車，各自存私房錢) -->
+  <g transform="translate(50, 95)">
+    <rect width="405" height="345" rx="16" fill="rgba(244,63,94,0.05)" stroke="#F43F5E" stroke-width="1.5" stroke-dasharray="5 3"/>
+    
+    <g transform="translate(20, 20)">
+      <rect width="210" height="28" rx="14" fill="rgba(244,63,94,0.2)"/>
+      <text x="105" y="19" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">❌ 混亂多頭馬車（私藏副本）</text>
+    </g>
+
+    <!-- Node 1: Home -->
+    <rect x="30" y="80" width="150" height="50" rx="8" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
+    <text x="105" y="102" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">首頁儀表板</text>
+    <text x="105" y="120" fill="#F43F5E" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">存 LocalStorage: $1,000</text>
+
+    <!-- Node 2: Profile -->
+    <rect x="225" y="80" width="150" height="50" rx="8" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
+    <text x="300" y="102" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">個人設定頁</text>
+    <text x="300" y="120" fill="#F43F5E" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">存 URL Param: $500</text>
+
+    <!-- Node 3: Checkout -->
+    <rect x="127" y="200" width="150" height="50" rx="8" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
+    <text x="202" y="222" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">結帳購物車</text>
+    <text x="202" y="240" fill="#F43F5E" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">存 Component: $800</text>
+
+    <!-- Chaos Cross Lines -->
+    <line x1="105" y1="130" x2="190" y2="200" stroke="#F43F5E" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-red)"/>
+    <line x1="300" y1="130" x2="215" y2="200" stroke="#F43F5E" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-red)"/>
+
+    <text x="202" y="290" fill="#F87171" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">
+      💥 每個元件都自己存一份，改了 A 頁，B 頁立刻變舊的！
+    </text>
+  </g>
+
+  <!-- Right Side: Single Source of Truth (✅ 唯一戶政事務所) -->
+  <g transform="translate(505, 95)">
+    <rect width="405" height="345" rx="16" fill="rgba(16,185,129,0.05)" stroke="#10B981" stroke-width="2"/>
+    
+    <g transform="translate(20, 20)">
+      <rect width="210" height="28" rx="14" fill="rgba(16,185,129,0.2)"/>
+      <text x="105" y="19" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">✅ 單一真相來源（唯一戶政所）</text>
+    </g>
+
+    <!-- Central Authority Box -->
+    <rect x="102" y="70" width="200" height="65" rx="12" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+    <text x="202" y="98" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13" font-weight="800" text-anchor="middle">🏛️ 唯一權威儲存源 (Store)</text>
+    <text x="202" y="120" fill="#34D399" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">餘額：唯一真理 $500</text>
+
+    <!-- Consumer Nodes -->
+    <rect x="25" y="210" width="105" height="45" rx="8" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+    <text x="77" y="238" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">首頁 (唯讀)</text>
+
+    <rect x="150" y="210" width="105" height="45" rx="8" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+    <text x="202" y="238" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">個人頁 (唯讀)</text>
+
+    <rect x="275" y="210" width="105" height="45" rx="8" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+    <text x="327" y="238" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">結帳頁 (唯讀)</text>
+
+    <!-- Clean Fan-out Lines -->
+    <line x1="160" y1="135" x2="77" y2="210" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <line x1="202" y1="135" x2="202" y2="210" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <line x1="244" y1="135" x2="327" y2="210" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+    <text x="202" y="290" fill="#34D399" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">
+      ✨ 只有中央允許修改！所有頁面即時訂閱，永遠一致零衝突！
+    </text>
+  </g>
+</svg>

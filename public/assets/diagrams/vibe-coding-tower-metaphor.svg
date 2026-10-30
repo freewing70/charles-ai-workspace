@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="auto">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="tower-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <!-- Danger Gradient -->
+    <linearGradient id="danger-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C0519"/>
+      <stop offset="100%" stop-color="#881337"/>
+    </linearGradient>
+
+    <!-- Success Gradient -->
+    <linearGradient id="success-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064E3B"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="960" height="520" rx="20" fill="url(#tower-bg)"/>
+  <rect width="958" height="518" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 42)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">ARCHITECTURAL METAPHOR COMPARISON</text>
+    <text text-anchor="middle" y="28" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">違章危樓 vs 穩固架構：你的軟體正在長成哪一種？</text>
+  </g>
+
+  <!-- Left Side: The Slanted Patchwork Tower (❌ 傳統 Vibe Coding) -->
+  <g transform="translate(60, 105)">
+    <!-- Container Card -->
+    <rect width="395" height="375" rx="16" fill="rgba(244,63,94,0.06)" stroke="#F43F5E" stroke-width="1.5" stroke-dasharray="6 3"/>
+    
+    <!-- Header Badge -->
+    <g transform="translate(20, 24)">
+      <rect width="210" height="30" rx="15" fill="rgba(244,63,94,0.2)"/>
+      <text x="105" y="20" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">❌ 傳統 Vibe Coding（補丁危樓）</text>
+    </g>
+
+    <!-- Tower Illustration -->
+    <!-- Floor 4: Broken Patchwork -->
+    <g transform="translate(197, 100) rotate(5)">
+      <rect x="-80" y="0" width="160" height="42" rx="6" fill="#881337" stroke="#F43F5E" stroke-width="2"/>
+      <text x="0" y="26" fill="#FECDD3" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🩹 隨意加蓋的 Try-Catch</text>
+    </g>
+    <!-- Floor 3: Misaligned wrapper -->
+    <g transform="translate(197, 150) rotate(-4)">
+      <rect x="-95" y="0" width="190" height="42" rx="6" fill="#9F1239" stroke="#FB7185" stroke-width="1.5"/>
+      <text x="0" y="26" fill="#FFE4E6" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">📦 50MB 幽靈第三方套件</text>
+    </g>
+    <!-- Floor 2: Slanted state -->
+    <g transform="translate(197, 200) rotate(3)">
+      <rect x="-110" y="0" width="220" height="42" rx="6" fill="#BE123C" stroke="#F43F5E" stroke-width="1.5"/>
+      <text x="0" y="26" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🌪️ 混亂的 LocalStorage 狀態</text>
+    </g>
+    <!-- Floor 1: Shaky Base -->
+    <g transform="translate(197, 250)">
+      <rect x="-125" y="0" width="250" height="46" rx="8" fill="#4C0519" stroke="#E11D48" stroke-width="2"/>
+      <text x="0" y="28" fill="#FCA5A5" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">💥 充滿未驗證資料的破裂地基</text>
+    </g>
+
+    <!-- Danger Summary Label -->
+    <text x="197" y="340" fill="#F87171" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">
+      結果：動任何一行代碼，整座系統立刻雪崩坍塌！
+    </text>
+  </g>
+
+  <!-- Right Side: The Solid Engineered Tower (✅ 防禦性指揮術) -->
+  <g transform="translate(505, 105)">
+    <!-- Container Card -->
+    <rect width="395" height="375" rx="16" fill="rgba(16,185,129,0.06)" stroke="#10B981" stroke-width="2"/>
+    
+    <!-- Header Badge -->
+    <g transform="translate(20, 24)">
+      <rect width="210" height="30" rx="15" fill="rgba(16,185,129,0.2)"/>
+      <text x="105" y="20" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">✅ 防禦性指揮術（長青大樓）</text>
+    </g>
+
+    <!-- Solid Tower Illustration -->
+    <!-- Floor 4: Clean UI -->
+    <g transform="translate(197, 100)">
+      <rect x="-90" y="0" width="180" height="42" rx="8" fill="#065F46" stroke="#10B981" stroke-width="2"/>
+      <text x="0" y="26" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🎨 純淨介面展示層（UI View）</text>
+    </g>
+    <!-- Floor 3: Native Web API -->
+    <g transform="translate(197, 150)">
+      <rect x="-105" y="0" width="210" height="42" rx="8" fill="#047857" stroke="#34D399" stroke-width="1.5"/>
+      <text x="0" y="26" fill="#D1FAE5" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">⚡ 輕量原生 Web API（零多餘套件）</text>
+    </g>
+    <!-- Floor 2: Single Source of Truth -->
+    <g transform="translate(197, 200)">
+      <rect x="-120" y="0" width="240" height="42" rx="8" fill="#059669" stroke="#6EE7B7" stroke-width="1.5"/>
+      <text x="0" y="26" fill="#ECFDF5" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🎯 單一真相來源（唯一資料權威）</text>
+    </g>
+    <!-- Floor 1: Solid Schema & Boundary -->
+    <g transform="translate(197, 250)">
+      <rect x="-135" y="0" width="270" height="46" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+      <text x="0" y="28" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="800" text-anchor="middle">🏛️ 嚴格資料結構與模組邊界（鋼筋地基）</text>
+    </g>
+
+    <!-- Success Summary Label -->
+    <text x="197" y="340" fill="#34D399" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">
+      結果：結構清晰獨立，擴展新功能毫不費力！
+    </text>
+  </g>
+</svg>
