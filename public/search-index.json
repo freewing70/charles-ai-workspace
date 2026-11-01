@@ -1,5 +1,77 @@
 [
   {
+    "id": "2026-11-01",
+    "title": "Chow 的 AI 模型日報｜第 035 號 (2026.11.01)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "OpenAI 正式推出生命科學專用旗艦模型 GPT-6 Rosalind，與 Astra 共用權重但嚴格限制研究用途與白名單核准存取；Anthropic 發表最新自動化測試資料監控研究，揭示一般看似無害的訓練語料亦可能誘導模型產生對抗性失準行為；TBC 發布基於神經元微觀研究轉化的 Mischief 1 影音生成模型，宣稱推論速度提升五倍；標普（S&P）因龐大 AI 資本支出與變現回收期拉長，將 Meta 信用評等展望由穩定轉為負面；Google 軌道衛星 Project Suncatcher 首度在太空軌道利用 Gemma 4 生成 AI 回應，但極端環境可靠度仍在測試驗證中。",
+    "tags": [
+      "AI模型日報",
+      "GPT-6 Rosalind",
+      "OpenAI",
+      "生命科學",
+      "Anthropic",
+      "測試資料安全",
+      "Mischief 1",
+      "TBC",
+      "Meta",
+      "標普評等",
+      "Google",
+      "衛星AI",
+      "太空算力",
+      "Gemma 4"
+    ],
+    "tools": [
+      "OpenAI",
+      "Anthropic",
+      "TBC",
+      "Meta",
+      "Google"
+    ],
+    "created": "2026-11-01",
+    "updated": "2026-11-01",
+    "url": "/newspapers/2026-11-01",
+    "cover": "/assets/covers/newspaper-2026-11-01-cover.jpg",
+    "featured": false
+  },
+  {
+    "id": "2026-10-31",
+    "title": "Chow 的 AI 模型日報｜第 034 號 (2026.10.31)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "Cursor 市集遭竄改之惡意擴充套件已全面下架，官方評估最多 5,000 名開發者受影響並呼籲檢查金鑰；Google、OpenAI 與微軟宣布聯合支持共用 AI 訓練偏好訊號（robots.txt 擴充），降低網站跨平台標註成本；Pika 正式開源 H3 Flex 輕量影音生成模型權重，主打 6 步快速生成但高畫質與分離音軌仍屬雲端託管；Amazon 發布 Q3 財報顯示 AWS 營收年增近四成，但大規模 AI 算力資本支出壓低自由現金流；Reddit 面臨搜尋引擎 AI 摘要帶來的導流下滑，宣布將於第四季在部分市場測試登入強制瀏覽制。",
+    "tags": [
+      "AI模型日報",
+      "Cursor",
+      "開發者安全",
+      "擴充套件",
+      "訓練偏好",
+      "Google",
+      "OpenAI",
+      "Microsoft",
+      "Pika",
+      "H3 Flex",
+      "AWS",
+      "Amazon",
+      "Reddit",
+      "搜尋導流"
+    ],
+    "tools": [
+      "Cursor",
+      "OpenAI",
+      "Google",
+      "Microsoft",
+      "Pika",
+      "AWS",
+      "Reddit"
+    ],
+    "created": "2026-10-31",
+    "updated": "2026-10-31",
+    "url": "/newspapers/2026-10-31",
+    "cover": "/assets/covers/newspaper-2026-10-31-cover.jpg",
+    "featured": false
+  },
+  {
     "id": "2026-10-30",
     "title": "Chow 的 AI 模型日報｜第 033 號 (2026.10.30)",
     "type": "newspaper",
@@ -67,6 +139,37 @@
     "updated": "2026-10-30",
     "url": "/tutorials/ai-agent-sandbox-security-guide",
     "cover": "/assets/covers/ai-agent-sandbox-security-guide.svg",
+    "featured": true
+  },
+  {
+    "id": "vibe-coding-defense-guide-part-1",
+    "title": "Vibe Coding 不翻車指南（上）：別讓 AI 害你寫出「違章危樓」——非工程師必學的架構心法與防禦性指令",
+    "type": "tutorial",
+    "category": "AI Engineering",
+    "summary": "專為非工程師與全職創作者打造的 Vibe Coding 避坑心法（上篇）。深入拆解 AI Agent 的「打補丁本能」如何導致技術債雪崩。提供「先動手術、拒絕違章硬塞」、「單一真相來源」等兩大核心軟體架構思維，並附贈 4 套可直接複製貼給 Cursor 或 Claude 的防禦性指揮 Prompt 錦囊。",
+    "tags": [
+      "Vibe Coding",
+      "AI編程",
+      "Cursor",
+      "Claude",
+      "技術債",
+      "非工程師",
+      "軟體工程心法",
+      "架構設計",
+      "Prompt技巧"
+    ],
+    "tools": [
+      "Cursor",
+      "Claude 3.5 Sonnet",
+      "Windsurf",
+      "ChatGPT",
+      "v0",
+      "Astro"
+    ],
+    "created": "2026-10-30",
+    "updated": "2026-10-30",
+    "url": "/tutorials/vibe-coding-defense-guide-part-1",
+    "cover": "/assets/covers/vibe-coding-defense-guide-part-1.png",
     "featured": true
   },
   {
