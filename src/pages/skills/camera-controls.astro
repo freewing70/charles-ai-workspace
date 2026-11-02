@@ -434,6 +434,16 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
               </div>
             </div>
 
+            <!-- Layer 9: First-Person POV Hands Overlay (for POV shot) -->
+            <div id="layer-pov-hands" class="absolute inset-x-0 bottom-0 h-28 pointer-events-none opacity-0 transition-opacity duration-200 z-30 flex justify-between items-end px-10 pb-0">
+              <div id="pov-hand-left" class="w-18 h-26 bg-gradient-to-t from-slate-950 via-slate-800 to-amber-600/80 rounded-t-2xl border-t-2 border-r-2 border-amber-400/50 transform -rotate-12 origin-bottom-left shadow-2xl flex flex-col items-center pt-2">
+                <div class="w-8 h-3 bg-amber-500/30 rounded-full border border-amber-300/40"></div>
+              </div>
+              <div id="pov-hand-right" class="w-18 h-26 bg-gradient-to-t from-slate-950 via-slate-800 to-amber-600/80 rounded-t-2xl border-t-2 border-l-2 border-amber-400/50 transform rotate-12 origin-bottom-right shadow-2xl flex flex-col items-center pt-2">
+                <div class="w-8 h-3 bg-amber-500/30 rounded-full border border-amber-300/40"></div>
+              </div>
+            </div>
+
             <!-- Viewfinder Safety Markers (Corner Brackets) -->
             <div class="absolute inset-4 pointer-events-none border border-white/10 z-20">
               <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-amber-400"></div>
@@ -1627,6 +1637,9 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
     const layerFxSpeed = document.getElementById('layer-fx-speed');
     const layerSplitLine = document.getElementById('layer-split-line');
     const layerBulletProjectile = document.getElementById('layer-bullet-projectile');
+    const layerPovHands = document.getElementById('layer-pov-hands');
+    const povHandLeft = document.getElementById('pov-hand-left');
+    const povHandRight = document.getElementById('pov-hand-right');
     const layerForegroundLeft = document.getElementById('layer-foreground-left');
     const layerForegroundRight = document.getElementById('layer-foreground-right');
     const hudMovementName = document.getElementById('hud-movement-name');
@@ -1817,8 +1830,15 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
       if (layerFxSpeed) layerFxSpeed.style.opacity = '0';
       if (layerSplitLine) layerSplitLine.style.opacity = '0';
       if (layerBulletProjectile) layerBulletProjectile.style.opacity = '0';
-      if (layerForegroundLeft) layerForegroundLeft.style.transform = 'none';
-      if (layerForegroundRight) layerForegroundRight.style.transform = 'none';
+      if (layerPovHands) layerPovHands.style.opacity = '0';
+      if (layerForegroundLeft) {
+        layerForegroundLeft.style.transform = 'none';
+        layerForegroundLeft.style.filter = 'none';
+      }
+      if (layerForegroundRight) {
+        layerForegroundRight.style.transform = 'none';
+        layerForegroundRight.style.filter = 'none';
+      }
       if (subjectAnchor) {
         subjectAnchor.style.filter = 'none';
         subjectAnchor.style.boxShadow = 'none';
@@ -2044,8 +2064,8 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         case 'tilt-up':
           const tiltUP = isComboMode ? p : tNorm;
           rotP = 28 * tiltUP;
-          vfRotX = 25 * tiltUP;
-          vfTransY = -20 * tiltUP;
+          vfRotX = -25 * tiltUP;
+          vfTransY = 22 * tiltUP;
           rigTransY = 85 - 18 * tiltUP;
           vectorDesc = `Pitch: +${rotP.toFixed(1)}° (Tilt Up)`;
           break;
@@ -2053,8 +2073,8 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         case 'tilt-down':
           const tiltDP = isComboMode ? p : tNorm;
           rotP = -28 * tiltDP;
-          vfRotX = -25 * tiltDP;
-          vfTransY = 20 * tiltDP;
+          vfRotX = 25 * tiltDP;
+          vfTransY = -22 * tiltDP;
           rigTransY = 85 + 18 * tiltDP;
           vectorDesc = `Pitch: ${rotP.toFixed(1)}° (Tilt Down)`;
           break;
@@ -2091,20 +2111,20 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
 
         case 'truck-left':
           const trkLP = isComboMode ? p : tNorm;
-          posX = 1.8 * trkLP;
+          posX = -1.8 * trkLP;
           vfTransX = 45 * trkLP;
-          rigTransX = 48 * trkLP;
+          rigTransX = -48 * trkLP;
           horizonOffset = -18 * trkLP;
-          vectorDesc = `Truck X: -${posX.toFixed(2)}m (Left)`;
+          vectorDesc = `Truck X: ${(posX).toFixed(2)}m (Left)`;
           break;
 
         case 'truck-right':
           const trkRP = isComboMode ? p : tNorm;
-          posX = -1.8 * trkRP;
+          posX = 1.8 * trkRP;
           vfTransX = -45 * trkRP;
-          rigTransX = -48 * trkRP;
+          rigTransX = 48 * trkRP;
           horizonOffset = 18 * trkRP;
-          vectorDesc = `Truck X: +${Math.abs(posX).toFixed(2)}m (Right)`;
+          vectorDesc = `Truck X: +${posX.toFixed(2)}m (Right)`;
           break;
 
         case 'pedestal-up':
@@ -2148,17 +2168,20 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         case 'rack-focus':
           const focusDist = isComboMode ? p : tNorm;
           if (focusDist > 0.5) {
-            horizonLayer.style.filter = `blur(${(focusDist - 0.5) * 18}px)`;
+            if (layerForegroundLeft) layerForegroundLeft.style.filter = `blur(${((focusDist - 0.5) * 24).toFixed(1)}px)`;
+            horizonLayer.style.filter = `blur(${((focusDist - 0.5) * 14).toFixed(1)}px)`;
             subjectAnchor.style.filter = 'blur(0px)';
-            vectorDesc = `Rack Focus: Foreground Target Sharp (${((focusDist - 0.5) * 200).toFixed(0)}%)`;
+            vectorDesc = `Rack Focus: Subject In Focus (${((focusDist - 0.5) * 200).toFixed(0)}%)`;
           } else {
-            subjectAnchor.style.filter = `blur(${(0.5 - focusDist) * 16}px)`;
-            horizonLayer.style.filter = 'blur(0px)';
-            vectorDesc = `Rack Focus: Background Environment Sharp`;
+            if (layerForegroundLeft) layerForegroundLeft.style.filter = 'blur(0px)';
+            subjectAnchor.style.filter = `blur(${((0.5 - focusDist) * 18).toFixed(1)}px)`;
+            horizonLayer.style.filter = `blur(${((0.5 - focusDist) * 22).toFixed(1)}px)`;
+            vectorDesc = `Rack Focus: Foreground Element In Focus`;
           }
           break;
 
         case 'deep-focus':
+          if (layerForegroundLeft) layerForegroundLeft.style.filter = 'blur(0px)';
           subjectAnchor.style.filter = 'blur(0px)';
           horizonLayer.style.filter = 'blur(0px)';
           vfScale = 1.05 + 0.03 * Math.sin(activeProgress * 1.5);
@@ -2167,7 +2190,8 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           break;
 
         case 'shallow-dof':
-          horizonLayer.style.filter = 'blur(10px)';
+          if (layerForegroundLeft) layerForegroundLeft.style.filter = 'blur(10px)';
+          horizonLayer.style.filter = 'blur(12px)';
           subjectAnchor.style.filter = 'blur(0px)';
           subjectAnchor.style.boxShadow = '0 0 25px rgba(0, 242, 254, 0.4)';
           vfScale = 1.02 + 0.04 * Math.sin(activeProgress * 1.5);
@@ -2199,22 +2223,27 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
 
         case 'arc-left':
           const arcAngleL = isComboMode ? (p * Math.PI * 0.7 - Math.PI * 0.2) : ((tNorm * Math.PI * 0.5) - Math.PI * 0.25);
-          vfRotY = -arcAngleL * (180 / Math.PI);
-          rigTransX = Math.sin(arcAngleL) * 80;
+          const arcDegL = arcAngleL * (180 / Math.PI);
+          // Rotate subject so camera orbits relative to actor
+          subjectAnchor.style.transform = `rotateY(${-arcDegL}deg)`;
+          vfRotY = -arcDegL;
+          rigTransX = -Math.sin(arcAngleL) * 80;
           rigTransY = Math.cos(arcAngleL) * 80;
-          rigRotZ = -arcAngleL * (180 / Math.PI);
-          rotY = -arcAngleL * (180 / Math.PI);
+          rigRotZ = -arcDegL;
+          rotY = -arcDegL;
           horizonOffset = arcAngleL * 40;
           vectorDesc = `Arc Left 90°: ${rotY.toFixed(1)}° (Reveal Crowd)`;
           break;
 
         case 'arc-right':
           const arcAngleR = isComboMode ? (p * Math.PI * 0.7 - Math.PI * 0.2) : ((tNorm * Math.PI * 0.5) - Math.PI * 0.25);
-          vfRotY = arcAngleR * (180 / Math.PI);
-          rigTransX = -Math.sin(arcAngleR) * 80;
+          const arcDegR = arcAngleR * (180 / Math.PI);
+          subjectAnchor.style.transform = `rotateY(${-arcDegR}deg)`;
+          vfRotY = arcDegR;
+          rigTransX = Math.sin(arcAngleR) * 80;
           rigTransY = Math.cos(arcAngleR) * 80;
-          rigRotZ = arcAngleR * (180 / Math.PI);
-          rotY = arcAngleR * (180 / Math.PI);
+          rigRotZ = arcDegR;
+          rotY = arcDegR;
           horizonOffset = -arcAngleR * 40;
           vectorDesc = `Arc Right 90°: +${rotY.toFixed(1)}°`;
           break;
@@ -2233,27 +2262,36 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         case 'trail-tracking':
           const trailStep = activeProgress * 3;
           const trailP = isComboMode ? p : tNorm;
+          // Camera following behind actor: show back of character
+          subjectAnchor.style.transform = 'rotateY(180deg)';
           vfScale = 0.95 + 0.12 * Math.sin(trailStep) - (isComboMode ? trailP * 0.1 : 0);
           vfTransY = Math.sin(trailStep * 2) * 4;
           vfTransX = Math.cos(trailStep) * 2;
           rigTransY = 100 - (isComboMode ? trailP * 25 : Math.sin(trailStep) * 10);
           posY = -3.2 + 0.3 * Math.sin(trailStep);
-          vectorDesc = `Trail Track: Chasing Behind`;
+          vectorDesc = `Trail Track: Chasing Behind (Back View)`;
           break;
 
         case 'side-tracking':
           const sideStep = activeProgress * 3;
-          vfTransX = 35 * t;
+          // Running alongside actor: show 90° side profile
+          subjectAnchor.style.transform = 'rotateY(90deg)';
+          vfTransX = 30 * t;
           vfTransY = Math.sin(sideStep * 2) * 2.5;
-          horizonOffset = -60 * t;
-          rigTransX = 50 * t;
-          vectorDesc = `Side Tracking (Profile Match)`;
+          horizonOffset = -70 * t;
+          rigTransX = 65;
+          rigTransY = 18 * t;
+          rigRotZ = 90;
+          rotY = 90;
+          vectorDesc = `Side Tracking: Profile View (Lat. Follow)`;
           break;
 
         case 'dolly-zoom':
           const dz = isComboMode ? p : tNorm;
           vfScale = 1.0;
           horizonLayer.style.transform = `scale(${1 + 0.85 * dz}) translateY(${dz * 26}px)`;
+          if (layerForegroundLeft) layerForegroundLeft.style.transform = `translateX(${-dz * 45}px) scale(${1 + dz * 0.25})`;
+          if (layerForegroundRight) layerForegroundRight.style.transform = `translateX(${dz * 45}px) scale(${1 + dz * 0.25})`;
           rigTransY = 85 - 65 * dz;
           posY = -2.4 + 2.0 * dz;
           vectorDesc = `Vertigo Dolly Zoom: Z=${posY.toFixed(2)}m (BG Distorting)`;
@@ -2306,16 +2344,19 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           break;
 
         case 'spiral-corkscrew':
-          const scAngle = activeProgress * 1.4;
+          const scAngle = activeProgress * 2.0;
+          const scDeg = (scAngle * 180 / Math.PI) % 360;
           const scP = isComboMode ? p : tNorm;
-          vfRotY = -Math.sin(scAngle) * 30;
-          vfTransY = -40 * scP;
+          // Smooth continuous corkscrew 360 rotation around character
+          subjectAnchor.style.transform = `rotateY(${-scDeg}deg)`;
+          vfScale = 1.1 - 0.3 * scP;
+          vfTransY = -45 * scP;
           rigTransX = Math.cos(scAngle) * 65;
           rigTransY = Math.sin(scAngle) * 65;
-          rigTransZ = -45 * scP;
+          rigTransZ = -50 * scP;
           posZ = 1.2 + 6.0 * scP;
-          rotY = (scAngle * 180 / Math.PI) % 360;
-          vectorDesc = `Spiral Ascending: Z=${posZ.toFixed(1)}m`;
+          rotY = scDeg;
+          vectorDesc = `Spiral Corkscrew: Z=${posZ.toFixed(1)}m, Rot=${scDeg.toFixed(0)}°`;
           break;
 
         case 'fpv-drone-dive':
@@ -2353,6 +2394,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           vfRotZ = beRot;
           vfTransY = -40 + beP * 15;
           vfScale = 0.75 + beP * 0.3;
+          subjectAnchor.style.transform = `rotateX(-50deg) scale(0.85)`;
           rotP = -90;
           rotR = beRot;
           posZ = 18.0 - beP * 6.0;
@@ -2387,12 +2429,19 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
 
         case 'pov-shot':
           const povCadence = activeProgress * 4;
+          // In first-person POV, user IS the character: hide mannequin & display POV hands
+          subjectAnchor.style.opacity = '0';
+          if (layerPovHands) layerPovHands.style.opacity = '1';
+          if (povHandLeft && povHandRight) {
+            povHandLeft.style.transform = `translateY(${Math.sin(povCadence) * 8}px) rotate(${-12 + Math.cos(povCadence) * 4}deg)`;
+            povHandRight.style.transform = `translateY(${-Math.sin(povCadence) * 8}px) rotate(${12 - Math.cos(povCadence) * 4}deg)`;
+          }
           vfTransX = Math.sin(povCadence) * 8;
           vfTransY = Math.abs(Math.sin(povCadence * 2)) * 6 - 3;
           vfRotZ = Math.sin(povCadence) * 3.5;
           vfRotX = Math.cos(povCadence) * 2;
           vfScale = 1.02 + 0.05 * Math.sin(povCadence * 2);
-          vectorDesc = `First-Person POV Sprint (Footstep Cadence)`;
+          vectorDesc = `First-Person POV Sprint (Hands In Frame)`;
           break;
 
         case 'ots-shot':

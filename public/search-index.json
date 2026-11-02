@@ -138,7 +138,7 @@
     "created": "2026-10-30",
     "updated": "2026-10-30",
     "url": "/tutorials/ai-agent-sandbox-security-guide",
-    "cover": "/assets/covers/ai-agent-sandbox-security-guide.svg",
+    "cover": "/assets/covers/ai-agent-sandbox-security-guide.png",
     "featured": true
   },
   {
@@ -170,6 +170,130 @@
     "updated": "2026-10-30",
     "url": "/tutorials/vibe-coding-defense-guide-part-1",
     "cover": "/assets/covers/vibe-coding-defense-guide-part-1.png",
+    "featured": true
+  },
+  {
+    "id": "vibe-coding-defense-guide-part-2",
+    "title": "Vibe Coding 不翻車指南（中）：拒絕「慢如牛」的半成品——如何指揮 AI 打造瘦身又快速的輕量級架構",
+    "type": "tutorial",
+    "category": "AI Engineering",
+    "summary": "專為非工程師與全職創作者打造的 Vibe Coding 避坑心法（中篇：架構瘦身與效能暗礁）。破解「五筆假資料」的甜蜜幻覺，詳解為什麼代碼在自己電腦順暢、上線給用戶卻卡死發燙。傳授「骨肉分離三層架構」與「水龍頭記憶體體檢」，附贈 4 套可直接複製貼給 Cursor / Claude 的極致效能優化 Prompt 錦囊。",
+    "tags": [
+      "Vibe Coding",
+      "效能優化",
+      "軟體架構",
+      "非工程師",
+      "Cursor",
+      "Claude",
+      "記憶體洩漏",
+      "骨肉分離",
+      "瘦身減肥"
+    ],
+    "tools": [
+      "Cursor",
+      "Claude 3.5 Sonnet",
+      "Windsurf",
+      "ChatGPT",
+      "v0",
+      "Astro"
+    ],
+    "created": "2026-10-30",
+    "updated": "2026-10-30",
+    "url": "/tutorials/vibe-coding-defense-guide-part-2",
+    "cover": "/assets/covers/vibe-coding-defense-guide-part-2.png",
+    "featured": true
+  },
+  {
+    "id": "vibe-coding-defense-guide-part-3",
+    "title": "Vibe Coding 不翻車指南（下）：告別「動一行崩全家」的長治久安 SOP——非工程師的自動化守門與全身健檢法",
+    "type": "tutorial",
+    "category": "AI Engineering",
+    "summary": "專為非工程師與全職創作者打造的 Vibe Coding 避坑心法（下篇大完結：維護發布與長治久安 SOP）。破解 API 金鑰公開露白被盜刷的破產地雷，傳授「三道零負擔自動守門員」流水線，以及專案長大後的「AI 全身健康體檢」審計手冊，附贈 4 套可直接複製貼給 Cursor / Claude 的終極防禦 Prompt 錦囊。",
+    "tags": [
+      "Vibe Coding",
+      "金鑰安全",
+      "自動化檢查",
+      "404審計",
+      "技術債",
+      "非工程師",
+      "軟體工程心法",
+      "長青系統",
+      "Prompt技巧"
+    ],
+    "tools": [
+      "Cursor",
+      "Claude 3.5 Sonnet",
+      "Windsurf",
+      "ChatGPT",
+      "v0",
+      "Astro"
+    ],
+    "created": "2026-10-30",
+    "updated": "2026-10-30",
+    "url": "/tutorials/vibe-coding-defense-guide-part-3",
+    "cover": "/assets/covers/vibe-coding-defense-guide-part-3.svg",
+    "featured": true
+  },
+  {
+    "id": "vibe-coding-harness-engineering-part-1",
+    "title": "Vibe Coding 進階心法（上）：學會 Harness Engineering —— 把 AI 野馬套上韁繩的「鷹架施工法」",
+    "type": "tutorial",
+    "category": "AI Engineering",
+    "summary": "專為非工程師與一人創作者打造的進階架構實戰！解密頂級工程師如何用「Harness Engineering（束具與鷹架工程）」駕馭隨機的 AI Agent。從「水泥灌漿模板」與「野馬韁繩」的直覺隱喻出發，傳授規格防護罩（Spec-Driven Development）與專案家規防護繩（Rule Harness），並附贈 4 套可直接複製至專案的規格模板與 .cursorrules 實戰憲法！",
+    "tags": [
+      "Vibe Coding",
+      "Harness Engineering",
+      "AI編程",
+      "Cursor",
+      "Claude",
+      "系統架構",
+      "非工程師",
+      "規格驅動開發",
+      "Prompt錦囊"
+    ],
+    "tools": [
+      "Cursor",
+      "Claude 3.5 Sonnet",
+      "Windsurf",
+      "ChatGPT",
+      "v0",
+      "Astro"
+    ],
+    "created": "2026-10-30",
+    "updated": "2026-10-30",
+    "url": "/tutorials/vibe-coding-harness-engineering-part-1",
+    "cover": "/assets/covers/vibe-coding-harness-engineering-part-1.svg",
+    "featured": true
+  },
+  {
+    "id": "vibe-coding-harness-engineering-part-2",
+    "title": "Vibe Coding 進階心法（下）：打造閉環自癒的「自動試車台」—— 不用看懂程式碼，讓 AI 自己改考卷修到好",
+    "type": "tutorial",
+    "category": "AI Engineering",
+    "summary": "專為非工程師與一人創作者打造的進階架構實戰完結篇！深入拆解 Harness Engineering 的核心武器「自動試車台（Evaluation & Verification Harness）」。藉由 F1 賽車室內測功機的直覺隱喻，傳授如何為專案建立「一鍵冒煙檢測」與「閉環自癒反饋系統（Self-Healing Closed Loop）」，讓 AI 在背景自主修復 Bug 直到全站綠燈，徹底告別手忙腳亂的人工肉眼測試！",
+    "tags": [
+      "Vibe Coding",
+      "Harness Engineering",
+      "AI編程",
+      "自動化測試",
+      "自癒系統",
+      "Cursor",
+      "Claude",
+      "非工程師",
+      "Prompt錦囊"
+    ],
+    "tools": [
+      "Cursor",
+      "Claude 3.5 Sonnet",
+      "Windsurf",
+      "ChatGPT",
+      "v0",
+      "Astro"
+    ],
+    "created": "2026-10-30",
+    "updated": "2026-10-30",
+    "url": "/tutorials/vibe-coding-harness-engineering-part-2",
+    "cover": "/assets/covers/vibe-coding-harness-engineering-part-2.svg",
     "featured": true
   },
   {
@@ -315,7 +439,7 @@
     "created": "2026-10-27",
     "updated": "2026-10-27",
     "url": "/skills/camera-controls",
-    "cover": "/assets/covers/camera-controls.svg",
+    "cover": "/assets/covers/camera-controls.png",
     "featured": true
   },
   {
@@ -528,7 +652,7 @@
     "created": "2026-10-21",
     "updated": "2026-10-21",
     "url": "/tutorials/ai-agent-workflow-patterns-2026",
-    "cover": "/assets/covers/ai-agent-workflow-patterns-2026.svg",
+    "cover": "/assets/covers/ai-agent-workflow-patterns-2026.png",
     "featured": false
   },
   {
@@ -559,7 +683,7 @@
     "created": "2026-10-21",
     "updated": "2026-10-21",
     "url": "/tutorials/enterprise-rag-architecture-guide",
-    "cover": "/assets/covers/enterprise-rag-architecture-guide.svg",
+    "cover": "/assets/covers/enterprise-rag-architecture-guide.png",
     "featured": false
   },
   {
@@ -590,7 +714,7 @@
     "created": "2026-10-21",
     "updated": "2026-10-21",
     "url": "/tutorials/local-llm-deployment-vllm-ollama",
-    "cover": "/assets/covers/local-llm-deployment-vllm-ollama.svg",
+    "cover": "/assets/covers/local-llm-deployment-vllm-ollama.png",
     "featured": false
   },
   {
