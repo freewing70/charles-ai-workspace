@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="auto">
+  <defs>
+    <linearGradient id="layer-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="520" rx="20" fill="url(#layer-bg)"/>
+  <rect width="958" height="518" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">SEPARATION OF CONCERNS (SoC)</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">骨肉分離三層法：換衣服永遠不用動手術！</text>
+  </g>
+
+  <!-- Layer 1: Clothes (UI View) -->
+  <g transform="translate(100, 90)">
+    <rect width="760" height="100" rx="14" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+    <rect width="10" height="100" rx="5" fill="#38BDF8"/>
+    
+    <circle cx="45" cy="35" r="18" fill="rgba(56,189,248,0.2)"/>
+    <text x="45" y="42" text-anchor="middle" font-size="16">👔</text>
+    <text x="75" y="40" fill="#7DD3FC" font-family="-apple-system, sans-serif" font-size="18" font-weight="800">第一層：衣服層（UI View 元件 · 只管漂亮長相）</text>
+    <rect x="670" y="25" width="70" height="24" rx="12" fill="rgba(56,189,248,0.15)"/>
+    <text x="705" y="41" text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11" font-weight="800">純展示元件</text>
+
+    <text x="75" y="70" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="13.5">
+      • <tspan font-weight="700" fill="#FFFFFF">職責界線：</tspan> 只負責按鈕排版、顏色樣式、點擊事件傳遞。
+    </text>
+    <text x="75" y="90" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">
+      • 嚴禁在裡面寫複雜的資料庫運算、排序過濾、或網路 fetch，換版型像換衣服一樣輕鬆！
+    </text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="480" y1="190" x2="480" y2="230" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-down)"/>
+  <rect x="420" y="200" width="120" height="20" rx="10" fill="#0F172A" stroke="#475569"/>
+  <text x="480" y="214" text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">呼叫業務邏輯</text>
+
+  <!-- Layer 2: Muscle (Business Logic) -->
+  <g transform="translate(100, 235)">
+    <rect width="760" height="100" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
+    <rect width="10" height="100" rx="5" fill="#F59E0B"/>
+    
+    <circle cx="45" cy="35" r="18" fill="rgba(245,158,11,0.2)"/>
+    <text x="45" y="42" text-anchor="middle" font-size="16">💪</text>
+    <text x="75" y="40" fill="#FCD34D" font-family="-apple-system, sans-serif" font-size="18" font-weight="800">第二層：肌肉層（Business Logic 模組 · 負責出力計算）</text>
+    <rect x="670" y="25" width="70" height="24" rx="12" fill="rgba(245,158,11,0.15)"/>
+    <text x="705" y="41" text-anchor="middle" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="11" font-weight="800">純計算模組</text>
+
+    <text x="75" y="70" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="13.5">
+      • <tspan font-weight="700" fill="#FFFFFF">職責界線：</tspan> 折扣公式、購物車總額計算、會員權限檢查、資料分頁篩選。
+    </text>
+    <text x="75" y="90" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">
+      • 不管畫面長什麼樣子！寫成純函數（Pure Function），任何地方都能重複使用且極好測試。
+    </text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="480" y1="335" x2="480" y2="375" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-down)"/>
+  <rect x="420" y="345" width="120" height="20" rx="10" fill="#0F172A" stroke="#475569"/>
+  <text x="480" y="359" text-anchor="middle" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">存取標準資料</text>
+
+  <!-- Layer 3: Bone (Data Schema) -->
+  <g transform="translate(100, 380)">
+    <rect width="760" height="100" rx="14" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+    <rect width="10" height="100" rx="5" fill="#10B981"/>
+    
+    <circle cx="45" cy="35" r="18" fill="rgba(16,185,129,0.2)"/>
+    <text x="45" y="42" text-anchor="middle" font-size="16">🦴</text>
+    <text x="75" y="40" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="18" font-weight="800">第三層：骨架層（Data Schema / API · 定義真實結構）</text>
+    <rect x="670" y="25" width="70" height="24" rx="12" fill="rgba(16,185,129,0.15)"/>
+    <text x="705" y="41" text-anchor="middle" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11" font-weight="800">資料模型</text>
+
+    <text x="75" y="70" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="13.5">
+      • <tspan font-weight="700" fill="#FFFFFF">職責界線：</tspan> 資料庫欄位定義、API Request / Response 格式、Zod / TypeScript 型別。
+    </text>
+    <text x="75" y="90" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">
+      • 作為全系統唯一的契約（Contract）！骨頭穩固，整個軟體怎麼改都不會散架。
+    </text>
+  </g>
+</svg>

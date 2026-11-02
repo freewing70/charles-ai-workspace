@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="auto">
+  <defs>
+    <linearGradient id="diet-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="480" rx="20" fill="url(#diet-bg)"/>
+  <rect width="958" height="478" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">BUNDLE WEIGHT &amp; SPEED DIET</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">軟體瘦身大作戰：肥大臃腫版 vs 極速輕量版</text>
+  </g>
+
+  <!-- Left: Bloated Version -->
+  <g transform="translate(50, 95)">
+    <rect width="405" height="345" rx="16" fill="rgba(244,63,94,0.06)" stroke="#F43F5E" stroke-width="1.5" stroke-dasharray="5 3"/>
+    
+    <g transform="translate(20, 20)">
+      <rect width="210" height="28" rx="14" fill="rgba(244,63,94,0.2)"/>
+      <text x="105" y="19" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">❌ 暴飲暴食版（AI 隨便裝套件）</text>
+    </g>
+
+    <!-- Big Weight Display -->
+    <g transform="translate(202, 105)">
+      <circle cx="0" cy="0" r="40" fill="#881337" stroke="#F43F5E" stroke-width="2"/>
+      <text x="0" y="7" fill="#FECDD3" font-family="-apple-system, sans-serif" font-size="16" font-weight="900" text-anchor="middle">85 MB</text>
+    </g>
+
+    <!-- Package list box -->
+    <rect x="35" y="165" width="335" height="95" rx="10" fill="#1E293B" stroke="#881337"/>
+    <text x="50" y="192" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="12">• 裝了 Moment.js (只為了格式化 1 個日期)</text>
+    <text x="50" y="215" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="12">• 裝了 Lodash 全家桶 (只用 1 個 deepClone)</text>
+    <text x="50" y="238" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="12">• 裝了 Axios、Framer Motion、四套圖示庫</text>
+
+    <text x="202" y="295" fill="#F87171" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" text-anchor="middle">
+      📱 4G 手機載入時間：6.8 秒（白畫面）
+    </text>
+    <text x="202" y="322" fill="#FECDD3" font-family="-apple-system, sans-serif" font-size="11.5" text-anchor="middle">
+      70% 的使用者在第 3 秒就沒耐性按跳出了！
+    </text>
+  </g>
+
+  <!-- Right: Slimmed Version -->
+  <g transform="translate(505, 95)">
+    <rect width="405" height="345" rx="16" fill="rgba(16,185,129,0.06)" stroke="#10B981" stroke-width="2"/>
+    
+    <g transform="translate(20, 20)">
+      <rect width="210" height="28" rx="14" fill="rgba(16,185,129,0.2)"/>
+      <text x="105" y="19" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">✅ 閃電輕量版（原生優先原則）</text>
+    </g>
+
+    <!-- Big Weight Display -->
+    <g transform="translate(202, 105)">
+      <circle cx="0" cy="0" r="40" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+      <text x="0" y="7" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="16" font-weight="900" text-anchor="middle">180 KB</text>
+    </g>
+
+    <!-- Package list box -->
+    <rect x="35" y="165" width="335" height="95" rx="10" fill="#1E293B" stroke="#10B981"/>
+    <text x="50" y="192" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="12">• 原生 Intl.DateTimeFormat (0 KB 零依賴)</text>
+    <text x="50" y="215" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="12">• 原生 structuredClone() 與 Array 方法</text>
+    <text x="50" y="238" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="12">• 原生 fetch() 與現代 CSS View Transitions</text>
+
+    <text x="202" y="295" fill="#34D399" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" text-anchor="middle">
+      ⚡ 4G 手機載入時間：0.2 秒（瞬間秒開）
+    </text>
+    <text x="202" y="322" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="11.5" text-anchor="middle">
+      體積縮減 99.7%！體驗絲滑流暢，Google SEO 滿分！
+    </text>
+  </g>
+</svg>

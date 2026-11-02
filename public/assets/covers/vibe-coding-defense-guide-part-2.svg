@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="vibe2-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06121E"/>
+      <stop offset="45%" stop-color="#0B233A"/>
+      <stop offset="100%" stop-color="#064E3B"/>
+    </linearGradient>
+
+    <!-- Speed & Lightness Accents -->
+    <linearGradient id="cyan-emerald" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#34D399"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#vibe2-bg)"/>
+
+  <!-- High-Tech Circuit & Speed Lines -->
+  <g stroke="rgba(56, 189, 248, 0.06)" stroke-width="1.5">
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="480" x2="1200" y2="480"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Ambient Glow Orbs -->
+  <circle cx="1060" cy="180" r="280" fill="#10B981" opacity="0.16" filter="blur(75px)"/>
+  <circle cx="150" cy="480" r="230" fill="#38BDF8" opacity="0.14" filter="blur(70px)"/>
+  <circle cx="650" cy="300" r="180" fill="#34D399" opacity="0.08" filter="blur(80px)"/>
+
+  <!-- Speedometer & Lightness Graphic on Right -->
+  <g transform="translate(860, 160)">
+    <!-- Speedometer Dial -->
+    <circle cx="0" cy="120" r="110" fill="rgba(15, 23, 42, 0.7)" stroke="#1E293B" stroke-width="4"/>
+    <path d="M -80 120 A 80 80 0 1 1 80 120" fill="none" stroke="url(#cyan-emerald)" stroke-width="12" stroke-linecap="round"/>
+    
+    <!-- Speed Needle -->
+    <line x1="0" y1="120" x2="55" y2="65" stroke="#F43F5E" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="0" cy="120" r="12" fill="#E2E8F0"/>
+
+    <text x="0" y="155" fill="#34D399" font-family="-apple-system, sans-serif" font-size="28" font-weight="900" text-anchor="middle">0.2s</text>
+    <text x="0" y="175" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle">LIGHTNING FAST 飛速載入</text>
+
+    <!-- Floating Badge: 98% Diet -->
+    <rect x="-65" y="225" width="130" height="36" rx="18" fill="rgba(16, 185, 129, 0.2)" stroke="#10B981" stroke-width="1.5"/>
+    <text x="0" y="248" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">⚡ 體積狂降 90%</text>
+  </g>
+
+  <!-- Main Content Header -->
+  <g transform="translate(100, 95)">
+    <!-- Pill Badge -->
+    <rect x="0" y="0" width="260" height="34" rx="17" fill="rgba(52, 211, 153, 0.15)" stroke="rgba(52, 211, 153, 0.4)"/>
+    <text x="130" y="22" fill="#34D399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1.5">VIBE CODING SERIES · PART 2</text>
+    
+    <!-- Title Lines -->
+    <text x="0" y="95" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="44" font-weight="900" letter-spacing="-0.5">Vibe Coding 不翻車指南（中）</text>
+    <text x="0" y="165" fill="url(#cyan-emerald)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="36" font-weight="800">拒絕「慢如牛」的半成品：架構瘦身術</text>
+    
+    <!-- Subtitle Details -->
+    <text x="0" y="235" fill="#E2E8F0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif" font-size="20" font-weight="500">
+      破解五筆假資料幻覺 · 骨肉分離三層架構 · 拔除記憶體漏水暗礁 · 飛速輕量化指令
+    </text>
+  </g>
+
+  <!-- Feature Cards Row -->
+  <g transform="translate(100, 365)">
+    <!-- Feature 1 -->
+    <g transform="translate(0, 0)">
+      <rect width="210" height="72" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="32" cy="36" r="15" fill="rgba(244,63,94,0.2)"/>
+      <text x="32" y="41" fill="#F43F5E" font-size="13" font-weight="bold" text-anchor="middle">💥</text>
+      <text x="58" y="31" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700">破解假資料陷阱</text>
+      <text x="58" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11.5">千筆壓測告別卡頓</text>
+    </g>
+
+    <!-- Feature 2 -->
+    <g transform="translate(230, 0)">
+      <rect width="210" height="72" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="32" cy="36" r="15" fill="rgba(56,189,248,0.2)"/>
+      <text x="32" y="41" fill="#38BDF8" font-size="13" font-weight="bold" text-anchor="middle">🦴</text>
+      <text x="58" y="31" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700">骨肉分離三層法</text>
+      <text x="58" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11.5">畫面與資料徹底解耦</text>
+    </g>
+
+    <!-- Feature 3 -->
+    <g transform="translate(460, 0)">
+      <rect width="210" height="72" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="32" cy="36" r="15" fill="rgba(245,158,11,0.2)"/>
+      <text x="32" y="41" fill="#F59E0B" font-size="13" font-weight="bold" text-anchor="middle">🚰</text>
+      <text x="58" y="31" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700">水龍頭記憶體體檢</text>
+      <text x="58" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11.5">杜絕無效重繪與漏水</text>
+    </g>
+
+    <!-- Feature 4 -->
+    <g transform="translate(690, 0)">
+      <rect width="210" height="72" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+      <circle cx="32" cy="36" r="15" fill="rgba(16,185,129,0.2)"/>
+      <text x="32" y="41" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">🚀</text>
+      <text x="58" y="31" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="700">原生極致輕量化</text>
+      <text x="58" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11.5">打造 0 毫秒極速載入</text>
+    </g>
+  </g>
+
+  <!-- Bottom Footer -->
+  <g transform="translate(100, 490)">
+    <rect x="0" y="0" width="1000" height="1" fill="rgba(255,255,255,0.15)"/>
+    <text x="0" y="45" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="800">FREEWINGBIZ</text>
+    <text x="140" y="45" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16">｜ 智能時代架構指南 2026</text>
+    <text x="1000" y="45" fill="#34D399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600" text-anchor="end">freewingbiz.com/tutorials</text>
+  </g>
+</svg>
