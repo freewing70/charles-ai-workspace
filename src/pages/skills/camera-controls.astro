@@ -2221,22 +2221,22 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
 
         // Compound (14)
         case 'orbit-360':
-          const orbAngle = isComboMode ? (p * Math.PI * 2) : ((activeProgress * 1.5) % (Math.PI * 2));
+          const orbAngle = isComboMode ? (p * Math.PI * 2) : (activeProgress * 0.7);
           const orbDeg = (orbAngle * 180 / Math.PI) % 360;
           // True 360° rotation: Subject rotates smoothly so all 360 degrees of the silhouette are visible
           subjectAnchor.style.transform = `rotateY(${-orbDeg}deg)`;
           subjectAnchor.style.boxShadow = '0 0 25px rgba(0, 242, 254, 0.45)';
-          // Seamless panoramic horizon drift
-          horizonOffset = -((orbDeg / 360) * 180);
+          // Seamless continuous sinusoidal horizon drift (zero popping at 360 boundary)
+          horizonOffset = -Math.sin(orbAngle) * 65;
           horizonLayer.style.transform = `translateX(${horizonOffset}px)`;
           if (layerForegroundLeft) layerForegroundLeft.style.transform = `translateX(${Math.sin(orbAngle) * 45}px) scale(${1 + Math.cos(orbAngle) * 0.15})`;
           if (layerForegroundRight) layerForegroundRight.style.transform = `translateX(${-Math.sin(orbAngle) * 45}px) scale(${1 - Math.cos(orbAngle) * 0.15})`;
-          // God's Eye 3D Rig
-          rigTransX = Math.cos(orbAngle) * 75;
-          rigTransY = Math.sin(orbAngle) * 75;
-          rigRotZ = orbDeg - 90;
-          posX = 2.4 * Math.cos(orbAngle);
-          posY = 2.4 * Math.sin(orbAngle);
+          // God's Eye 3D Rig: smooth circular orbit starting in front of actor, pointing at center
+          rigTransX = Math.sin(orbAngle) * 75;
+          rigTransY = Math.cos(orbAngle) * 75;
+          rigRotZ = -orbDeg;
+          posX = 2.4 * Math.sin(orbAngle);
+          posY = 2.4 * Math.cos(orbAngle);
           rotY = orbDeg;
           vectorDesc = `Orbit 360°: ${rotY.toFixed(0)}° / 360° (全景環繞)`;
           break;
@@ -2492,49 +2492,50 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           break;
 
         case 'bullet-time':
-          const btAngle = isComboMode ? (p * Math.PI * 2) : (activeProgress * 3.2);
+          // Bullet Time: Cinematic slow-motion orbit around frozen limbo dodge
+          const btAngle = isComboMode ? (p * Math.PI * 2) : (activeProgress * 0.55);
           const btDeg = (btAngle * 180 / Math.PI) % 360;
 
-          // Matrix iconic limbo dodge pose: leaning BACKWARDS (-35deg) while camera orbits
+          // Matrix iconic limbo dodge pose: leaning BACKWARDS (-35deg) while camera slowly sweeps
           subjectAnchor.style.transformOrigin = 'center 80%';
           subjectAnchor.style.transform = `rotateX(-35deg) rotateZ(-10deg) rotateY(${-btDeg}deg) scale(1.08)`;
-          subjectAnchor.style.boxShadow = '0 0 40px rgba(16, 185, 129, 0.85), 0 0 75px rgba(6, 182, 212, 0.5)';
-          subjectAnchor.style.filter = 'drop-shadow(0 0 16px #10B981) contrast(1.25)';
+          subjectAnchor.style.boxShadow = '0 0 40px rgba(16, 185, 129, 0.75), 0 0 75px rgba(6, 182, 212, 0.45)';
+          subjectAnchor.style.filter = 'drop-shadow(0 0 14px #10B981) contrast(1.2)';
 
-          // Bullet Time FX: speed lines
-          if (layerFxSpeed) layerFxSpeed.style.opacity = '0.75';
+          // Subtle time-dilation radial aura (clean, not blocking the view)
+          if (layerFxSpeed) layerFxSpeed.style.opacity = '0.22';
 
-          // True 3D Bullet in mid-air: hovering horizontally right over Neo's dodging chest
+          // True 3D Suspended Bullet: stationary in world space, viewed from orbiting camera
           if (layerBulletProjectile) {
             layerBulletProjectile.style.opacity = '1';
             // Pure 3D camera coordinate transformation as virtual rig orbits Neo at (0,0,0)
-            const bX = Math.cos(btAngle) * 22 - Math.sin(btAngle) * 38;
-            const bZ = Math.sin(btAngle) * 22 + Math.cos(btAngle) * 38;
+            const bX = Math.cos(btAngle) * 20 - Math.sin(btAngle) * 35;
+            const bZ = Math.sin(btAngle) * 20 + Math.cos(btAngle) * 35;
             const bY = -24;
             layerBulletProjectile.style.transform = `translate3d(${bX.toFixed(1)}px, ${bY}px, ${bZ.toFixed(1)}px) rotateY(${-btDeg}deg)`;
           }
 
-          // God's Eye 3D Rig bullet marker
+          // God's Eye 3D Rig bullet marker in space
           if (godEyeBulletMarker) {
             godEyeBulletMarker.style.opacity = '1';
           }
 
-          // Dynamic horizon warp
-          horizonOffset = -((btDeg / 360) * 260);
+          // Smooth continuous panoramic horizon drift (sinusoidal, zero popping)
+          horizonOffset = -Math.sin(btAngle) * 70;
           horizonLayer.style.transform = `translateX(${horizonOffset}px)`;
-          if (layerForegroundLeft) layerForegroundLeft.style.transform = `translateX(${Math.sin(btAngle) * 60}px)`;
-          if (layerForegroundRight) layerForegroundRight.style.transform = `translateX(${-Math.sin(btAngle) * 60}px)`;
+          if (layerForegroundLeft) layerForegroundLeft.style.transform = `translateX(${Math.sin(btAngle) * 50}px)`;
+          if (layerForegroundRight) layerForegroundRight.style.transform = `translateX(${-Math.sin(btAngle) * 50}px)`;
 
-          // God's Eye 3D Rig: rapid orbit
-          rigTransX = Math.cos(btAngle) * 85;
-          rigTransY = Math.sin(btAngle) * 85;
-          rigRotZ = btDeg - 90;
-          posX = 2.8 * Math.cos(btAngle);
-          posY = 2.8 * Math.sin(btAngle);
+          // God's Eye 3D Rig: smooth cinematic orbit starting in front of actor, pointing at center
+          rigTransX = Math.sin(btAngle) * 85;
+          rigTransY = Math.cos(btAngle) * 85;
+          rigRotZ = -btDeg;
+          posX = 2.8 * Math.sin(btAngle);
+          posY = 2.8 * Math.cos(btAngle);
           posZ = 1.0;
           rotY = btDeg;
           rotP = 15;
-          vectorDesc = `Bullet Time: 360° Orbit (時間凝結 0.01x)`;
+          vectorDesc = `Bullet Time: 360° Slow Orbit (時間凝結 0.01x) · ${btDeg.toFixed(0)}°`;
           break;
 
         case 'split-diopter':
