@@ -11,7 +11,7 @@ status: "active"
 visibility: "public"
 tags: ["AI運鏡", "鏡頭語言", "AI短劇", "Prompt生成器", "可靈Kling", "Runway", "Sora", "Luma", "Wan2.1", "分鏡腳本"]
 tools: ["Kling AI", "Runway Gen-3", "Luma Dream Machine", "OpenAI Sora", "Wan 2.1", "CSS 3D", "Vanilla JS"]
-cover: "/assets/covers/camera-controls.svg"
+cover: "/assets/covers/camera-controls.png"
 featured: true
 relatedSkills: ["ai-film-director"]
 ---

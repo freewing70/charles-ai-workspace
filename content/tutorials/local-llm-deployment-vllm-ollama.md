@@ -11,7 +11,7 @@ status: "active"
 visibility: "public"
 tags: ["本地大模型", "vLLM", "Ollama", "PagedAttention", "模型量化", "顯存優化", "高併發推理", "張量並行"]
 tools: ["vLLM", "Ollama", "Docker", "FastAPI", "HuggingFace", "Python", "CUDA"]
-cover: "/assets/covers/local-llm-deployment-vllm-ollama.svg"
+cover: "/assets/covers/local-llm-deployment-vllm-ollama.png"
 featured: false
 ---
 

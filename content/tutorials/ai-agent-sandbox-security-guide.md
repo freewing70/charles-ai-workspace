@@ -11,7 +11,7 @@ status: "active"
 visibility: "public"
 tags: ["AI Agent", "Agent安全", "沙盒隔離", "gVisor", "網路出口管制", "eBPF", "Human-in-the-loop", "企業AI架構", "資訊安全", "Prompt Injection"]
 tools: ["Docker", "gVisor", "eBPF", "iptables", "Python", "LangGraph", "FastAPI"]
-cover: "/assets/covers/ai-agent-sandbox-security-guide.svg"
+cover: "/assets/covers/ai-agent-sandbox-security-guide.png"
 featured: true
 ---
 

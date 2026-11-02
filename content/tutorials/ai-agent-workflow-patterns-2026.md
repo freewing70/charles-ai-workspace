@@ -11,7 +11,7 @@ status: "active"
 visibility: "public"
 tags: ["AI Agent", "智能體", "MCP", "ReAct", "多智能體協作", "工作流設計", "Prompt工程", "自動化"]
 tools: ["Model Context Protocol", "LangGraph", "Claude 3.5 Sonnet", "Gemini 1.5 Pro", "Python", "TypeScript"]
-cover: "/assets/covers/ai-agent-workflow-patterns-2026.svg"
+cover: "/assets/covers/ai-agent-workflow-patterns-2026.png"
 featured: false
 ---
 
