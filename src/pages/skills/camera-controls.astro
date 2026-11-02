@@ -2179,8 +2179,8 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
         case 'crash-zoom':
           const crashFactor = isComboMode ? Math.pow(p, 2.5) : Math.pow(tNorm, 3);
           vfScale = 0.95 + 1.25 * crashFactor;
-          if (crashFactor > 0.35 && layerFxSpeed) {
-            layerFxSpeed.style.opacity = `${(crashFactor - 0.35) * 2.2}`;
+          if (layerFxSpeed) {
+            layerFxSpeed.style.opacity = crashFactor > 0.35 ? `${(crashFactor - 0.35) * 2.0}` : '0';
           }
           vectorDesc = `Crash Zoom: ${(35 + 90 * crashFactor).toFixed(0)}mm (Rapid Snap)`;
           break;
@@ -2249,7 +2249,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           vfRotY = -arcDegL;
           rigTransX = -Math.sin(arcAngleL) * 80;
           rigTransY = Math.cos(arcAngleL) * 80;
-          rigRotZ = -arcDegL;
+          rigRotZ = arcDegL; // Points directly towards the actor at center
           rotY = -arcDegL;
           horizonOffset = arcAngleL * 40;
           vectorDesc = `Arc Left 90°: ${rotY.toFixed(1)}° (Reveal Crowd)`;
@@ -2262,7 +2262,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           vfRotY = arcDegR;
           rigTransX = Math.sin(arcAngleR) * 80;
           rigTransY = Math.cos(arcAngleR) * 80;
-          rigRotZ = arcDegR;
+          rigRotZ = -arcDegR; // Points directly towards the actor at center
           rotY = arcDegR;
           horizonOffset = -arcAngleR * 40;
           vectorDesc = `Arc Right 90°: +${rotY.toFixed(1)}°`;
@@ -2301,7 +2301,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           horizonOffset = -70 * t;
           rigTransX = 65;
           rigTransY = 18 * t;
-          rigRotZ = 90;
+          rigRotZ = -90; // Points LEFT towards the actor at (0,0)
           rotY = 90;
           vectorDesc = `Side Tracking: Profile View (Lat. Follow)`;
           break;
@@ -2324,11 +2324,13 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
             viewfinderStage.style.filter = `blur(${(whipPhase - 0.45) * 20}px)`;
             if (layerFxSpeed) layerFxSpeed.style.opacity = `${(whipPhase - 0.45) * 2.2}`;
             vfRotY = Math.sign(whipT || 1) * 70 * whipPhase;
+            rigRotZ = -vfRotY * 1.2;
             vectorDesc = `Whip Pan: Swish Flash Blur!`;
           } else {
             viewfinderStage.style.filter = 'none';
             if (layerFxSpeed) layerFxSpeed.style.opacity = '0';
             vfRotY = whipT * 30;
+            rigRotZ = -vfRotY * 1.2;
             vectorDesc = `Whip Pan Kinetic Sweep`;
           }
           break;
@@ -2356,6 +2358,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           vfTransY = -70 + craneP * 70;
           vfRotX = 35 - craneP * 35;
           vfScale = 0.75 + craneP * 0.45;
+          horizonLayer.style.transform = `translateY(${-30 + craneP * 30}px)`;
           rigTransZ = -70 + craneP * 70;
           rigTransY = 120 - craneP * 45;
           posZ = 12.0 - craneP * 10.5;
@@ -2364,16 +2367,20 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           break;
 
         case 'spiral-corkscrew':
-          const scAngle = activeProgress * 2.0;
+          const scAngle = isComboMode ? (p * Math.PI * 2) : (activeProgress * 0.8);
           const scDeg = (scAngle * 180 / Math.PI) % 360;
           const scP = isComboMode ? p : tNorm;
           // Smooth continuous corkscrew 360 rotation around character
           subjectAnchor.style.transform = `rotateY(${-scDeg}deg)`;
           vfScale = 1.1 - 0.3 * scP;
           vfTransY = -45 * scP;
-          rigTransX = Math.cos(scAngle) * 65;
-          rigTransY = Math.sin(scAngle) * 65;
-          rigTransZ = -50 * scP;
+          horizonOffset = -Math.sin(scAngle) * 50;
+          horizonLayer.style.transform = `translateX(${horizonOffset}px)`;
+          // God's Eye 3D Rig: start in front, spiral upward pointing inward at the actor
+          rigTransX = Math.sin(scAngle) * 65;
+          rigTransY = Math.cos(scAngle) * 65;
+          rigTransZ = -50 * scP; // Negative Z goes up into the sky
+          rigRotZ = -scDeg; // Points at actor
           posZ = 1.2 + 6.0 * scP;
           rotY = scDeg;
           vectorDesc = `Spiral Corkscrew: Z=${posZ.toFixed(1)}m, Rot=${scDeg.toFixed(0)}°`;
@@ -2384,15 +2391,18 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           vfTransY = -120 + diveFactor * 160;
           vfScale = 0.6 + diveFactor * 1.8;
           vfRotX = 75 - diveFactor * 75;
-          vfRotZ = Math.sin(activeProgress * 3.5) * 26 * (1 - diveFactor * 0.5);
+          vfRotZ = Math.sin(activeProgress * 2.5) * 20 * (1 - diveFactor * 0.5);
           rotR = vfRotZ;
           rotP = vfRotX;
           posZ = 18.0 - diveFactor * 16.5;
-          rigTransZ = 80 - diveFactor * 75;
-          if (diveFactor > 0.25 && layerFxSpeed) {
-            layerFxSpeed.style.opacity = `${(diveFactor - 0.25) * 1.8}`;
+          rigTransX = 0;
+          rigTransY = 110 - diveFactor * 70; // Swoops in from distance
+          rigTransZ = -80 + diveFactor * 75; // Starts high in sky (-80), plunges down to floor (-5)
+          rigRotZ = vfRotZ;
+          if (layerFxSpeed) {
+            layerFxSpeed.style.opacity = diveFactor > 0.25 ? `${(diveFactor - 0.25) * 1.8}` : '0';
           }
-          vectorDesc = `FPV Dive: Z=${posZ.toFixed(1)}m, Dive Speed: ${(diveFactor * 160).toFixed(0)}km/h`;
+          vectorDesc = `FPV Dive: Z=${posZ.toFixed(1)}m, Speed: ${(diveFactor * 160).toFixed(0)}km/h`;
           break;
 
         case 'fly-through':
@@ -2403,23 +2413,26 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
             layerForegroundLeft.style.transform = `translateX(${-flyP * 150}px) scale(${1 + flyP})`;
             layerForegroundRight.style.transform = `translateX(${flyP * 150}px) scale(${1 + flyP})`;
           }
+          rigTransY = 125 - flyP * 90; // Flies forward in God's eye view
+          posY = -3.5 + flyP * 2.5;
           vectorDesc = `Fly-Through Penetrating Portal`;
           break;
 
         // Special (8)
         case 'birds-eye':
           const beP = isComboMode ? p : tNorm;
-          const beRot = beP * 45;
+          const beRot = beP * 30;
           vfRotX = 82;
           vfRotZ = beRot;
           vfTransY = -40 + beP * 15;
-          vfScale = 0.75 + beP * 0.3;
+          vfScale = 0.75 + beP * 0.2;
           subjectAnchor.style.transform = `rotateX(-50deg) scale(0.85)`;
           rotP = -90;
           rotR = beRot;
           posZ = 18.0 - beP * 6.0;
+          rigTransX = 0;
           rigTransY = 0;
-          rigTransZ = 85 - beP * 25;
+          rigTransZ = -85 + beP * 25; // Negative Z is high in the sky directly above actor
           rigRotZ = beRot;
           vectorDesc = `Birds-Eye: 90° Top-Down View (Z=${posZ.toFixed(1)}m, Rot: ${beRot.toFixed(0)}°)`;
           break;
@@ -2432,8 +2445,10 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           vfScale = 1.35 + 0.2 * weP + 0.05 * weBreath;
           rotP = 65;
           posZ = 0.15;
-          rigTransY = 40;
-          rigTransZ = -30;
+          rigTransX = 0;
+          rigTransY = 35; // Close to feet
+          rigTransZ = 12; // Low on the floor surface
+          rigRotZ = 0;
           vectorDesc = `Worm-Eye: Ground Upward +65°`;
           break;
 
@@ -2448,7 +2463,7 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           break;
 
         case 'pov-shot':
-          const povCadence = activeProgress * 4;
+          const povCadence = activeProgress * 3.5;
           // In first-person POV, user IS the character: hide mannequin & display POV hands
           subjectAnchor.style.opacity = '0';
           if (layerPovHands) layerPovHands.style.opacity = '1';
@@ -2461,6 +2476,10 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           vfRotZ = Math.sin(povCadence) * 3.5;
           vfRotX = Math.cos(povCadence) * 2;
           vfScale = 1.02 + 0.05 * Math.sin(povCadence * 2);
+          // In God's eye, camera is right at character position
+          rigTransX = Math.sin(povCadence) * 6;
+          rigTransY = 20 + Math.cos(povCadence * 2) * 5;
+          rigRotZ = Math.sin(povCadence) * 4;
           vectorDesc = `First-Person POV Sprint (Hands In Frame)`;
           break;
 
@@ -2477,6 +2496,9 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           if (layerOtsShoulder) {
             layerOtsShoulder.style.transform = `translateX(${-otsSway * 4}px) translateY(${otsBreath * 2}px)`;
           }
+          rigTransX = -25; // Over left shoulder in God's Eye
+          rigTransY = 75;
+          rigRotZ = 15;
           vectorDesc = `Over-The-Shoulder Dialogue (Tension Push: +${(otsP * 100).toFixed(0)}%)`;
           break;
 
@@ -2487,6 +2509,8 @@ const coverUrl = getAssetUrl('/assets/covers/camera-controls.svg');
           vfScale = 1.25 + 0.05 * Math.cos(activeProgress * 1.5);
           rotP = 30;
           posZ = 0.6;
+          rigTransY = 55;
+          rigTransZ = 10;
           subjectAnchor.style.boxShadow = '0 0 35px rgba(234, 179, 8, 0.4)';
           vectorDesc = `Low-Angle Hero Shot (King Aura)`;
           break;
