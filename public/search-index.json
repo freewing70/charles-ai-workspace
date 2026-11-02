@@ -1,5 +1,41 @@
 [
   {
+    "id": "2026-11-02",
+    "title": "Chow 的 AI 模型日報｜第 036 號 (2026.11.02)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "OpenAI 支援文件預告 12 月起 Plus、Pro 與 Business 方案將在 ChatGPT 與 Codex 間共用使用額度，按 token 計量且 Instant 聊天不扣額度；DeepSeek 開源發布 dsh-superagent 團隊代理研究原型（MIT 授權），探索多代理目錄隔離與 PR 協作；韓國 10 月半導體出口暴增逾 2.5 倍達 564 億美元，受全球 AI 需求帶動但亦受工作天基期影響；HD Hyundai Robotics 導入 Palantir AI 代理使機器人排錯天數縮短逾六成，維持工程師現場審核機制；美國聯邦法院駁回 xAI 撤銷 NAACP 空污訴訟動議，Colossus 2 資料中心燃氣供電爭議將續審。",
+    "tags": [
+      "AI模型日報",
+      "ChatGPT",
+      "Codex",
+      "OpenAI",
+      "DeepSeek",
+      "Super-agent",
+      "半導體出口",
+      "AI晶片",
+      "HD Hyundai Robotics",
+      "Palantir",
+      "工業機器人",
+      "xAI",
+      "Colossus",
+      "清潔空氣法"
+    ],
+    "tools": [
+      "OpenAI",
+      "ChatGPT",
+      "Codex",
+      "DeepSeek",
+      "Palantir",
+      "xAI"
+    ],
+    "created": "2026-11-02",
+    "updated": "2026-11-02",
+    "url": "/newspapers/2026-11-02",
+    "cover": "/assets/covers/newspaper-2026-11-02-cover.jpg",
+    "featured": false
+  },
+  {
     "id": "2026-11-01",
     "title": "Chow 的 AI 模型日報｜第 035 號 (2026.11.01)",
     "type": "newspaper",
