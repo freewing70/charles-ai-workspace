@@ -11,7 +11,7 @@ status: draft
 visibility: private
 tags: ["InternalOnly", "SecurityTest"]
 tools: ["LocalLLM"]
-cover: /assets/placeholder.svg
+cover: /assets/freewing-hero-reference.png
 featured: false
 ---
 

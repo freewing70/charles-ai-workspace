@@ -7,12 +7,13 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "pnpm validate && pnpm check-size && pnpm build:index",
+    "prebuild": "pnpm validate && pnpm check-size && pnpm audit:covers && pnpm build:index",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "validate": "tsx scripts/validate-content.ts",
     "check-size": "tsx scripts/check-file-sizes.ts",
+    "audit:covers": "tsx scripts/audit-social-covers.ts",
     "build:index": "tsx scripts/build-search-index.ts",
     "add-content": "tsx scripts/add-content.ts"
   },
