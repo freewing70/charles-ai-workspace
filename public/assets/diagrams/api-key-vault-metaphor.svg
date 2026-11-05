@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="auto">
+  <defs>
+    <linearGradient id="vault-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="480" rx="20" fill="url(#vault-bg)"/>
+  <rect width="958" height="478" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">API KEY SECURITY PRINCIPLE</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">金鑰安全法則：別把密碼直接寫在客廳大門上！</text>
+  </g>
+
+  <!-- Left: Publicly Exposed Key (❌ 悲慘踩坑) -->
+  <g transform="translate(50, 95)">
+    <rect width="405" height="345" rx="16" fill="rgba(244,63,94,0.06)" stroke="#F43F5E" stroke-width="1.5" stroke-dasharray="5 3"/>
+    
+    <g transform="translate(20, 20)">
+      <rect width="210" height="28" rx="14" fill="rgba(244,63,94,0.2)"/>
+      <text x="105" y="19" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">❌ 金鑰寫在前端代碼（公開露白）</text>
+    </g>
+
+    <!-- Door Illustration -->
+    <rect x="135" y="65" width="135" height="110" rx="10" fill="#1E293B" stroke="#F43F5E" stroke-width="2"/>
+    <circle cx="160" cy="120" r="6" fill="#F43F5E"/>
+    
+    <!-- Exposed Note on Door -->
+    <rect x="155" y="85" width="95" height="55" rx="4" fill="#FFE4E6" stroke="#E11D48"/>
+    <text x="202" y="103" fill="#BE123C" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">sk-proj-984a...</text>
+    <text x="202" y="125" fill="#881337" font-family="-apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">API 金鑰直接貼大門</text>
+
+    <!-- Danger Text -->
+    <rect x="35" y="195" width="335" height="70" rx="10" fill="#1E293B" stroke="#881337"/>
+    <text x="50" y="220" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="12">• 任何用戶按 F12「檢查網頁」就能看見！</text>
+    <text x="50" y="243" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="12">• GitHub 爬蟲機器人 3 秒內自動撈走盜刷！</text>
+
+    <text x="202" y="295" fill="#F87171" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" text-anchor="middle">
+      💸 一夜之間收信：OpenAI 帳單爆增數千美元！
+    </text>
+    <text x="202" y="322" fill="#FECDD3" font-family="-apple-system, sans-serif" font-size="11.5" text-anchor="middle">
+      這是非工程師剛做 App 最常破產的致命傷！
+    </text>
+  </g>
+
+  <!-- Right: Secure Vault Pattern (✅ 架構師保險箱) -->
+  <g transform="translate(505, 95)">
+    <rect width="405" height="345" rx="16" fill="rgba(16,185,129,0.06)" stroke="#10B981" stroke-width="2"/>
+    
+    <g transform="translate(20, 20)">
+      <rect width="210" height="28" rx="14" fill="rgba(16,185,129,0.2)"/>
+      <text x="105" y="19" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">✅ 後端環境變數（保險箱隔離）</text>
+    </g>
+
+    <!-- Vault Illustration -->
+    <rect x="135" y="65" width="135" height="110" rx="12" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+    <circle cx="202" cy="120" r="24" fill="#047857" stroke="#34D399" stroke-width="2"/>
+    <text x="202" y="126" text-anchor="middle" font-size="16">🔐</text>
+
+    <!-- Vault Features -->
+    <rect x="35" y="195" width="335" height="70" rx="10" fill="#1E293B" stroke="#10B981"/>
+    <text x="50" y="220" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="12">• 金鑰只鎖在伺服器後端的 .env 檔案裡</text>
+    <text x="50" y="243" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="12">• .gitignore 嚴格禁止將機密傳上 GitHub</text>
+
+    <text x="202" y="295" fill="#34D399" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" text-anchor="middle">
+      🛡️ 前端完全碰不到金鑰！安全無懈可擊
+    </text>
+    <text x="202" y="322" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="11.5" text-anchor="middle">
+      所有請求由自己的安全伺服器代轉，萬無一失！
+    </text>
+  </g>
+</svg>

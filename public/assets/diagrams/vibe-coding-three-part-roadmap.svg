@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="auto">
+  <defs>
+    <linearGradient id="map-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="480" rx="20" fill="url(#map-bg)"/>
+  <rect width="958" height="478" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">THE COMPLETE VIBE CODING DEFENSE ROADMAP</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">Vibe Coding 不翻車三部曲：全景防線總覽</text>
+  </g>
+
+  <!-- Pillar 1: Part 1 -->
+  <g transform="translate(60, 105)">
+    <rect width="255" height="320" rx="16" fill="rgba(245,158,11,0.08)" stroke="#F59E0B" stroke-width="2"/>
+    <rect width="255" height="8" rx="4" fill="#F59E0B"/>
+    
+    <g transform="translate(20, 24)">
+      <rect width="130" height="26" rx="13" fill="rgba(245,158,11,0.2)"/>
+      <text x="65" y="18" fill="#FCD34D" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">上篇 · 觀念心法</text>
+    </g>
+
+    <text x="25" y="90" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="900">別讓 AI 寫出違章危樓</text>
+    <text x="25" y="112" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">守住第一道架構認知底線</text>
+
+    <!-- Checklist -->
+    <g transform="translate(25, 140)">
+      <text y="0" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 破解 AI「打補丁」惰性</text>
+      <text y="28" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 建立單一真實來源 (SSOT)</text>
+      <text y="56" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 拒絕多餘幽靈套件</text>
+      <text y="84" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 兩次道歉立刻煞車回滾</text>
+    </g>
+
+    <rect x="25" y="260" width="205" height="34" rx="8" fill="#78350F"/>
+    <text x="127" y="282" fill="#FDE68A" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">🎯 核心：打好穩固地基</text>
+  </g>
+
+  <!-- Pillar 2: Part 2 -->
+  <g transform="translate(352, 105)">
+    <rect width="255" height="320" rx="16" fill="rgba(16,185,129,0.08)" stroke="#10B981" stroke-width="2"/>
+    <rect width="255" height="8" rx="4" fill="#10B981"/>
+    
+    <g transform="translate(20, 24)">
+      <rect width="130" height="26" rx="13" fill="rgba(16,185,129,0.2)"/>
+      <text x="65" y="18" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">中篇 · 架構瘦身</text>
+    </g>
+
+    <text x="25" y="90" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="900">拒絕慢如牛的半成品</text>
+    <text x="25" y="112" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">掃除暗藏的記憶體與效能陷阱</text>
+
+    <!-- Checklist -->
+    <g transform="translate(25, 140)">
+      <text y="0" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 破解「五筆假資料」幻覺</text>
+      <text y="28" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 骨肉分離三層解耦架構</text>
+      <text y="56" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 關閉監聽器水龍頭防漏水</text>
+      <text y="84" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 圖片與資源 90% 瘦身術</text>
+    </g>
+
+    <rect x="25" y="260" width="205" height="34" rx="8" fill="#064E3B"/>
+    <text x="127" y="282" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">⚡ 核心：飛速輕量不卡頓</text>
+  </g>
+
+  <!-- Pillar 3: Part 3 -->
+  <g transform="translate(645, 105)">
+    <rect width="255" height="320" rx="16" fill="rgba(168,85,247,0.08)" stroke="#A855F7" stroke-width="2"/>
+    <rect width="255" height="8" rx="4" fill="#A855F7"/>
+    
+    <g transform="translate(20, 24)">
+      <rect width="130" height="26" rx="13" fill="rgba(168,85,247,0.2)"/>
+      <text x="65" y="18" fill="#D8B4FE" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">下篇 · 維護發布</text>
+    </g>
+
+    <text x="25" y="90" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="900">動一行崩全家的解法</text>
+    <text x="25" y="112" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">打造無痛永續的長青系統</text>
+
+    <!-- Checklist -->
+    <g transform="translate(25, 140)">
+      <text y="0" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• API 金鑰環境變數保險箱</text>
+      <text y="28" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 三道自動化守門員流水線</text>
+      <text y="56" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 定期 AI 全身架構健檢</text>
+      <text y="84" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="12.5">• 跨裝置與手機相容性自檢</text>
+    </g>
+
+    <rect x="25" y="260" width="205" height="34" rx="8" fill="#581C87"/>
+    <text x="127" y="282" fill="#F5D0FE" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">🛡️ 核心：100% 安心發布</text>
+  </g>
+</svg>

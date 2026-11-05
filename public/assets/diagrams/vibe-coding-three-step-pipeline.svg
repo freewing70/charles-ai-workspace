@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="auto">
+  <defs>
+    <linearGradient id="pipe-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F1D"/>
+      <stop offset="100%" stop-color="#151E32"/>
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 2 L 8 5 L 0 8 z" fill="#F59E0B"/>
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 2 L 8 5 L 0 8 z" fill="#10B981"/>
+    </marker>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 2 L 8 5 L 0 8 z" fill="#38BDF8"/>
+    </marker>
+    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 2 L 8 5 L 0 8 z" fill="#38BDF8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="520" rx="20" fill="url(#pipe-bg)"/>
+  <rect width="958" height="518" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Header -->
+  <g transform="translate(480, 32)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="800" letter-spacing="2">THE COMPLETE VIBE CODING DEFENSE WORKFLOW</text>
+    <text text-anchor="middle" y="24" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="21" font-weight="900">Vibe Coding 不翻車三部曲：全流程實踐防線</text>
+  </g>
+
+  <!-- ==================== CARD 1: 上篇 · 觀念心法防線 ==================== -->
+  <g transform="translate(50, 75)">
+    <rect width="860" height="96" rx="14" fill="rgba(245,158,11,0.06)" stroke="#F59E0B" stroke-width="1.5"/>
+    <rect width="6" height="96" rx="3" fill="#F59E0B"/>
+
+    <!-- Header line -->
+    <g transform="translate(20, 14)">
+      <rect width="105" height="22" rx="11" fill="#78350F"/>
+      <text x="52" y="15" fill="#FDE68A" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">STEP 01 · 上篇</text>
+
+      <text x="120" y="16" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">觀念心法防線 · 打好穩固地基</text>
+      <text x="820" y="16" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="end">🎯 目標：架構認知底線</text>
+    </g>
+
+    <!-- 4 Action Steps -->
+    <g transform="translate(20, 48)">
+      <!-- Step 1 -->
+      <rect x="0" y="0" width="180" height="34" rx="8" fill="#1E293B" stroke="rgba(245,158,11,0.3)"/>
+      <text x="90" y="21" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">1. 拒絕加蓋鐵皮屋</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <line x1="184" y1="17" x2="204" y2="17" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrow-amber)"/>
+
+      <!-- Step 2 -->
+      <rect x="210" y="0" width="180" height="34" rx="8" fill="#1E293B" stroke="rgba(245,158,11,0.3)"/>
+      <text x="300" y="21" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">2. 先查底層真正根因</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <line x1="394" y1="17" x2="414" y2="17" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrow-amber)"/>
+
+      <!-- Step 3 -->
+      <rect x="420" y="0" width="180" height="34" rx="8" fill="#1E293B" stroke="rgba(245,158,11,0.3)"/>
+      <text x="510" y="21" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">3. 建立單一真相來源</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <line x1="604" y1="17" x2="624" y2="17" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrow-amber)"/>
+
+      <!-- Step 4 (Highlight) -->
+      <rect x="630" y="0" width="190" height="34" rx="8" fill="#78350F" stroke="#F59E0B" stroke-width="1.5"/>
+      <text x="725" y="21" fill="#FEF3C7" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">4. 兩次道歉立刻回滾</text>
+    </g>
+  </g>
+
+  <!-- Flow Connector 1 -> 2 -->
+  <g transform="translate(480, 171)">
+    <line x1="0" y1="0" x2="0" y2="28" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-down)"/>
+    <rect x="-24" y="5" width="48" height="16" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1"/>
+    <text x="0" y="17" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">進階</text>
+  </g>
+
+  <!-- ==================== CARD 2: 中篇 · 架構瘦身防線 ==================== -->
+  <g transform="translate(50, 203)">
+    <rect width="860" height="96" rx="14" fill="rgba(16,185,129,0.06)" stroke="#10B981" stroke-width="1.5"/>
+    <rect width="6" height="96" rx="3" fill="#10B981"/>
+
+    <!-- Header line -->
+    <g transform="translate(20, 14)">
+      <rect width="105" height="22" rx="11" fill="#064E3B"/>
+      <text x="52" y="15" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">STEP 02 · 中篇</text>
+
+      <text x="120" y="16" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">架構瘦身防線 · 打造飛速體魄</text>
+      <text x="820" y="16" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="end">⚡ 目標：程式碼瘦身 90%</text>
+    </g>
+
+    <!-- 4 Action Steps -->
+    <g transform="translate(20, 48)">
+      <!-- Step 1 -->
+      <rect x="0" y="0" width="180" height="34" rx="8" fill="#1E293B" stroke="rgba(16,185,129,0.3)"/>
+      <text x="90" y="21" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">1. 拒絕五筆假資料幻覺</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <line x1="184" y1="17" x2="204" y2="17" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+      <!-- Step 2 -->
+      <rect x="210" y="0" width="180" height="34" rx="8" fill="#1E293B" stroke="rgba(16,185,129,0.3)"/>
+      <text x="300" y="21" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">2. 骨肉分離三層抽屜法</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <line x1="394" y1="17" x2="414" y2="17" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+      <!-- Step 3 -->
+      <rect x="420" y="0" width="180" height="34" rx="8" fill="#1E293B" stroke="rgba(16,185,129,0.3)"/>
+      <text x="510" y="21" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">3. 關緊第三方依賴水龍頭</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <line x1="604" y1="17" x2="624" y2="17" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+      <!-- Step 4 (Highlight) -->
+      <rect x="630" y="0" width="190" height="34" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="1.5"/>
+      <text x="725" y="21" fill="#D1FAE5" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">4. 首頁極速體積瘦身 90%</text>
+    </g>
+  </g>
+
+  <!-- Flow Connector 2 -> 3 -->
+  <g transform="translate(480, 299)">
+    <line x1="0" y1="0" x2="0" y2="28" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-down)"/>
+    <rect x="-24" y="5" width="48" height="16" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1"/>
+    <text x="0" y="17" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="9" font-weight="800" text-anchor="middle">進階</text>
+  </g>
+
+  <!-- ==================== CARD 3: 下篇 · 長青維護防線 ==================== -->
+  <g transform="translate(50, 331)">
+    <rect width="860" height="96" rx="14" fill="rgba(56,189,248,0.06)" stroke="#38BDF8" stroke-width="1.5"/>
+    <rect width="6" height="96" rx="3" fill="#38BDF8"/>
+
+    <!-- Header line -->
+    <g transform="translate(20, 14)">
+      <rect width="105" height="22" rx="11" fill="#0C4A6E"/>
+      <text x="52" y="15" fill="#BAE6FD" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">STEP 03 · 下篇</text>
+
+      <text x="120" y="16" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">長青維護防線 · 100% 安心發布</text>
+      <text x="820" y="16" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="end">🛡️ 目標：零意外安心上線</text>
+    </g>
+
+    <!-- 4 Action Steps -->
+    <g transform="translate(20, 48)">
+      <!-- Step 1 -->
+      <rect x="0" y="0" width="180" height="34" rx="8" fill="#1E293B" stroke="rgba(56,189,248,0.3)"/>
+      <text x="90" y="21" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">1. 金鑰環境變數保險箱</text>
+
+      <!-- Arrow 1 -> 2 -->
+      <line x1="184" y1="17" x2="204" y2="17" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+
+      <!-- Step 2 -->
+      <rect x="210" y="0" width="180" height="34" rx="8" fill="#1E293B" stroke="rgba(56,189,248,0.3)"/>
+      <text x="300" y="21" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">2. 三道自動守門員流水線</text>
+
+      <!-- Arrow 2 -> 3 -->
+      <line x1="394" y1="17" x2="414" y2="17" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+
+      <!-- Step 3 -->
+      <rect x="420" y="0" width="180" height="34" rx="8" fill="#1E293B" stroke="rgba(56,189,248,0.3)"/>
+      <text x="510" y="21" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">3. 定期全身 AI 專案健檢</text>
+
+      <!-- Arrow 3 -> 4 -->
+      <line x1="604" y1="17" x2="624" y2="17" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+
+      <!-- Step 4 (Highlight) -->
+      <rect x="630" y="0" width="190" height="34" rx="8" fill="#0C4A6E" stroke="#38BDF8" stroke-width="1.5"/>
+      <text x="725" y="21" fill="#E0F2FE" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">4. 長治久安 100% 安心交付</text>
+    </g>
+  </g>
+
+  <!-- Bottom Callout Footer -->
+  <g transform="translate(50, 452)">
+    <rect width="860" height="42" rx="10" fill="#1E293B" stroke="rgba(255,255,255,0.06)"/>
+    <circle cx="28" cy="21" r="12" fill="#334155"/>
+    <text x="28" y="26" text-anchor="middle" font-size="13">🏆</text>
+    <text x="50" y="26" fill="#E2E8F0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="700">
+      掌握這套防禦體系：無論未來 AI 工具如何演進，你都是掌控全局的系統總指揮官！
+    </text>
+  </g>
+</svg>

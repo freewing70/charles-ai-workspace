@@ -1,5 +1,36 @@
 [
   {
+    "id": "vibe-coding-defense-guide-part-3",
+    "title": "Vibe Coding 不翻車指南（下）：告別「動一行崩全家」的長治久安 SOP——非工程師的自動化守門與全身健檢法",
+    "type": "tutorial",
+    "category": "AI Engineering",
+    "summary": "專為非工程師與全職創作者打造的 Vibe Coding 避坑心法（下篇大完結：維護發布與長治久安 SOP）。破解 API 金鑰公開露白被盜刷的破產地雷，傳授「三道零負擔自動守門員」流水線，以及專案長大後的「AI 全身健康體檢」審計手冊，附贈 4 套可直接複製貼給 Cursor / Claude 的終極防禦 Prompt 錦囊。",
+    "tags": [
+      "Vibe Coding",
+      "金鑰安全",
+      "自動化檢查",
+      "404審計",
+      "技術債",
+      "非工程師",
+      "軟體工程心法",
+      "長青系統",
+      "Prompt技巧"
+    ],
+    "tools": [
+      "Cursor",
+      "Claude 3.5 Sonnet",
+      "Windsurf",
+      "ChatGPT",
+      "v0",
+      "Astro"
+    ],
+    "created": "2026-10-30",
+    "updated": "2026-11-06",
+    "url": "/tutorials/vibe-coding-defense-guide-part-3",
+    "cover": "/assets/covers/vibe-coding-defense-guide-part-3.png",
+    "featured": true
+  },
+  {
     "id": "2026-11-03",
     "title": "Chow 的 AI 模型日報｜第 037 號 (2026.11.03)",
     "type": "newspaper",
@@ -274,37 +305,6 @@
     "updated": "2026-10-30",
     "url": "/tutorials/vibe-coding-defense-guide-part-2",
     "cover": "/assets/covers/vibe-coding-defense-guide-part-2.png",
-    "featured": true
-  },
-  {
-    "id": "vibe-coding-defense-guide-part-3",
-    "title": "Vibe Coding 不翻車指南（下）：告別「動一行崩全家」的長治久安 SOP——非工程師的自動化守門與全身健檢法",
-    "type": "tutorial",
-    "category": "AI Engineering",
-    "summary": "專為非工程師與全職創作者打造的 Vibe Coding 避坑心法（下篇大完結：維護發布與長治久安 SOP）。破解 API 金鑰公開露白被盜刷的破產地雷，傳授「三道零負擔自動守門員」流水線，以及專案長大後的「AI 全身健康體檢」審計手冊，附贈 4 套可直接複製貼給 Cursor / Claude 的終極防禦 Prompt 錦囊。",
-    "tags": [
-      "Vibe Coding",
-      "金鑰安全",
-      "自動化檢查",
-      "404審計",
-      "技術債",
-      "非工程師",
-      "軟體工程心法",
-      "長青系統",
-      "Prompt技巧"
-    ],
-    "tools": [
-      "Cursor",
-      "Claude 3.5 Sonnet",
-      "Windsurf",
-      "ChatGPT",
-      "v0",
-      "Astro"
-    ],
-    "created": "2026-10-30",
-    "updated": "2026-10-30",
-    "url": "/tutorials/vibe-coding-defense-guide-part-3",
-    "cover": "/assets/covers/vibe-coding-defense-guide-part-3.svg",
     "featured": true
   },
   {
