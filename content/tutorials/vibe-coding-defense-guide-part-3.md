@@ -63,7 +63,7 @@ const response = await fetch("https://api.openai.com/v1/chat/completions", {
 
 ![金鑰保險箱 vs 寫在大門上對比圖](/assets/diagrams/api-key-vault-metaphor.svg)
 
-一旦你把含有金鑰的代碼上傳到 GitHub，全世界有數以萬計的黑客爬蟲機器人，**會在 3 秒鐘內自動掃描抓走你的金鑰**，拿去瘋狂刷大模型代幣。隔天早上一醒來，你只會收到信用卡公司幾千美元的扣款簡訊！
+一旦你把含有金鑰的代碼上傳到 GitHub，全世界有數以萬計的黑客爬蟲機器人，**會在 3 秒鐘內自動掃描抓走你的金鑰**，拿去瘋狂呼叫 API 刷爆你的 Token 額度。隔天早上一醒來，你只會收到信用卡公司幾千美元的扣款簡訊！
 
 ### 2. 架構師的黃金防禦：後端代轉與 `.gitignore`
 
