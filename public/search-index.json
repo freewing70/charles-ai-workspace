@@ -31,6 +31,43 @@
     "featured": true
   },
   {
+    "id": "2026-11-05",
+    "title": "Chow 的 AI 模型日報｜第 039 號 (2026.11.05)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "騰訊正式發表具備視覺理解與電腦操作（GUI/CLI）能力的 Hy4 模型，針對專業軟體深度調優，權重預計近日釋出；AMD 第三季營收激增 45% 達 134 億美元，資料中心部門翻倍增長；美國貨幣監理署（OCC）針對銀行檢查員發布 AI 審查參考指引，未增設強制性法規負擔；資安新創 Sentra 獲 1.5 億美元注資，專攻 AI 代理人存取權限與資料外洩防護；遊戲模組社群 Nexus Mods 調整 AI 政策，要求創作者明確標示工具參與程度而非全面封殺。",
+    "tags": [
+      "AI模型日報",
+      "騰訊",
+      "Hy4",
+      "電腦操作",
+      "視覺理解",
+      "AMD",
+      "Instinct MI450",
+      "資料中心",
+      "OCC",
+      "金融監理",
+      "Sentra",
+      "AI代理安全",
+      "最小權限",
+      "Nexus Mods",
+      "遊戲模組"
+    ],
+    "tools": [
+      "騰訊",
+      "Hy4",
+      "AMD",
+      "OCC",
+      "Sentra",
+      "Nexus Mods"
+    ],
+    "created": "2026-11-05",
+    "updated": "2026-11-05",
+    "url": "/newspapers/2026-11-05",
+    "cover": "/assets/covers/newspaper-2026-11-05-cover.jpg",
+    "featured": false
+  },
+  {
     "id": "2026-11-04",
     "title": "Chow 的 AI 模型日報｜第 038 號 (2026.11.04)",
     "type": "newspaper",
