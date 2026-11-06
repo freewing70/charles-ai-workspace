@@ -1,5 +1,45 @@
 [
   {
+    "id": "2026-11-06",
+    "title": "Chow 的 AI 模型日報｜第 040 號 (2026.11.06)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "OpenAI 正式發布專攻資安的 GPT-6 Cyber，在受控環境自動重現逾千項漏洞，並向核准客戶開放輔助修補；Meta 正式收購多代理程式工具 Conductor，雲端平台將於 11 月 20 日全面關閉並刪除資料；月之暗面開源釋出 2.8 兆參數 Kimi K3.1 Pro 旗艦權重；日本 PFN 推出可在手機端離線運行的 PLaMo 3 Translate 翻譯模型；ChatGPT Images 2.6 上線，支援生成 GIF 循環動畫並加入角色參考圖跨對話鎖定功能。",
+    "tags": [
+      "AI模型日報",
+      "OpenAI",
+      "GPT-6 Cyber",
+      "資安漏洞",
+      "Meta",
+      "Conductor",
+      "多代理工具",
+      "收購",
+      "Kimi K3.1 Pro",
+      "月之暗面",
+      "開源模型",
+      "PFN",
+      "端側AI",
+      "離線翻譯",
+      "ChatGPT Images",
+      "GIF動畫"
+    ],
+    "tools": [
+      "OpenAI",
+      "GPT-6 Cyber",
+      "Meta",
+      "Conductor",
+      "Moonshot AI",
+      "Kimi",
+      "PFN",
+      "ChatGPT"
+    ],
+    "created": "2026-11-06",
+    "updated": "2026-11-06",
+    "url": "/newspapers/2026-11-06",
+    "cover": "/assets/covers/newspaper-2026-11-06-cover.jpg",
+    "featured": false
+  },
+  {
     "id": "vibe-coding-defense-guide-part-3",
     "title": "Vibe Coding 不翻車指南（下）：告別「動一行崩全家」的長治久安 SOP——非工程師的自動化守門與全身健檢法",
     "type": "tutorial",
