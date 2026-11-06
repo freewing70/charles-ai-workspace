@@ -31,6 +31,43 @@
     "featured": true
   },
   {
+    "id": "2026-11-04",
+    "title": "Chow 的 AI 模型日報｜第 038 號 (2026.11.04)",
+    "type": "newspaper",
+    "category": "AI 日報",
+    "summary": "歐盟法院總法律顧問就 Google Gemini 即時重現新聞表達發表顧問意見，提醒繞過付費牆或重組文字恐涉著作權與鄰接權爭議，尚待終審判決；SemiAnalysis 發表真實工作能力基準 GDPx，Claude Opus 5.5 以 12% 綜合得分居首；歐洲電商巨頭 Zalando 規劃 2027 年推出跨站代客結帳 AI 代理；阿布達比與 OpenAI 簽署涵蓋能源、政府審查與主權基金的四項合作，維持公務員最終核決責任；Thomson Reuters Q3 營收成長一成，生成式 AI 內容授權協議成新聞業務重要增長引擎。",
+    "tags": [
+      "AI模型日報",
+      "Google",
+      "Gemini",
+      "著作權",
+      "歐盟法院",
+      "SemiAnalysis",
+      "GDPx",
+      "Claude Opus 5.5",
+      "Zalando",
+      "購物代理",
+      "OpenAI",
+      "阿布達比",
+      "Thomson Reuters",
+      "內容授權"
+    ],
+    "tools": [
+      "Google",
+      "Gemini",
+      "Anthropic",
+      "Claude Opus 5.5",
+      "OpenAI",
+      "Zalando",
+      "Thomson Reuters"
+    ],
+    "created": "2026-11-04",
+    "updated": "2026-11-04",
+    "url": "/newspapers/2026-11-04",
+    "cover": "/assets/covers/newspaper-2026-11-04-cover.jpg",
+    "featured": false
+  },
+  {
     "id": "2026-11-03",
     "title": "Chow 的 AI 模型日報｜第 037 號 (2026.11.03)",
     "type": "newspaper",
