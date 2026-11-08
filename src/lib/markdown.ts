@@ -23,12 +23,25 @@ const ALERT_CONFIG: Record<string, { icon: string; title: string; className: str
 };
 
 /**
- * Safely parse markdown content into HTML, ensuring no duplicate H1 tags are rendered
- * and transforming GitHub style alert blocks into rich callouts.
+ * Safely parse markdown content into HTML, ensuring no duplicate H1 tags are rendered,
+ * fixing CJK flanking bold delimiters (**「...」**), and transforming GitHub style alert blocks.
  */
 export function renderMarkdown(content: string): string {
   if (!content) return '';
   let html = markedInstance.parse(content) as string;
+
+  // Mask <pre> and <code> blocks before fixing CJK unparsed **bold** delimiters
+  const codePlaceholders: string[] = [];
+  html = html.replace(/<pre[\s\S]*?<\/pre>|<code[^>]*>[\s\S]*?<\/code>/gi, (match) => {
+    codePlaceholders.push(match);
+    return `\x00CODE_BLOCK_${codePlaceholders.length - 1}\x00`;
+  });
+
+  // Convert any remaining **...** that CommonMark skipped due to CJK punctuation adjacency
+  html = html.replace(/\*\*([^*\n]+?)\*\*/g, '<strong>$1</strong>');
+
+  // Restore <pre> and <code> blocks
+  html = html.replace(/\x00CODE_BLOCK_(\d+)\x00/g, (_, idx) => codePlaceholders[Number(idx)]);
 
   // Transform GitHub style blockquote alerts: > [!CAUTION] / > [!TIP]
   html = html.replace(

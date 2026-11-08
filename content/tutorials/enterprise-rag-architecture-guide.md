@@ -19,7 +19,7 @@ featured: false
 
 檢索增強生成（Retrieval-Augmented Generation, RAG）是解決大型語言模型（LLM）幻覺、知識過期以及缺乏私有領域數據的首選方案。然而，大多數技術團隊在初期嘗試的「樸素 RAG（Naive RAG）」流程：
 
-$$\text{PDF 上傳} \longrightarrow \text{固定 500 字元切割} \longrightarrow \text{OpenAI Embeddings} \longrightarrow \text{Cosine Top-K 檢索} \longrightarrow \text{LLM 總結}$$
+> **傳統 Naive RAG 流程**：`PDF 上傳` ➔ `固定 500 字元切割` ➔ `OpenAI Embeddings` ➔ `Cosine Top-K 檢索` ➔ `LLM 總結`
 
 一旦投入真實企業生產場景，往往會出現以下致命問題：
 1. **語義斷裂（Context Fragmentation）**：固定長度切塊將跨頁表格、條件列表與段落標題強行截斷，導致檢索出的片段缺乏上下文語意。
@@ -130,11 +130,11 @@ for idx, chunk in enumerate(chunks):
 
 RRF 是一種不依賴不同算法原始分數絕對值的強大排序融合算法。給定一個查詢，分別由向量檢索與 BM25 產生各自的排名列表，每個文檔的 RRF 得分計算如下：
 
-$$RRF\_Score(d) = \sum_{m \in M} \frac{1}{k + r_m(d)}$$
+> **RRF 綜合評分公式**：`RRF_Score(d) = Σ [ 1 / (k + r_m(d)) ]`
 
-- $M$：檢索方法集合（密集向量、稀疏 BM25）。
-- $r_m(d)$：文檔 $d$ 在第 $m$ 種檢索方式中的名次（1-based）。
-- $k$：平滑常數（通常設為 60）。
+- `M`：檢索方法集合（密集向量 Dense Search、稀疏檢索 BM25）。
+- `r_m(d)`：文檔 `d` 在第 `m` 種檢索方式中的名次（從第 1 名起算）。
+- `k`：平滑常數（業界標準通常設為 `60`）。
 
 ### 2. 混合檢索融合代碼實戰
 

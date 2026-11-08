@@ -35,13 +35,13 @@ featured: false
 
 運行大模型時的總顯存消耗包含三大部分：
 
-$$\text{總顯存} = \text{模型權重顯存} + \text{KV Cache 顯存} + \text{CUDA 運行時與暫存開銷}$$
+> **總顯存消耗公式**：`總顯存 = 模型權重顯存 + KV Cache 顯存 + CUDA 運行時與暫存開銷`
 
 - **模型權重顯存**：
-  $$\text{權重顯存 (GB)} \approx \frac{\text{參數量 (Billion)} \times \text{每個參數位元組數 (Bytes)}}{10^9}$$
-  - FP16 / BF16：每個參數佔用 2 Bytes（70B 模型約需 $70 \times 2 = 140\text{ GB}$ 顯存）。
-  - INT8：每個參數佔用 1 Byte（70B 模型約需 $70\text{ GB}$ 顯存）。
-  - INT4 (AWQ / GPTQ / Q4_K_M)：每個參數佔用約 0.55 Bytes（含量化縮放係數，70B 模型約需 $38\text{ GB}$ 至 $42\text{ GB}$ 顯存）。
+  `權重顯存 (GB) ≈ 參數量 (Billion) × 每個參數位元組數 (Bytes)`
+  - **FP16 / BF16**：每個參數佔用 2 Bytes（70B 模型約需 `70 × 2 = 140 GB` 顯存）。
+  - **INT8**：每個參數佔用 1 Byte（70B 模型約需 `70 GB` 顯存）。
+  - **INT4 (AWQ / GPTQ / Q4_K_M)**：每個參數佔用約 0.55 Bytes（含量化縮放係數，70B 模型約需 `38 GB` 至 `42 GB` 顯存）。
 - **KV Cache 顯存**：隨併發請求數（Batch Size）與上下文長度（Sequence Length）線性增加。在 8K 或 32K 上下文下，未經優化的 KV Cache 顯存往往會超越模型權重本身。
 
 ### 2. 主流量化技術對比天梯

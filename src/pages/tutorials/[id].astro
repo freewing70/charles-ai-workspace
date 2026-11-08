@@ -19,6 +19,17 @@ if (!item) {
 
 const htmlContent = renderMarkdown(item.content);
 const playUrl = item.meta.playUrl || null;
+
+const allTutorials = getAllItems(false).filter(i => i.meta.type === 'tutorial' && i.meta.id !== item.meta.id);
+const relatedTutorials = allTutorials
+  .map(other => {
+    const sameCategory = other.meta.category === item.meta.category ? 3 : 0;
+    const sharedTags = (other.meta.tags || []).filter(t => (item.meta.tags || []).includes(t)).length;
+    return { item: other, score: sameCategory + sharedTags };
+  })
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map(r => r.item);
 ---
 
 <MainLayout 
@@ -32,7 +43,7 @@ const playUrl = item.meta.playUrl || null;
 >
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs text-slate-500 font-mono mb-8">
+    <nav class="flex items-center gap-2 text-xs text-slate-500 font-mono mb-8" aria-label="Breadcrumb">
       <a href="/" class="hover:text-[#155EEF] transition-colors">首頁</a>
       <span>/</span>
       <a href="/tutorials" class="hover:text-[#155EEF] transition-colors">Tutorials</a>
@@ -41,33 +52,58 @@ const playUrl = item.meta.playUrl || null;
     </nav>
 
     <!-- Header & Action -->
-    <div class="freewing-card p-6 sm:p-10 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-slate-200 shadow-xs">
-      <div>
-        <div class="flex items-center gap-2 text-xs font-mono text-slate-500 mb-2">
-          <span class="px-2.5 py-0.5 rounded-full bg-sky-50 text-[#0369A1] border border-sky-200 font-semibold">
-            {item.meta.category}
-          </span>
-          <span>v{item.meta.version}</span>
-          <span>&bull;</span>
-          <time datetime={item.meta.updated}>{item.meta.updated}</time>
+    <div class="freewing-card p-6 sm:p-10 mb-8 border border-slate-200 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500 mb-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-sky-50 text-[#0369A1] border border-sky-200 font-semibold">
+              {item.meta.category}
+            </span>
+            <span>v{item.meta.version}</span>
+            <span>&bull;</span>
+            <span>作者：Charles</span>
+            <span>&bull;</span>
+            <time datetime={item.meta.updated}>更新於 {item.meta.updated}</time>
+          </div>
+          <h1 class="text-3xl font-extrabold text-[#07172D] tracking-tight">{item.meta.title}</h1>
+          <p class="mt-2 text-slate-600 text-sm max-w-2xl leading-relaxed">{item.meta.summary}</p>
         </div>
-        <h1 class="text-3xl font-extrabold text-[#07172D] tracking-tight">{item.meta.title}</h1>
-        <p class="mt-2 text-slate-600 text-sm max-w-xl leading-relaxed">{item.meta.summary}</p>
+
+        {playUrl && (
+          <div class="flex items-center gap-3 shrink-0">
+            <a
+              href={playUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-5 py-3 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white font-bold text-sm transition-all flex items-center gap-2 shadow-md shadow-blue-500/20 hover:scale-102"
+            >
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              開啟全螢幕簡報播放
+            </a>
+          </div>
+        )}
       </div>
 
-      {playUrl && (
-        <div class="flex items-center gap-3">
-          <a
-            href={playUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-5 py-3 rounded-xl bg-gradient-to-r from-[#155EEF] to-[#27A8FF] hover:from-[#0D47C2] hover:to-[#155EEF] text-white font-bold text-sm transition-all flex items-center gap-2 shadow-md shadow-blue-500/20 hover:scale-102"
-          >
-            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-            開啟全螢幕簡報播放
-          </a>
+      {(item.meta.tools?.length > 0 || item.meta.tags?.length > 0) && (
+        <div class="mt-5 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-3 text-xs text-slate-500">
+          {item.meta.tools?.length > 0 && (
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="font-medium text-slate-400">適用工具:</span>
+              {item.meta.tools.map(t => (
+                <span class="px-2 py-0.5 rounded bg-blue-50 text-[#155EEF] font-mono">{t}</span>
+              ))}
+            </div>
+          )}
+          {item.meta.tags?.length > 0 && (
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="font-medium text-slate-400">主題標籤:</span>
+              {item.meta.tags.map(tag => (
+                <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono">#{tag}</span>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -106,9 +142,61 @@ const playUrl = item.meta.playUrl || null;
 
     <!-- Notes / Content Body -->
     {item.content && (
-      <article class="freewing-card p-6 sm:p-12 shadow-xs prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-[#07172D]">
+      <article class="freewing-card p-6 sm:p-12 shadow-xs prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-[#07172D] mb-10">
         <div set:html={htmlContent} />
       </article>
+    )}
+
+    <!-- Author & Editorial Assurance Box (E-E-A-T Signal) -->
+    <aside class="freewing-card p-6 sm:p-8 mb-10 bg-slate-50/80 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div class="space-y-1.5">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-blue-100 text-[#155EEF] font-bold">AUTHOR &amp; EDITORIAL</span>
+          <span class="text-sm font-bold text-[#07172D]">Charles · FreewingBiz 創辦人</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
+          專注於 AI Agent 系統工程、Harness Engineering 規範驅動開發、企業級 RAG 知識庫與私有化模型部署。本站所有教學與互動簡報均經過真實開發環境驗證與人工實測編修。
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="/about" class="px-4 py-2 rounded-xl border border-slate-300 bg-white hover:border-[#155EEF] text-xs font-bold text-[#07172D] hover:text-[#155EEF] transition-colors">
+          關於作者與網站
+        </a>
+        <a href="/tutorials" class="px-4 py-2 rounded-xl bg-[#07172D] hover:bg-[#155EEF] text-xs font-bold text-white transition-colors">
+          瀏覽全部教學
+        </a>
+      </div>
+    </aside>
+
+    <!-- Related Tutorials -->
+    {relatedTutorials.length > 0 && (
+      <section aria-label="延伸實戰教學推薦">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-extrabold text-[#07172D]">延伸實戰教學推薦</h2>
+          <a href="/tutorials" class="text-xs font-mono font-bold text-[#155EEF] hover:underline">查看全部 14 篇教學 &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {relatedTutorials.map(rel => (
+            <a href={`/tutorials/${rel.meta.id}`} class="freewing-card p-5 border border-slate-200 hover:border-[#155EEF] transition-all group flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 text-[11px] font-mono text-slate-500 mb-2">
+                  <span class="px-2 py-0.5 rounded bg-sky-50 text-[#0369A1] font-semibold">{rel.meta.category}</span>
+                  <span>{rel.meta.updated}</span>
+                </div>
+                <h3 class="text-sm font-bold text-[#07172D] group-hover:text-[#155EEF] transition-colors line-clamp-2 mb-2">
+                  {rel.meta.title}
+                </h3>
+                <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  {rel.meta.summary}
+                </p>
+              </div>
+              <span class="mt-4 text-xs font-mono font-bold text-[#155EEF] inline-flex items-center gap-1">
+                閱讀完整教學 &rarr;
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
     )}
   </div>
 </MainLayout>

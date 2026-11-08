@@ -38,8 +38,8 @@ for file_path in html_files:
     # 1. Suspicious placeholders in visible body text
     body = soup.find('body')
     if body:
-        # Strip script and style tags from body text check
-        for s in body(['script', 'style']):
+        # Strip script, style, pre, and code tags from body text check
+        for s in body(['script', 'style', 'pre', 'code']):
             s.decompose()
         body_text = body.get_text()
         for pattern in suspicious_words:
