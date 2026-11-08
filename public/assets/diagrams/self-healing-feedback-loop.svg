@@ -69,7 +69,7 @@
     <text x="100" y="80" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" text-anchor="middle">3. 綠燈通知你驗收</text>
     <text x="100" y="105" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="11" text-anchor="middle">完全不用人工除錯</text>
     <rect x="25" y="118" width="150" height="20" rx="4" fill="#022C22"/>
-    <text x="100" y="132" fill="#34D399" font-family="monospace" font-size="10" text-anchor="middle">100% Green & Ship</text>
+    <text x="100" y="132" fill="#34D399" font-family="monospace" font-size="10" text-anchor="middle">100% Green &amp; Ship</text>
   </g>
 
   <!-- FAIL / HEALING PATH (Loop around bottom) -->

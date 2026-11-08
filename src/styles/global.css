@@ -688,3 +688,57 @@ body {
   box-shadow: none;
   color: #F8FAFC;
 }
+
+/* Unified List & Strong Styling inside Vibe Cards (.vibe-box-danger / success / concept) */
+.prose .vibe-box-danger ul,
+.prose .vibe-box-success ul,
+.prose .vibe-box-concept ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+  padding-left: 1.35rem;
+}
+
+.prose .vibe-box-danger li {
+  color: #881337;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0.3rem 0;
+}
+
+.prose .vibe-box-danger li::marker {
+  color: #E11D48;
+}
+
+.prose .vibe-box-danger strong {
+  color: #9F1239;
+}
+
+.prose .vibe-box-success li {
+  color: #064E3B;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0.3rem 0;
+}
+
+.prose .vibe-box-success li::marker {
+  color: #059669;
+}
+
+.prose .vibe-box-success strong {
+  color: #065F46;
+}
+
+.prose .vibe-box-concept li {
+  color: #1E3A8A;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin: 0.3rem 0;
+}
+
+.prose .vibe-box-concept li::marker {
+  color: #2563EB;
+}
+
+.prose .vibe-box-concept strong {
+  color: #1E40AF;
+}
