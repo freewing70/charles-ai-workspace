@@ -26,9 +26,8 @@ export function getContentRoute(type: string, id: string): string {
     case 'skill':
       return `/skills/${id}`;
     case 'tutorial':
-      return `/tutorials/${id}`;
     case 'presentation':
-      return `/presentations/${id}`;
+      return `/tutorials/${id}`;
     case 'project':
       return `/projects/${id}`;
     case 'note':

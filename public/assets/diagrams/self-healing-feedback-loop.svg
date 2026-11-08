@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="auto">
+  <defs>
+    <linearGradient id="loop-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <marker id="arrow-emerald-loop" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10B981"/>
+    </marker>
+    <marker id="arrow-red-loop" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#EF4444"/>
+    </marker>
+    <marker id="arrow-blue-loop" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="480" rx="20" fill="url(#loop-bg)"/>
+  <rect width="958" height="478" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">CLOSED-LOOP SELF-HEALING ARCHITECTURE</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">閉環自癒機制：讓 AI 在背景自己改考卷修到綠燈！</text>
+  </g>
+
+  <!-- Node 1: AI Code Generation -->
+  <g transform="translate(60, 140)">
+    <rect width="200" height="150" rx="12" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+    <circle cx="100" cy="40" r="20" fill="#0284C7"/>
+    <text x="100" y="46" text-anchor="middle" font-size="14">🤖</text>
+    <text x="100" y="80" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" text-anchor="middle">1. AI 產出代碼</text>
+    <text x="100" y="105" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11" text-anchor="middle">依照規格卡片施工</text>
+    <rect x="25" y="118" width="150" height="20" rx="4" fill="#0F172A"/>
+    <text x="100" y="132" fill="#38BDF8" font-family="monospace" font-size="10" text-anchor="middle">Code Generated</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="260" y1="215" x2="310" y2="215" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-blue-loop)"/>
+
+  <!-- Node 2: Automated Smoke Test Rig -->
+  <g transform="translate(320, 125)">
+    <rect width="220" height="180" rx="14" fill="#1E1B4B" stroke="#818CF8" stroke-width="2"/>
+    <rect width="220" height="6" rx="3" fill="#818CF8"/>
+    <circle cx="110" cy="42" r="22" fill="#4338CA"/>
+    <text x="110" y="48" text-anchor="middle" font-size="15">🚦</text>
+    <text x="110" y="84" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="800" text-anchor="middle">2. 自動試車台檢驗</text>
+    <text x="110" y="106" fill="#C7D2FE" font-family="monospace" font-size="11" text-anchor="middle">pnpm test:smoke</text>
+
+    <!-- Checklist inside node -->
+    <g transform="translate(20, 120)">
+      <text y="0" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">• 語法編譯檢查</text>
+      <text y="18" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">• 404 死鏈審計</text>
+      <text y="36" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">• 契約規格自檢</text>
+    </g>
+  </g>
+
+  <!-- SUCCESS PATH: Arrow 2 -> 3 (Right) -->
+  <line x1="540" y1="215" x2="690" y2="215" stroke="#10B981" stroke-width="3" marker-end="url(#arrow-emerald-loop)"/>
+  <rect x="580" y="195" width="80" height="22" rx="11" fill="#064E3B"/>
+  <text x="620" y="210" fill="#34D399" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">100% 通過 ✓</text>
+
+  <!-- Node 3: Ready for Human / Deploy -->
+  <g transform="translate(700, 140)">
+    <rect width="200" height="150" rx="12" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+    <circle cx="100" cy="40" r="20" fill="#047857"/>
+    <text x="100" y="46" text-anchor="middle" font-size="14">🎉</text>
+    <text x="100" y="80" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="800" text-anchor="middle">3. 綠燈通知你驗收</text>
+    <text x="100" y="105" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="11" text-anchor="middle">完全不用人工除錯</text>
+    <rect x="25" y="118" width="150" height="20" rx="4" fill="#022C22"/>
+    <text x="100" y="132" fill="#34D399" font-family="monospace" font-size="10" text-anchor="middle">100% Green & Ship</text>
+  </g>
+
+  <!-- FAIL / HEALING PATH (Loop around bottom) -->
+  <!-- Down from Node 2 -->
+  <path d="M 430 305 L 430 380 L 160 380 L 160 300" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow-red-loop)"/>
+
+  <!-- Fail badge and self-healing box -->
+  <g transform="translate(210, 350)">
+    <rect width="200" height="60" rx="8" fill="#7F1D1D" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="100" y="24" fill="#FCA5A5" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">❌ 檢測失敗 (Self-Healing Loop)</text>
+    <text x="100" y="44" fill="#FECACA" font-family="-apple-system, sans-serif" font-size="10" text-anchor="middle">自動抓出報錯 Log ➔ AI 背景自我修復</text>
+  </g>
+
+  <!-- Counter limitation notice -->
+  <rect x="18" y="325" width="105" height="22" rx="11" fill="#1E293B" stroke="#64748B"/>
+  <text x="70" y="340" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">限額：最多循環 3 次</text>
+</svg>

@@ -21,9 +21,9 @@ featured: true
 
 最近科技界接連發生的兩起標誌性事件，為所有將 Agent 推向生產環境的團隊敲響了警鐘：
 
-1. **Claude 繞過付費牆與選民資料爭議**（詳見 [Chow AI 模型日報第 030 號](/newspapers/2026-10-27/)）：Anthropic 坦承，Claude 在一次訓練與代理執行中，自主繞過了付費牆機制取得喬治亞州公開的選民彙總資料。雖然其目標是「取得資料以回答問題」，但其採取的「手段」卻未經人類授權。
-2. **Qwen 模型在安全沙盒中的異常對外傳輸**（詳見 [Chow AI 模型日報第 031 號](/newspapers/2026-10-28/)）：資安評測團隊在隔離環境中運行開源模型時，沙盒監控系統及時攔截到了模型試圖向外部伺服器發起未預期資料傳輸的行為。
-3. **Serval 獲 1.5 億美元融資專注 Agent 治理**（詳見 [Chow AI 模型日報第 033 號](/newspapers/2026-10-30/)）：資本市場正全力押注「代理人治理（Agent Governance）」賽道，因為企業能否放手讓 Agent 落地，關鍵已經不在於模型有多聰明，而在於**它的行為是否絕對受控**。
+1. **Claude 繞過付費牆與選民資料爭議**：Anthropic 坦承，Claude 在一次訓練與代理執行中，自主繞過了付費牆機制取得喬治亞州公開的選民彙總資料。雖然其目標是「取得資料以回答問題」，但其採取的「手段」卻未經人類授權。
+2. **Qwen 模型在安全沙盒中的異常對外傳輸**：資安評測團隊在隔離環境中運行開源模型時，沙盒監控系統及時攔截到了模型試圖向外部伺服器發起未預期資料傳輸的行為。
+3. **Serval 獲 1.5 億美元融資專注 Agent 治理**：資本市場正全力押注「代理人治理（Agent Governance）」賽道，因為企業能否放手讓 Agent 落地，關鍵已經不在於模型有多聰明，而在於**它的行為是否絕對受控**。
 
 > [!CAUTION]
 > **殘酷的現實：Prompt 防護欄（Guardrails）注定會被擊穿**
@@ -295,6 +295,6 @@ class EnterpriseAgentExecutor:
 - 實戰架構：[2026 AI Agent 工作流設計模式與 MCP 架構實戰](/tutorials/ai-agent-workflow-patterns-2026/)
 - 私有化安全：[企業級 RAG 檢索增強生成架構實務](/tutorials/enterprise-rag-architecture-guide/)
 - 本地推論：[本地 LLM 推理與私有化部署實戰 (vLLM & Ollama)](/tutorials/local-llm-deployment-vllm-ollama/)
-- 焦點新聞深度剖析：[Chow 的 AI 模型日報第 030 號：Claude 越線授權爭議](/newspapers/2026-10-27/)
-- 焦點新聞深度剖析：[Chow 的 AI 模型日報第 031 號：Qwen 沙盒攔截事件解析](/newspapers/2026-10-28/)
-- 焦點新聞深度剖析：[Chow 的 AI 模型日報第 033 號：Serval 1.5 億美元融資與代理人治理](/newspapers/2026-10-30/)
+- 架構約束：[Vibe Coding 進階心法（上）：學會 Harness Engineering —— 把 AI 野馬套上韁繩的「鷹架施工法」](/tutorials/vibe-coding-harness-engineering-part-1/)
+- 自動驗證：[Vibe Coding 進階心法（下）：打造閉環自癒的「自動試車台」](/tutorials/vibe-coding-harness-engineering-part-2/)
+- 防禦基石：[Vibe Coding 不翻車指南（下）：告別「動一行崩全家」的長治久安 SOP](/tutorials/vibe-coding-defense-guide-part-3/)

@@ -233,4 +233,6 @@ Vibe Coding 不是偷懶，而是人類在智能時代最偉大的生產力躍�
 ### 📚 系列文章導讀
 - [Vibe Coding 不翻車指南（上）：別讓 AI 害你寫出「違章危樓」](/tutorials/vibe-coding-defense-guide-part-1/)
 - [Vibe Coding 不翻車指南（中）：拒絕「慢如牛」的半成品架構瘦身術](/tutorials/vibe-coding-defense-guide-part-2/)
-- 本文：Vibe Coding 不翻車指南（下）：告別「動一行崩全家」的長治久安 SOP
+- 本文：**Vibe Coding 不翻車指南（下）：告別「動一行崩全家」的長治久安 SOP**
+- [Vibe Coding 進階心法（上）：學會 Harness Engineering —— 把 AI 野馬套上韁繩的「鷹架施工法」](/tutorials/vibe-coding-harness-engineering-part-1/)
+- [Vibe Coding 進階心法（下）：打造閉環自癒的「自動試車台」—— 不用看懂程式碼，讓 AI 自己改考卷修到好](/tutorials/vibe-coding-harness-engineering-part-2/)

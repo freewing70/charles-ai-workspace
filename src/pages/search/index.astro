@@ -5,8 +5,9 @@ import SectionHeader from '../../components/SectionHeader.astro';
 
 <MainLayout 
   title="全站檢索中心 | FreewingBiz" 
-  description="FreewingBiz 全站即時檢索 — 快速搜尋 AI 技能、教學、簡報、筆記與模型日報。"
+  description="FreewingBiz 全站即時檢索 — 快速搜尋 AI 技能、深度教學、系統架構與互動工具。"
   noindex={true}
+  disableAds={true}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <SectionHeader
@@ -45,9 +46,6 @@ import SectionHeader from '../../components/SectionHeader.astro';
           <button data-type="all" class="type-filter-btn px-3 py-1 rounded-lg bg-[#155EEF] text-white font-semibold shadow-2xs">全部</button>
           <button data-type="skill" class="type-filter-btn px-3 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 font-medium">Skill</button>
           <button data-type="tutorial" class="type-filter-btn px-3 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 font-medium">Tutorial</button>
-          <button data-type="presentation" class="type-filter-btn px-3 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 font-medium">Presentation</button>
-          <button data-type="project" class="type-filter-btn px-3 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 font-medium">Project</button>
-          <button data-type="note" class="type-filter-btn px-3 py-1 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 font-medium">Note</button>
         </div>
         <div id="result-count" class="text-slate-500 font-mono text-xs">
           載入索引中...

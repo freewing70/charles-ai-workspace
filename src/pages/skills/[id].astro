@@ -139,7 +139,7 @@ const coverUrl = getAssetUrl(item.meta.cover);
           {item.meta.relatedPresentations?.map(presId => {
             const rel = getItemById(presId, false);
             return rel ? (
-              <a href={getContentRoute('presentation', presId)} class="p-4 rounded-xl bg-white hover:border-amber-300 border border-slate-200 text-sm block transition-all shadow-2xs">
+              <a href={getContentRoute(rel.meta.type, presId)} class="p-4 rounded-xl bg-white hover:border-amber-300 border border-slate-200 text-sm block transition-all shadow-2xs">
                 <span class="text-xs text-amber-700 font-mono uppercase block font-semibold">關聯簡報 &bull; SHARE</span>
                 <span class="text-[#07172D] font-bold mt-0.5 block">{rel.meta.title}</span>
               </a>

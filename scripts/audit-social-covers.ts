@@ -6,10 +6,6 @@ import { execSync } from 'node:child_process';
 const contentDirs = [
   'content/skills',
   'content/tutorials',
-  'content/newspapers',
-  'content/notes',
-  'content/presentations',
-  'content/projects',
 ];
 
 // Get list of git tracked files
@@ -108,14 +104,10 @@ const staticPages = [
   'src/pages/index.astro',
   'src/pages/about.astro',
   'src/pages/privacy.astro',
-  'src/pages/search.astro',
-  'src/pages/timeline.astro',
+  'src/pages/search/index.astro',
+  'src/pages/timeline/index.astro',
   'src/pages/skills/index.astro',
   'src/pages/tutorials/index.astro',
-  'src/pages/newspapers/index.astro',
-  'src/pages/presentations/index.astro',
-  'src/pages/projects/index.astro',
-  'src/pages/notes/index.astro',
 ];
 
 for (const page of staticPages) {

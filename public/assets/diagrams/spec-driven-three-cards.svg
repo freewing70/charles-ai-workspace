@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="auto">
+  <defs>
+    <linearGradient id="spec-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <marker id="arrow-card" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="480" rx="20" fill="url(#spec-bg)"/>
+  <rect width="958" height="478" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">SPEC-DRIVEN DEVELOPMENT (SDD) FOR CREATORS</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">非工程師的「規格防護罩」：動工前的 3 張驗收卡片</text>
+  </g>
+
+  <!-- Card 1: Scope & Anti-Scope -->
+  <g transform="translate(50, 110)">
+    <rect width="250" height="310" rx="14" fill="rgba(56,189,248,0.06)" stroke="#38BDF8" stroke-width="2"/>
+    <rect width="250" height="8" rx="4" fill="#38BDF8"/>
+
+    <!-- Header badge -->
+    <g transform="translate(20, 22)">
+      <circle cx="12" cy="12" r="12" fill="#0284C7"/>
+      <text x="12" y="17" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">1</text>
+      <text x="35" y="17" fill="#7DD3FC" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">邊界圍欄卡 (Scope)</text>
+    </g>
+
+    <text x="25" y="76" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">劃定絕對界線</text>
+    <text x="25" y="98" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">防範 AI 腦補不必要的功能</text>
+
+    <!-- Checklist content -->
+    <g transform="translate(25, 125)">
+      <rect width="200" height="60" rx="8" fill="#1E293B" stroke="#334155"/>
+      <text x="12" y="24" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">✓ 只做這件事：</text>
+      <text x="12" y="44" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="11.5">例如：僅新增優惠券輸入框</text>
+
+      <rect y="72" width="200" height="70" rx="8" fill="#7F1D1D" stroke="#EF4444" stroke-width="1"/>
+      <text x="12" y="94" fill="#FCA5A5" font-family="-apple-system, sans-serif" font-size="11" font-weight="800">⛔ 嚴禁擴大範圍：</text>
+      <text x="12" y="114" fill="#FECACA" font-family="-apple-system, sans-serif" font-size="11">• 嚴禁動購物車結帳邏輯</text>
+      <text x="12" y="130" fill="#FECACA" font-family="-apple-system, sans-serif" font-size="11">• 嚴禁動全站使用者登入狀態</text>
+    </g>
+
+    <!-- Bottom Motto -->
+    <rect x="25" y="260" width="200" height="30" rx="6" fill="#0C4A6E"/>
+    <text x="125" y="280" fill="#BAE6FD" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">🎯 核心：沒說要做的絕不能做</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="305" y1="265" x2="350" y2="265" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-card)"/>
+
+  <!-- Card 2: Contract & Interface -->
+  <g transform="translate(355, 110)">
+    <rect width="250" height="310" rx="14" fill="rgba(245,158,11,0.06)" stroke="#F59E0B" stroke-width="2"/>
+    <rect width="250" height="8" rx="4" fill="#F59E0B"/>
+
+    <!-- Header badge -->
+    <g transform="translate(20, 22)">
+      <circle cx="12" cy="12" r="12" fill="#D97706"/>
+      <text x="12" y="17" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">2</text>
+      <text x="35" y="17" fill="#FCD34D" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">資料契約卡 (Contract)</text>
+    </g>
+
+    <text x="25" y="76" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">定死資料格式</text>
+    <text x="25" y="98" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">鎖死輸入與輸出規範</text>
+
+    <!-- Code snapshot -->
+    <g transform="translate(25, 125)">
+      <rect width="200" height="115" rx="8" fill="#0F172A" stroke="#334155"/>
+      <text x="12" y="22" fill="#94A3B8" font-family="monospace" font-size="10.5">// 規範契約欄位</text>
+      <text x="12" y="42" fill="#38BDF8" font-family="monospace" font-size="10.5">interface <tspan fill="#FDE68A">Coupon</tspan> &#123;</text>
+      <text x="24" y="62" fill="#E2E8F0" font-family="monospace" font-size="10.5">code: string;</text>
+      <text x="24" y="80" fill="#E2E8F0" font-family="monospace" font-size="10.5">discount: number;</text>
+      <text x="24" y="98" fill="#E2E8F0" font-family="monospace" font-size="10.5">isValid: boolean;</text>
+      <text x="12" y="112" fill="#38BDF8" font-family="monospace" font-size="10.5">&#125;</text>
+    </g>
+
+    <!-- Bottom Motto -->
+    <rect x="25" y="260" width="200" height="30" rx="6" fill="#78350F"/>
+    <text x="125" y="280" fill="#FEF3C7" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">🎯 核心：任何欄位變動需先報備</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="610" y1="265" x2="655" y2="265" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-card)"/>
+
+  <!-- Card 3: Definition of Done (DoD) -->
+  <g transform="translate(660, 110)">
+    <rect width="250" height="310" rx="14" fill="rgba(16,185,129,0.06)" stroke="#10B981" stroke-width="2"/>
+    <rect width="250" height="8" rx="4" fill="#10B981"/>
+
+    <!-- Header badge -->
+    <g transform="translate(20, 22)">
+      <circle cx="12" cy="12" r="12" fill="#059669"/>
+      <text x="12" y="17" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">3</text>
+      <text x="35" y="17" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">驗收清單卡 (DoD)</text>
+    </g>
+
+    <text x="25" y="76" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">3 條白話驗收線</text>
+    <text x="25" y="98" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12">全部通過才算交付完成</text>
+
+    <!-- Check items -->
+    <g transform="translate(25, 125)">
+      <rect width="200" height="32" rx="6" fill="#1E293B" stroke="#334155"/>
+      <text x="12" y="20" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">✓ 條件 1：輸入 SAVE20 折 20 元</text>
+
+      <rect y="40" width="200" height="32" rx="6" fill="#1E293B" stroke="#334155"/>
+      <text x="12" y="60" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">✓ 條件 2：輸入無效碼顯示紅字</text>
+
+      <rect y="80" width="200" height="32" rx="6" fill="#1E293B" stroke="#334155"/>
+      <text x="12" y="100" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">✓ 條件 3：原有結帳金額不變動</text>
+    </g>
+
+    <!-- Bottom Motto -->
+    <rect x="25" y="260" width="200" height="30" rx="6" fill="#064E3B"/>
+    <text x="125" y="280" fill="#D1FAE5" font-family="-apple-system, sans-serif" font-size="11" font-weight="800" text-anchor="middle">🎯 核心：AI 必須逐項核對交差</text>
+  </g>
+</svg>

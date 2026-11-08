@@ -8,11 +8,12 @@ interface Props {
   image?: string;
   isTransparentNav?: boolean;
   type?: 'website' | 'article';
-  contentType?: 'newspaper' | 'tutorial' | 'skill' | 'presentation' | 'project' | 'note';
+  contentType?: 'tutorial' | 'skill';
   publishedDate?: string;
   modifiedDate?: string;
   authorName?: string;
   noindex?: boolean;
+  disableAds?: boolean;
 }
 
 const {
@@ -26,6 +27,7 @@ const {
   modifiedDate,
   authorName = 'Charles',
   noindex = false,
+  disableAds = false,
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -44,25 +46,13 @@ const websiteSchema = {
   "name": "FreewingBiz",
   "alternateName": "Charles AI Workspace",
   "url": siteBase,
-  "description": "AI × Knowledge × Creation × A Better Tomorrow — 探索、學習、創作與分享個人 AI 工作資產。",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": `${siteBase}/search?q={search_term_string}`
-    },
-    "query-input": "required name=search_term_string"
-  }
+  "description": "AI × Knowledge × Creation × A Better Tomorrow — 探索、學習、創作與分享個人 AI 工作資產。"
 };
 
 // BreadcrumbList JSON-LD
 const categoryNames: Record<string, { name: string; path: string }> = {
   skills: { name: "Skills 技能庫", path: "/skills" },
   tutorials: { name: "Tutorials 實戰教學", path: "/tutorials" },
-  presentations: { name: "Presentations 線上簡報", path: "/presentations" },
-  projects: { name: "Projects 成果專案", path: "/projects" },
-  notes: { name: "Notes 研究筆記", path: "/notes" },
-  newspapers: { name: "AI 模型日報", path: "/newspapers" },
   about: { name: "關於我們", path: "/about" },
   privacy: { name: "隱私權政策", path: "/privacy" },
   timeline: { name: "活動時間軸", path: "/timeline" },
@@ -104,9 +94,8 @@ const breadcrumbSchema = {
 let itemSchema: Record<string, any> | null = null;
 if (contentType || pathSegments.length > 1) {
   let schemaType = "Article";
-  if (contentType === "newspaper") schemaType = "NewsArticle";
-  else if (contentType === "tutorial") schemaType = "TechArticle";
-  else if (contentType === "skill" || contentType === "presentation" || contentType === "project") schemaType = "CreativeWork";
+  if (contentType === "tutorial") schemaType = "TechArticle";
+  else if (contentType === "skill") schemaType = "CreativeWork";
 
   itemSchema = {
     "@context": "https://schema.org",
@@ -140,10 +129,8 @@ if (contentType || pathSegments.length > 1) {
 
 const navItems = [
   { label: "Home", href: "/", eyebrow: "START" },
-  { label: "Newspaper", href: "/newspapers", eyebrow: "DAILY" },
   { label: "Skills", href: "/skills", eyebrow: "LEARN" },
   { label: "Tutorials", href: "/tutorials", eyebrow: "EXPLORE" },
-  { label: "Presentations", href: "/presentations", eyebrow: "SHARE" },
   { label: "Timeline", href: "/timeline", eyebrow: "JOURNEY" },
   { label: "About", href: "/about", eyebrow: "INFO" },
 ];
@@ -185,8 +172,10 @@ const navItems = [
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     {itemSchema && <script type="application/ld+json" set:html={JSON.stringify(itemSchema)} />}
 
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8717561016919983" crossorigin="anonymous"></script>
+    <!-- Google AdSense (Loaded only on indexable content pages) -->
+    {!noindex && !disableAds && (
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8717561016919983" crossorigin="anonymous"></script>
+    )}
 
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FPF8XB00W3"></script>
@@ -322,10 +311,8 @@ const navItems = [
               探索單元
             </h4>
             <ul class="space-y-2.5 text-sm text-slate-300">
-              <li><a href="/newspapers" class="hover:text-white transition-colors">AI 模型日報 (Newspaper)</a></li>
               <li><a href="/skills" class="hover:text-white transition-colors">AI Skills 技能庫</a></li>
               <li><a href="/tutorials" class="hover:text-white transition-colors">Tutorials 實戰教學</a></li>
-              <li><a href="/presentations" class="hover:text-white transition-colors">Presentations 線上簡報</a></li>
               <li><a href="/timeline" class="hover:text-white transition-colors">活動時間軸 (Timeline)</a></li>
               <li><a href="/about" class="hover:text-white transition-colors">關於與聯絡 (About Us)</a></li>
             </ul>

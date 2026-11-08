@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="auto">
+  <defs>
+    <linearGradient id="cover-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="50%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#022C22"/>
+    </linearGradient>
+
+    <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(16,185,129,0.06)" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="neon-glow" cx="80%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="500" fill="url(#cover-bg)"/>
+  <rect width="960" height="500" fill="url(#grid-pattern)"/>
+  <circle cx="750" cy="180" r="280" fill="url(#neon-glow)"/>
+
+  <!-- Left Content Column -->
+  <g transform="translate(60, 60)">
+    <!-- Series Badge -->
+    <rect width="260" height="30" rx="15" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1.5"/>
+    <circle cx="15" cy="15" r="5" fill="#10B981"/>
+    <text x="30" y="20" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">VIBE CODING ADVANCED · PART 1</text>
+
+    <!-- Main Title -->
+    <text y="78" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="34" font-weight="900" letter-spacing="-0.5">
+      Harness Engineering 鷹架心法
+    </text>
+    
+    <text y="122" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="24" font-weight="800">
+      把 AI 野馬套上韁繩的「規格與家規施工法」
+    </text>
+
+    <!-- Description -->
+    <text y="165" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="400">
+      老鳥工程師對 AI 說一句話就寫出神作，而你卻越聊越亂？
+    </text>
+    <text y="190" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="600">
+      別再靠靈魂對話通靈！學會規格防護罩與 .cursorrules 專案憲法，在寫第一行扣前鎖死架構。
+    </text>
+
+    <!-- Key Takeaway Pills -->
+    <g transform="translate(0, 230)">
+      <rect width="180" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="90" y="23" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">🏗️ 水泥灌漿板模哲學</text>
+
+      <rect x="195" width="180" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="285" y="23" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">📋 3 張卡片規格法 (SDD)</text>
+
+      <rect x="390" width="180" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="480" y="23" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">📜 .cursorrules 專案憲法</text>
+    </g>
+
+    <!-- Author & Domain Brand -->
+    <g transform="translate(0, 340)">
+      <line x1="0" y1="0" x2="520" y2="0" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text y="28" fill="#64748B" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">
+        FREEWINGBIZ · CHARLES AI WORKSPACE | 2026 實戰系列教學
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Visual: The Scaffolding & Blueprint Structure -->
+  <g transform="translate(640, 100)">
+    <!-- Scaffolding Frame Outer -->
+    <rect width="250" height="310" rx="16" fill="rgba(15,23,42,0.85)" stroke="#10B981" stroke-width="2"/>
+    <rect width="250" height="10" rx="5" fill="#10B981"/>
+
+    <!-- Blueprint Grid Lines -->
+    <path d="M 20 50 L 230 50 M 20 100 L 230 100 M 20 150 L 230 150 M 20 200 L 230 200 M 20 250 L 230 250" 
+          stroke="rgba(16,185,129,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+    <path d="M 70 20 L 70 290 M 125 20 L 125 290 M 180 20 L 180 290" 
+          stroke="rgba(16,185,129,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+
+    <!-- Scaffolding Beams (Cross Hatch) -->
+    <line x1="20" y1="50" x2="230" y2="250" stroke="#059669" stroke-width="2" stroke-opacity="0.4"/>
+    <line x1="230" y1="50" x2="20" y2="250" stroke="#059669" stroke-width="2" stroke-opacity="0.4"/>
+
+    <!-- Central Solid Core: Confined Safe Code -->
+    <rect x="55" y="80" width="140" height="150" rx="10" fill="#064E3B" stroke="#34D399" stroke-width="2"/>
+    <circle cx="125" cy="120" r="24" fill="#047857"/>
+    <text x="125" y="128" text-anchor="middle" font-size="20">🤖</text>
+    <text x="125" y="165" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13" font-weight="800" text-anchor="middle">AI 被韁繩約束</text>
+    <text x="125" y="188" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle">100% 精準執行</text>
+
+    <!-- Top Badge -->
+    <rect x="45" y="18" width="160" height="24" rx="12" fill="#0F172A" stroke="#10B981" stroke-width="1.5"/>
+    <text x="125" y="34" fill="#34D399" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">HARNESS SCAFFOLD</text>
+
+    <!-- Bottom Status -->
+    <rect x="35" y="258" width="180" height="26" rx="13" fill="#1E293B" stroke="#64748B"/>
+    <text x="125" y="275" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">🛡️ 零隨機 · 零違章</text>
+  </g>
+</svg>

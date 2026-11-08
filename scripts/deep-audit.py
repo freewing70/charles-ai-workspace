@@ -67,11 +67,11 @@ for file_path in html_files:
         elif canonical.get('href', '').startswith('http://') or 'freewing.biz/' in canonical.get('href', ''):
             issues['missing_meta'].append((rel_path, f"Invalid canonical href: {canonical.get('href')}"))
             
-        # Check noindex on search & 404
+        # Check noindex on search, 404, and embedded slides.html
         meta_robots = head.find('meta', attrs={'name': 'robots'})
-        if rel_path in ['404.html', 'search/index.html']:
+        if rel_path in ['404.html', 'search/index.html'] or rel_path.endswith('slides.html'):
             if not meta_robots or 'noindex' not in meta_robots.get('content', ''):
-                issues['noindex_check'].append((rel_path, 'Expected noindex on utility page'))
+                issues['noindex_check'].append((rel_path, 'Expected noindex on utility/iframe page'))
         else:
             if meta_robots and 'noindex' in meta_robots.get('content', ''):
                 issues['noindex_check'].append((rel_path, 'Unexpected noindex on content page!'))
@@ -121,5 +121,17 @@ for category, items in issues.items():
         print("  -", item)
     if len(items) > 10:
         print(f"  ... and {len(items) - 10} more")
+
+print("\n=== PAGE CONTENT & ADSENSE AUDIT ===")
+for file_path in sorted(html_files):
+    rel_path = os.path.relpath(file_path, dist_dir).replace('\\', '/')
+    raw = open(file_path, encoding='utf-8', errors='ignore').read()
+    s = BeautifulSoup(raw, 'html.parser')
+    for tag in s(['script', 'style', 'nav', 'footer', 'header']):
+        tag.decompose()
+    txt = ' '.join(s.get_text().split())
+    has_ads = 'adsbygoogle' in raw
+    noindex = 'noindex' in raw
+    print(f"{len(txt):6d} chars | Ads:{str(has_ads):5s} | NoIndex:{str(noindex):5s} | {rel_path}")
 
 print("\nAudit completed.")

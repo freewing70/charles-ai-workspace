@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="auto">
+  <defs>
+    <linearGradient id="ladder-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <marker id="arrow-ladder" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="480" rx="20" fill="url(#ladder-bg)"/>
+  <rect width="958" height="478" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#10B981" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">THE VIBE CODING MASTERY LADDER</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">非工程師的進化天梯：從「AI 實習生打字機」到「系統總指揮官」</text>
+  </g>
+
+  <!-- Level 1 -->
+  <g transform="translate(45, 110)">
+    <rect width="195" height="300" rx="14" fill="rgba(239,68,68,0.06)" stroke="#EF4444" stroke-width="1.5"/>
+    <rect width="195" height="6" rx="3" fill="#EF4444"/>
+    
+    <rect x="20" y="20" width="85" height="22" rx="11" fill="#7F1D1D"/>
+    <text x="62" y="35" fill="#FCA5A5" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">LEVEL 01</text>
+    <text x="20" y="70" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="800">盲目通靈聊天</text>
+    <text x="20" y="90" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">碰運氣寫代碼</text>
+
+    <g transform="translate(15, 115)">
+      <text y="0" fill="#EF4444" font-family="-apple-system, sans-serif" font-size="11">• 需求隨口聊</text>
+      <text y="24" fill="#EF4444" font-family="-apple-system, sans-serif" font-size="11">• 隨意安裝套件</text>
+      <text y="48" fill="#EF4444" font-family="-apple-system, sans-serif" font-size="11">• 錯誤無止境重試</text>
+      <text y="72" fill="#EF4444" font-family="-apple-system, sans-serif" font-size="11">• 幾天後整站崩塌</text>
+    </g>
+
+    <rect x="15" y="250" width="165" height="26" rx="6" fill="#1E293B"/>
+    <text x="97" y="267" fill="#F87171" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">狀態：心驚膽戰打補丁</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="245" y1="260" x2="270" y2="260" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-ladder)"/>
+
+  <!-- Level 2 -->
+  <g transform="translate(275, 110)">
+    <rect width="195" height="300" rx="14" fill="rgba(245,158,11,0.06)" stroke="#F59E0B" stroke-width="1.5"/>
+    <rect width="195" height="6" rx="3" fill="#F59E0B"/>
+    
+    <rect x="20" y="20" width="85" height="22" rx="11" fill="#78350F"/>
+    <text x="62" y="35" fill="#FDE68A" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">LEVEL 02</text>
+    <text x="20" y="70" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="800">防禦修補術</text>
+    <text x="20" y="90" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">學會止損煞車</text>
+
+    <g transform="translate(15, 115)">
+      <text y="0" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="11">• 單一真相來源 (SSOT)</text>
+      <text y="24" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="11">• 兩次失敗立即回滾</text>
+      <text y="48" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="11">• 戒掉假資料幻覺</text>
+      <text y="72" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="11">• 體積瘦身 90%</text>
+    </g>
+
+    <rect x="15" y="250" width="165" height="26" rx="6" fill="#1E293B"/>
+    <text x="97" y="267" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">狀態：學會被動防禦</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="475" y1="260" x2="500" y2="260" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-ladder)"/>
+
+  <!-- Level 3 -->
+  <g transform="translate(505, 110)">
+    <rect width="195" height="300" rx="14" fill="rgba(56,189,248,0.06)" stroke="#38BDF8" stroke-width="1.5"/>
+    <rect width="195" height="6" rx="3" fill="#38BDF8"/>
+    
+    <rect x="20" y="20" width="85" height="22" rx="11" fill="#0C4A6E"/>
+    <text x="62" y="35" fill="#BAE6FD" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">LEVEL 03</text>
+    <text x="20" y="70" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="800">鷹架與規格鎖定</text>
+    <text x="20" y="90" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">寫扣前立好規矩</text>
+
+    <g transform="translate(15, 115)">
+      <text y="0" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11">• 3 張規格卡片 (SDD)</text>
+      <text y="24" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11">• .cursorrules 專案憲法</text>
+      <text y="48" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11">• 邊界圍欄鎖死功能</text>
+      <text y="72" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11">• 手術刀最小修改</text>
+    </g>
+
+    <rect x="15" y="250" width="165" height="26" rx="6" fill="#1E293B"/>
+    <text x="97" y="267" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">狀態：主動束縛 AI 隨機性</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="705" y1="260" x2="730" y2="260" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-ladder)"/>
+
+  <!-- Level 4: Pinnacle -->
+  <g transform="translate(735, 105)">
+    <rect width="180" height="310" rx="14" fill="#064E3B" stroke="#10B981" stroke-width="2.5"/>
+    <rect width="180" height="8" rx="4" fill="#10B981"/>
+    
+    <rect x="15" y="20" width="95" height="22" rx="11" fill="#047857"/>
+    <text x="62" y="35" fill="#D1FAE5" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">TOP LEVEL</text>
+    <text x="15" y="70" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="900">自癒系統指揮官</text>
+    <text x="15" y="90" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="11">閉環試車台架構</text>
+
+    <g transform="translate(15, 115)">
+      <text y="0" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11">• 一鍵冒煙試車台</text>
+      <text y="24" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11">• 閉環自主除錯修復</text>
+      <text y="48" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11">• 免人工開瀏覽器盲測</text>
+      <text y="72" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11">• 100% 綠燈才交差</text>
+    </g>
+
+    <rect x="12" y="255" width="156" height="30" rx="6" fill="#022C22" stroke="#10B981"/>
+    <text x="90" y="274" fill="#34D399" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="800" text-anchor="middle">👑 真正的長青架構師</text>
+  </g>
+</svg>

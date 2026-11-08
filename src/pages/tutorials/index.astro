@@ -8,16 +8,41 @@ const tutorials = getItemsByType('tutorial', false);
 ---
 
 <MainLayout 
-  title="Tutorials 實戰教學 | FreewingBiz" 
-  description="FreewingBiz Tutorials 實戰教學 — 涵蓋 AI 學習旅程 L1-L6、本地大模型名詞百科與 YouTube 團隊起步營利手冊。"
+  title="Tutorials 深度實戰教學 | FreewingBiz" 
+  description="FreewingBiz Tutorials 實戰教學與互動簡報專區 — 涵蓋 Vibe Coding 防翻車指南、Harness Engineering 束具工程、企業級 RAG 知識庫、本地 LLM 部署與 AI 算力趨勢。"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <SectionHeader
       eyebrow="EXPLORE"
-      title="Tutorials 實戰教學"
-      description="系統性的 AI 操作、提示詞工程與自動化開發指南，包含實戰步驟與整合簡報入口。"
-      badge={`${tutorials.length} 篇教學`}
+      title="Tutorials 實戰教學與互動簡報"
+      description="系統性的 AI 架構工程、Vibe Coding 防禦心法、企業 RAG 知識庫與私有化部署實戰指南，包含萬字級深度圖文講義與全螢幕互動簡報。"
+      badge={`${tutorials.length} 篇深度教學`}
     />
+
+    <!-- Learning Path Guide Banner -->
+    <div class="mb-10 p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200/90 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+      <div class="space-y-1.5">
+        <div class="font-mono text-xs font-bold text-[#155EEF] uppercase tracking-wider">Track 01 · Vibe Coding & Harness</div>
+        <h3 class="font-bold text-[#07172D] text-base">AI 編程防禦與束具工程系列</h3>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          專為非工程師與一人創作者打造的五部曲：從單一真相來源（SSOT）、架構瘦身、API 金鑰防護，到規格驅動開發（SDD）與閉環自癒試車台。
+        </p>
+      </div>
+      <div class="space-y-1.5">
+        <div class="font-mono text-xs font-bold text-[#0369A1] uppercase tracking-wider">Track 02 · Enterprise Architecture</div>
+        <h3 class="font-bold text-[#07172D] text-base">企業級 Agent、RAG 與本地部署</h3>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          深入剖析 MCP 工具協議、Docker/gVisor 沙盒資安邊界、Hybrid Search 混合檢索管線，以及 vLLM / Ollama 本地高併發推論實務。
+        </p>
+      </div>
+      <div class="space-y-1.5">
+        <div class="font-mono text-xs font-bold text-amber-700 uppercase tracking-wider">Track 03 · Interactive Decks</div>
+        <h3 class="font-bold text-[#07172D] text-base">高說服力提案簡報與入門百科</h3>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          內嵌 HTML5 全螢幕互動投影片與演講逐字備忘錄，涵蓋 AI 算力需求數據佐證、製造業 120 分鐘 AI 落地實戰與 L1–L6 學習旅程。
+        </p>
+      </div>
+    </div>
 
     {tutorials.length > 0 ? (
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

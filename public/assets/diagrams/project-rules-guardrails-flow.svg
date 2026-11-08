@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="auto">
+  <defs>
+    <linearGradient id="rules-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <marker id="arrow-flow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="480" rx="20" fill="url(#rules-bg)"/>
+  <rect width="958" height="478" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">PROJECT-LEVEL CONSTITUTION INTERCEPTOR</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">專案憲法攔截機制：.cursorrules 如何在後台守死每行代碼？</text>
+  </g>
+
+  <!-- Left: User Prompt & AI Idea -->
+  <g transform="translate(45, 115)">
+    <rect width="220" height="290" rx="14" fill="#1E293B" stroke="#475569" stroke-width="1.5"/>
+    <rect width="220" height="8" rx="4" fill="#64748B"/>
+
+    <g transform="translate(15, 20)">
+      <circle cx="16" cy="16" r="14" fill="#334155"/>
+      <text x="16" y="22" text-anchor="middle" font-size="14">💬</text>
+      <text x="40" y="21" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">你隨口一句需求</text>
+    </g>
+
+    <!-- Prompt Bubble -->
+    <rect x="15" y="65" width="190" height="60" rx="8" fill="#0F172A" stroke="#334155"/>
+    <text x="25" y="90" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700">「幫我做個折線圖，</text>
+    <text x="25" y="108" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700">要酷炫好看！」</text>
+
+    <!-- Danger Impulse -->
+    <g transform="translate(15, 145)">
+      <rect width="190" height="110" rx="8" fill="#7F1D1D" stroke="#EF4444" stroke-width="1"/>
+      <text x="12" y="22" fill="#FCA5A5" font-family="-apple-system, sans-serif" font-size="11" font-weight="800">⚠️ AI 原始衝動（若無家規）：</text>
+      <text x="12" y="44" fill="#FECACA" font-family="-apple-system, sans-serif" font-size="10.5">• 偷裝 5MB 的龐大圖表套件</text>
+      <text x="12" y="64" fill="#FECACA" font-family="-apple-system, sans-serif" font-size="10.5">• 寫死 10 筆假資料在頁面裡</text>
+      <text x="12" y="84" fill="#FECACA" font-family="-apple-system, sans-serif" font-size="10.5">• 覆蓋你原本精心調好的 CSS</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="270" y1="260" x2="310" y2="260" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-flow)"/>
+
+  <!-- Center: The Rule Interceptor (.cursorrules) -->
+  <g transform="translate(320, 100)">
+    <rect width="320" height="320" rx="16" fill="rgba(245,158,11,0.06)" stroke="#F59E0B" stroke-width="2"/>
+    <rect width="320" height="8" rx="4" fill="#F59E0B"/>
+
+    <!-- Interceptor Header -->
+    <g transform="translate(20, 20)">
+      <rect width="180" height="26" rx="13" fill="#78350F"/>
+      <text x="90" y="18" fill="#FDE68A" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">🛡️ 專案憲法攔截中心</text>
+      <text x="210" y="18" fill="#F59E0B" font-family="monospace" font-size="11" font-weight="700">.cursorrules</text>
+    </g>
+
+    <!-- Intercept Rules list -->
+    <g transform="translate(20, 60)">
+      <!-- Rule 1 Intercept -->
+      <rect width="280" height="70" rx="8" fill="#1E293B" stroke="rgba(239,68,68,0.4)"/>
+      <text x="12" y="24" fill="#EF4444" font-family="-apple-system, sans-serif" font-size="11" font-weight="800">🛑 攔截：禁止未經同意安裝任何 NPM 套件</text>
+      <text x="12" y="44" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">強制 AI 轉用：</text>
+      <text x="85" y="44" fill="#34D399" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="700">「純原生輕量 SVG / Canvas 實作」</text>
+
+      <!-- Rule 2 Intercept -->
+      <rect y="80" width="280" height="70" rx="8" fill="#1E293B" stroke="rgba(245,158,11,0.4)"/>
+      <text x="12" y="104" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="11" font-weight="800">🛑 攔截：禁止硬編碼 Mock 資料在元件中</text>
+      <text x="12" y="124" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">強制 AI 轉用：</text>
+      <text x="85" y="124" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="700">「抽離至統一資料夾集中管理」</text>
+
+      <!-- Rule 3 Intercept -->
+      <rect y="160" width="280" height="70" rx="8" fill="#1E293B" stroke="rgba(16,185,129,0.4)"/>
+      <text x="12" y="184" fill="#10B981" font-family="-apple-system, sans-serif" font-size="11" font-weight="800">✅ 規範：所有色彩與字體必須引用全站 Token</text>
+      <text x="12" y="204" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">強制 AI 引用：</text>
+      <text x="85" y="204" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="700">「Tailwind / 全域主題色階」</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="645" y1="260" x2="685" y2="260" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-flow)"/>
+
+  <!-- Right: Pure & Compliant Output -->
+  <g transform="translate(695, 115)">
+    <rect width="220" height="290" rx="14" fill="#064E3B" stroke="#10B981" stroke-width="1.5"/>
+    <rect width="220" height="8" rx="4" fill="#10B981"/>
+
+    <g transform="translate(15, 20)">
+      <circle cx="16" cy="16" r="14" fill="#047857"/>
+      <text x="16" y="22" text-anchor="middle" font-size="14">✨</text>
+      <text x="40" y="21" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">產出純淨安全代碼</text>
+    </g>
+
+    <!-- Checklist -->
+    <g transform="translate(15, 65)">
+      <rect width="190" height="190" rx="8" fill="#0F172A" stroke="#10B981" stroke-width="1"/>
+      
+      <text x="12" y="28" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700">✓ 零多餘肥大依賴</text>
+      <text x="12" y="52" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">打包體積 0 膨脹</text>
+
+      <text x="12" y="85" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700">✓ 完美符合現有設計系統</text>
+      <text x="12" y="109" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">UI 風格 100% 一致無違和</text>
+
+      <text x="12" y="142" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700">✓ 模組分離超好維護</text>
+      <text x="12" y="166" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">未來換任何人都能接手</text>
+    </g>
+  </g>
+</svg>
