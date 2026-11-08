@@ -111,12 +111,16 @@ featured: true
 當你把任務交代給 Cursor 或支援終端操作的 AI Agent 時，**千萬不要只說「幫我寫好」**，而是貼上這段防禦自癒協議：
 
 <div class="vibe-prompt-card">
-  <div class="prompt-header">
-    <div class="prompt-dots"><span></span><span></span><span></span></div>
-    <span class="prompt-title">Prompt 01 · 閉環自癒實施指令（禁止半成品打擾）</span>
+  <div class="terminal-header">
+    <div class="terminal-dots">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+    </div>
+    <span class="terminal-title">Prompt 01 · 閉環自癒實施指令（禁止半成品打擾）</span>
+    <span class="terminal-badge">複製即用</span>
   </div>
-  <div class="prompt-body">
-    <pre><code>請依據我們確認好的規格卡片開始實作此功能。
+  <div class="terminal-body">請依據我們確認好的規格卡片開始實作此功能。
 
 【自癒閉環執行協議 (Self-Healing Loop)】
 1. 代碼撰寫完成後，請【嚴禁】直接通知我驗收。
@@ -126,9 +130,8 @@ featured: true
    - 🟢 若連續出現 0 Error、100% 成功編譯：方可停止循環。
 4. 只有在試車台全數亮起綠燈時，你才能在對話框回覆我：「報告指揮官，代碼已通過自動試車台檢驗，所有指標均為 PASS，請確認。」
 
-請開始執行閉環施工！</code></pre>
-  </div>
-  <div class="prompt-footer">
+請開始執行閉環施工！</div>
+  <div class="terminal-footer">
     <span>適用工具：Cursor Agent / Windsurf Cascade / Claude Desktop</span>
     <span class="copy-hint">📋 點擊全選複製這段指令發送給 AI</span>
   </div>
@@ -164,18 +167,21 @@ featured: true
 當你要進行任何可能影響多個檔案的中大型改動前，先複製這段給 AI：
 
 <div class="vibe-prompt-card">
-  <div class="prompt-header">
-    <div class="prompt-dots"><span></span><span></span><span></span></div>
-    <span class="prompt-title">Prompt 02 · 虛擬沙盒安全建立器</span>
+  <div class="terminal-header">
+    <div class="terminal-dots">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+    </div>
+    <span class="terminal-title">Prompt 02 · 虛擬沙盒安全建立器</span>
+    <span class="terminal-badge">複製即用</span>
   </div>
-  <div class="prompt-body">
-    <pre><code>我們即將進行一項新功能的開發。為了確保主線（main）絕對安全，請幫我執行以下防禦動作：
+  <div class="terminal-body">我們即將進行一項新功能的開發。為了確保主線（main）絕對安全，請幫我執行以下防禦動作：
 
 1. 檢查當前 Git 狀態是否乾淨。
 2. 開闢一個名為 `feature/[你的功能英文字，例如 feature/coupon-system]` 的全新獨立沙盒分支。
-3. 切換至該分支後，向我回報：「沙盒房已就緒，可以在此放心施工，隨時可一鍵捨棄或合併！」</code></pre>
-  </div>
-  <div class="prompt-footer">
+3. 切換至該分支後，向我回報：「沙盒房已就緒，可以在此放心施工，隨時可一鍵捨棄或合併！」</div>
+  <div class="terminal-footer">
     <span>適用工具：Cursor / Windsurf / 任何終端整合工具</span>
     <span class="copy-hint">📋 點擊全選複製這段指令發送給 AI</span>
   </div>
@@ -201,12 +207,16 @@ featured: true
 每次準備上線前，把這段最終稽核 Prompt 丟給 AI，為你的心血結晶做最後一次無死角的全身電腦斷層掃描：
 
 <div class="vibe-prompt-card">
-  <div class="prompt-header">
-    <div class="prompt-dots"><span></span><span></span><span></span></div>
-    <span class="prompt-title">Prompt 03 · 最終交付全身電腦斷層掃描</span>
+  <div class="terminal-header">
+    <div class="terminal-dots">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+    </div>
+    <span class="terminal-title">Prompt 03 · 最終交付全身電腦斷層掃描</span>
+    <span class="terminal-badge">複製即用</span>
   </div>
-  <div class="prompt-body">
-    <pre><code>我們即將準備將本次改動交付發布。請你以「資深首席架構師」的身份，針對當前專案執行最終的全身安全掃描：
+  <div class="terminal-body">我們即將準備將本次改動交付發布。請你以「資深首席架構師」的身份，針對當前專案執行最終的全身安全掃描：
 
 【四大查核向度】
 1. 依賴純淨度：檢查 package.json 是否有未經同意安裝的冗餘套件？
@@ -214,9 +224,8 @@ featured: true
 3. 死鏈與資安：掃描全站是否有任何 404 斷鏈、是否有任何 API Key 暴露在外？
 4. 試車台終審：執行全站構建指令，並回報最終打包體積與編譯狀態。
 
-請以清晰條列方式輸出這份【健康報告書】，若有發現任何隱憂，請直接列出建議修復方案。</code></pre>
-  </div>
-  <div class="prompt-footer">
+請以清晰條列方式輸出這份【健康報告書】，若有發現任何隱憂，請直接列出建議修復方案。</div>
+  <div class="terminal-footer">
     <span>適用工具：Cursor / Windsurf / Claude 3.5 Sonnet</span>
     <span class="copy-hint">📋 每次發布上線前的最後一道防線</span>
   </div>

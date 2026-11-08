@@ -620,3 +620,71 @@ body {
   align-items: center;
   gap: 0.35rem;
 }
+
+
+/* High-Contrast Dark Terminal Typography Overrides inside .prose */
+.prose .vibe-prompt-card h1,
+.prose .vibe-prompt-card h2,
+.prose .vibe-prompt-card h3,
+.prose .vibe-prompt-card h4 {
+  color: #38BDF8 !important;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin-top: 1.1rem;
+  margin-bottom: 0.45rem;
+}
+
+.prose .vibe-prompt-card h2 {
+  border-bottom: 1px solid rgba(56, 189, 248, 0.28);
+  padding-bottom: 0.35rem;
+}
+
+.prose .vibe-prompt-card h3 {
+  border-left: 3px solid #38BDF8;
+  padding-left: 0.65rem;
+}
+
+.prose .vibe-prompt-card p,
+.prose .vibe-prompt-card li {
+  color: #F1F5F9 !important;
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+  line-height: 1.75;
+}
+
+.prose .vibe-prompt-card ul,
+.prose .vibe-prompt-card ol {
+  margin-top: 0.4rem;
+  margin-bottom: 0.75rem;
+  color: #F1F5F9;
+}
+
+.prose .vibe-prompt-card li::marker,
+.prose .vibe-prompt-card ol > li::marker {
+  color: #38BDF8;
+}
+
+.prose .vibe-prompt-card strong,
+.prose .vibe-prompt-card b {
+  color: #FDE68A !important;
+}
+
+.prose .vibe-prompt-card em,
+.prose .vibe-prompt-card i {
+  color: #BAE6FD !important;
+}
+
+.prose .vibe-prompt-card :not(pre) > code {
+  color: #7DD3FC !important;
+  background-color: rgba(56, 189, 248, 0.14) !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+
+.prose .vibe-prompt-card pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #F8FAFC;
+}

@@ -97,12 +97,16 @@ featured: true
 當你有一個新點子時，**千萬別叫 AI 直接寫代碼**！先把這段 Prompt 複製給它，讓它反過來幫你出規格書：
 
 <div class="vibe-prompt-card">
-  <div class="prompt-header">
-    <div class="prompt-dots"><span></span><span></span><span></span></div>
-    <span class="prompt-title">Prompt 01 · 規格驅動探勘器（寫扣前必跑）</span>
+  <div class="terminal-header">
+    <div class="terminal-dots">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+    </div>
+    <span class="terminal-title">Prompt 01 · 規格驅動探勘器（寫扣前必跑）</span>
+    <span class="terminal-badge">複製即用</span>
   </div>
-  <div class="prompt-body">
-    <pre><code>你現在是極度嚴謹的軟體架構總監。我有一個新功能想法想要實作，但在我們敲下任何一行程式碼之前，我需要你依照「Harness 規格防護原則」，幫我產出 3 張規格卡片。
+  <div class="terminal-body">你現在是極度嚴謹的軟體架構總監。我有一個新功能想法想要實作，但在我們敲下任何一行程式碼之前，我需要你依照「Harness 規格防護原則」，幫我產出 3 張規格卡片。
 
 我的新功能想法是：
 [在此用白話描述你的想法，例如：我想在結帳頁面新增一個優惠券輸入框，輸入代碼後自動扣抵總金額]
@@ -122,9 +126,8 @@ featured: true
 - 條件 2：(異常或錯誤輸入時應該出現的提示)
 - 條件 3：(原本既有功能未受任何破壞的驗證指標)
 
-請先產出這份規格書，等待我的確認與微調。</code></pre>
-  </div>
-  <div class="prompt-footer">
+請先產出這份規格書，等待我的確認與微調。</div>
+  <div class="terminal-footer">
     <span>適用工具：Cursor / Windsurf / Claude / ChatGPT</span>
     <span class="copy-hint">📋 點擊全選複製這段指令發送給 AI</span>
   </div>
@@ -151,33 +154,36 @@ featured: true
 在你的專案最根目錄（最外層資料夾），新建一個名為 `.cursorrules` 的檔案（如果使用 Claude 則命名為 `CLAUDE.md`），然後把這段「量身訂做給非工程師專案」的內容直接貼進去：
 
 <div class="vibe-prompt-card">
-  <div class="prompt-header">
-    <div class="prompt-dots"><span></span><span></span><span></span></div>
-    <span class="prompt-title">Template 01 · 專案家規憲法（.cursorrules 實戰版）</span>
+  <div class="terminal-header">
+    <div class="terminal-dots">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+    </div>
+    <span class="terminal-title">Template 01 · 專案家規憲法（.cursorrules 實戰版）</span>
+    <span class="terminal-badge">複製即用</span>
   </div>
-  <div class="prompt-body">
-    <pre><code># 專案家規憲法 (Project Constitution)
+  <div class="terminal-body">【專案家規憲法 (Project Constitution)】
 本專案由「非工程背景創作者」主持。你是本專案的高級協同工程師，你在產生或修改任何代碼時，必須百分之百嚴格遵守以下防禦性鐵則：
 
-## 1. 依賴與套件紅線 (Zero Bloat Policy)
+### 1. 依賴與套件紅線 (Zero Bloat Policy)
 - 嚴格禁止未經使用者明文授權，擅自執行 npm install / pnpm add 安裝任何第三方套件。
 - 凡是能用 HTML、CSS、原生 SVG 或原生 Web API 解決的問題，絕對不准引入重量級 JS 函式庫。
 
-## 2. 單一真相來源 (Single Source of Truth)
+### 2. 單一真相來源 (Single Source of Truth)
 - 嚴禁在元件（Component）或頁面模板中硬編碼（Hardcode）重複的 Mock 資料或業務常數。
 - 所有資料必須來自統一指定的資料夾（如 /src/data 或 /content），保持資料與視覺徹底分離。
 
-## 3. 手術刀原則 (Surgical Editing)
+### 3. 手術刀原則 (Surgical Editing)
 - 每次修改程式碼，只針對與當前任務直接相關的最少行數進行變更。
 - 嚴禁擅自「順便重構」其他運作正常的檔案，嚴禁擅自更換全局架構風格。
 
-## 4. 樣式與視覺一致性
+### 4. 樣式與視覺一致性
 - 所有的顏色、字體大小、間距，必須嚴格引用全站既有的 Design Tokens 或 Tailwind 既有類別，嚴禁隨意在行內手寫隨機十六進位色碼（如 #3a7bd5）。
 
-## 5. 出錯煞車機制 (Two-Strikes Rule)
-- 如果一個 Bug 連續修復兩次依然報錯，立即停止任何修補動作！向使用者承認方向可能有誤，主動提議回滾（Rollback）並重新分析底層根因。</code></pre>
-  </div>
-  <div class="prompt-footer">
+### 5. 出錯煞車機制 (Two-Strikes Rule)
+- 如果一個 Bug 連續修復兩次依然報錯，立即停止任何修補動作！向使用者承認方向可能有誤，主動提議回滾（Rollback）並重新分析底層根因。</div>
+  <div class="terminal-footer">
     <span>存放位置：專案根目錄 /.cursorrules 或 /CLAUDE.md</span>
     <span class="copy-hint">📋 存檔後 AI 每次對話將自動載入守則</span>
   </div>
@@ -194,12 +200,16 @@ featured: true
 把剛才確認好的規格卡片，連同以下這套 Prompt 交付給 AI。這會讓 AI 在敲鍵盤前，先在腦袋裡把防護欄拉滿：
 
 <div class="vibe-prompt-card">
-  <div class="prompt-header">
-    <div class="prompt-dots"><span></span><span></span><span></span></div>
-    <span class="prompt-title">Prompt 02 · 邊界鎖定實作啟動器</span>
+  <div class="terminal-header">
+    <div class="terminal-dots">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+    </div>
+    <span class="terminal-title">Prompt 02 · 邊界鎖定實作啟動器</span>
+    <span class="terminal-badge">複製即用</span>
   </div>
-  <div class="prompt-body">
-    <pre><code>我們已經確認好剛才的規格藍圖。現在請開始實作此功能，但在你動工前，請嚴格遵守以下邊界鎖定協議：
+  <div class="terminal-body">我們已經確認好剛才的規格藍圖。現在請開始實作此功能，但在你動工前，請嚴格遵守以下邊界鎖定協議：
 
 【任務規格】
 - 目標範圍：[貼上剛才確認的卡片一]
@@ -211,9 +221,8 @@ featured: true
 2. 僅允許修改或建立與此規格直接關聯的檔案，其他任何現存檔案一律不准更動。
 3. 代碼完成後，請主動按照「卡片三的驗收清單」，逐條向我回報你的自檢驗證結果。
 
-請開始執行，並保持代碼極致精簡乾淨！</code></pre>
-  </div>
-  <div class="prompt-footer">
+請開始執行，並保持代碼極致精簡乾淨！</div>
+  <div class="terminal-footer">
     <span>適用工具：Cursor / Windsurf / Claude 3.5 Sonnet</span>
     <span class="copy-hint">📋 點擊全選複製這段指令發送給 AI</span>
   </div>
