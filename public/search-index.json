@@ -1,5 +1,34 @@
 [
   {
+    "id": "local-ai-hardware-tuning-guide",
+    "title": "你的電腦能跑什麼 AI？16GB 到 128GB 本地 AI 硬體與調校實戰手冊",
+    "type": "tutorial",
+    "category": "Local AI & Infrastructure",
+    "summary": "本地端 AI 硬體與調校互動式教學手冊：內建「我的電腦能跑什麼 AI」記憶體與 Context 診斷計算機，教你用 4-bit 黃金公式估算記憶體、16GB~128GB 模型選型、Ollama 與 LM Studio 64k Context 設定，以及新手最常踩的五個坑與黃金七法則。",
+    "tags": [
+      "Local LLM",
+      "Ollama",
+      "LM Studio",
+      "llama.cpp",
+      "VRAM估算",
+      "MoE模型",
+      "AI Agent",
+      "硬體選型"
+    ],
+    "tools": [
+      "Ollama",
+      "LM Studio",
+      "llama.cpp",
+      "Apple MLX",
+      "Q4_K_M"
+    ],
+    "created": "2026-11-08",
+    "updated": "2026-11-08",
+    "url": "/tutorials/local-ai-hardware-tuning-guide",
+    "cover": "/assets/covers/local-ai-hardware-tuning-guide.png",
+    "featured": true
+  },
+  {
     "id": "vibe-coding-harness-engineering-part-1",
     "title": "Vibe Coding 進階心法（上）：學會 Harness Engineering —— 把 AI 野馬套上韁繩的「鷹架施工法」",
     "type": "tutorial",

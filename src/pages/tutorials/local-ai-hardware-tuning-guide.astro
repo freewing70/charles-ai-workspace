@@ -1,0 +1,2370 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getAllItems } from '../../lib/content';
+
+const tutorialMeta = {
+  id: 'local-ai-hardware-tuning-guide',
+  title: '你的電腦能跑什麼 AI？16GB 到 128GB 本地 AI 硬體與調校實戰手冊',
+  category: 'Local AI & Infrastructure',
+  summary: '本地端 AI 硬體與調校互動式教學手冊：內建「我的電腦能跑什麼 AI」記憶體與 Context 診斷計算機，教你用 4-bit 黃金公式估算記憶體、16GB~128GB 模型選型、Ollama 與 LM Studio 64k Context 設定，以及新手最常踩的五個坑與黃金七法則。',
+  created: '2026-11-08',
+  updated: '2026-11-08',
+  version: '1.0',
+  cover: '/assets/covers/local-ai-hardware-tuning-guide.png',
+  tags: ['Local LLM', 'Ollama', 'LM Studio', 'llama.cpp', 'VRAM估算', 'MoE模型', 'AI Agent', '硬體選型'],
+  tools: ['Ollama', 'LM Studio', 'llama.cpp', 'Apple MLX', 'Q4_K_M']
+};
+
+const allTutorials = getAllItems(false).filter(i => i.meta.type === 'tutorial' && i.meta.id !== tutorialMeta.id);
+const relatedTutorials = allTutorials
+  .map(other => {
+    const sameCategory = other.meta.category === tutorialMeta.category ? 3 : 0;
+    const sharedTags = (other.meta.tags || []).filter(t => tutorialMeta.tags.includes(t)).length;
+    return { item: other, score: sameCategory + sharedTags };
+  })
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map(r => r.item);
+---
+
+<MainLayout
+  title={tutorialMeta.title}
+  description={tutorialMeta.summary}
+  image={tutorialMeta.cover}
+  type="article"
+  contentType="tutorial"
+  publishedDate={tutorialMeta.created}
+  modifiedDate={tutorialMeta.updated}
+>
+  <!-- 頂部閱讀進度條 -->
+  <div class="reading-progress-bar" id="readingProgress"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+    <!-- Breadcrumb & Handbook Theme Switcher -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 font-mono" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[#155EEF] transition-colors">首頁</a>
+        <span>/</span>
+        <a href="/tutorials" class="hover:text-[#155EEF] transition-colors">Tutorials</a>
+        <span>/</span>
+        <span class="text-[#07172D] font-bold">{tutorialMeta.id}</span>
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <span class="text-xs font-mono text-slate-500">手冊閱讀模式：</span>
+        <button
+          type="button"
+          id="themeToggle"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:border-[#155EEF] text-xs font-semibold text-[#07172D] shadow-2xs transition-all cursor-pointer"
+          aria-label="切換手冊深淺色模式"
+          title="切換手冊深淺色閱讀主題"
+        >
+          <svg class="icon-sun w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="icon-moon w-4 h-4 text-[#155EEF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <span id="themeToggleLabel">切換深色 / 淺色</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scoped Interactive Handbook Container -->
+  <div class="local-ai-guide-scope" id="guideThemeRoot" data-theme="light">
+    <div class="layout-container">
+      <main class="article-main">
+        <!-- 文章 Hero 區塊 -->
+        <section class="hero-section">
+          <div class="hero-meta">
+            <span class="tag tag-primary">{tutorialMeta.category}</span>
+            <span class="tag tag-secondary">硬體選型 × 參數調校 × 資安避坑</span>
+            <span class="read-time">作者：Charles · 更新於 {tutorialMeta.updated} · ⏱️ 預計閱讀與實作 10 分鐘</span>
+          </div>
+          <h1 class="hero-title">你的電腦能跑什麼 AI？<br/><span class="gradient-text">16GB 到 128GB 一次講完</span></h1>
+          <p class="hero-subtitle">
+            很多人興沖沖下載了 Ollama 或 LM Studio，接上 Agent 卻發現 AI 像個智障、瘋狂失憶或卡成打字機。<strong>其實你的本地 AI 不笨，往往是設定錯了！</strong>本手冊帶你從記憶體黃金估算公式出發，一次搞懂 16GB～128GB 選型、MoE 加速秘訣、64k Context 設定，以及新手最常踩的 5 個大坑。
+          </p>
+
+          <!-- 核心痛點導讀卡 -->
+          <div class="callout callout-insight">
+            <div class="callout-icon">💡</div>
+            <div class="callout-content">
+              <strong>為什麼你應該先看這篇再升級硬體？</strong>
+              <p>Ollama 在 VRAM 小於 24GB 的電腦上，預設 Context（上下文）只有 <code>4,096 tokens (4k)</code>！而現代 AI Agent（如 OpenClaw、Cline、Roo Code 等）動輒需要 <code>64k</code> 以上的空間。沒改設定就直接跑，再強的模型也會瞬間失憶。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 章節 1：黃金計算規則 & 互動式計算機 -->
+        <section id="sec-calculator" class="doc-section">
+          <div class="section-header">
+            <span class="section-step">CHAPTER 01</span>
+            <h2>核心規則：你的電腦到底「放不放得下」？</h2>
+          </div>
+          <p>
+            要在本地端順暢執行開源大語言模型（Local LLM），第一件事不是看 CPU 有幾核心，而是算清楚<strong>「模型權重 + Context（KV Cache）能不能完整塞進你的高速記憶體（VRAM 或 Mac 統一記憶體）」</strong>。只要有一小部分溢出到一般系統記憶體或硬碟 Swap，速度就會瞬間從每秒 40 字掉到每秒 1 字的「打字機地獄」。
+          </p>
+
+          <!-- 兩大公式視覺卡片 -->
+          <div class="formula-grid">
+            <div class="formula-card">
+              <div class="formula-label">法則 A：4-bit 模型大小估算公式</div>
+              <div class="formula-math">
+                <span class="math-highlight">模型大小 (GB)</span> ≈ 參數量 (B) × <span class="math-accent">0.6</span> + <span class="math-sub">Context 預留空間</span>
+              </div>
+              <p class="formula-desc">
+                主流本地模型最推薦使用 <strong>4-bit 量化（如 Q4_K_M）</strong>，這是在「智商不跳水」與「檔案大小」之間的最佳甜蜜點。例如 <code>27B</code> 模型本體約佔 <code>27 × 0.6 ≈ 16.2 GB</code>，但別忘了還要額外預留 <strong>4 GB ～ 12 GB</strong> 給長對話與 Agent 的 Context！
+              </p>
+            </div>
+            <div class="formula-card">
+              <div class="formula-label">法則 B：Mac 統一記憶體安全法則</div>
+              <div class="formula-math">
+                <span class="math-highlight">Mac 可用 AI 記憶體</span> ≈ 總記憶體 × <span class="math-accent">3 / 4 (75%)</span>
+              </div>
+              <p class="formula-desc">
+                Apple Silicon (M1/M2/M3/M4) 採用統一記憶體架構，macOS 系統與背景程式本身需要保留約 1/4 空間。例如 <strong>32GB 的 Mac</strong>，安全分給 AI 模型的上限約為 <code>24 GB</code>；若硬塞滿 30GB，系統就會開始瘋狂卡頓甚至崩潰。
+              </p>
+            </div>
+          </div>
+
+          <!-- 互動式計算機元件 -->
+          <div class="interactive-widget" id="aiCalculatorWidget">
+            <div class="widget-header">
+              <div>
+                <span class="widget-badge">INTERACTIVE TOOL</span>
+                <h3>⚡ 互動式「我的電腦能跑什麼 AI」診斷計算機</h3>
+              </div>
+              <span class="widget-hint">調整下方硬體規格，即時試算最佳配置</span>
+            </div>
+
+            <div class="calc-controls">
+              <!-- 平台選擇 -->
+              <div class="control-group">
+                <label class="control-label">1. 選擇你的硬體平台</label>
+                <div class="segmented-control" id="platformSelect">
+                  <button type="button" class="seg-btn active" data-platform="mac">
+                    🍎 Apple Silicon Mac (統一記憶體)
+                  </button>
+                  <button type="button" class="seg-btn" data-platform="pc">
+                    🖥️ PC / Linux 獨立顯卡 (NVIDIA / AMD VRAM)
+                  </button>
+                </div>
+              </div>
+
+              <!-- 記憶體選擇 -->
+              <div class="control-group">
+                <label class="control-label">2. 選擇記憶體容量 (<span id="memTypeLabel">Mac 總記憶體</span>)：<strong id="memValueDisplay" class="accent-text">32 GB</strong></label>
+                <div class="tier-pills" id="memoryPills">
+                  <button type="button" class="pill-btn" data-mem="16">16 GB</button>
+                  <button type="button" class="pill-btn active" data-mem="32">32 GB</button>
+                  <button type="button" class="pill-btn" data-mem="48">48 GB</button>
+                  <button type="button" class="pill-btn" data-mem="64">64 GB</button>
+                  <button type="button" class="pill-btn" data-mem="128">128 GB</button>
+                </div>
+                <input type="range" id="memorySlider" min="8" max="128" step="4" value="32" class="custom-slider" aria-label="調整記憶體容量滑桿" />
+              </div>
+
+              <!-- 用途與 Context 選擇 -->
+              <div class="control-group">
+                <label class="control-label">3. 主要使用情境 (決定所需 Context 長度)</label>
+                <div class="segmented-control" id="usageSelect">
+                  <button type="button" class="seg-btn" data-usage="chat" data-ctx="8">
+                    💬 日常問答 / 翻譯 (8k Context)
+                  </button>
+                  <button type="button" class="seg-btn" data-usage="doc" data-ctx="32">
+                    📄 長文摘要 / 讀程式碼 (32k Context)
+                  </button>
+                  <button type="button" class="seg-btn active" data-usage="agent" data-ctx="64">
+                    🤖 串接 AI Agent / 自動化 (64k+ Context)
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 計算結果儀表板 -->
+            <div class="calc-results">
+              <div class="result-metrics">
+                <div class="metric-box">
+                  <span class="metric-title">安全可用 AI 記憶體上限</span>
+                  <span class="metric-value" id="resSafeMem">24.0 GB</span>
+                  <span class="metric-sub" id="resSafeMemNote">已扣除 macOS 系統保留 25% (8.0 GB)</span>
+                </div>
+                <div class="metric-box">
+                  <span class="metric-title">64k Context 預估佔用 (KV Cache)</span>
+                  <span class="metric-value" id="resCtxMem">~5.5 GB</span>
+                  <span class="metric-sub" id="resCtxNote">開啟 Flash Attention & Q8 KV Cache 下估算</span>
+                </div>
+                <div class="metric-box highlight-box">
+                  <span class="metric-title">建議最大模型參數量 (4-bit)</span>
+                  <span class="metric-value" id="resMaxParams">27B ~ 30B 等級</span>
+                  <span class="metric-sub" id="resWeightBudget">模型權重可用空間：約 18.5 GB</span>
+                </div>
+              </div>
+
+              <!-- 記憶體分配視覺條 -->
+              <div class="memory-bar-wrapper">
+                <div class="memory-bar-labels">
+                  <span>記憶體配置模擬 (<strong id="barTotalText">32 GB</strong>)</span>
+                  <span id="barStatusBadge" class="status-badge status-good">✅ 配置健康，可順暢運行</span>
+                </div>
+                <div class="memory-bar-track">
+                  <div class="bar-seg seg-weights" id="barWeights" style="width: 50%;" title="模型權重 (4-bit)">
+                    <span>模型權重</span>
+                  </div>
+                  <div class="bar-seg seg-ctx" id="barCtx" style="width: 18%;" title="Context (KV Cache)">
+                    <span>Context</span>
+                  </div>
+                  <div class="bar-seg seg-free" id="barFree" style="width: 7%;" title="安全緩衝餘裕">
+                    <span>餘裕</span>
+                  </div>
+                  <div class="bar-seg seg-sys" id="barSys" style="width: 25%;" title="系統保留區">
+                    <span>系統保留</span>
+                  </div>
+                </div>
+                <div class="memory-legend">
+                  <span><i class="dot dot-weights"></i>4-bit 模型權重 (<span id="legWeights">16.2 GB</span>)</span>
+                  <span><i class="dot dot-ctx"></i>Context 空間 (<span id="legCtx">5.5 GB</span>)</span>
+                  <span><i class="dot dot-free"></i>緩衝餘裕 (<span id="legFree">2.3 GB</span>)</span>
+                  <span><i class="dot dot-sys"></i>系統/顯存保留 (<span id="legSys">8.0 GB</span>)</span>
+                </div>
+              </div>
+
+              <!-- 推薦模型與實戰建議 -->
+              <div class="recommendation-box" id="calcRecommendation">
+                <!-- 由 JS 動態填入 -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 章節 2：16GB 到 128GB 全級距對照表 -->
+        <section id="sec-tiers" class="doc-section">
+          <div class="section-header">
+            <span class="section-step">CHAPTER 02</span>
+            <h2>16GB 到 128GB：各級距硬體到底能跑什麼？</h2>
+          </div>
+          <p>
+            我們可以用最直白的標準劃分四個主流記憶體級距的「定位分水嶺」。不要拿 16GB 的機器去硬上 70B 模型，也不要買了 64GB 卻只開預設的 4k Context 浪費硬體潛力：
+          </p>
+
+          <div class="tier-cards-grid">
+            <!-- 16GB -->
+            <div class="tier-card">
+              <div class="tier-card-top">
+                <span class="tier-size">16 GB</span>
+                <span class="tier-tagline">入門甜點級：跑小模型</span>
+              </div>
+              <div class="tier-body">
+                <div class="tier-spec">
+                  <span>主力參數量：</span><strong>7B / 8B ～ 14B (4-bit)</strong>
+                </div>
+                <div class="tier-spec">
+                  <span>4-bit 權重大小：</span><strong>約 4.5 GB ～ 8.5 GB</strong>
+                </div>
+                <p>
+                  扣除系統保留後，16GB 最舒服的區間是 <strong>8B 等級模型</strong>（如 Llama-3.1-8B、Qwen2.5/Qwen3-8B、Gemma-3-12B）。如果硬塞 14B 模型，Context 就很難拉高到 64k。
+                </p>
+                <div class="tier-best-for">
+                  <strong>適合任務：</strong>日常翻譯、信件潤飾、單篇短文摘要、輕量本機問答。
+                </div>
+              </div>
+            </div>
+
+            <!-- 32GB -->
+            <div class="tier-card featured-tier">
+              <div class="tier-ribbon">高 CP 值主力門檻</div>
+              <div class="tier-card-top">
+                <span class="tier-size">32 GB</span>
+                <span class="tier-tagline">進階實用級：跑 27B ~ 32B 等級</span>
+              </div>
+              <div class="tier-body">
+                <div class="tier-spec">
+                  <span>主力參數量：</span><strong>27B ～ 32B (4-bit) / 30B MoE</strong>
+                </div>
+                <div class="tier-spec">
+                  <span>4-bit 權重大小：</span><strong>約 16 GB ～ 19 GB</strong>
+                </div>
+                <p>
+                  這是本地模型發生「智商質變」的關鍵門檻！27B～32B 模型（如 Gemma-3-27B、Qwen-32B 或 30B-A3B MoE）佔用約 16~18GB，剩下的空間剛好能開啟 <strong>32k～64k Context</strong> 接上 Agent。
+                </p>
+                <div class="tier-best-for">
+                  <strong>適合任務：</strong>寫程式輔助、串接本地 Agent、邏輯推理、私密文件整理。
+                </div>
+              </div>
+            </div>
+
+            <!-- 64GB -->
+            <div class="tier-card">
+              <div class="tier-card-top">
+                <span class="tier-size">64 GB</span>
+                <span class="tier-tagline">長文本工作站：完整展開長 Context</span>
+              </div>
+              <div class="tier-body">
+                <div class="tier-spec">
+                  <span>主力參數量：</span><strong>27B~32B (全開長 Context) 或 70B</strong>
+                </div>
+                <div class="tier-spec">
+                  <span>核心優勢：</span><strong>64k ～ 128k+ Context 毫無壓力</strong>
+                </div>
+                <p>
+                  64GB 的真正價值不只是能塞進 70B 模型，而是讓你在跑 <strong>27B～32B 甚至中型 MoE 模型時，能把 Context 徹底展開到 64k～128k</strong>，同時使用更高精度的量化（如 Q5/Q6 或 Q8 KV Cache）。
+                </p>
+                <div class="tier-best-for">
+                  <strong>適合任務：</strong>重度 AI Agent 多步驟自動化、大型專案 Codebase 分析、長篇財報/論文解讀。
+                </div>
+              </div>
+            </div>
+
+            <!-- 128GB -->
+            <div class="tier-card">
+              <div class="tier-card-top">
+                <span class="tier-size">128 GB</span>
+                <span class="tier-tagline">旗艦重裝級：真正換上超大模型</span>
+              </div>
+              <div class="tier-body">
+                <div class="tier-spec">
+                  <span>主力參數量：</span><strong>70B ～ 120B+ / 大型 MoE 模型</strong>
+                </div>
+                <div class="tier-spec">
+                  <span>4-bit 權重大小：</span><strong>42 GB ～ 75 GB+</strong>
+                </div>
+                <p>
+                  到了 128GB（如 Mac Studio M2/M3/M4 Max/Ultra 或多卡工作站），才真正建議把主力切換到 <strong>70B 以上的大尺寸 Dense 模型或百億級大型 MoE 模型</strong>，同時保有充裕的 64k+ Context 空間。
+                </p>
+                <div class="tier-best-for">
+                  <strong>適合任務：</strong>高複雜度推理、企業內部完全離線私有部署、多模型同時駐留協作。
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 章節 3：為什麼有的大模型反而比較快？MoE 與軟體選擇 -->
+        <section id="sec-moe-software" class="doc-section">
+          <div class="section-header">
+            <span class="section-step">CHAPTER 03</span>
+            <h2>為什麼有的大模型反而比較快？MoE 架構與軟體選擇</h2>
+          </div>
+
+          <div class="two-col-panel">
+            <div class="panel-card">
+              <h3>🚀 速度秘密：Dense (稠密) vs. MoE (混合專家)</h3>
+              <p>
+                許多新手以為「30B 模型一定比 14B 慢一半」，這在傳統 <strong>Dense（稠密模型）</strong> 上是對的，因為每生成一個字都要動用全部 30B 的參數。
+              </p>
+              <p>
+                但現在非常流行 <strong>MoE（Mixture of Experts，混合專家模型，例如 30B-A3B 架構）</strong>：
+              </p>
+              <ul class="clean-list">
+                <li><strong>記憶體看「總參數」：</strong>30B 的 MoE 模型依然需要約 <code>30 × 0.6 = 18 GB</code> 的記憶體才能裝得下所有專家。</li>
+                <li><strong>速度看「激活參數 (Active Parameters)」：</strong>每次運算只會喚醒其中 <code>3B</code> 的專家！因此只要你的記憶體裝得下，<strong>30B MoE 跑起來的速度會像 3B 小模型一樣飛快</strong>，但同時具備大模型的知識廣度！</li>
+              </ul>
+              <div class="mini-tip">
+                💡 <strong>口訣：</strong>想要快，先試試看 MoE 模型；如果還是慢，再試著換一個推論軟體或引擎（例如 Mac 上改用 MLX 後端）。
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <h3>🛠️ 三大主流軟體怎麼選？</h3>
+              <div class="software-list">
+                <div class="sw-item">
+                  <div class="sw-title">
+                    <strong>LM Studio</strong>
+                    <span class="sw-tag">視覺化首選 / 調參最直覺</span>
+                  </div>
+                  <p>提供完整圖形介面，內建 HuggingFace 搜尋與硬體相容性提示。調整 Context 長度、GPU Offload 與開啟 MLX 引擎（Mac 專屬加速）都在滑桿上一目了然，最適合不想背指令的使用者。</p>
+                </div>
+                <div class="sw-item">
+                  <div class="sw-title">
+                    <strong>Ollama</strong>
+                    <span class="sw-tag">串接 Agent 首選 / 生態系最廣</span>
+                  </div>
+                  <p>背景常駐服務與 CLI 工具，幾乎所有開源 AI Agent、VS Code 外掛都預設支援 Ollama API。<strong>但務必注意預設 Context 過小的陷阱（見下方教學）！</strong></p>
+                </div>
+                <div class="sw-item">
+                  <div class="sw-title">
+                    <strong>llama.cpp</strong>
+                    <span class="sw-tag">極致效能 / 底層玩家首選</span>
+                  </div>
+                  <p>Ollama 與 LM Studio 背後的底層核心。如果你需要極致的記憶體控制、最新模型第一時間支援、或跨裝置分散推論，直接使用 <code>llama-server</code> 最乾淨俐落。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 章節 4：實戰設定教學 (Ollama & LM Studio 拉到 64k Context) -->
+        <section id="sec-setup" class="doc-section">
+          <div class="section-header">
+            <span class="section-step">CHAPTER 04</span>
+            <h2>實戰調校：如何把 Ollama 與 LM Studio 的 Context 拉到 64k？</h2>
+          </div>
+          <p>
+            這是本地部署 AI 最關鍵的實操重點：<strong>「要接 Agent，先把 Context 拉到 64k 以上！」</strong>以下整理三大工具將 Context 擴充至 64k 並優化記憶體的一鍵設定法：
+          </p>
+
+          <!-- 軟體切換 Tabs -->
+          <div class="code-tabs-container">
+            <div class="code-tabs-header" role="tablist">
+              <button type="button" class="code-tab active" data-tab="tab-ollama">Ollama 設定 (64k + 安全綁定)</button>
+              <button type="button" class="code-tab" data-tab="tab-lmstudio">LM Studio 圖形介面設定</button>
+              <button type="button" class="code-tab" data-tab="tab-llamacpp">llama.cpp 進階啟動參數</button>
+            </div>
+
+            <!-- Tab 1: Ollama -->
+            <div class="code-tab-content active" id="tab-ollama">
+              <div class="step-box">
+                <h4>方法一：在 Ollama 圖形介面或環境變數直接拉高全域 Context</h4>
+                <p>新版 Ollama 桌面版可在 Settings 直接調整 Context Length；若你使用 CLI 或背景服務，建議設定以下環境變數（同時開啟 Flash Attention 與 KV Cache 量化，能大幅省下近一半的 Context 記憶體！）：</p>
+                <div class="code-block-wrapper">
+                  <div class="code-block-bar">
+                    <span>macOS / Linux (Bash / Zsh) 或 Windows PowerShell</span>
+                    <button type="button" class="copy-btn" data-copy-target="code-ollama-env">複製指令</button>
+                  </div>
+                  <pre id="code-ollama-env"><code># 1. 確保 Ollama 只聽本機 (防止公網裸奔被盜用算力)
+export OLLAMA_HOST="127.0.0.1:11434"
+
+# 2. 開啟 Flash Attention 與 KV Cache 8-bit 量化 (省記憶體神器)
+export OLLAMA_FLASH_ATTENTION="1"
+export OLLAMA_KV_CACHE_TYPE="q8_0"
+
+# 3. 設定預設全域 Context 長度為 64k (65536 tokens)
+export OLLAMA_CONTEXT_LENGTH=65536</code></pre>
+                </div>
+              </div>
+
+              <div class="step-box">
+                <h4>方法二：用 Modelfile 為 Agent 打造專屬 64k 模型映像</h4>
+                <p>如果你不想影響所有小模型的記憶體佔用，可以針對要接 Agent 的模型建立專屬的 <code>64k</code> 版本：</p>
+                <div class="code-block-wrapper">
+                  <div class="code-block-bar">
+                    <span>Terminal 指令：建立 64k 專用模型</span>
+                    <button type="button" class="copy-btn" data-copy-target="code-ollama-modelfile">複製指令</button>
+                  </div>
+                  <pre id="code-ollama-modelfile"><code># 建立一個包含 65536 Context 設定的 Modelfile
+cat &lt;&lt; 'EOF' &gt; Modelfile
+FROM qwen2.5:32b
+PARAMETER num_ctx 65536
+EOF
+
+# 封裝成新名稱，並在 Agent 中指定使用這個模型名稱
+ollama create qwen2.5:32b-64k -f Modelfile
+ollama run qwen2.5:32b-64k</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 2: LM Studio -->
+            <div class="code-tab-content" id="tab-lmstudio">
+              <div class="step-box">
+                <h4>LM Studio 必調 4 大參數（載入模型時彈出的設定視窗）</h4>
+                <ol class="step-ordered-list">
+                  <li>
+                    <strong>Context Length (上下文長度)：</strong>
+                    預設常為 <code>4096</code>。若要串接 Agent 或讀長檔案，請直接將滑桿拉到 <strong><code>65536</code> (64k)</strong>（16GB 機器若空間吃緊，可先設為 <code>32768</code>）。
+                  </li>
+                  <li>
+                    <strong>GPU Offload (GPU 卸載層數)：</strong>
+                    務必拉到最右邊的 <strong><code>Max (100%)</code></strong>，確保模型每一層都在 GPU / 統一記憶體內運算。
+                  </li>
+                  <li>
+                    <strong>Flash Attention & KV Cache Quantization (進階省記憶體)：</strong>
+                    在右側進階選單勾選 <strong><code>Flash Attention</code></strong>，並將 K/V Cache 設為 <strong><code>Q8_0</code></strong>，可讓 64k Context 佔用的記憶體瞬間減半！
+                  </li>
+                  <li>
+                    <strong>Local Server 安全性檢查：</strong>
+                    在 Developer 分頁啟動 Local Server 時，確認 <strong>「Serve on Local Network」保持關閉</strong>（僅綁定 <code>127.0.0.1:1234</code>），除非你有明確的內網防火牆保護。
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Tab 3: llama.cpp -->
+            <div class="code-tab-content" id="tab-llamacpp">
+              <div class="step-box">
+                <h4>使用 <code>llama-server</code> 啟動高效能 64k OpenAI 相容端點</h4>
+                <p>透過 <code>-c 65536</code> 指定 64k 上下文，搭配 <code>-fa</code> (Flash Attention) 與 <code>-ctk q8_0 -ctv q8_0</code> 壓縮 KV Cache：</p>
+                <div class="code-block-wrapper">
+                  <div class="code-block-bar">
+                    <span>llama-server 啟動指令範本</span>
+                    <button type="button" class="copy-btn" data-copy-target="code-llamacpp">複製指令</button>
+                  </div>
+                  <pre id="code-llamacpp"><code>llama-server \
+  -m ./models/gemma-3-27b-it-Q4_K_M.gguf \
+  --host 127.0.0.1 \
+  --port 8080 \
+  -ngl 99 \
+  -c 65536 \
+  -fa \
+  -ctk q8_0 -ctv q8_0</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 章節 5：新手最常踩的 5 個坑 & 黃金七法則 -->
+        <section id="sec-pitfalls" class="doc-section">
+          <div class="section-header">
+            <span class="section-step">CHAPTER 05</span>
+            <h2>新手最常踩的 5 個大坑 ＆ 「七句照做」黃金法則</h2>
+          </div>
+          <p>
+            為什麼很多人玩本地 AI 玩到最後一肚子火？以下先幫你拆解新手最容易掉進去的 <strong>5 個致命誤區</strong>，接著附上<strong>「什麼時候才該升級＋七句照做檢查表」</strong>：
+          </p>
+
+          <!-- 新手五個坑 -->
+          <div class="pitfalls-list">
+            <div class="pitfall-card">
+              <div class="pitfall-num">坑 01</div>
+              <div class="pitfall-body">
+                <h4>Agent 跑失敗，卻誤以為是「本地模型太笨」</h4>
+                <p>
+                  <strong>真相：</strong>你沒改 Context 長度！Ollama 在小於 24GB VRAM 的機器上預設只給 <code>4k Context</code>，而像 OpenClaw 等 Agent 框架光是系統提示詞與工具定義就吃掉上萬 tokens。模型連你的題目跟工具都看不完整，當然瘋狂報錯或鬼打牆。<strong>解法：接 Agent 前先把 Context 拉到 64k 以上。</strong>
+                </p>
+              </div>
+            </div>
+
+            <div class="pitfall-card">
+              <div class="pitfall-num">坑 02</div>
+              <div class="pitfall-body">
+                <h4>記憶體算得「剛剛好切齊」，忽略了 Context 的胃口</h4>
+                <p>
+                  <strong>真相：</strong>看到自己有 16GB 記憶體，就去找一個檔案大小 15.5GB 的模型來跑。結果一開對話，Context（KV Cache）需要的額外幾 GB 記憶體無處可放，直接擠爆 VRAM 觸發硬碟 Swap，生成速度瞬間變成「一秒吐一個字」的打字機。
+                </p>
+              </div>
+            </div>
+
+            <div class="pitfall-card">
+              <div class="pitfall-num">坑 03</div>
+              <div class="pitfall-body">
+                <h4>誤判 Mac 統一記憶體上限，把 100% 記憶體都算給 AI</h4>
+                <p>
+                  <strong>真相：</strong>Mac 的統一記憶體是 CPU 與 GPU 共用的。如果你買 32GB 的 Mac，千萬不能拿 32GB 去算模型大小，必須先打 <strong>75 折（乘以 3/4 = 24GB）</strong>，留下 25% 給 macOS 系統與瀏覽器，否則整台電腦會卡死或直接 OOM 強制重開。
+                </p>
+              </div>
+            </div>
+
+            <div class="pitfall-card">
+              <div class="pitfall-num">坑 04</div>
+              <div class="pitfall-body">
+                <h4>盲目迷信超大 Dense 模型，忽略了輕快強悍的 MoE 與任務分工</h4>
+                <p>
+                  <strong>真相：</strong>以為一定要跑 70B 才能用，或者想用本地小模型取代所有雲端頂尖模型（如 Claude / GPT 高階推理）。其實<strong>「想要快，先試 MoE 模型」</strong>，而且應該遵循<strong>「難的交給雲端，私密的、重複的留在本地」</strong>的混合工作流。
+                </p>
+              </div>
+            </div>
+
+            <div class="pitfall-card">
+              <div class="pitfall-num">坑 05</div>
+              <div class="pitfall-body">
+                <h4>致命的資安疏忽：把 Ollama 對外開放，或在 Agent 資料夾放密碼</h4>
+                <p>
+                  <strong>真相：</strong>為了方便遠端連線，把 Ollama 設成 <code>0.0.0.0</code> 暴露在公網，結果被全世界的爬蟲當成免費算力狂刷；或者把有檔案讀寫權限的 AI Agent 指向存有 <code>.env</code> 私鑰、銀行密碼或機密憑證的資料夾，一旦遭遇 Prompt Injection（提示詞注入），機密瞬間外洩。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 什麼時候才該升級？ -->
+          <div class="upgrade-decision-box">
+            <div class="upgrade-header">
+              <span class="time-badge">⚡ 升級評估指標</span>
+              <h3>🤔 什麼時候才該花錢升級硬體？</h3>
+            </div>
+            <p>
+              在掏出信用卡買 64GB / 128GB 電腦或高階顯卡之前，請先確認你已經把上述 5 個坑都填平了。如果<strong>「已經選對 4-bit / MoE 模型、已經把 Context 調對、也已經把高難度低頻率任務分流給雲端」</strong>之後，你依然每天遇到以下三種狀況，那才是真正該升級硬體的時候：
+            </p>
+            <div class="upgrade-signals">
+              <div class="signal-item">
+                <span class="signal-icon">🔥</span>
+                <div>
+                  <strong>64k Context 經常滿載溢位</strong>
+                  <p>你的日常工作就是用 Agent 跑超長工作流或大型專案，現有記憶體開 64k Context 後已經塞不下 27B~32B 模型。</p>
+                </div>
+              </div>
+              <div class="signal-item">
+                <span class="signal-icon">🔒</span>
+                <div>
+                  <strong>高敏資料 100% 嚴禁上雲端</strong>
+                  <p>因為法規、醫療、金融或公司機密限制，連最複雜的推理任務都必須在本地離線完成，這時才需要直上 64GB / 128GB 跑大模型。</p>
+                </div>
+              </div>
+              <div class="signal-item">
+                <span class="signal-icon">⏳</span>
+                <div>
+                  <strong>等待時間成本 ＞ 硬體折舊成本</strong>
+                  <p>你每天高頻率使用本地模型超過數小時，慢吞吞的 Token 生成速度已經嚴重拖垮你的工作流與專注力。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 互動式「七句照做」黃金檢查表 -->
+          <div class="checklist-widget" id="goldenRulesWidget">
+            <div class="checklist-header">
+              <div>
+                <span class="widget-badge">ACTIONABLE CHECKLIST</span>
+                <h3>✅ 總結：「七句照做」黃金法則自檢表</h3>
+                <p>把這七句話貼在桌前！勾選你已經確認做到的項目（系統會自動為你記錄進度）：</p>
+              </div>
+              <div class="checklist-progress-box">
+                <span id="checklistScore">0 / 7</span>
+                <small>已落實項目</small>
+              </div>
+            </div>
+
+            <div class="checklist-items">
+              <label class="check-row">
+                <input type="checkbox" class="rule-check" data-rule="1" />
+                <span class="check-custom"></span>
+                <span class="check-text">
+                  <strong>1. 要接 Agent，先把 Context 拉到 64k 以上</strong>
+                  <small>別再用預設的 4k Context 跑 Agent 了！至少設定 <code>65536</code> tokens 才不會半路失憶。</small>
+                </span>
+              </label>
+
+              <label class="check-row">
+                <input type="checkbox" class="rule-check" data-rule="2" />
+                <span class="check-custom"></span>
+                <span class="check-text">
+                  <strong>2. 4-bit 模型 ≈ 參數量 × 0.6 GB，再多留空間給 Context</strong>
+                  <small>下載模型前先乘以 0.6，並務必預留 4GB～12GB 緩衝空間給長對話的 KV Cache。</small>
+                </span>
+              </label>
+
+              <label class="check-row">
+                <input type="checkbox" class="rule-check" data-rule="3" />
+                <span class="check-custom"></span>
+                <span class="check-text">
+                  <strong>3. 用 Mac 的話，先照記憶體的四分之三 (3/4) 來算</strong>
+                  <small>保留 25% 給 macOS 系統與日常 App，例如 32GB Mac 以 24GB 作為 AI 安全上限。</small>
+                </span>
+              </label>
+
+              <label class="check-row">
+                <input type="checkbox" class="rule-check" data-rule="4" />
+                <span class="check-custom"></span>
+                <span class="check-text">
+                  <strong>4. 16GB 跑小模型；32GB 跑 27B 等級；64GB 開長 Context；128GB 才換到大模型</strong>
+                  <small>依照硬體級距選擇最匹配的模型甜點區，不越級硬撐、也不浪費長 Context 潛力。</small>
+                </span>
+              </label>
+
+              <label class="check-row">
+                <input type="checkbox" class="rule-check" data-rule="5" />
+                <span class="check-custom"></span>
+                <span class="check-text">
+                  <strong>5. 想要快，先試 MoE 模型，再試著換一個軟體</strong>
+                  <small>善用每次只激活少數專家的 MoE 架構，並在 Mac 上嘗試支援 MLX 引擎的工具（如 LM Studio）。</small>
+                </span>
+              </label>
+
+              <label class="check-row">
+                <input type="checkbox" class="rule-check" data-rule="6" />
+                <span class="check-custom"></span>
+                <span class="check-text">
+                  <strong>6. 難的交給雲端，私密的、重複的留在本地</strong>
+                  <small>複雜架構設計交給頂級雲端模型；個人隱私日記、機密財報與每日重複的自動化腳本交給免費的本地 AI。</small>
+                </span>
+              </label>
+
+              <label class="check-row">
+                <input type="checkbox" class="rule-check" data-rule="7" />
+                <span class="check-custom"></span>
+                <span class="check-text">
+                  <strong>7. Ollama 保持只聽本機 (localhost)，Agent 的資料夾裡不要放密碼</strong>
+                  <small>堅守 <code>127.0.0.1</code> 本機綁定，並將私鑰與密碼移出 Agent 的工作目錄，杜絕資安外洩風險。</small>
+                </span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- 頁尾快速回到計算機 -->
+        <div class="article-footer">
+          <div class="footer-card">
+            <div>
+              <h4>📌 準備好開始調校你的本地 AI 了嗎？</h4>
+              <p>善用本手冊的記憶體公式與 64k Context 設定，讓你的 16GB～128GB 電腦發揮 100% 的本地推論實力。</p>
+            </div>
+            <a href="#sec-calculator" class="btn-primary">
+              回到頂部重新試算 ↑
+            </a>
+          </div>
+        </div>
+      </main>
+
+      <!-- 右側懸浮文章目錄 (Sticky TOC) -->
+      <aside class="article-sidebar">
+        <div class="toc-card">
+          <div class="toc-title">本頁教學目錄</div>
+          <nav class="toc-nav" id="tocNav">
+            <a href="#sec-calculator" class="toc-link active">01. 核心公式與互動計算機</a>
+            <a href="#sec-tiers" class="toc-link">02. 16GB ~ 128GB 級距指南</a>
+            <a href="#sec-moe-software" class="toc-link">03. MoE 加速與軟體選擇</a>
+            <a href="#sec-setup" class="toc-link">04. 64k Context 實戰設定</a>
+            <a href="#sec-pitfalls" class="toc-link">05. 新手五個坑 & 黃金七法則</a>
+          </nav>
+
+          <div class="sidebar-quick-box">
+            <div class="quick-box-title">⚡ 速查小抄</div>
+            <ul class="quick-cheat-list">
+              <li><span>4-bit 權重</span><strong>參數量 × 0.6 GB</strong></li>
+              <li><span>Mac 安全上限</span><strong>總記憶體 × 3/4</strong></li>
+              <li><span>Agent Context</span><strong>至少 ≥ 64k</strong></li>
+              <li><span>Ollama 綁定</span><strong>127.0.0.1</strong></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- FreewingBiz Author & Related Tutorials Section -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-10">
+    <!-- Author & Editorial Assurance Box (E-E-A-T Signal) -->
+    <aside class="freewing-card p-6 sm:p-8 bg-slate-50/80 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div class="space-y-1.5">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-blue-100 text-[#155EEF] font-bold">AUTHOR &amp; EDITORIAL</span>
+          <span class="text-sm font-bold text-[#07172D]">Charles · FreewingBiz 創辦人</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
+          專注於 AI Agent 系統工程、Harness Engineering 規範驅動開發、企業級 RAG 知識庫與私有化模型部署。本站所有教學與互動工具均經過真實開發環境驗證與人工實測編修。
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="/about" class="px-4 py-2 rounded-xl border border-slate-300 bg-white hover:border-[#155EEF] text-xs font-bold text-[#07172D] hover:text-[#155EEF] transition-colors">
+          關於作者與網站
+        </a>
+        <a href="/tutorials" class="px-4 py-2 rounded-xl bg-[#07172D] hover:bg-[#155EEF] text-xs font-bold text-white transition-colors">
+          瀏覽全部教學
+        </a>
+      </div>
+    </aside>
+
+    <!-- Related Tutorials -->
+    {relatedTutorials.length > 0 && (
+      <section aria-label="延伸實戰教學推薦">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-extrabold text-[#07172D]">延伸實戰教學推薦</h2>
+          <a href="/tutorials" class="text-xs font-mono font-bold text-[#155EEF] hover:underline">查看全部教學 &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {relatedTutorials.map(rel => (
+            <a href={`/tutorials/${rel.meta.id}`} class="freewing-card p-5 border border-slate-200 hover:border-[#155EEF] transition-all group flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 text-[11px] font-mono text-slate-500 mb-2">
+                  <span class="px-2 py-0.5 rounded bg-sky-50 text-[#0369A1] font-semibold">{rel.meta.category}</span>
+                  <span>{rel.meta.updated}</span>
+                </div>
+                <h3 class="text-sm font-bold text-[#07172D] group-hover:text-[#155EEF] transition-colors line-clamp-2 mb-2">
+                  {rel.meta.title}
+                </h3>
+                <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  {rel.meta.summary}
+                </p>
+              </div>
+              <span class="mt-4 text-xs font-mono font-bold text-[#155EEF] inline-flex items-center gap-1">
+                閱讀完整教學 &rarr;
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+</MainLayout>
+
+<style is:global>
+  .reading-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, #155EEF, #27A8FF, #059669);
+    z-index: 1000;
+    transition: width 0.1s ease-out;
+  }
+
+  .local-ai-guide-scope[data-theme="dark"] {
+    --bg-page: #0b0f19;
+    --bg-surface: #131b2e;
+    --bg-surface-elevated: #1a243d;
+    --bg-card-hover: #202d4a;
+    --bg-code: #080c14;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-subtle: rgba(148, 163, 184, 0.16);
+    --border-highlight: rgba(56, 189, 248, 0.45);
+    --accent-primary: #38bdf8;
+    --accent-secondary: #818cf8;
+    --accent-emerald: #34d399;
+    --accent-amber: #fbbf24;
+    --accent-rose: #fb7185;
+    --shadow-card: 0 12px 32px -8px rgba(0, 0, 0, 0.45);
+  }
+
+  .local-ai-guide-scope[data-theme="light"] {
+    --bg-page: #F7F9FC;
+    --bg-surface: #FFFFFF;
+    --bg-surface-elevated: #F1F5F9;
+    --bg-card-hover: #E2E8F0;
+    --bg-code: #07172D;
+    --text-primary: #07172D;
+    --text-secondary: #334155;
+    --text-muted: #64748B;
+    --border-subtle: #E2E8F0;
+    --border-highlight: rgba(21, 94, 239, 0.35);
+    --accent-primary: #155EEF;
+    --accent-secondary: #0369A1;
+    --accent-emerald: #059669;
+    --accent-amber: #D97706;
+    --accent-rose: #E11D48;
+    --shadow-card: 0 10px 25px -5px rgba(7, 23, 45, 0.06);
+  }
+
+  .local-ai-guide-scope {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.75;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 2.5rem;
+  }
+
+  .local-ai-guide-scope code,
+  .local-ai-guide-scope pre {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  .local-ai-guide-scope p code,
+  .local-ai-guide-scope li code {
+    background: var(--bg-surface-elevated);
+    color: var(--accent-primary);
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    font-size: 0.88em;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .layout-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .local-ai-guide-scope .article-main {
+    min-width: 0;
+  }
+
+  .local-ai-guide-scope .hero-section {
+    margin-bottom: 3.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .local-ai-guide-scope .tag {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+  }
+
+  .local-ai-guide-scope .tag-primary {
+    background: rgba(21, 94, 239, 0.12);
+    color: var(--accent-primary);
+    border: 1px solid rgba(21, 94, 239, 0.28);
+  }
+
+  .local-ai-guide-scope .tag-secondary {
+    background: rgba(3, 105, 161, 0.12);
+    color: var(--accent-secondary);
+    border: 1px solid rgba(3, 105, 161, 0.28);
+  }
+
+  .local-ai-guide-scope .read-time {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-left: 0.25rem;
+  }
+
+  .local-ai-guide-scope .hero-title {
+    font-size: clamp(2rem, 4vw, 2.85rem);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .gradient-text {
+    background: linear-gradient(135deg, var(--accent-primary), #27A8FF, var(--accent-emerald));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .local-ai-guide-scope .hero-subtitle {
+    font-size: 1.08rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.75rem;
+  }
+
+  .local-ai-guide-scope .hero-subtitle strong {
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .callout {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 14px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-left: 4px solid var(--accent-primary);
+    box-shadow: var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .callout-icon {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .local-ai-guide-scope .callout-content strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .callout-content p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .doc-section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 104px;
+  }
+
+  .local-ai-guide-scope .section-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .local-ai-guide-scope .section-step {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .local-ai-guide-scope .section-header h2 {
+    font-size: clamp(1.45rem, 2.5vw, 1.85rem);
+    font-weight: 800;
+    line-height: 1.35;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .doc-section > p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1.02rem;
+  }
+
+  .local-ai-guide-scope .doc-section > p strong {
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .local-ai-guide-scope .formula-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 1.4rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .formula-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    margin-bottom: 0.65rem;
+  }
+
+  .local-ai-guide-scope .formula-math {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.02rem;
+    font-weight: 600;
+    background: var(--bg-surface-elevated);
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.85rem;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .math-highlight {
+    color: var(--accent-primary);
+  }
+
+  .local-ai-guide-scope .math-accent {
+    color: var(--accent-emerald);
+    font-weight: 800;
+  }
+
+  .local-ai-guide-scope .math-sub {
+    color: var(--accent-amber);
+  }
+
+  .local-ai-guide-scope .formula-desc {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .interactive-widget {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-highlight);
+    border-radius: 18px;
+    padding: 1.75rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .widget-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.75rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .widget-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-emerald);
+    background: rgba(5, 150, 105, 0.12);
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+  }
+
+  .local-ai-guide-scope .widget-header h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .widget-hint {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .calc-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .local-ai-guide-scope .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .local-ai-guide-scope .control-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .accent-text {
+    color: var(--accent-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.05rem;
+  }
+
+  .local-ai-guide-scope .segmented-control {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.6rem;
+  }
+
+  .local-ai-guide-scope .seg-btn {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .local-ai-guide-scope .seg-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .seg-btn.active {
+    background: rgba(21, 94, 239, 0.12);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    box-shadow: 0 0 0 1px var(--accent-primary);
+  }
+
+  .local-ai-guide-scope .tier-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .local-ai-guide-scope .pill-btn {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+
+  .local-ai-guide-scope .pill-btn:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .pill-btn.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: #ffffff;
+  }
+
+  .local-ai-guide-scope .custom-slider {
+    width: 100%;
+    accent-color: var(--accent-primary);
+    height: 6px;
+    cursor: pointer;
+    margin-top: 0.25rem;
+  }
+
+  .local-ai-guide-scope .calc-results {
+    background: var(--bg-surface-elevated);
+    border-radius: 14px;
+    padding: 1.4rem;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .result-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .local-ai-guide-scope .metric-box {
+    background: var(--bg-surface);
+    padding: 1rem 1.15rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .local-ai-guide-scope .metric-box.highlight-box {
+    border-color: var(--accent-emerald);
+    background: rgba(5, 150, 105, 0.06);
+  }
+
+  .local-ai-guide-scope .metric-title {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .local-ai-guide-scope .metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .highlight-box .metric-value {
+    color: var(--accent-emerald);
+  }
+
+  .local-ai-guide-scope .metric-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .local-ai-guide-scope .memory-bar-wrapper {
+    margin-bottom: 1.4rem;
+  }
+
+  .local-ai-guide-scope .memory-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .local-ai-guide-scope .status-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+  }
+
+  .local-ai-guide-scope .status-good {
+    background: rgba(5, 150, 105, 0.14);
+    color: var(--accent-emerald);
+  }
+
+  .local-ai-guide-scope .status-tight {
+    background: rgba(217, 119, 6, 0.15);
+    color: var(--accent-amber);
+  }
+
+  .local-ai-guide-scope .memory-bar-track {
+    height: 28px;
+    width: 100%;
+    background: var(--bg-code);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .bar-seg {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #ffffff;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .local-ai-guide-scope .seg-weights {
+    background: var(--accent-primary);
+  }
+
+  .local-ai-guide-scope .seg-ctx {
+    background: var(--accent-amber);
+  }
+
+  .local-ai-guide-scope .seg-free {
+    background: var(--accent-emerald);
+  }
+
+  .local-ai-guide-scope .seg-sys {
+    background: #475569;
+    color: #f8fafc;
+  }
+
+  .local-ai-guide-scope .memory-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    margin-top: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.35rem;
+  }
+
+  .local-ai-guide-scope .dot-weights { background: var(--accent-primary); }
+  .local-ai-guide-scope .dot-ctx { background: var(--accent-amber); }
+  .local-ai-guide-scope .dot-free { background: var(--accent-emerald); }
+  .local-ai-guide-scope .dot-sys { background: #475569; }
+
+  .local-ai-guide-scope .recommendation-box {
+    background: var(--bg-surface);
+    border-radius: 12px;
+    padding: 1.2rem 1.35rem;
+    border-left: 4px solid var(--accent-emerald);
+  }
+
+  .local-ai-guide-scope .recommendation-box h4 {
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .recommendation-box p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.65rem;
+  }
+
+  .local-ai-guide-scope .rec-models-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .local-ai-guide-scope .model-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    background: var(--bg-surface-elevated);
+    color: var(--accent-primary);
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .tier-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .local-ai-guide-scope .tier-card {
+    position: relative;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .local-ai-guide-scope .tier-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-primary);
+  }
+
+  .local-ai-guide-scope .tier-card.featured-tier {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 1px var(--accent-primary), var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .tier-ribbon {
+    position: absolute;
+    top: -11px;
+    right: 16px;
+    background: linear-gradient(135deg, var(--accent-primary), #27A8FF);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.18rem 0.65rem;
+    border-radius: 999px;
+  }
+
+  .local-ai-guide-scope .tier-card-top {
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .local-ai-guide-scope .tier-size {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+    line-height: 1.1;
+  }
+
+  .local-ai-guide-scope .tier-tagline {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .tier-spec {
+    font-size: 0.88rem;
+    margin-bottom: 0.4rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .tier-spec strong {
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .tier-body p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0.8rem 0 1rem;
+  }
+
+  .local-ai-guide-scope .tier-best-for {
+    background: var(--bg-surface-elevated);
+    padding: 0.75rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .tier-best-for strong {
+    color: var(--accent-emerald);
+  }
+
+  .local-ai-guide-scope .two-col-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .local-ai-guide-scope .panel-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 1.6rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .panel-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .panel-card p {
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.85rem;
+  }
+
+  .local-ai-guide-scope .clean-list {
+    padding-left: 1.2rem;
+    margin-bottom: 1.1rem;
+    list-style: disc;
+  }
+
+  .local-ai-guide-scope .clean-list li {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.6rem;
+  }
+
+  .local-ai-guide-scope .clean-list li strong {
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .mini-tip {
+    background: rgba(5, 150, 105, 0.08);
+    border: 1px solid rgba(5, 150, 105, 0.28);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .software-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .local-ai-guide-scope .sw-item {
+    background: var(--bg-surface-elevated);
+    padding: 1rem 1.15rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .sw-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+  }
+
+  .local-ai-guide-scope .sw-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    background: rgba(21, 94, 239, 0.1);
+    padding: 0.15rem 0.55rem;
+    border-radius: 6px;
+  }
+
+  .local-ai-guide-scope .sw-item p {
+    font-size: 0.88rem;
+    margin-bottom: 0;
+  }
+
+  .local-ai-guide-scope .code-tabs-container {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .code-tabs-header {
+    display: flex;
+    flex-wrap: wrap;
+    background: var(--bg-surface-elevated);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .code-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.95rem 1.35rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .local-ai-guide-scope .code-tab:hover {
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .code-tab.active {
+    color: var(--accent-primary);
+    border-bottom-color: var(--accent-primary);
+    background: var(--bg-surface);
+  }
+
+  .local-ai-guide-scope .code-tab-content {
+    display: none;
+    padding: 1.6rem;
+  }
+
+  .local-ai-guide-scope .code-tab-content.active {
+    display: block;
+  }
+
+  .local-ai-guide-scope .step-box {
+    margin-bottom: 1.5rem;
+  }
+
+  .local-ai-guide-scope .step-box:last-child {
+    margin-bottom: 0;
+  }
+
+  .local-ai-guide-scope .step-box h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .step-box p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.85rem;
+  }
+
+  .local-ai-guide-scope .code-block-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-code);
+  }
+
+  .local-ai-guide-scope .code-block-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 1rem;
+    background: rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.78rem;
+    color: #cbd5e1;
+  }
+
+  .local-ai-guide-scope .copy-btn {
+    background: rgba(39, 168, 255, 0.2);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    padding: 0.25rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+
+  .local-ai-guide-scope .copy-btn:hover {
+    background: #27A8FF;
+    color: #07172D;
+  }
+
+  .local-ai-guide-scope .code-block-wrapper pre {
+    padding: 1.1rem 1.25rem;
+    overflow-x: auto;
+    color: #f1f5f9;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .local-ai-guide-scope .step-ordered-list {
+    padding-left: 1.35rem;
+    list-style: decimal;
+  }
+
+  .local-ai-guide-scope .step-ordered-list li {
+    margin-bottom: 0.85rem;
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .step-ordered-list li strong {
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .pitfalls-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .local-ai-guide-scope .pitfall-card {
+    display: flex;
+    gap: 1.15rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-left: 4px solid var(--accent-rose);
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .pitfall-num {
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--accent-rose);
+    background: rgba(225, 29, 72, 0.1);
+    height: fit-content;
+    padding: 0.3rem 0.65rem;
+    border-radius: 8px;
+  }
+
+  .local-ai-guide-scope .pitfall-body h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .pitfall-body p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .upgrade-decision-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 1.6rem;
+    margin-bottom: 2.25rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .upgrade-header {
+    margin-bottom: 0.85rem;
+  }
+
+  .local-ai-guide-scope .time-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--accent-amber);
+    background: rgba(217, 119, 6, 0.12);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+  }
+
+  .local-ai-guide-scope .upgrade-header h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .upgrade-decision-box > p {
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .local-ai-guide-scope .upgrade-signals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+  }
+
+  .local-ai-guide-scope .signal-item {
+    background: var(--bg-surface-elevated);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    gap: 0.85rem;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .signal-icon {
+    font-size: 1.4rem;
+  }
+
+  .local-ai-guide-scope .signal-item strong {
+    display: block;
+    font-size: 0.92rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .signal-item p {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .checklist-widget {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-highlight);
+    border-radius: 18px;
+    padding: 1.75rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .checklist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .checklist-header h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .checklist-header p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .checklist-progress-box {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    padding: 0.75rem 1.15rem;
+    border-radius: 12px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .local-ai-guide-scope .checklist-progress-box span {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent-emerald);
+  }
+
+  .local-ai-guide-scope .checklist-progress-box small {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .checklist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .local-ai-guide-scope .check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.95rem;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .local-ai-guide-scope .check-row:hover {
+    border-color: var(--accent-primary);
+  }
+
+  .local-ai-guide-scope .check-row input {
+    display: none;
+  }
+
+  .local-ai-guide-scope .check-custom {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    transition: all 0.18s ease;
+  }
+
+  .local-ai-guide-scope .check-row input:checked + .check-custom {
+    background: var(--accent-emerald);
+    border-color: var(--accent-emerald);
+  }
+
+  .local-ai-guide-scope .check-row input:checked + .check-custom::after {
+    content: "✓";
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.85rem;
+  }
+
+  .local-ai-guide-scope .check-row input:checked ~ .check-text strong {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .check-text strong {
+    display: block;
+    font-size: 0.98rem;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+  }
+
+  .local-ai-guide-scope .check-text small {
+    display: block;
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .article-footer {
+    margin-top: 3rem;
+  }
+
+  .local-ai-guide-scope .footer-card {
+    background: linear-gradient(135deg, rgba(21, 94, 239, 0.08), rgba(39, 168, 255, 0.12));
+    border: 1px solid var(--border-highlight);
+    border-radius: 16px;
+    padding: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .local-ai-guide-scope .footer-card h4 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .footer-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .btn-primary {
+    display: inline-block;
+    background: var(--accent-primary);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+    padding: 0.7rem 1.25rem;
+    border-radius: 10px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .local-ai-guide-scope .btn-primary:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+  }
+
+  .local-ai-guide-scope .article-sidebar {
+    position: sticky;
+    top: 104px;
+  }
+
+  .local-ai-guide-scope .toc-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 1.35rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .local-ai-guide-scope .toc-title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+  }
+
+  .local-ai-guide-scope .toc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .local-ai-guide-scope .toc-link {
+    text-decoration: none;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    padding: 0.45rem 0.7rem;
+    border-radius: 8px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .local-ai-guide-scope .toc-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-surface-elevated);
+  }
+
+  .local-ai-guide-scope .toc-link.active {
+    color: var(--accent-primary);
+    background: rgba(21, 94, 239, 0.08);
+    border-left-color: var(--accent-primary);
+    font-weight: 600;
+  }
+
+  .local-ai-guide-scope .sidebar-quick-box {
+    background: var(--bg-surface-elevated);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .local-ai-guide-scope .quick-box-title {
+    font-size: 0.84rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: var(--text-primary);
+  }
+
+  .local-ai-guide-scope .quick-cheat-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0;
+  }
+
+  .local-ai-guide-scope .quick-cheat-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .local-ai-guide-scope .quick-cheat-list li strong {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-emerald);
+  }
+
+  @media (max-width: 980px) {
+    .local-ai-guide-scope .layout-container {
+      grid-template-columns: 1fr;
+    }
+    .local-ai-guide-scope .article-sidebar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .local-ai-guide-scope .interactive-widget,
+    .local-ai-guide-scope .checklist-widget {
+      padding: 1.25rem;
+    }
+    .local-ai-guide-scope .checklist-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. 手冊深淺色主題切換 (預設為符合全站的 light 淺色主題)
+    const themeToggle = document.getElementById('themeToggle');
+    const guideRoot = document.getElementById('guideThemeRoot');
+    const savedTheme = localStorage.getItem('freewing_local_ai_guide_theme');
+    if (guideRoot && (savedTheme === 'light' || savedTheme === 'dark')) {
+      guideRoot.setAttribute('data-theme', savedTheme);
+    }
+
+    if (themeToggle && guideRoot) {
+      themeToggle.addEventListener('click', () => {
+        const current = guideRoot.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        guideRoot.setAttribute('data-theme', next);
+        localStorage.setItem('freewing_local_ai_guide_theme', next);
+      });
+    }
+
+    // 2. 互動式「我的電腦能跑什麼 AI」診斷計算機
+    const state = {
+      platform: 'mac',
+      memoryGB: 32,
+      usage: 'agent',
+      ctxK: 64
+    };
+
+    const platformBtns = document.querySelectorAll('#platformSelect .seg-btn');
+    const memoryPills = document.querySelectorAll('#memoryPills .pill-btn');
+    const memorySlider = document.getElementById('memorySlider');
+    const usageBtns = document.querySelectorAll('#usageSelect .seg-btn');
+
+    const memTypeLabel = document.getElementById('memTypeLabel');
+    const memValueDisplay = document.getElementById('memValueDisplay');
+    const resSafeMem = document.getElementById('resSafeMem');
+    const resSafeMemNote = document.getElementById('resSafeMemNote');
+    const resCtxMem = document.getElementById('resCtxMem');
+    const resCtxNote = document.getElementById('resCtxNote');
+    const resMaxParams = document.getElementById('resMaxParams');
+    const resWeightBudget = document.getElementById('resWeightBudget');
+
+    const barTotalText = document.getElementById('barTotalText');
+    const barStatusBadge = document.getElementById('barStatusBadge');
+    const barWeights = document.getElementById('barWeights');
+    const barCtx = document.getElementById('barCtx');
+    const barFree = document.getElementById('barFree');
+    const barSys = document.getElementById('barSys');
+
+    const legWeights = document.getElementById('legWeights');
+    const legCtx = document.getElementById('legCtx');
+    const legFree = document.getElementById('legFree');
+    const legSys = document.getElementById('legSys');
+    const calcRecommendation = document.getElementById('calcRecommendation');
+
+    function updateCalculator() {
+      const totalMem = state.memoryGB;
+      memValueDisplay.textContent = `${totalMem} GB`;
+      barTotalText.textContent = `${totalMem} GB`;
+
+      let safeMem = totalMem;
+      let sysReserved = 0;
+
+      if (state.platform === 'mac') {
+        memTypeLabel.textContent = 'Mac 統一記憶體';
+        safeMem = +(totalMem * 0.75).toFixed(1);
+        sysReserved = +(totalMem - safeMem).toFixed(1);
+        resSafeMemNote.textContent = `法則：Mac 取 3/4 (已保留 ${sysReserved} GB 給 macOS)`;
+      } else {
+        memTypeLabel.textContent = '獨立顯卡 VRAM';
+        sysReserved = totalMem <= 12 ? 1.0 : 1.5;
+        safeMem = +(totalMem - sysReserved).toFixed(1);
+        resSafeMemNote.textContent = `已扣除顯示器與驅動基礎佔用 (${sysReserved} GB)`;
+      }
+
+      resSafeMem.textContent = `${safeMem} GB`;
+
+      let ctxMem = 1.5;
+      if (state.ctxK === 8) {
+        ctxMem = totalMem >= 32 ? 1.5 : 1.0;
+        resCtxNote.textContent = '8k Context 佔用極小，適合日常輕量問答';
+      } else if (state.ctxK === 32) {
+        ctxMem = totalMem >= 32 ? 3.2 : 2.2;
+        resCtxNote.textContent = '32k Context 適合單篇長文或中小型程式碼分析';
+      } else {
+        ctxMem = totalMem >= 64 ? 7.5 : (totalMem >= 32 ? 5.2 : 3.2);
+        resCtxNote.textContent = '接 Agent 必備 64k Context (建議開啟 Q8 KV Cache)';
+      }
+
+      resCtxMem.textContent = `~${ctxMem.toFixed(1)} GB`;
+
+      const weightBudget = Math.max(1.5, +(safeMem - ctxMem - 0.8).toFixed(1));
+      const rawMaxB = Math.floor(weightBudget / 0.6);
+
+      let recommendedTierText = '';
+      let chosenWeightGB = 0;
+      let adviceHTML = '';
+
+      if (totalMem < 16) {
+        recommendedTierText = '3B ~ 7B 小模型';
+        chosenWeightGB = Math.min(weightBudget, 4.5);
+        adviceHTML = `
+          <h4>💡 診斷建議：輕量入門級 (${totalMem} GB)</h4>
+          <p>目前記憶體較為緊湊，建議主力運行 <strong>3B ～ 7B / 8B (4-bit)</strong> 小模型。若要接 Agent 開到 64k Context，務必開啟 <code>Flash Attention</code> 與 <code>q8_0</code> KV Cache，並把高難度推理交給雲端 API。</p>
+          <div class="rec-models-tags">
+            <span class="model-pill">Qwen2.5 / Qwen3 7B-8B (Q4_K_M)</span>
+            <span class="model-pill">Llama-3.1-8B-Instruct</span>
+            <span class="model-pill">Gemma-3-4B / 12B (Q4)</span>
+          </div>
+        `;
+      } else if (totalMem < 28) {
+        recommendedTierText = state.ctxK === 64 ? '8B ~ 14B 等級' : '14B ~ 24B 等級';
+        chosenWeightGB = state.ctxK === 64 ? Math.min(weightBudget, 8.5) : Math.min(weightBudget, 11.0);
+        adviceHTML = `
+          <h4>💡 診斷建議：16GB 跑小模型黃金區 (${totalMem} GB)</h4>
+          <p>遵循黃金法則：<strong>「16GB 跑小模型」</strong>。最甜的區間是 <strong>8B ～ 14B (4-bit 權重約 5GB～8.5GB)</strong>，這樣才能留出充裕空間把 Context 拉到 32k～64k。切忌硬塞剛好切齊記憶體的 27B 模型，否則一開對話就會變成打字機！</p>
+          <div class="rec-models-tags">
+            <span class="model-pill">Qwen2.5-Coder-14B (Q4_K_M ~8.5GB)</span>
+            <span class="model-pill">Gemma-3-12B-IT (Q4_K_M ~7.3GB)</span>
+            <span class="model-pill">Llama-3.1-8B (Q4_K_M ~4.9GB)</span>
+          </div>
+        `;
+      } else if (totalMem < 56) {
+        recommendedTierText = '27B ~ 32B / 30B MoE';
+        chosenWeightGB = Math.min(weightBudget, 17.5);
+        adviceHTML = `
+          <h4>💡 診斷建議：32GB 主力甜點區 — 順跑 27B~32B 與 64k Agent (${totalMem} GB)</h4>
+          <p>遵循黃金法則：<strong>「32GB 跑 27B 等級」</strong>！<code>27B × 0.6 ≈ 16.2 GB</code>，加上 <strong>64k Context</strong> 的 ~5GB 空間，剛好完美落在安全上限內。如果你想要極致生成速度，強烈推薦試試 <strong>30B-A3B MoE（混合專家）模型</strong>！</p>
+          <div class="rec-models-tags">
+            <span class="model-pill">Gemma-3-27B-IT (Q4_K_M ~16.5GB)</span>
+            <span class="model-pill">Qwen3-30B-A3B MoE (極速推薦 ⚡)</span>
+            <span class="model-pill">Qwen2.5-32B-Instruct (Q4_K_M ~19GB)</span>
+          </div>
+        `;
+      } else if (totalMem < 96) {
+        recommendedTierText = '27B~32B (全開長 Context) / 70B';
+        chosenWeightGB = Math.min(weightBudget, 24.0);
+        adviceHTML = `
+          <h4>💡 診斷建議：64GB 長 Context 工作站 (${totalMem} GB)</h4>
+          <p>遵循黃金法則：<strong>「64GB 開長 Context」</strong>！與其硬塞一個把記憶體吃乾抹淨的超大模型，64GB 最爽的用法是跑 <strong>27B～32B（甚至 Q5/Q6 高精度量化）或中型 MoE 模型，並把 Context 徹底展開到 64k～128k</strong>，讓 AI Agent 讀完整個專案庫也不失憶！</p>
+          <div class="rec-models-tags">
+            <span class="model-pill">Qwen3-30B-A3B / 32B (Q5_K_M + 128k Context)</span>
+            <span class="model-pill">Gemma-3-27B (Q6_K + 64k+ Context)</span>
+            <span class="model-pill">Llama-3.3-70B (Q4_K_M ~42GB)</span>
+          </div>
+        `;
+      } else {
+        recommendedTierText = '70B ~ 120B+ / 大型 MoE 模型';
+        chosenWeightGB = Math.min(weightBudget, 55.0);
+        adviceHTML = `
+          <h4>💡 診斷建議：128GB 旗艦重裝級 — 真正切換到大模型 (${totalMem} GB)</h4>
+          <p>遵循黃金法則：<strong>「128GB 才換到大模型」</strong>！你擁有近 96GB 的安全可用 AI 記憶體，可以輕鬆駕馭 <strong>70B ～ 120B+ 巨型模型或大型 MoE 模型</strong>，同時全開 64k～128k Context，享受完全離線的頂級私有 AI 工作站。</p>
+          <div class="rec-models-tags">
+            <span class="model-pill">Llama-3.3-70B / Qwen-72B (Q5/Q6 + 64k Context)</span>
+            <span class="model-pill">大型 MoE 旗艦模型 (4-bit + 長 Context)</span>
+            <span class="model-pill">多模型同時常駐 (Coding + Vision + Embedding)</span>
+          </div>
+        `;
+      }
+
+      resMaxParams.textContent = recommendedTierText;
+      resWeightBudget.textContent = `模型權重可用預算：約 ${weightBudget} GB (約 ${rawMaxB}B 參數上限)`;
+
+      const freeMem = Math.max(0.5, +(totalMem - sysReserved - ctxMem - chosenWeightGB).toFixed(1));
+      const wPct = Math.round((chosenWeightGB / totalMem) * 100);
+      const cPct = Math.round((ctxMem / totalMem) * 100);
+      const sPct = Math.round((sysReserved / totalMem) * 100);
+      const fPct = Math.max(2, 100 - wPct - cPct - sPct);
+
+      barWeights.style.width = `${wPct}%`;
+      barCtx.style.width = `${cPct}%`;
+      barFree.style.width = `${fPct}%`;
+      barSys.style.width = `${sPct}%`;
+
+      legWeights.textContent = `${chosenWeightGB.toFixed(1)} GB`;
+      legCtx.textContent = `${ctxMem.toFixed(1)} GB`;
+      legFree.textContent = `${freeMem.toFixed(1)} GB`;
+      legSys.textContent = `${sysReserved.toFixed(1)} GB`;
+
+      if (freeMem < 2.0) {
+        barStatusBadge.className = 'status-badge status-tight';
+        barStatusBadge.textContent = '⚠️ 記憶體較緊繃，建議開啟 Q8 KV Cache';
+      } else {
+        barStatusBadge.className = 'status-badge status-good';
+        barStatusBadge.textContent = '✅ 預留空間充足，可順暢運行不掉速';
+      }
+
+      calcRecommendation.innerHTML = adviceHTML;
+    }
+
+    platformBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        platformBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.platform = btn.getAttribute('data-platform');
+        updateCalculator();
+      });
+    });
+
+    memoryPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        memoryPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const mem = parseInt(pill.getAttribute('data-mem'), 10);
+        state.memoryGB = mem;
+        memorySlider.value = mem;
+        updateCalculator();
+      });
+    });
+
+    memorySlider.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      state.memoryGB = val;
+      memoryPills.forEach(p => {
+        p.classList.toggle('active', parseInt(p.getAttribute('data-mem'), 10) === val);
+      });
+      updateCalculator();
+    });
+
+    usageBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        usageBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.usage = btn.getAttribute('data-usage');
+        state.ctxK = parseInt(btn.getAttribute('data-ctx'), 10);
+        updateCalculator();
+      });
+    });
+
+    updateCalculator();
+
+    // 3. 程式碼分頁 Tabs 與一鍵複製指令
+    const codeTabs = document.querySelectorAll('.code-tab');
+    const codeContents = document.querySelectorAll('.code-tab-content');
+
+    codeTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-tab');
+        codeTabs.forEach(t => t.classList.remove('active'));
+        codeContents.forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) targetEl.classList.add('active');
+      });
+    });
+
+    const copyBtns = document.querySelectorAll('.copy-btn');
+    copyBtns.forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const targetId = btn.getAttribute('data-copy-target');
+        const preEl = document.getElementById(targetId);
+        if (!preEl) return;
+        const text = preEl.innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          const origText = btn.textContent;
+          btn.textContent = '✓ 已複製！';
+          setTimeout(() => {
+            btn.textContent = origText;
+          }, 1800);
+        } catch (err) {
+          btn.textContent = '複製失敗';
+        }
+      });
+    });
+
+    // 4. 「七句照做」黃金法則自檢表 (localStorage 記憶)
+    const ruleChecks = document.querySelectorAll('.rule-check');
+    const checklistScore = document.getElementById('checklistScore');
+    const STORAGE_KEY_RULES = 'local_ai_guide_golden_rules_v1';
+
+    let savedRules = {};
+    try {
+      savedRules = JSON.parse(localStorage.getItem(STORAGE_KEY_RULES) || '{}');
+    } catch (e) {
+      savedRules = {};
+    }
+
+    function updateChecklistCount() {
+      let checkedCount = 0;
+      ruleChecks.forEach(chk => {
+        if (chk.checked) checkedCount++;
+      });
+      checklistScore.textContent = `${checkedCount} / ${ruleChecks.length}`;
+    }
+
+    ruleChecks.forEach(chk => {
+      const ruleId = chk.getAttribute('data-rule');
+      if (savedRules[ruleId]) {
+        chk.checked = true;
+      }
+      chk.addEventListener('change', () => {
+        savedRules[ruleId] = chk.checked;
+        localStorage.setItem(STORAGE_KEY_RULES, JSON.stringify(savedRules));
+        updateChecklistCount();
+      });
+    });
+
+    updateChecklistCount();
+
+    // 5. 閱讀進度條 & 右側目錄 ScrollSpy
+    const readingProgress = document.getElementById('readingProgress');
+    const sections = document.querySelectorAll('.doc-section');
+    const tocLinks = document.querySelectorAll('.toc-link');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+      if (readingProgress) readingProgress.style.width = `${pct}%`;
+
+      let currentSectionId = '';
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 160) {
+          currentSectionId = sec.getAttribute('id');
+        }
+      });
+
+      if (currentSectionId) {
+        tocLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${currentSectionId}`);
+        });
+      }
+    }, { passive: true });
+  });
+</script>

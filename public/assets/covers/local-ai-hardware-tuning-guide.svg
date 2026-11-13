@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="auto">
+  <defs>
+    <linearGradient id="cover-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07172D"/>
+      <stop offset="55%" stop-color="#0B1B32"/>
+      <stop offset="100%" stop-color="#0F294A"/>
+    </linearGradient>
+
+    <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(39,168,255,0.07)" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="blue-glow" cx="78%" cy="32%" r="50%">
+      <stop offset="0%" stop-color="#27A8FF" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#27A8FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="500" fill="url(#cover-bg)"/>
+  <rect width="960" height="500" fill="url(#grid-pattern)"/>
+  <circle cx="750" cy="180" r="280" fill="url(#blue-glow)"/>
+
+  <!-- Left Content Column -->
+  <g transform="translate(60, 56)">
+    <!-- Series Badge -->
+    <rect width="275" height="30" rx="15" fill="rgba(39,168,255,0.16)" stroke="#27A8FF" stroke-width="1.5"/>
+    <circle cx="16" cy="15" r="5" fill="#27A8FF"/>
+    <text x="32" y="20" fill="#7DD3FC" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="1.4">LOCAL AI INFRASTRUCTURE · GUIDE</text>
+
+    <!-- Main Title -->
+    <text y="78" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="34" font-weight="900" letter-spacing="-0.5">
+      你的電腦能跑什麼 AI？
+    </text>
+
+    <text y="122" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="23" font-weight="800">
+      16GB 到 128GB 記憶體選型 × 64k Context 調校實戰
+    </text>
+
+    <!-- Description -->
+    <text y="165" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="400">
+      為什麼接上 AI Agent 就失憶或卡成打字機？其實你的本地 AI 不笨，往往是設定錯了！
+    </text>
+    <text y="190" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="600">
+      內建互動式記憶體診斷計算機，一次掌握 4-bit 黃金公式、MoE 加速與新手避坑七法則。
+    </text>
+
+    <!-- Key Takeaway Pills -->
+    <g transform="translate(0, 230)">
+      <rect width="175" height="36" rx="18" fill="#13233F" stroke="#27A8FF" stroke-opacity="0.45"/>
+      <text x="87" y="23" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">⚡ 4-bit × 0.6 黃金公式</text>
+
+      <rect x="190" width="180" height="36" rx="18" fill="#13233F" stroke="#10B981" stroke-opacity="0.45"/>
+      <text x="280" y="23" fill="#34D399" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">🤖 Ollama 64k Context</text>
+
+      <rect x="385" width="180" height="36" rx="18" fill="#13233F" stroke="#E8B85C" stroke-opacity="0.45"/>
+      <text x="475" y="23" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">🧮 互動硬體診斷計算機</text>
+    </g>
+
+    <!-- Author & Domain Brand -->
+    <g transform="translate(0, 340)">
+      <line x1="0" y1="0" x2="540" y2="0" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+      <text y="28" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">
+        FREEWINGBIZ · CHARLES AI WORKSPACE | 本地 AI 硬體與調校實戰手冊
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Visual: Memory Tiers Matrix (16G -> 128G) -->
+  <g transform="translate(640, 82)">
+    <rect width="260" height="336" rx="18" fill="rgba(11,27,50,0.9)" stroke="#27A8FF" stroke-width="2"/>
+    <rect width="260" height="10" rx="5" fill="#155EEF"/>
+
+    <text x="130" y="38" fill="#7DD3FC" font-family="monospace" font-size="11.5" font-weight="700" text-anchor="middle">VRAM / UNIFIED MEMORY TIERS</text>
+
+    <!-- Tier 1: 16GB -->
+    <rect x="20" y="54" width="220" height="52" rx="10" fill="#13233F" stroke="#334155"/>
+    <text x="34" y="76" fill="#38BDF8" font-family="monospace" font-size="16" font-weight="800">16 GB</text>
+    <text x="102" y="75" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700">8B ~ 14B 小模型</text>
+    <text x="102" y="94" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">日常翻譯 · 輕量問答</text>
+
+    <!-- Tier 2: 32GB -->
+    <rect x="20" y="118" width="220" height="56" rx="10" fill="#172E54" stroke="#27A8FF" stroke-width="1.5"/>
+    <text x="34" y="142" fill="#27A8FF" font-family="monospace" font-size="16" font-weight="800">32 GB</text>
+    <text x="102" y="140" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="800">27B~32B / 30B MoE</text>
+    <text x="102" y="159" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">★ 高 CP 值主力 · 64k Agent</text>
+
+    <!-- Tier 3: 64GB -->
+    <rect x="20" y="186" width="220" height="52" rx="10" fill="#13233F" stroke="#334155"/>
+    <text x="34" y="208" fill="#34D399" font-family="monospace" font-size="16" font-weight="800">64 GB</text>
+    <text x="102" y="207" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700">全開 64k~128k Context</text>
+    <text x="102" y="226" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">大型專案 Codebase 分析</text>
+
+    <!-- Tier 4: 128GB -->
+    <rect x="20" y="250" width="220" height="52" rx="10" fill="#13233F" stroke="#E8B85C" stroke-opacity="0.6"/>
+    <text x="28" y="272" fill="#FBBF24" font-family="monospace" font-size="15" font-weight="800">128 GB</text>
+    <text x="102" y="271" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700">70B ~ 120B+ 旗艦級</text>
+    <text x="102" y="290" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">完全離線私有部署工作站</text>
+  </g>
+</svg>

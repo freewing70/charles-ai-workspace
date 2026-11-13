@@ -4,7 +4,7 @@ import { getAllItems, getItemById } from '../../lib/content';
 import { renderMarkdown } from '../../lib/markdown';
 
 export function getStaticPaths() {
-  const items = getAllItems(false).filter(i => i.meta.type === 'tutorial');
+  const items = getAllItems(false).filter(i => i.meta.type === 'tutorial' && i.meta.id !== 'local-ai-hardware-tuning-guide');
   return items.map((item) => ({
     params: { id: item.meta.id },
   }));
@@ -173,7 +173,7 @@ const relatedTutorials = allTutorials
       <section aria-label="延伸實戰教學推薦">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-lg font-extrabold text-[#07172D]">延伸實戰教學推薦</h2>
-          <a href="/tutorials" class="text-xs font-mono font-bold text-[#155EEF] hover:underline">查看全部 14 篇教學 &rarr;</a>
+          <a href="/tutorials" class="text-xs font-mono font-bold text-[#155EEF] hover:underline">查看全部 {allTutorials.length + 1} 篇教學 &rarr;</a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
           {relatedTutorials.map(rel => (
