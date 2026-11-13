@@ -12,7 +12,7 @@ visibility: "public"
 tags: ["Vibe Coding", "效能優化", "軟體架構", "非工程師", "Cursor", "Claude", "記憶體洩漏", "骨肉分離", "瘦身減肥"]
 tools: ["Cursor", "Claude 3.5 Sonnet", "Windsurf", "ChatGPT", "v0", "Astro"]
 cover: "/assets/covers/vibe-coding-defense-guide-part-2.png"
-featured: true
+featured: false
 ---
 
 ## 導言：為什麼自己電腦跑超順，一給別人看就大翻車？

@@ -6,7 +6,7 @@ import { getAllItems } from '../lib/content';
 
 // Load public items
 const allItems = getAllItems(false);
-const featuredItems = allItems.filter((i) => i.meta.featured);
+const featuredItems = allItems.filter((i) => i.meta.featured).slice(0, 6);
 const recentItems = allItems.slice(0, 6);
 ---
 

@@ -13,7 +13,7 @@ tags: ["AI算力", "客戶提案", "能源用量", "商業洞察", "資本支出
 tools: ["HTML5", "DataViz", "Chart.js", "Reveal.js"]
 cover: "/assets/covers/ai-compute-demand-evidence-2026.png"
 playUrl: "/presentations/ai-compute-demand-evidence-2026/slides.html"
-featured: true
+featured: false
 ---
 
 ## 簡報導讀與演講備忘錄（Executive Speaker Notes）

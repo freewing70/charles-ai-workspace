@@ -15,7 +15,7 @@ cover: /assets/covers/living-watercolor-rpg.jpg
 contentPath: skills/living-watercolor-rpg/SKILL.md
 repositoryUrl: https://github.com/freewing70/charles-ai-workspace
 downloadUrl: /assets/examples/watercolor-presets.json
-featured: true
+featured: false
 relatedPresentations: ["ai-compute-demand-evidence-2026"]
 ---
 

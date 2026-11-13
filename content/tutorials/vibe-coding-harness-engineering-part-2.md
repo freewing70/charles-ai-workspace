@@ -12,7 +12,7 @@ visibility: "public"
 tags: ["Vibe Coding", "Harness Engineering", "AI編程", "自動化測試", "自癒系統", "Cursor", "Claude", "非工程師", "Prompt錦囊"]
 tools: ["Cursor", "Claude 3.5 Sonnet", "Windsurf", "ChatGPT", "v0", "Astro"]
 cover: "/assets/covers/vibe-coding-harness-engineering-part-2.png"
-featured: true
+featured: false
 ---
 
 ## 導言：別再當 AI 的「人工改考卷老師」！

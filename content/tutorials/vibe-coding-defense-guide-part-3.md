@@ -12,7 +12,7 @@ visibility: "public"
 tags: ["Vibe Coding", "金鑰安全", "自動化檢查", "404審計", "技術債", "非工程師", "軟體工程心法", "長青系統", "Prompt技巧"]
 tools: ["Cursor", "Claude 3.5 Sonnet", "Windsurf", "ChatGPT", "v0", "Astro"]
 cover: "/assets/covers/vibe-coding-defense-guide-part-3.png"
-featured: true
+featured: false
 ---
 
 ## 導言：每次按下發布，你都在玩「俄羅斯輪盤」嗎？

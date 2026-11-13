@@ -88,7 +88,7 @@
     "updated": "2026-11-08",
     "url": "/tutorials/vibe-coding-harness-engineering-part-2",
     "cover": "/assets/covers/vibe-coding-harness-engineering-part-2.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "vibe-coding-defense-guide-part-3",
@@ -119,7 +119,7 @@
     "updated": "2026-11-06",
     "url": "/tutorials/vibe-coding-defense-guide-part-3",
     "cover": "/assets/covers/vibe-coding-defense-guide-part-3.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "ai-agent-sandbox-security-guide",
@@ -214,7 +214,7 @@
     "updated": "2026-10-30",
     "url": "/tutorials/vibe-coding-defense-guide-part-2",
     "cover": "/assets/covers/vibe-coding-defense-guide-part-2.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "camera-controls",
@@ -247,7 +247,7 @@
     "updated": "2026-10-27",
     "url": "/skills/camera-controls",
     "cover": "/assets/covers/camera-controls.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "ai-learning-journey-l1-l6",
@@ -412,7 +412,7 @@
     "updated": "2026-10-21",
     "url": "/skills/ink-wuxia-fantasy",
     "cover": "/assets/covers/ink-wuxia-fantasy.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "living-watercolor-rpg",
@@ -440,7 +440,7 @@
     "updated": "2026-10-21",
     "url": "/skills/living-watercolor-rpg",
     "cover": "/assets/covers/living-watercolor-rpg.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "id": "ai-agent-workflow-patterns-2026",
@@ -497,7 +497,7 @@
     "updated": "2026-10-21",
     "url": "/tutorials/ai-compute-demand-evidence-2026",
     "cover": "/assets/covers/ai-compute-demand-evidence-2026.png",
-    "featured": true
+    "featured": false
   },
   {
     "id": "enterprise-rag-architecture-guide",

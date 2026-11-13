@@ -14,7 +14,7 @@ tools: ["Midjourney v6", "Flux.1", "Stable Diffusion XL", "DALL-E 3"]
 cover: /assets/covers/ink-wuxia-fantasy.jpg
 contentPath: skills/ink-wuxia-fantasy-skill/SKILL.md
 downloadUrl: /assets/downloads/ink-wuxia-fantasy-skill.zip
-featured: true
+featured: false
 ---
 
 ## 概述：東方水墨武俠的視覺哲學與 AI 生成困境
