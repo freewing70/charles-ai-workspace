@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="auto">
+  <defs>
+    <linearGradient id="cover-bg-07" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="55%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+
+    <pattern id="grid-07" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(239,68,68,0.06)" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="glow-07" cx="80%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#EF4444" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#10B981" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#090D16" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="960" height="500" fill="url(#cover-bg-07)"/>
+  <rect width="960" height="500" fill="url(#grid-07)"/>
+  <circle cx="750" cy="190" r="290" fill="url(#glow-07)"/>
+
+  <!-- Left Content Column -->
+  <g transform="translate(60, 60)">
+    <rect width="270" height="30" rx="15" fill="rgba(239,68,68,0.15)" stroke="#EF4444" stroke-width="1.5"/>
+    <circle cx="15" cy="15" r="5" fill="#EF4444"/>
+    <text x="30" y="20" fill="#FCA5A5" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">AI SECURITY · ENTERPRISE DEFENSE</text>
+
+    <text y="78" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="33" font-weight="900" letter-spacing="-0.5">
+      Prompt Injection 攻防實戰
+    </text>
+
+    <text y="122" fill="#34D399" font-family="-apple-system, sans-serif" font-size="22" font-weight="800">
+      企業 AI 上線必備：4 層 Guardrails 安全護欄架構
+    </text>
+
+    <text y="166" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="400">
+      還在 System Prompt 寫「請勿忽略以上指令」？一封惡意履歷就能劫持你的 Agent！
+    </text>
+    <text y="192" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="600">
+      完整拆解直接/間接注入攻擊，打造 XML 隔離、金絲雀偵測與最小權限防禦縱深。
+    </text>
+
+    <!-- Key Takeaway Pills -->
+    <g transform="translate(0, 232)">
+      <rect width="176" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="88" y="23" fill="#FCA5A5" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🛡️ XML 邊界隔離術</text>
+
+      <rect x="190" width="184" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="282" y="23" fill="#FCD34D" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🐤 Canary Token 誘餌</text>
+
+      <rect x="388" width="184" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="480" y="23" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🔒 HITL &amp; PII 脫敏門禁</text>
+    </g>
+
+    <g transform="translate(0, 340)">
+      <line x1="0" y1="0" x2="540" y2="0" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text y="28" fill="#64748B" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">
+        FREEWINGBIZ · CHARLES AI WORKSPACE | AI 安全架構實戰指南
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Visual: 4-Layer Guardrail Shield -->
+  <g transform="translate(650, 95)">
+    <rect width="250" height="315" rx="16" fill="rgba(15,23,42,0.9)" stroke="#334155" stroke-width="2"/>
+    <rect width="250" height="10" rx="5" fill="#10B981"/>
+
+    <rect x="40" y="22" width="170" height="24" rx="12" fill="#0F172A" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="125" y="38" fill="#FCA5A5" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">INJECTION BLOCKED</text>
+
+    <!-- Malicious payload arrow -->
+    <rect x="25" y="60" width="200" height="34" rx="8" fill="rgba(239,68,68,0.15)" stroke="#EF4444" stroke-dasharray="4 3"/>
+    <text x="125" y="81" fill="#FECACA" font-family="monospace" font-size="10.5" font-weight="700" text-anchor="middle">&lt;!-- Ignore prev rules --&gt;</text>
+
+    <!-- Guardrail Layers -->
+    <rect x="25" y="110" width="200" height="34" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="125" y="131" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">L1 · 輸入清理 &amp; XML 沙盒</text>
+
+    <rect x="25" y="154" width="200" height="34" rx="8" fill="#1E293B" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="125" y="175" fill="#FCD34D" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">L2 · Canary 金絲雀偵測</text>
+
+    <rect x="25" y="198" width="200" height="34" rx="8" fill="#1E293B" stroke="#A855F7" stroke-width="1.5"/>
+    <text x="125" y="219" fill="#D8B4FE" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">L3 · 最小權限 &amp; HITL 閘門</text>
+
+    <rect x="25" y="242" width="200" height="34" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="1.5"/>
+    <text x="125" y="263" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">L4 · 輸出 PII &amp; 密鑰脫敏</text>
+
+    <text x="125" y="299" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle">🛡️ Defense-in-Depth 4-Layer</text>
+  </g>
+</svg>

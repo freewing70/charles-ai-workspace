@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="auto">
+  <defs>
+    <linearGradient id="cover-bg-10" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="55%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#134E4A"/>
+    </linearGradient>
+
+    <pattern id="grid-10" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(20,184,166,0.06)" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="glow-10" cx="80%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#14B8A6" stop-opacity="0.32"/>
+      <stop offset="60%" stop-color="#38BDF8" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#090D16" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="960" height="500" fill="url(#cover-bg-10)"/>
+  <rect width="960" height="500" fill="url(#grid-10)"/>
+  <circle cx="755" cy="190" r="290" fill="url(#glow-10)"/>
+
+  <!-- Left Content Column -->
+  <g transform="translate(60, 60)">
+    <rect width="275" height="30" rx="15" fill="rgba(20,184,166,0.16)" stroke="#14B8A6" stroke-width="1.5"/>
+    <circle cx="15" cy="15" r="5" fill="#2DD4BF"/>
+    <text x="30" y="20" fill="#99F6E4" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">LOCAL AI · SUB-500MS VOICE PIPELINE</text>
+
+    <text y="78" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="33" font-weight="900" letter-spacing="-0.5">
+      超低延遲本地語音 AI 管線實戰
+    </text>
+
+    <text y="122" fill="#2DD4BF" font-family="-apple-system, sans-serif" font-size="22" font-weight="800">
+      Faster-Whisper + CosyVoice 打造毫秒級語音助理
+    </text>
+
+    <text y="166" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="400">
+      傳統「聽完 → 想完 → 念完」動輒 6 秒延遲像機器人？串流管線讓你首音延遲壓到 500ms 內！
+    </text>
+    <text y="192" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="600">
+      整合 Silero VAD 搶話打斷、INT8 ASR、句讀切塊串流與 8G/16G/24G GPU 顯存分配全解析。
+    </text>
+
+    <!-- Key Takeaway Pills -->
+    <g transform="translate(0, 232)">
+      <rect width="176" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="88" y="23" fill="#2DD4BF" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🎙️ Silero VAD &amp; Barge-in</text>
+
+      <rect x="190" width="184" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="282" y="23" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">⚡ 句讀切片串流 TTS</text>
+
+      <rect x="388" width="184" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="480" y="23" fill="#C4B5FD" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">💾 8/16/24G VRAM 調優</text>
+    </g>
+
+    <g transform="translate(0, 340)">
+      <line x1="0" y1="0" x2="540" y2="0" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text y="28" fill="#64748B" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">
+        FREEWINGBIZ · CHARLES AI WORKSPACE | 全本地端即時語音架構
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Visual: Streaming Audio Waveform & TTFA -->
+  <g transform="translate(650, 95)">
+    <rect width="250" height="315" rx="16" fill="rgba(15,23,42,0.9)" stroke="#14B8A6" stroke-width="2"/>
+    <rect width="250" height="10" rx="5" fill="#14B8A6"/>
+
+    <rect x="42" y="22" width="166" height="24" rx="12" fill="#0F172A" stroke="#2DD4BF" stroke-width="1.5"/>
+    <text x="125" y="38" fill="#2DD4BF" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">TTFA &lt; 450ms STREAM</text>
+
+    <!-- Audio Waveform Bars -->
+    <g transform="translate(30, 62)">
+      <rect x="0" y="18" width="8" height="24" rx="4" fill="#14B8A6"/>
+      <rect x="14" y="10" width="8" height="40" rx="4" fill="#2DD4BF"/>
+      <rect x="28" y="4" width="8" height="52" rx="4" fill="#38BDF8"/>
+      <rect x="42" y="14" width="8" height="32" rx="4" fill="#14B8A6"/>
+      <rect x="56" y="2" width="8" height="56" rx="4" fill="#A855F7"/>
+      <rect x="70" y="12" width="8" height="36" rx="4" fill="#38BDF8"/>
+      <rect x="84" y="6" width="8" height="48" rx="4" fill="#2DD4BF"/>
+      <rect x="98" y="18" width="8" height="24" rx="4" fill="#14B8A6"/>
+      <rect x="112" y="8" width="8" height="44" rx="4" fill="#38BDF8"/>
+      <rect x="126" y="14" width="8" height="32" rx="4" fill="#A855F7"/>
+      <rect x="140" y="4" width="8" height="52" rx="4" fill="#2DD4BF"/>
+      <rect x="154" y="12" width="8" height="36" rx="4" fill="#14B8A6"/>
+      <rect x="168" y="20" width="8" height="20" rx="4" fill="#38BDF8"/>
+      <rect x="182" y="16" width="8" height="28" rx="4" fill="#14B8A6"/>
+    </g>
+
+    <!-- Pipeline Nodes -->
+    <rect x="22" y="135" width="206" height="32" rx="8" fill="#1E293B" stroke="#14B8A6"/>
+    <text x="125" y="155" fill="#99F6E4" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">1. Silero VAD + Faster-Whisper INT8</text>
+
+    <rect x="22" y="177" width="206" height="32" rx="8" fill="#1E293B" stroke="#38BDF8"/>
+    <text x="125" y="197" fill="#BAE6FD" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">2. Local LLM 句讀切塊串流</text>
+
+    <rect x="22" y="219" width="206" height="32" rx="8" fill="#1E293B" stroke="#A855F7"/>
+    <text x="125" y="239" fill="#E9D5FF" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">3. CosyVoice 2 / Kokoro WebRTC</text>
+
+    <rect x="35" y="265" width="180" height="30" rx="15" fill="#0F766E" stroke="#2DD4BF"/>
+    <text x="125" y="284" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">🔊 100% 離線 · 零雲端延遲</text>
+  </g>
+</svg>

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" width="100%" height="auto">
+  <defs>
+    <linearGradient id="rules-arch-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <marker id="arrow-violet" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#A78BFA"/>
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10B981"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="660" rx="20" fill="url(#rules-arch-bg)"/>
+  <rect width="958" height="658" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Header -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#C4B5FD" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">5-LAYER SYSTEM RULES &amp; SCOPED CONTEXT ARCHITECTURE</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">中大型專案 AI IDE 五層開發憲法與分域載入架構</text>
+  </g>
+
+  <!-- Left Side: Context Routing & Progressive Loading -->
+  <g transform="translate(36, 95)">
+    <rect width="310" height="465" rx="16" fill="#1E293B" stroke="#8B5CF6" stroke-width="2"/>
+    <rect width="310" height="8" rx="4" fill="#8B5CF6"/>
+
+    <text x="155" y="38" text-anchor="middle" fill="#DDD6FE" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">精準分域載入（避免規則過載失憶）</text>
+    <text x="155" y="57" text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">Glob-Scoped Rules &amp; AGENTS.md</text>
+
+    <!-- Root Constitution -->
+    <rect x="18" y="75" width="274" height="85" rx="10" fill="#0F172A" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="30" y="98" fill="#C4B5FD" font-family="monospace" font-size="12" font-weight="800">AGENTS.md / CLAUDE.md (常駐層)</text>
+    <text x="30" y="118" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="11">• 控制在 150 行內（黃金記憶區）</text>
+    <text x="30" y="137" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">• 僅放全域技術棧、紅線與驗證指令</text>
+
+    <!-- Scoped Rules -->
+    <rect x="18" y="176" width="274" height="84" rx="10" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="30" y="199" fill="#38BDF8" font-family="monospace" font-size="11.5" font-weight="800">.cursor/rules/api-backend.mdc</text>
+    <text x="30" y="219" fill="#7DD3FC" font-family="monospace" font-size="10.5">globs: ["src/api/**/*.ts"]</text>
+    <text x="30" y="239" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">僅修改後端 API 時動態注入資料庫規範</text>
+
+    <rect x="18" y="274" width="274" height="84" rx="10" fill="#0F172A" stroke="#10B981" stroke-width="1.5"/>
+    <text x="30" y="297" fill="#34D399" font-family="monospace" font-size="11.5" font-weight="800">.cursor/rules/ui-components.mdc</text>
+    <text x="30" y="317" fill="#6EE7B7" font-family="monospace" font-size="10.5">globs: ["src/components/**/*.tsx"]</text>
+    <text x="30" y="337" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">僅修改前端元件時載入 Token 與無障礙守則</text>
+
+    <rect x="18" y="372" width="274" height="75" rx="10" fill="rgba(245,158,11,0.08)" stroke="#F59E0B" stroke-width="1"/>
+    <text x="30" y="396" fill="#FCD34D" font-family="-apple-system, sans-serif" font-size="12" font-weight="800">⚡ 規則衛生原則 (Rule Hygiene)</text>
+    <text x="30" y="418" fill="#FDE68A" font-family="-apple-system, sans-serif" font-size="11">不靠 2000 行單檔硬塞，按路徑按需載入</text>
+    <text x="30" y="435" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">Token 消耗降 65% · 模型遵從度提升 3 倍</text>
+  </g>
+
+  <!-- Connector Arrow -->
+  <line x1="354" y1="325" x2="394" y2="325" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrow-violet)"/>
+
+  <!-- Right Side: The 5-Layer Rule Architecture -->
+  <g transform="translate(402, 95)">
+    <rect width="522" height="465" rx="16" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+    <rect width="522" height="8" rx="4" fill="#38BDF8"/>
+
+    <text x="261" y="38" text-anchor="middle" fill="#7DD3FC" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">五層零幻覺開發憲法（The 5-Layer Constitution）</text>
+
+    <!-- L1 -->
+    <rect x="20" y="58" width="482" height="70" rx="10" fill="#0F172A" stroke="#6366F1" stroke-width="1.5"/>
+    <rect x="20" y="58" width="8" height="70" rx="4" fill="#6366F1"/>
+    <text x="42" y="81" fill="#A5B4FC" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">Layer 1 · 技術棧與依賴鎖定 (Tech Stack Lock)</text>
+    <text x="42" y="101" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="11.5">• 明確鎖死框架版本與套件管理器（如 Next.js 15 App Router + pnpm）</text>
+    <text x="42" y="118" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">• Zero Bloat：未經許可禁止擅自 npm install 新套件或混用舊版語法</text>
+
+    <!-- L2 -->
+    <rect x="20" y="138" width="482" height="70" rx="10" fill="#0F172A" stroke="#3B82F6" stroke-width="1.5"/>
+    <rect x="20" y="138" width="8" height="70" rx="4" fill="#3B82F6"/>
+    <text x="42" y="161" fill="#93C5FD" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">Layer 2 · 目錄邊界與單一真相 (Directory Boundaries)</text>
+    <text x="42" y="181" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="11.5">• 劃定禁止修改的唯讀核心區（如 /src/core/auth、/prisma/migrations）</text>
+    <text x="42" y="198" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">• 規定 API Schema、常數與 Type 定義集中路徑，禁止元件內重複宣告</text>
+
+    <!-- L3 -->
+    <rect x="20" y="218" width="482" height="70" rx="10" fill="#0F172A" stroke="#EF4444" stroke-width="1.5"/>
+    <rect x="20" y="218" width="8" height="70" rx="4" fill="#EF4444"/>
+    <text x="42" y="241" fill="#FCA5A5" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">Layer 3 · 反模式與手術刀邊界 (Anti-Patterns)</text>
+    <text x="42" y="261" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="11.5">• 嚴禁使用 any 型別、靜默吞掉 catch(e) 錯誤、寫死測試假資料或憑證</text>
+    <text x="42" y="278" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">• 手術刀原則：嚴禁「順便重構」未指定的檔案；兩次修復失敗即強制回報停止</text>
+
+    <!-- L4 -->
+    <rect x="20" y="298" width="482" height="70" rx="10" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
+    <rect x="20" y="298" width="8" height="70" rx="4" fill="#F59E0B"/>
+    <text x="42" y="321" fill="#FCD34D" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">Layer 4 · 強制驗證迴圈 (Verification Commands)</text>
+    <text x="42" y="341" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="11.5">• 每次編輯結束前，AI 必須自發執行型別檢查與單元測試（tsc &amp; vitest）</text>
+    <text x="42" y="358" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">• 未通過全套檢查前，禁止對使用者宣稱「已完成修復」</text>
+
+    <!-- L5 -->
+    <rect x="20" y="378" width="482" height="70" rx="10" fill="#0F172A" stroke="#10B981" stroke-width="1.5"/>
+    <rect x="20" y="378" width="8" height="70" rx="4" fill="#10B981"/>
+    <text x="42" y="401" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">Layer 5 · Git 與發布守門員 (Git &amp; Release Gatekeeper)</text>
+    <text x="42" y="421" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="11.5">• 強制 Conventional Commits 格式與最小 Diff 變更審查</text>
+    <text x="42" y="438" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">• 嚴禁執行 git push --force、刪除資料庫遷移或自動繞過 pre-commit hook</text>
+  </g>
+
+  <!-- Bottom Outcome Banner -->
+  <g transform="translate(36, 580)">
+    <rect width="888" height="54" rx="12" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="1.5"/>
+    <text x="444" y="24" text-anchor="middle" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">
+      ✅ 落地成果：跨 Cursor / Windsurf / Claude Code / Antigravity 統一規範，團隊新人與 AI 同時零幻覺上線
+    </text>
+    <text x="444" y="42" text-anchor="middle" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="11">
+      用一份結構化憲法檔案取代反覆口頭叮嚀，讓 AI Agent 成為真正可預測的工程戰力
+    </text>
+  </g>
+</svg>

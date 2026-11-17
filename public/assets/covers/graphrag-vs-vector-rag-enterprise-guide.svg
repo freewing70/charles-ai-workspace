@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="auto">
+  <defs>
+    <linearGradient id="cover-bg-08" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="50%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+
+    <pattern id="grid-08" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(56,189,248,0.06)" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="glow-08" cx="80%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.32"/>
+      <stop offset="60%" stop-color="#38BDF8" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#090D16" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="960" height="500" fill="url(#cover-bg-08)"/>
+  <rect width="960" height="500" fill="url(#grid-08)"/>
+  <circle cx="755" cy="190" r="290" fill="url(#glow-08)"/>
+
+  <!-- Left Content Column -->
+  <g transform="translate(60, 60)">
+    <rect width="275" height="30" rx="15" fill="rgba(139,92,246,0.18)" stroke="#8B5CF6" stroke-width="1.5"/>
+    <circle cx="15" cy="15" r="5" fill="#A78BFA"/>
+    <text x="30" y="20" fill="#DDD6FE" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5">ENTERPRISE AI · GRAPHRAG GUIDE</text>
+
+    <text y="78" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="33" font-weight="900" letter-spacing="-0.5">
+      超越傳統向量搜尋：GraphRAG
+    </text>
+
+    <text y="122" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="22" font-weight="800">
+      知識圖譜檢索增強與高複雜度跨文件推理實戰
+    </text>
+
+    <text y="166" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="400">
+      面對「這 300 份合約最常出現的 5 大風險主題」問題，傳統 Vector RAG 為何集體失智？
+    </text>
+    <text y="192" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="600">
+      深入解析實體抽取、Leiden 社群分層摘要、Local vs. Global Search 與成本選型矩陣。
+    </text>
+
+    <!-- Key Takeaway Pills -->
+    <g transform="translate(0, 232)">
+      <rect width="176" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="88" y="23" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🕸️ 實體 &amp; 關聯圖譜</text>
+
+      <rect x="190" width="184" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="282" y="23" fill="#C4B5FD" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">🌐 Leiden 社群摘要</text>
+
+      <rect x="388" width="184" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="480" y="23" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">⚡ Map-Reduce 全域推理</text>
+    </g>
+
+    <g transform="translate(0, 340)">
+      <line x1="0" y1="0" x2="540" y2="0" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text y="28" fill="#64748B" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">
+        FREEWINGBIZ · CHARLES AI WORKSPACE | 企業知識庫架構實戰
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Visual: Knowledge Graph & Communities -->
+  <g transform="translate(650, 95)">
+    <rect width="250" height="315" rx="16" fill="rgba(15,23,42,0.9)" stroke="#8B5CF6" stroke-width="2"/>
+    <rect width="250" height="10" rx="5" fill="#8B5CF6"/>
+
+    <rect x="42" y="22" width="166" height="24" rx="12" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="125" y="38" fill="#38BDF8" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">KNOWLEDGE GRAPH</text>
+
+    <!-- Community Halo 1 -->
+    <circle cx="88" cy="128" r="52" fill="rgba(56,189,248,0.08)" stroke="#38BDF8" stroke-width="1.2" stroke-dasharray="4 3"/>
+    <!-- Community Halo 2 -->
+    <circle cx="168" cy="182" r="54" fill="rgba(168,85,247,0.1)" stroke="#A855F7" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+    <!-- Graph Edges -->
+    <line x1="65" y1="108" x2="112" y2="118" stroke="#38BDF8" stroke-width="2"/>
+    <line x1="65" y1="108" x2="82" y2="152" stroke="#38BDF8" stroke-width="2"/>
+    <line x1="112" y1="118" x2="155" y2="160" stroke="#A78BFA" stroke-width="2"/>
+    <line x1="155" y1="160" x2="195" y2="188" stroke="#C084FC" stroke-width="2"/>
+    <line x1="155" y1="160" x2="138" y2="212" stroke="#C084FC" stroke-width="2"/>
+    <line x1="82" y1="152" x2="138" y2="212" stroke="#34D399" stroke-width="2" stroke-dasharray="3 3"/>
+
+    <!-- Graph Nodes -->
+    <circle cx="65" cy="108" r="14" fill="#0369A1" stroke="#38BDF8" stroke-width="2"/>
+    <text x="65" y="112" fill="#FFF" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">甲方</text>
+
+    <circle cx="112" cy="118" r="14" fill="#0369A1" stroke="#38BDF8" stroke-width="2"/>
+    <text x="112" y="122" fill="#FFF" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">條款</text>
+
+    <circle cx="82" cy="152" r="13" fill="#065F46" stroke="#10B981" stroke-width="2"/>
+    <text x="82" y="156" fill="#FFF" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">違約</text>
+
+    <circle cx="155" cy="160" r="16" fill="#5B21B6" stroke="#A78BFA" stroke-width="2"/>
+    <text x="155" y="164" fill="#FFF" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">風險</text>
+
+    <circle cx="195" cy="188" r="13" fill="#5B21B6" stroke="#C084FC" stroke-width="2"/>
+    <text x="195" y="192" fill="#FFF" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">SLA</text>
+
+    <circle cx="138" cy="212" r="13" fill="#5B21B6" stroke="#C084FC" stroke-width="2"/>
+    <text x="138" y="216" fill="#FFF" font-family="sans-serif" font-size="9" font-weight="700" text-anchor="middle">賠償</text>
+
+    <!-- Bottom Badge -->
+    <rect x="25" y="256" width="200" height="36" rx="10" fill="#1E293B" stroke="#475569"/>
+    <text x="125" y="278" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">🌐 跨文件多跳推理 + 全域總結</text>
+  </g>
+</svg>

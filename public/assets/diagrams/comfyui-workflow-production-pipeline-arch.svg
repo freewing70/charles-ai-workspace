@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" width="100%" height="auto">
+  <defs>
+    <linearGradient id="comfy-arch-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#F59E0B"/>
+    </marker>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10B981"/>
+    </marker>
+  </defs>
+
+  <rect width="960" height="660" rx="20" fill="url(#comfy-arch-bg)"/>
+  <rect width="958" height="658" x="1" y="1" rx="19" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+
+  <!-- Header -->
+  <g transform="translate(480, 38)">
+    <text text-anchor="middle" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2">5-STAGE DECOUPLED COMFYUI API PRODUCTION PIPELINE</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="22" font-weight="900">影視級 ComfyUI 五階段模組化工作流與 Headless API 量產管線</text>
+  </g>
+
+  <!-- Top Row: 5 Decoupled ComfyUI Stages -->
+  <g transform="translate(28, 95)">
+    <!-- Stage 1 -->
+    <rect x="0" y="0" width="168" height="230" rx="12" fill="#1E293B" stroke="#38BDF8" stroke-width="1.8"/>
+    <rect x="0" y="0" width="168" height="7" rx="3.5" fill="#38BDF8"/>
+    <text x="84" y="28" text-anchor="middle" fill="#7DD3FC" font-family="monospace" font-size="11" font-weight="800">STAGE 01</text>
+    <text x="84" y="48" text-anchor="middle" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">模型與權重載入</text>
+    <rect x="12" y="64" width="144" height="150" rx="8" fill="#0F172A" stroke="#334155"/>
+    <text x="20" y="86" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• Checkpoint / UNET</text>
+    <text x="20" y="106" fill="#7DD3FC" font-family="monospace" font-size="10">  fp8_e4m3fn 量化</text>
+    <text x="20" y="128" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• DualCLIPLoader</text>
+    <text x="20" y="148" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• LoraLoaderStack</text>
+    <text x="20" y="170" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">鎖定版本與觸發詞</text>
+    <text x="20" y="192" fill="#34D399" font-family="-apple-system, sans-serif" font-size="10" font-weight="700">✓ 統一風格基準線</text>
+
+    <line x1="168" y1="115" x2="184" y2="115" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+
+    <!-- Stage 2 -->
+    <rect x="184" y="0" width="168" height="230" rx="12" fill="#1E293B" stroke="#A78BFA" stroke-width="1.8"/>
+    <rect x="184" y="0" width="168" height="7" rx="3.5" fill="#A78BFA"/>
+    <text x="268" y="28" text-anchor="middle" fill="#DDD6FE" font-family="monospace" font-size="11" font-weight="800">STAGE 02</text>
+    <text x="268" y="48" text-anchor="middle" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">一致性與骨架鎖定</text>
+    <rect x="196" y="64" width="144" height="150" rx="8" fill="#0F172A" stroke="#334155"/>
+    <text x="204" y="86" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• IPAdapter FaceID</text>
+    <text x="204" y="106" fill="#C4B5FD" font-family="-apple-system, sans-serif" font-size="10">  鎖定角色臉部特徵</text>
+    <text x="204" y="128" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• ControlNet Depth</text>
+    <text x="204" y="148" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• ControlNet Canny</text>
+    <text x="204" y="170" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">鎖定構圖透視與線稿</text>
+    <text x="204" y="192" fill="#34D399" font-family="-apple-system, sans-serif" font-size="10" font-weight="700">✓ 連戲零走樣</text>
+
+    <line x1="352" y1="115" x2="368" y2="115" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrow-amber)"/>
+
+    <!-- Stage 3 -->
+    <rect x="368" y="0" width="168" height="230" rx="12" fill="#1E293B" stroke="#F59E0B" stroke-width="1.8"/>
+    <rect x="368" y="0" width="168" height="7" rx="3.5" fill="#F59E0B"/>
+    <text x="452" y="28" text-anchor="middle" fill="#FDE68A" font-family="monospace" font-size="11" font-weight="800">STAGE 03</text>
+    <text x="452" y="48" text-anchor="middle" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">雙階段潛空間採樣</text>
+    <rect x="380" y="64" width="144" height="150" rx="8" fill="#0F172A" stroke="#334155"/>
+    <text x="388" y="86" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• Pass 1 Base Sample</text>
+    <text x="388" y="106" fill="#FBBF24" font-family="monospace" font-size="10">  seed: fixed (鎖定)</text>
+    <text x="388" y="128" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• Latent Upscale 1.5x</text>
+    <text x="388" y="148" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• Pass 2 Denoise 0.42</text>
+    <text x="388" y="170" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">Tiled VAE 防 OOM 爆顯存</text>
+    <text x="388" y="192" fill="#34D399" font-family="-apple-system, sans-serif" font-size="10" font-weight="700">✓ 高解析度結構穩</text>
+
+    <line x1="536" y1="115" x2="552" y2="115" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrow-amber)"/>
+
+    <!-- Stage 4 -->
+    <rect x="552" y="0" width="168" height="230" rx="12" fill="#1E293B" stroke="#F43F5E" stroke-width="1.8"/>
+    <rect x="552" y="0" width="168" height="7" rx="3.5" fill="#F43F5E"/>
+    <text x="636" y="28" text-anchor="middle" fill="#FDA4AF" font-family="monospace" font-size="11" font-weight="800">STAGE 04</text>
+    <text x="636" y="48" text-anchor="middle" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">局部精修 Detailer</text>
+    <rect x="564" y="64" width="144" height="150" rx="8" fill="#0F172A" stroke="#334155"/>
+    <text x="572" y="86" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• Ultralytics BBox 偵測</text>
+    <text x="572" y="106" fill="#FDA4AF" font-family="-apple-system, sans-serif" font-size="10">  face_yolov8m.pt</text>
+    <text x="572" y="128" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• FaceDetailer 重繪</text>
+    <text x="572" y="148" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• Hand / Eye 遮罩修補</text>
+    <text x="572" y="170" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">只重繪局部不傷背景</text>
+    <text x="572" y="192" fill="#34D399" font-family="-apple-system, sans-serif" font-size="10" font-weight="700">✓ 遠景五官也清晰</text>
+
+    <line x1="720" y1="115" x2="736" y2="115" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+    <!-- Stage 5 -->
+    <rect x="736" y="0" width="168" height="230" rx="12" fill="#1E293B" stroke="#10B981" stroke-width="1.8"/>
+    <rect x="736" y="0" width="168" height="7" rx="3.5" fill="#10B981"/>
+    <text x="820" y="28" text-anchor="middle" fill="#6EE7B7" font-family="monospace" font-size="11" font-weight="800">STAGE 05</text>
+    <text x="820" y="48" text-anchor="middle" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">命名與元數據歸檔</text>
+    <rect x="748" y="64" width="144" height="150" rx="8" fill="#0F172A" stroke="#334155"/>
+    <text x="756" y="86" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• SaveImage API 輸出</text>
+    <text x="756" y="106" fill="#6EE7B7" font-family="monospace" font-size="9.5">  shot01_s42_v01.png</text>
+    <text x="756" y="128" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• 寫入 PNG Metadata</text>
+    <text x="756" y="148" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">• 同步 JSON 參數清單</text>
+    <text x="756" y="170" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10">100% 可回溯重現畫面</text>
+    <text x="756" y="192" fill="#34D399" font-family="-apple-system, sans-serif" font-size="10" font-weight="700">✓ 資產庫自動入庫</text>
+  </g>
+
+  <!-- Middle Connector -->
+  <g transform="translate(480, 342)">
+    <rect x="-210" y="-12" width="420" height="28" rx="14" fill="#0F172A" stroke="#F59E0B" stroke-width="1.2"/>
+    <text text-anchor="middle" y="6" fill="#FDE68A" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800">
+      匯出 Save (API Format) ➔ 轉為無頭節點 JSON 藍圖（workflow_api.json）
+    </text>
+  </g>
+
+  <!-- Bottom Row: Headless API Batch Automation Engine -->
+  <g transform="translate(28, 380)">
+    <rect width="904" height="196" rx="16" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+    <rect width="904" height="8" rx="4" fill="#38BDF8"/>
+
+    <text x="452" y="34" text-anchor="middle" fill="#7DD3FC" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">
+      Headless API 批次量產排程引擎（Python / Node.js 驅動 ComfyUI Server）
+    </text>
+
+    <!-- Box A: Param Matrix -->
+    <rect x="24" y="54" width="256" height="120" rx="10" fill="#0F172A" stroke="#475569"/>
+    <text x="152" y="78" text-anchor="middle" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="800">1. CSV / JSON 分鏡參數矩陣</text>
+    <text x="38" y="100" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11">• 動態替換 Node ID 節點參數：</text>
+    <text x="38" y="120" fill="#38BDF8" font-family="monospace" font-size="10.5">  prompt["6"]["inputs"]["text"]</text>
+    <text x="38" y="138" fill="#FBBF24" font-family="monospace" font-size="10.5">  prompt["3"]["inputs"]["seed"]</text>
+    <text x="38" y="158" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">• 鎖定種子微調單一變數 (A/B 測試)</text>
+
+    <line x1="280" y1="114" x2="316" y2="114" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+
+    <!-- Box B: HTTP + WebSocket -->
+    <rect x="320" y="54" width="264" height="120" rx="10" fill="#0F172A" stroke="#F59E0B"/>
+    <text x="452" y="78" text-anchor="middle" fill="#FDE68A" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="800">2. REST Queue &amp; WS 即時監聽</text>
+    <text x="334" y="100" fill="#CBD5E1" font-family="monospace" font-size="10.5">POST /prompt (送出排程任務)</text>
+    <text x="334" y="120" fill="#CBD5E1" font-family="monospace" font-size="10.5">WS   /ws?clientId=... (進度監聽)</text>
+    <text x="334" y="140" fill="#CBD5E1" font-family="monospace" font-size="10.5">POST /free (批次結束清顯存)</text>
+    <text x="334" y="160" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">支援 --lowvram 與自動重試機制</text>
+
+    <line x1="584" y1="114" x2="620" y2="114" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+    <!-- Box C: Fetch & Archive -->
+    <rect x="624" y="54" width="256" height="120" rx="10" fill="#064E3B" stroke="#10B981"/>
+    <text x="752" y="78" text-anchor="middle" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="800">3. 自動拉圖與專案歸檔</text>
+    <text x="638" y="100" fill="#A7F3D0" font-family="monospace" font-size="10.5">GET /history/{prompt_id}</text>
+    <text x="638" y="120" fill="#A7F3D0" font-family="monospace" font-size="10.5">GET /view?filename=...</text>
+    <text x="638" y="140" fill="#E2E8F0" font-family="-apple-system, sans-serif" font-size="10.5">• 依分鏡編號與 Seed 自動命名存檔</text>
+    <text x="638" y="159" fill="#34D399" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="700">✓ 夜間掛機產出 500 張零失誤</text>
+  </g>
+
+  <!-- Bottom Tagline -->
+  <g transform="translate(480, 616)">
+    <text text-anchor="middle" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12" font-weight="600">
+      工程化核心理念：GUI 只用來設計與調試藍圖；真正量產時，將 workflow_api.json 納入 Git 版控並交由 API 腳本執行
+    </text>
+  </g>
+</svg>

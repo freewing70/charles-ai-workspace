@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="auto">
+  <defs>
+    <linearGradient id="cover05-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B14"/>
+      <stop offset="55%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#064E3B"/>
+    </linearGradient>
+
+    <pattern id="grid05" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(16,185,129,0.06)" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="glow05" cx="78%" cy="35%" r="52%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="960" height="500" fill="url(#cover05-bg)"/>
+  <rect width="960" height="500" fill="url(#grid05)"/>
+  <circle cx="750" cy="180" r="285" fill="url(#glow05)"/>
+
+  <!-- Left Column -->
+  <g transform="translate(56, 56)">
+    <rect width="335" height="30" rx="15" fill="rgba(16,185,129,0.16)" stroke="#10B981" stroke-width="1.5"/>
+    <circle cx="16" cy="15" r="5" fill="#34D399"/>
+    <text x="30" y="20" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="1.3">AI ARCHITECTURE · STRUCTURED OUTPUTS</text>
+
+    <text y="78" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="33" font-weight="900" letter-spacing="-0.5">
+      終結 AI 格式崩潰實戰指南
+    </text>
+
+    <text y="122" fill="#34D399" font-family="-apple-system, sans-serif" font-size="22" font-weight="800">
+      LLM Structured Outputs &amp; JSON Schema 100% 穩定架構
+    </text>
+
+    <text y="166" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="400">
+      在 Prompt 裡苦苦哀求「請只回傳 JSON」，為什麼線上管線還是有 5–15% 爆掉？
+    </text>
+    <text y="191" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="600">
+      深入 Logits 層 Constrained Decoding，跨 OpenAI、Gemini、Claude 與 vLLM 鎖死結構！
+    </text>
+
+    <!-- Pills -->
+    <g transform="translate(0, 232)">
+      <rect width="182" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="91" y="23" fill="#38BDF8" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">🔒 FSM / CFG Token 遮罩</text>
+
+      <rect x="196" width="178" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="285" y="23" fill="#34D399" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">🧬 Zod &amp; Pydantic 契約</text>
+
+      <rect x="388" width="175" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="475" y="23" fill="#F59E0B" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">⚡ Refusal &amp; Stream 處理</text>
+    </g>
+
+    <g transform="translate(0, 344)">
+      <line x1="0" y1="0" x2="540" y2="0" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+      <text y="28" fill="#64748B" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">
+        FREEWINGBIZ · CHARLES AI WORKSPACE | 2026 企業自動化管線實戰
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Visual: Logits Masking Gate -->
+  <g transform="translate(642, 74)">
+    <rect width="270" height="352" rx="18" fill="rgba(15,23,42,0.88)" stroke="#10B981" stroke-width="2"/>
+    <rect width="270" height="10" rx="5" fill="#10B981"/>
+
+    <rect x="40" y="24" width="190" height="24" rx="12" fill="#0F172A" stroke="#34D399" stroke-width="1.2"/>
+    <text x="135" y="40" fill="#6EE7B7" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">CONSTRAINED DECODING</text>
+
+    <!-- Token Probabilities Before Mask -->
+    <rect x="20" y="64" width="230" height="96" rx="10" fill="#1E293B" stroke="#475569"/>
+    <text x="32" y="84" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="11" font-weight="700">Raw Logits 候選 Token 機率：</text>
+    <text x="32" y="106" fill="#F87171" font-family="monospace" font-size="11">```json   (p=0.41)  ❌ Masked (-inf)</text>
+    <text x="32" y="126" fill="#F87171" font-family="monospace" font-size="11">好的，以下 (p=0.22)  ❌ Masked (-inf)</text>
+    <text x="32" y="146" fill="#34D399" font-family="monospace" font-size="11">{"status":(p=0.37)  ✅ Allowed (FSM)</text>
+
+    <!-- FSM Gate Badge -->
+    <rect x="45" y="176" width="180" height="34" rx="8" fill="#065F46" stroke="#34D399" stroke-width="1.5"/>
+    <text x="135" y="197" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="12" font-weight="800" text-anchor="middle">🛡️ CFG / FSM 狀態機閘門</text>
+
+    <!-- Guaranteed Output -->
+    <rect x="20" y="226" width="230" height="106" rx="10" fill="#0F172A" stroke="#10B981" stroke-width="1.5"/>
+    <text x="32" y="248" fill="#34D399" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="800">100% Schema-Compliant JSON</text>
+    <text x="32" y="270" fill="#E2E8F0" font-family="monospace" font-size="10.5">{</text>
+    <text x="32" y="286" fill="#38BDF8" font-family="monospace" font-size="10.5">  "invoiceId": "INV-2026",</text>
+    <text x="32" y="302" fill="#38BDF8" font-family="monospace" font-size="10.5">  "amount": 4800,</text>
+    <text x="32" y="318" fill="#E2E8F0" font-family="monospace" font-size="10.5">  "currency": "TWD" }</text>
+  </g>
+</svg>

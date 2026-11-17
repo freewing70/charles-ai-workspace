@@ -1,5 +1,314 @@
 [
   {
+    "id": "automated-e2e-testing-playwright-ai-agents",
+    "title": "給 Vibe Coder 的自動化驗收神盾：用 Playwright MCP 讓 AI 寫完網頁自己開瀏覽器跑完 E2E 視覺測試",
+    "type": "tutorial",
+    "category": "Vibe Coding",
+    "summary": "受夠 AI 寫完前端就自信宣布「Done!」，結果你自己點開瀏覽器卻發現滿屏 Console Error、按鈕按了沒反應、手機版破版嗎？本文教你把 Playwright MCP 與 Chrome DevTools MCP 接進 AI 編程迴圈，打造「5 步驟前端自動驗收與自癒閉環」：背景啟動伺服器、Console/Network 錯誤捕手、Accessibility Tree 語意樹定位、375px/1440px 雙視口視覺檢測與自動修復，附上完整 playwright.config.ts、冒煙測試腳本與 E2E 驗收指令錦囊！",
+    "tags": [
+      "Vibe Coding",
+      "Playwright",
+      "MCP",
+      "自動化測試",
+      "E2E 測試",
+      "Chrome DevTools",
+      "前端驗收",
+      "AI Agent"
+    ],
+    "tools": [
+      "Playwright",
+      "Playwright MCP",
+      "Chrome DevTools MCP",
+      "TypeScript",
+      "Cursor",
+      "Claude Code"
+    ],
+    "created": "2026-11-17",
+    "updated": "2026-11-17",
+    "url": "/tutorials/automated-e2e-testing-playwright-ai-agents",
+    "cover": "/assets/covers/automated-e2e-testing-playwright-ai-agents.png",
+    "featured": true
+  },
+  {
+    "id": "local-voice-ai-tts-asr-low-latency-pipeline",
+    "title": "超低延遲本地語音 AI 管線實戰：整合 Faster-Whisper、CosyVoice 與本地 LLM 打造毫秒級即時語音助理",
+    "type": "tutorial",
+    "category": "Local AI",
+    "summary": "為什麼自己土炮的「錄音 → Whisper → LLM → TTS」語音助理每次都要等 6 秒才開口，講話像故障對講機？本文深度拆解「亞 500ms（Sub-500ms）全雙工串流語音管線」架構：整合 Silero VAD 搶話打斷（Barge-in）、Faster-Whisper INT8 語音辨識、Local LLM 句讀邊界切塊串流（，。！？），以及 CosyVoice 2 / Kokoro 雙向串流合成，並附上 8GB/16GB/24GB GPU 顯存分配實戰表與完整 Python 非同步串流管線範例。",
+    "tags": [
+      "Local AI",
+      "語音助理",
+      "Faster-Whisper",
+      "CosyVoice",
+      "Silero VAD",
+      "低延遲串流",
+      "WebRTC",
+      "TTS"
+    ],
+    "tools": [
+      "Faster-Whisper",
+      "CosyVoice 2",
+      "Kokoro TTS",
+      "Silero VAD",
+      "vLLM",
+      "Ollama",
+      "FastAPI"
+    ],
+    "created": "2026-11-17",
+    "updated": "2026-11-17",
+    "url": "/tutorials/local-voice-ai-tts-asr-low-latency-pipeline",
+    "cover": "/assets/covers/local-voice-ai-tts-asr-low-latency-pipeline.png",
+    "featured": true
+  },
+  {
+    "id": "graphrag-vs-vector-rag-enterprise-guide",
+    "title": "超越傳統向量搜尋：GraphRAG（知識圖譜檢索增強）架構解析與高複雜度跨文件推理實戰",
+    "type": "tutorial",
+    "category": "Enterprise AI",
+    "summary": "為什麼傳統 Vector RAG 面對「這 300 份合約最常出現的 5 大風險主題是什麼？」或「跨子公司擔保鏈」問題時會集體失智？本文深入剖析 Microsoft GraphRAG 與 LightRAG 核心架構：從實體與關係抽取、Leiden 分層社群聚類、Local Search 到 Global Map-Reduce 全域推理，提供成本與延遲對照表、企業選型決策矩陣，以及可直接複製的知識圖譜實體抽取 Prompt 範本。",
+    "tags": [
+      "GraphRAG",
+      "知識圖譜",
+      "Vector RAG",
+      "Enterprise AI",
+      "Leiden 演算法",
+      "跨文件推理",
+      "LightRAG",
+      "企業知識庫"
+    ],
+    "tools": [
+      "Microsoft GraphRAG",
+      "LightRAG",
+      "Neo4j",
+      "LlamaIndex",
+      "Qdrant",
+      "Python"
+    ],
+    "created": "2026-11-16",
+    "updated": "2026-11-16",
+    "url": "/tutorials/graphrag-vs-vector-rag-enterprise-guide",
+    "cover": "/assets/covers/graphrag-vs-vector-rag-enterprise-guide.png",
+    "featured": true
+  },
+  {
+    "id": "prompt-injection-defense-llm-guardrails",
+    "title": "企業 AI 上線必備防線：Prompt Injection 提示詞注入攻擊拆解與雙層 Guardrails 安全護欄架構",
+    "type": "tutorial",
+    "category": "AI Security",
+    "summary": "企業導入 RAG 知識庫與 AI Agent 最大的資安死穴就是 Prompt Injection！本文深度拆解直接注入與間接 RAG 中毒攻擊手法，揭穿「請勿忽略以上指令」為何注定失效，並手把手建構「4 層縱深防禦（Defense-in-Depth）Guardrails 安全護欄架構」：XML 標籤隔離、Canary Token 金絲雀偵測、最小權限與 HITL 人工閘門、輸出 PII 脫敏過濾，附上 TypeScript/Python 實戰中介層代碼、紅隊演練清單與可直接複製的防禦 Prompt 範本。",
+    "tags": [
+      "AI Security",
+      "Prompt Injection",
+      "LLM Guardrails",
+      "RAG 安全",
+      "Agent 權限控管",
+      "資安架構",
+      "紅隊測試",
+      "Canary Token"
+    ],
+    "tools": [
+      "TypeScript",
+      "Python",
+      "Zod",
+      "Llama Prompt Guard",
+      "NeMo Guardrails",
+      "OpenAI",
+      "Claude"
+    ],
+    "created": "2026-11-15",
+    "updated": "2026-11-15",
+    "url": "/tutorials/prompt-injection-defense-llm-guardrails",
+    "cover": "/assets/covers/prompt-injection-defense-llm-guardrails.png",
+    "featured": true
+  },
+  {
+    "id": "ai-video-consistency-character-world-state",
+    "title": "AI 影視長片「連戲與角色鎖定」實戰工程：跨鏡頭光影、服裝狀態與空間方位（GEO Blocking）控制方法論",
+    "type": "tutorial",
+    "category": "AI Cinematography",
+    "summary": "為什麼大多數 AI 短片過了第 3 顆鏡頭就換臉、傷口消失、人物左右瞬間跳轉越軸？本文提出工業級 AI 影視連戲工程方法論：將「不可變角色錨點」與「動態 World State JSON」徹底分離，結合 GEO Blocking、180 度軸線與 180-Degree Shutter Rule 電影攝影規範，並完整拆解 Kling、Runway Gen-3/4、Sora 與開源 Wan 2.1 的 Last-Frame-to-First-Frame 跨鏡頭工作流與 Shot Compiler Prompt 錦囊。",
+    "tags": [
+      "AI影視",
+      "角色一致性",
+      "連戲工程",
+      "GEO Blocking",
+      "World State",
+      "Kling",
+      "Runway",
+      "Wan 2.1"
+    ],
+    "tools": [
+      "Kling 2.x",
+      "Runway Gen-3 / Gen-4",
+      "Sora",
+      "Wan 2.1 (ComfyUI)",
+      "Flux / Midjourney",
+      "ChatGPT / Claude Shot Compiler"
+    ],
+    "created": "2026-11-14",
+    "updated": "2026-11-14",
+    "url": "/tutorials/ai-video-consistency-character-world-state",
+    "cover": "/assets/covers/ai-video-consistency-character-world-state.png",
+    "featured": true
+  },
+  {
+    "id": "llm-structured-outputs-json-schema-guide",
+    "title": "終結 AI 格式崩潰：LLM 結構化輸出（Structured Outputs & JSON Schema）在企業自動化管線的 100% 穩定實作",
+    "type": "tutorial",
+    "category": "AI Architecture",
+    "summary": "在 Prompt 裡寫「請只回傳 JSON」為什麼在生產環境依然有 5–15% 失敗率？本文深入解析 Constrained Decoding（CFG 與 FSM Logits Token 遮罩）如何從數學與解碼層確保 100% Schema 合規，並提供 OpenAI、Gemini responseSchema、Claude Tool Use 與本地 vLLM guided_json 的完整 TypeScript/Zod 與 Python/Pydantic 實戰代碼，同時涵蓋 Refusal 處理、Partial JSON 串流與 Union Types 陷阱。",
+    "tags": [
+      "Structured Outputs",
+      "JSON Schema",
+      "Constrained Decoding",
+      "Zod",
+      "Pydantic",
+      "vLLM",
+      "Gemini",
+      "企業自動化"
+    ],
+    "tools": [
+      "OpenAI API",
+      "Gemini API",
+      "Claude API",
+      "vLLM / xgrammar",
+      "TypeScript + Zod",
+      "Python + Pydantic"
+    ],
+    "created": "2026-11-13",
+    "updated": "2026-11-13",
+    "url": "/tutorials/llm-structured-outputs-json-schema-guide",
+    "cover": "/assets/covers/llm-structured-outputs-json-schema-guide.png",
+    "featured": true
+  },
+  {
+    "id": "multi-agent-orchestration-cost-optimization",
+    "title": "多智能體（Multi-Agent）調度與 Token 成本精算指南：大腦與手腳分離架構、模型分流與 Context 快取實戰",
+    "type": "tutorial",
+    "category": "Agent Engineering",
+    "summary": "為什麼單一旗艦模型跑完整條 Agent 迴圈，不僅帳單暴漲 10 倍，還會越跑越笨？本文拆解矽谷一線團隊的 Multi-Agent 降本增效核心：大腦與手腳分離模式、L1–L4 任務難度與模型分流矩陣、Prefix Caching 省下 75–90% Input 費用，以及嚴格的 150 字 Subagent 回傳契約，附完整 TypeScript 調度器實作與可直接複製的 Dispatcher Prompt 錦囊。",
+    "tags": [
+      "Multi-Agent",
+      "Token成本優化",
+      "模型分流",
+      "Prefix Caching",
+      "Subagent",
+      "Context Rot",
+      "Agent架構",
+      "Prompt錦囊"
+    ],
+    "tools": [
+      "Claude Opus / Sonnet / Haiku",
+      "Gemini 2.5 Pro / Flash / Flash-Lite",
+      "OpenAI Responses API",
+      "TypeScript",
+      "LangGraph"
+    ],
+    "created": "2026-11-12",
+    "updated": "2026-11-12",
+    "url": "/tutorials/multi-agent-orchestration-cost-optimization",
+    "cover": "/assets/covers/multi-agent-orchestration-cost-optimization.png",
+    "featured": true
+  },
+  {
+    "id": "comfyui-workflow-production-pipeline",
+    "title": "ComfyUI 影視級節點工作流工程化：從單張抽卡走向團隊可複用的 API 量產管線與固定種子控圖",
+    "type": "tutorial",
+    "category": "AI Cinematography",
+    "summary": "為什麼商業動畫與遊戲美術團隊不能靠 WebUI 隨機抽卡？深入拆解 ComfyUI 五階段解耦架構（模型載入、IPAdapter + ControlNet 骨架鎖定、雙階段採樣、Detailer 局部精修、Metadata 歸檔），並手把手教你將節點圖轉為 Headless API 批次量產管線與顯存最佳化。",
+    "tags": [
+      "ComfyUI",
+      "AI Cinematography",
+      "ControlNet",
+      "IPAdapter",
+      "Headless API",
+      "VRAM 最佳化",
+      "FP8",
+      "影視製作",
+      "Python"
+    ],
+    "tools": [
+      "ComfyUI",
+      "Python",
+      "WebSocket",
+      "ControlNet",
+      "IPAdapter",
+      "Impact Pack",
+      "FP8",
+      "Git"
+    ],
+    "created": "2026-11-11",
+    "updated": "2026-11-11",
+    "url": "/tutorials/comfyui-workflow-production-pipeline",
+    "cover": "/assets/covers/comfyui-workflow-production-pipeline.png",
+    "featured": true
+  },
+  {
+    "id": "cursor-windsurf-rules-engineering-2026",
+    "title": "AI IDE 系統規則工程（.cursorrules 與 AGENTS.md）：如何為中大型專案建立「零幻覺」自動化開發憲法",
+    "type": "tutorial",
+    "category": "Vibe Coding",
+    "summary": "為什麼專案超過十個檔案後，AI 寫代碼就開始架構飄移、偷裝套件、破壞原有功能？深入拆解從單檔 .cursorrules 演進至分域 .cursor/rules/*.mdc、AGENTS.md 與 CLAUDE.md 的規則工程學，建立完整的五層零幻覺開發憲法與跨 IDE 實戰範本。",
+    "tags": [
+      "Vibe Coding",
+      "Cursor",
+      "Windsurf",
+      "Claude Code",
+      "Antigravity",
+      "AGENTS.md",
+      ".cursorrules",
+      "規則工程",
+      "軟體架構"
+    ],
+    "tools": [
+      "Cursor",
+      "Windsurf",
+      "Claude Code",
+      "Antigravity",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "TypeScript"
+    ],
+    "created": "2026-11-10",
+    "updated": "2026-11-10",
+    "url": "/tutorials/cursor-windsurf-rules-engineering-2026",
+    "cover": "/assets/covers/cursor-windsurf-rules-engineering-2026.png",
+    "featured": true
+  },
+  {
+    "id": "mcp-server-architecture-practical-guide",
+    "title": "Model Context Protocol (MCP) 實戰全攻略：從零打造讓 Claude 與 Cursor 自由調用本地資料庫的標準協議伺服器",
+    "type": "tutorial",
+    "category": "Agent Engineering",
+    "summary": "深入解析 AI 時代的 USB-C 標準——Model Context Protocol (MCP)。從 Host / Client / Server 三層架構、Resources / Prompts / Tools 三大原語，到 stdio 與 Streamable HTTP 傳輸比較，手把手帶你用 TypeScript 與 @modelcontextprotocol/sdk 打造具備唯讀防注入與路徑邊界防護的本地資料庫 MCP Server。",
+    "tags": [
+      "MCP",
+      "Model Context Protocol",
+      "Agent Engineering",
+      "TypeScript",
+      "Claude",
+      "Cursor",
+      "SQLite",
+      "PostgreSQL",
+      "JSON-RPC"
+    ],
+    "tools": [
+      "TypeScript",
+      "Node.js",
+      "@modelcontextprotocol/sdk",
+      "Claude Desktop",
+      "Cursor",
+      "SQLite",
+      "PostgreSQL",
+      "Zod"
+    ],
+    "created": "2026-11-09",
+    "updated": "2026-11-09",
+    "url": "/tutorials/mcp-server-architecture-practical-guide",
+    "cover": "/assets/covers/mcp-server-architecture-practical-guide.png",
+    "featured": true
+  },
+  {
     "id": "local-ai-hardware-tuning-guide",
     "title": "你的電腦能跑什麼 AI？16GB 到 128GB 本地 AI 硬體與調校實戰手冊",
     "type": "tutorial",
