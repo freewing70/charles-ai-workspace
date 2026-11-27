@@ -10,7 +10,11 @@ const featuredItems = allItems.filter((i) => i.meta.featured).slice(0, 6);
 const recentItems = allItems.slice(0, 6);
 ---
 
-<MainLayout title="FreewingBiz | Charles AI Workspace" isTransparentNav={true}>
+<MainLayout 
+  title="FreewingBiz｜AI Agent 實戰教學、Vibe Coding、本地大模型與 Prompt 技能庫" 
+  description="專為開發者與創作者打造的 AI 實戰知識庫（Charles AI Workspace）。提供 Gemini 4 模型選型、Vibe Coding 架構防禦、本地 LLM 硬體計算機、AI 運鏡 3D 模擬器與企業級 Agent 教學。"
+  isTransparentNav={true}
+>
   <!-- Atmospheric Master Hero Section -->
   <Hero />
 
