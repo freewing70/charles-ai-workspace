@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="100%" height="auto">
+  <defs>
+    <linearGradient id="cover-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B14"/>
+      <stop offset="55%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#0C1E35"/>
+    </linearGradient>
+
+    <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(56,189,248,0.06)" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="cyan-glow" cx="78%" cy="32%" r="52%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="violet-glow" cx="68%" cy="75%" r="40%">
+      <stop offset="0%" stop-color="#A855F7" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#A855F7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="500" fill="url(#cover-bg)"/>
+  <rect width="960" height="500" fill="url(#grid-pattern)"/>
+  <circle cx="750" cy="170" r="300" fill="url(#cyan-glow)"/>
+  <circle cx="670" cy="390" r="220" fill="url(#violet-glow)"/>
+
+  <!-- Left Content Column -->
+  <g transform="translate(56, 58)">
+    <!-- Series Badge -->
+    <rect width="315" height="30" rx="15" fill="rgba(56,189,248,0.14)" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="16" cy="15" r="5" fill="#38BDF8"/>
+    <text x="32" y="20" fill="#7DD3FC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="800" letter-spacing="1.4">GEMINI 4 ELEMENT LINEUP · 2026 GUIDE</text>
+
+    <!-- Main Title -->
+    <text y="82" fill="#F8FAFC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="900" letter-spacing="-0.5">
+      Gemini 4 四大元素模型實戰選型
+    </text>
+
+    <text y="124" fill="#38BDF8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="800">
+      Carbon · Neon · Hydrogen · Argon 深度解析與省額度策略
+    </text>
+
+    <!-- Description -->
+    <text y="172" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="400">
+      選錯模型不只慢，還會把每週珍貴額度兩天燒光？
+    </text>
+    <text y="198" fill="#CBD5E1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14.5" font-weight="600">
+      完整拆解推理強度配對、10 大情境速查表、Argon 遷移與大腦手腳分層調度！
+    </text>
+
+    <!-- Key Takeaway Pills -->
+    <g transform="translate(0, 240)">
+      <rect width="172" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="86" y="23" fill="#34D399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">⚡ 分層調度省 70% 額度</text>
+
+      <rect x="184" width="172" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="270" y="23" fill="#38BDF8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">🎯 10 大情境秒查指南</text>
+
+      <rect x="368" width="166" height="36" rx="18" fill="#1E293B" stroke="#334155"/>
+      <text x="451" y="23" fill="#F59E0B" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" font-weight="700" text-anchor="middle">🔄 Argon 退場遷移</text>
+    </g>
+
+    <!-- Author & Domain Brand -->
+    <g transform="translate(0, 346)">
+      <line x1="0" y1="0" x2="520" y2="0" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+      <text y="28" fill="#64748B" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12.5" font-weight="600">
+        FREEWINGBIZ · CHARLES AI WORKSPACE | 2026 AI ARCHITECTURE
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Visual: 4 Element Periodic Cards -->
+  <g transform="translate(612, 46)">
+    <rect width="298" height="408" rx="18" fill="rgba(15,23,42,0.88)" stroke="rgba(56,189,248,0.35)" stroke-width="1.5"/>
+    <rect width="298" height="8" rx="4" fill="#38BDF8"/>
+
+    <text x="149" y="34" fill="#94A3B8" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1.5">GEMINI 4 · PERIODIC TIERS</text>
+
+    <!-- Card 1: Carbon -->
+    <g transform="translate(18, 50)">
+      <rect width="262" height="76" rx="12" fill="rgba(168,85,247,0.12)" stroke="#A855F7" stroke-width="1.5"/>
+      <rect x="12" y="13" width="50" height="50" rx="10" fill="#581C87" stroke="#C084FC" stroke-width="1.2"/>
+      <text x="18" y="27" fill="#E9D5FF" font-family="monospace" font-size="9.5" font-weight="700">6</text>
+      <text x="37" y="49" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="22" font-weight="900" text-anchor="middle">C</text>
+      <text x="74" y="31" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">Carbon · 旗艦深度推理</text>
+      <text x="74" y="50" fill="#D8B4FE" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">複雜架構 / 資安攻堅 / 長週期任務</text>
+      <rect x="210" y="14" width="42" height="18" rx="9" fill="#7E22CE"/>
+      <text x="231" y="26" fill="#FAF5FF" font-family="monospace" font-size="9.5" font-weight="700" text-anchor="middle">HIGH</text>
+    </g>
+
+    <!-- Card 2: Neon -->
+    <g transform="translate(18, 138)">
+      <rect width="262" height="76" rx="12" fill="rgba(56,189,248,0.12)" stroke="#38BDF8" stroke-width="1.5"/>
+      <rect x="12" y="13" width="50" height="50" rx="10" fill="#0C4A6E" stroke="#7DD3FC" stroke-width="1.2"/>
+      <text x="18" y="27" fill="#BAE6FD" font-family="monospace" font-size="9.5" font-weight="700">10</text>
+      <text x="37" y="49" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="21" font-weight="900" text-anchor="middle">Ne</text>
+      <text x="74" y="31" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">Neon · 黃金平衡主力</text>
+      <text x="74" y="50" fill="#7DD3FC" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">跨檔案重構 / 企業分析 / 最佳性價比</text>
+      <rect x="210" y="14" width="42" height="18" rx="9" fill="#0369A1"/>
+      <text x="231" y="26" fill="#F0F9FF" font-family="monospace" font-size="9.5" font-weight="700" text-anchor="middle">CORE</text>
+    </g>
+
+    <!-- Card 3: Hydrogen -->
+    <g transform="translate(18, 226)">
+      <rect width="262" height="76" rx="12" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="1.5"/>
+      <rect x="12" y="13" width="50" height="50" rx="10" fill="#064E3B" stroke="#6EE7B7" stroke-width="1.2"/>
+      <text x="18" y="27" fill="#A7F3D0" font-family="monospace" font-size="9.5" font-weight="700">1</text>
+      <text x="37" y="49" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="22" font-weight="900" text-anchor="middle">H</text>
+      <text x="74" y="31" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="15" font-weight="800">Hydrogen · 極速高吞吐</text>
+      <text x="74" y="50" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">日常編程 / 單元測試 / 批次自動化</text>
+      <rect x="210" y="14" width="42" height="18" rx="9" fill="#047857"/>
+      <text x="231" y="26" fill="#ECFDF5" font-family="monospace" font-size="9.5" font-weight="700" text-anchor="middle">FAST</text>
+    </g>
+
+    <!-- Card 4: Argon (Leaving Soon) -->
+    <g transform="translate(18, 314)">
+      <rect width="262" height="76" rx="12" fill="rgba(245,158,11,0.08)" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="5 3"/>
+      <rect x="12" y="13" width="50" height="50" rx="10" fill="#78350F" stroke="#FCD34D" stroke-width="1.2"/>
+      <text x="18" y="27" fill="#FDE68A" font-family="monospace" font-size="9.5" font-weight="700">18</text>
+      <text x="37" y="49" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="21" font-weight="900" text-anchor="middle">Ar</text>
+      <text x="74" y="31" fill="#FDE68A" font-family="-apple-system, sans-serif" font-size="14.5" font-weight="800">Argon · 退場遷移中</text>
+      <text x="74" y="50" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="11" font-weight="600">遷移路線：日常→Neon / 攻堅→Carbon</text>
+      <rect x="180" y="14" width="72" height="18" rx="9" fill="#B45309"/>
+      <text x="216" y="26" fill="#FFFBEB" font-family="monospace" font-size="8.5" font-weight="800" text-anchor="middle">LEAVING SOON</text>
+    </g>
+  </g>
+</svg>

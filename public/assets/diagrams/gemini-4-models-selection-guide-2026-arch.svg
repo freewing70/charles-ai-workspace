@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="auto">
+  <defs>
+    <linearGradient id="arch-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090E1A"/>
+      <stop offset="100%" stop-color="#131F33"/>
+    </linearGradient>
+
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#F59E0B"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#C084FC"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#34D399"/>
+    </marker>
+  </defs>
+
+  <!-- Outer Frame -->
+  <rect width="960" height="540" rx="20" fill="url(#arch-bg)"/>
+  <rect width="958" height="538" x="1" y="1" rx="19" fill="none" stroke="rgba(56,189,248,0.18)" stroke-width="2"/>
+
+  <!-- Header -->
+  <g transform="translate(480, 36)">
+    <text text-anchor="middle" fill="#38BDF8" font-family="monospace" font-size="11.5" font-weight="800" letter-spacing="2">GEMINI 4 MULTI-AGENT ROUTING &amp; ARGON MIGRATION</text>
+    <text text-anchor="middle" y="26" fill="#F8FAFC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="900">Gemini 4 分層調度金字塔與 Argon 退場遷移架構（省下 70% 額度）</text>
+  </g>
+
+  <!-- Left Panel: 3-Tier Routing Pyramid -->
+  <g transform="translate(36, 86)">
+    <rect width="600" height="368" rx="16" fill="rgba(15,23,42,0.75)" stroke="#334155" stroke-width="1.5"/>
+    <text x="20" y="28" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="12" font-weight="800">🏛️ 大腦規劃 × 手腳執行（分層派工金字塔）</text>
+
+    <!-- Tier 1: Carbon -->
+    <g transform="translate(155, 48)">
+      <rect width="290" height="84" rx="12" fill="rgba(168,85,247,0.14)" stroke="#A855F7" stroke-width="2"/>
+      <rect x="12" y="12" width="48" height="22" rx="6" fill="#7E22CE"/>
+      <text x="36" y="27" fill="#FAF5FF" font-family="monospace" font-size="10.5" font-weight="800" text-anchor="middle">10%</text>
+      <text x="70" y="28" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="15.5" font-weight="900">Gemini 4 Carbon（旗艦大腦）</text>
+      <text x="14" y="50" fill="#E9D5FF" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">建議強度：Medium / High</text>
+      <text x="14" y="70" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="11">系統架構設計 · 資安稽核 · 複雜 Race Condition 攻堅</text>
+    </g>
+
+    <!-- Tier 2: Neon -->
+    <g transform="translate(95, 152)">
+      <rect width="410" height="86" rx="12" fill="rgba(56,189,248,0.14)" stroke="#38BDF8" stroke-width="2"/>
+      <rect x="12" y="12" width="48" height="22" rx="6" fill="#0369A1"/>
+      <text x="36" y="27" fill="#F0F9FF" font-family="monospace" font-size="10.5" font-weight="800" text-anchor="middle">20%</text>
+      <text x="70" y="28" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="15.5" font-weight="900">Gemini 4 Neon（黃金平衡總監）</text>
+      <text x="14" y="51" fill="#BAE6FD" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">建議強度：Low / Medium（日常主力）</text>
+      <text x="14" y="71" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="11">跨檔案 Repo 級重構 · Spec 任務拆解 · 企業財報與長文分析</text>
+    </g>
+
+    <!-- Tier 3: Hydrogen -->
+    <g transform="translate(35, 258)">
+      <rect width="530" height="90" rx="12" fill="rgba(16,185,129,0.14)" stroke="#10B981" stroke-width="2"/>
+      <rect x="14" y="12" width="52" height="22" rx="6" fill="#047857"/>
+      <text x="40" y="27" fill="#ECFDF5" font-family="monospace" font-size="10.5" font-weight="800" text-anchor="middle">70%</text>
+      <text x="76" y="28" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="15.5" font-weight="900">Gemini 4 Hydrogen（極速高吞吐工兵）</text>
+      <text x="14" y="52" fill="#A7F3D0" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="600">建議強度：Low / Medium（最低延遲 · 極致省額度）</text>
+      <text x="14" y="73" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="11">單元測試 / E2E · CSS 排版微調 · CRUD 實作 · 瀏覽器自動化與批次文案</text>
+    </g>
+
+    <!-- Left Escalation Arrow -->
+    <path d="M 30 300 L 30 90 L 145 90" fill="none" stroke="#C084FC" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow-purple)"/>
+    <rect x="12" y="168" width="70" height="56" rx="8" fill="#1E1B4B" stroke="#A855F7" stroke-width="1"/>
+    <text x="47" y="186" fill="#E9D5FF" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">卡關 2 次</text>
+    <text x="47" y="201" fill="#C084FC" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">自動升級</text>
+    <text x="47" y="216" fill="#94A3B8" font-family="monospace" font-size="9" text-anchor="middle">ESCALATE</text>
+
+    <!-- Right Delegation Arrow -->
+    <path d="M 455 90 L 570 90 L 570 250" fill="none" stroke="#34D399" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <path d="M 510 195 L 550 195 L 550 250" fill="none" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+    <rect x="502" y="108" width="84" height="56" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+    <text x="544" y="126" fill="#ECFDF5" font-family="-apple-system, sans-serif" font-size="10" font-weight="800" text-anchor="middle">拆解 Spec</text>
+    <text x="544" y="141" fill="#6EE7B7" font-family="-apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">下放工兵</text>
+    <text x="544" y="156" fill="#A7F3D0" font-family="monospace" font-size="9" text-anchor="middle">DELEGATE</text>
+  </g>
+
+  <!-- Right Panel: Argon Migration Guide -->
+  <g transform="translate(656, 86)">
+    <rect width="268" height="368" rx="16" fill="rgba(15,23,42,0.75)" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="134" y="28" fill="#FBBF24" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="800" text-anchor="middle">🔄 Argon 退場平滑遷移路線</text>
+
+    <!-- Argon Source Box -->
+    <g transform="translate(20, 48)">
+      <rect width="228" height="92" rx="12" fill="rgba(245,158,11,0.1)" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="6 4"/>
+      <rect x="12" y="10" width="96" height="18" rx="9" fill="#B45309"/>
+      <text x="60" y="22.5" fill="#FFFBEB" font-family="monospace" font-size="9" font-weight="800" text-anchor="middle">LEAVING SOON</text>
+      <text x="12" y="47" fill="#FDE68A" font-family="-apple-system, sans-serif" font-size="15" font-weight="900">Gemini 4 Argon</text>
+      <text x="12" y="66" fill="#CBD5E1" font-family="-apple-system, sans-serif" font-size="10.5">原多步驟前沿推理定位：</text>
+      <text x="12" y="81" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="10.5">財經 · 法務 · 溯因推理 · 程式</text>
+    </g>
+
+    <!-- Arrow to Neon -->
+    <line x1="134" y1="142" x2="134" y2="178" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+    <rect x="64" y="148" width="140" height="18" rx="9" fill="#0F172A" stroke="#38BDF8" stroke-width="1"/>
+    <text x="134" y="160.5" fill="#7DD3FC" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">80% 日常多步驟工作流</text>
+
+    <!-- Target 1: Neon -->
+    <g transform="translate(20, 184)">
+      <rect width="228" height="72" rx="10" fill="rgba(56,189,248,0.12)" stroke="#38BDF8" stroke-width="1.5"/>
+      <text x="14" y="24" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="800">→ 切換至 Neon (Med/High)</text>
+      <text x="14" y="44" fill="#BAE6FD" font-family="-apple-system, sans-serif" font-size="10.5">承接絕大多數跨檔案編碼、</text>
+      <text x="14" y="60" fill="#BAE6FD" font-family="-apple-system, sans-serif" font-size="10.5">企業財報與法務合規分析</text>
+    </g>
+
+    <!-- Arrow to Carbon -->
+    <line x1="134" y1="258" x2="134" y2="284" stroke="#C084FC" stroke-width="2" marker-end="url(#arrow-purple)"/>
+    <rect x="64" y="262" width="140" height="18" rx="9" fill="#0F172A" stroke="#A855F7" stroke-width="1"/>
+    <text x="134" y="274.5" fill="#E9D5FF" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">20% 極限科學 &amp; 複雜推理</text>
+
+    <!-- Target 2: Carbon -->
+    <g transform="translate(20, 290)">
+      <rect width="228" height="62" rx="10" fill="rgba(168,85,247,0.12)" stroke="#A855F7" stroke-width="1.5"/>
+      <text x="14" y="24" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="13.5" font-weight="800">→ 升級至 Carbon (High)</text>
+      <text x="14" y="45" fill="#E9D5FF" font-family="-apple-system, sans-serif" font-size="10.5">極限數理、長週期架構攻堅</text>
+    </g>
+  </g>
+
+  <!-- Bottom Quota Comparison Bar -->
+  <g transform="translate(36, 470)">
+    <rect width="888" height="50" rx="12" fill="#0F172A" stroke="rgba(16,185,129,0.4)" stroke-width="1.5"/>
+    <text x="20" y="30" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">💰 額度實戰效益：</text>
+    <text x="148" y="30" fill="#FCA5A5" font-family="-apple-system, sans-serif" font-size="12" font-weight="700">全程盲開 Carbon High = 100% 基準消耗（2 天燒光週額度）</text>
+    <text x="515" y="30" fill="#64748B" font-family="-apple-system, sans-serif" font-size="13" font-weight="800">|</text>
+    <text x="532" y="30" fill="#34D399" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="800">10% Carbon + 20% Neon + 70% Hydrogen = 省下 70%+ 額度！</text>
+  </g>
+</svg>

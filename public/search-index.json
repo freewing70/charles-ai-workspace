@@ -1,5 +1,35 @@
 [
   {
+    "id": "gemini-4-models-selection-guide-2026",
+    "title": "Gemini 4 四大元素模型實戰選型指南：Carbon、Neon、Hydrogen 與 Argon 深度解析與省額度配置策略",
+    "type": "tutorial",
+    "category": "AI Architecture",
+    "summary": "面對 Gemini 4 全新元素代號系列（Carbon、Neon、Hydrogen 與即將退場的 Argon），開發者與創作者該如何選型才不浪費寶貴額度？本文深度拆解四大模型的底層定位、推理強度（Low / Medium / High）差異、10 大真實開發與商業情境選型建議、Argon 平滑遷移指南，以及多代理團隊省下 70% Token 成本的分層調度實戰。",
+    "tags": [
+      "Gemini 4",
+      "Gemini 4 Carbon",
+      "Gemini 4 Neon",
+      "Gemini 4 Hydrogen",
+      "Gemini 4 Argon",
+      "AI選型",
+      "Multi-Agent",
+      "Token優化",
+      "Vibe Coding"
+    ],
+    "tools": [
+      "Antigravity",
+      "Gemini 4 Carbon",
+      "Gemini 4 Neon",
+      "Gemini 4 Hydrogen",
+      "Cursor"
+    ],
+    "created": "2026-11-27",
+    "updated": "2026-11-27",
+    "url": "/tutorials/gemini-4-models-selection-guide-2026",
+    "cover": "/assets/covers/gemini-4-models-selection-guide-2026.png",
+    "featured": true
+  },
+  {
     "id": "automated-e2e-testing-playwright-ai-agents",
     "title": "給 Vibe Coder 的自動化驗收神盾：用 Playwright MCP 讓 AI 寫完網頁自己開瀏覽器跑完 E2E 視覺測試",
     "type": "tutorial",
