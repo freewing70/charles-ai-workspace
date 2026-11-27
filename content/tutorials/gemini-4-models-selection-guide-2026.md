@@ -1,6 +1,6 @@
 ---
 id: "gemini-4-models-selection-guide-2026"
-title: "Gemini 4 四大元素模型實戰選型指南：Carbon、Neon、Hydrogen 與 Argon 深度解析與省額度配置策略"
+title: "Gemini 4 Carbon、Neon、Hydrogen 差別與怎麼選？含 Argon 遷移與 Low/High 省額度實戰表"
 type: "tutorial"
 category: "AI Architecture"
 summary: "面對 Gemini 4 全新元素代號系列（Carbon、Neon、Hydrogen 與即將退場的 Argon），開發者與創作者該如何選型才不浪費寶貴額度？本文深度拆解四大模型的底層定位、推理強度（Low / Medium / High）差異、10 大真實開發與商業情境選型建議、Argon 平滑遷移指南，以及多代理團隊省下 70% Token 成本的分層調度實戰。"
